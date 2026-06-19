@@ -1,49 +1,89 @@
 ---
 author: FM39hz
-pubDatetime: 2025-12-24T20:08:00.000Z
-title: "My Thoughts About Games"
-description: "We talk about games: are they just a waste of time? Let's find out more!"
+pubDatetime: 2025-07-07
+modDatetime: 2026-05-26
+title: My thoughts about Games
 featured: false
 draft: false
-tags:
-  - personal
-  - games
-  - thoughts
-  - self-reflection
-  - life
-  - grown-up
 lang: en
-ogImage: ""
+tags:
+  - game-dev
+  - rambling
+
+description: Just some scattered thoughts, from my own biased perspective.
 ---
 
-## What is a game?
+This piece isn’t a guide on how to make a 'better' game, nor a manifesto on what constitutes a 'successful' or 'great' game. Its only purpose is to stimulate thought, to help game developers gain a deeper understanding of the very thing they are creating.
 
-I think a game is defined as an activity that one engages in for amusement or fun. But I'm no linguist and you can look that word up in a dictionary, so let's skip this. We know what games are, and how they are when we hear about, think about them, talk about them, or play them. So let's just move on.
+## Table of contents
 
-## Why games? Are they a waste of time?
+## Misconceptions and Associations
 
-Growing up as a Vietnamese 2k-ers, I was really cautious about how I spent my time. The number of times I've heard the phrase "games are a waste of time" growing up could probably fill a dictionary thicker than the ones we've talked about. And to be fair, there were times when I truly believed that, but through the years, my thought has changed drastically.
+Sometimes, in the process of developing games on my own, I catch myself wondering: what actually makes a game... a game?
 
-I think games are an incredible medium for storytelling, and narrative-wise, there are some games that surpass any film or book I've ever experienced. Thanks to their interactive nature, they offer the possibility to immerse you in the world that no books or films can match. You don't just hear or see the story, you live it. You make choices, you fail, you try again, you learn from your mistakes, but most importantly, you progress and grow with your character.
+- **Graphics, Story, World-building?** Painting, literature, comics or film do those better.
+- **Flow, Pacing, Music?** A Music show can handle those all.
+- **Progression, Competition?** Too generic, any experience can encompass these.
+- **Mechanics?** We need to distinguish this from _rules_. By 'rules', I mean pure logic states, containing nothing else. A mechanic is merely an expression of a rule, and one rule can be expressed through many different mechanics. For instance, a pawn moving one square and a cannon in Chinese Chess jumping over a piece to capture both adhere to the same rule: consuming one turn.
 
-To get you an example, let's talk about **NieR: Automata**.
+So, what makes a game... a game?
 
-### NieR: Automata
+## If it’s none of those, then what the heck is a game?
 
-To summarize the game briefly for you, NieR: Automata is a post-apocalyptic action role-playing game developed by PlatinumGames and published by Square Enix. The story follows the androids 2B, 9S, and A2 as they battle the machine lifeforms that have taken over Earth.
+To answer this, we must identify the necessary condition for the definition of a game.
 
-Without many spoilers, this game explores the concepts of existentialism, nihilism, and the meaning of life. It is a prime example of how games can tell stories that are just not possible with any other media. When I finished this game, I was in a state of both euphoria and hollow. The game made me question my own existence and my purpose in life. It made me question what am I doing pursuing a degree in computer science, and what am I doing with my life. The game made me think about who I am, what I want to be, and my own existence, in ways that I've never experienced before.
+Perhaps a game isn't a 'magic circle', a 'storytelling machine', 'interesting choices', or any other definition that has existed before. To me, whether it is a modern digital game or a pre-computer game, it must satisfy two conditions: _Necessary Condition_ & _Sufficient Condition_.
 
-Suffice to say, the game is great.
+### **Necessary Condition**
 
-### So are they a waste of time or not?
+- In my opinion, a game must surpass this condition:
+  > An autonomous Agent-driven system combined with a rule-based possibility space, providing agents with the ability to alter the trajectory of operation within that possibility space in real-time, at a traceable $\Delta t$ moment.
+- Where:
+  - Agents are not just the player, but also adaptive AI, DMs, referees, or game managers. They are entities possessing **Agency** - the capacity to make independent choices or inject unpredictable actions into the possibility space. A trap swinging on a timer or an NPC walking a predefined loop is not an Agent; they are simply Rules manifesting as moving clockwork. An Agent acts _upon_ the clockwork, yet no Agent stands above the rules.
+  - Rules, here, are not just mechanical logic, they are psychological, mathematical, kinematic, or any logic that can be parameterized. Randomness, endogenous rules, and agents responsible for mapping rules, if they exist, must all be parameterized into rules.
+- From this, we derive two **Theorems**:
+  - _Theorem 1_:
+    > There is no such thing as 'playing in the wrong way' if you are still following the rules. If an action lies within the possibility space allowed by the rules, it cannot be called 'wrong'.
+  - _Theorem 2_:
+    > A game is inherently neutral. It possesses no inherent moral attributes, experiences, or social significance, because attributes are not things that change based on who is observing them.
 
-I don't think games are a waste of time. In fact, I truly think games can be beneficial for everyone. They can teach you about life, about yourself, about the world, about other cultures, and about the people around you. But I also think it's how you use them that matters. If you play games to escape your life, your problems, your responsibilities, then yes, they can be as harmful as drugs.
+### **Sufficient Condition**
 
-But if you play games for the experience, for the story, for the characters, for the art, for the music, or just to have fun and relax your mind, then I think they can be really beneficial.
+> Actually, this falls outside the scope of this article, as we do not need this to answer our question above, so I won't offer any speculation here.
 
-### The takeaway
+- If i had to provide once, then i'll just say, it is "all of the rules must be parameterizedable", but that's not my final decision yet.
+- This is where the game industry is currently fumbling. They invent endless definitions to try and encompass 'icons' of the industry, even when some of those icons don't even meet the necessary condition.
+- Many confuse the noun _game_ with the act of _playing_, the moment we feel animated, sensing our own actions as conscious observers. That belongs to the **phenomenological layer**, and it cannot serve as a sufficient condition for **ontology**. It will likely be a long time before we find a complete, logical, and non-contradictory sufficient condition.
 
-I think that the main takeaway of this entire post is that we, especially the grown-ups, should not be afraid of games and should not treat them as taboo. They can be a tool for you to express yourself, to relax, to learn, and to grow. They can be a medium for you to connect with others, to share experiences, and to create memories. So, go ahead, pick up a controller, and play a game. You might just learn something about yourself.
+Make no mistake, those 'narrative-driven games' can still be games if they satisfy the conditions. Only things that don't match the root are questionable, for example, those interactive movies that abuse shooting minigames, axe-throwing, climbing yellow-painted ledges, or walking through a giant pipe-shaped map with no loading screens, just to replace the 'play/pause' button of a film. I don't deny they have minigames, but if ~80% of the subsystems in a product fail to meet the necessary condition to be considered a game, yet it is sold as one, that is a bad case of _misguided thinking_.
 
-With that, let's just go and have some fun!
+To make this easier to grasp, let's ponder a few thought experiments.
+
+## Some Thought Experiments
+
+- Think about **chess**. If humanity went extinct, leaving only the rulebook behind, does chess exist? If aliens found a wooden chess set and created a different set of rules, is it still chess? What if they found the rules, then crafted a new set out of granite?
+- A **piece of music** by Beethoven was discovered just yesterday. For the hundreds of years it sat in a drawer, was it 'a piece of music'? Beethoven was deaf, but does that change whether the music is music?
+- A fish swims in a tank, and sensors are set up to translate its position into inputs for a game of **Pokémon Fire Red**. Does _Pokémon_ stop being a game just because it was beaten by a fish?
+- The ball is in the net, no players are offside, but the linesman stubbornly waves the flag, denies the goal, and refuses to use VAR. At that moment, is it still the original game of **football**? If a DM in a **D&D** session decides player A gets two turns to make up for being left too far behind the rest of the table, is it still the original game? A group of six children are playing **self-made play rules** together, after child A scores in a valid way, but child B intends to do the same, and the group decides to change the rules to prevent that move, what then?
+
+## On the Player Side
+
+According to Theorem 2, a game is inherently neutral. At this point, 'art for art's sake', regardless of design intent, means the meanings and experiences of the game belong solely to those experiencing it, to the player-agent I mentioned earlier.
+
+For example, imagine a game designer wants to discourage players from consuming dog meat and designs the game around that, but still allows eating pork because it's considered 'normal'. If a Muslim player plays this game, how would they feel?
+
+And no, let's be clear, 'plot', 'messaging', and 'story' do not clash within games, they just _must be rules_.
+
+> Just respect the intelligence and stature of the player, just as I respect you, and you respect me, alright?
+
+## Conclusion
+
+In reality, we don't need an absolutely precise definition, we just need to get closer to the absolute truth one step at a time.
+
+Cuz, before you try to make a 'fun', 'moving', or 'groundbreaking' game, etc… just, you know, try to make a game first. Do the things that make your product _have to be_ a game well. From that foundation of 'game', we can then make it into a 'great game'. Adapting a movie or a novel into a game is not a simple process, and you should keep it as is.
+
+I am not defining anything, as I am simply exploring their essence. If you make games to tell a deep story, to become a millionaire, or to show off, perhaps this article isn't what you're looking for. But if you want to understand the thing you are passionate about, I hope this provides a perspective worth pondering.
+
+---
+
+[**Hanoi, 07/07/2025**]()

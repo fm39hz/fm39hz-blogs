@@ -1,17 +1,22 @@
 ---
-title: Về tôi
-description: Một trang về tôi, dành cho bạn
+title: "Về Tôi"
+description: "Đôi chút về hành trình của tôi"
 lang: vi
 ---
 
-## ngắn gọn
+## Tôi là ai?
 
-Tôi là FM39hz — một sinh viên kỹ thuật phần mềm, một người yêu thích năng suất, và một game thủ. Tôi thích học bất cứ thứ gì liên quan đến khoa học máy tính, nhưng trên hết, đó là **hệ thống phân tán**.
+- Có thể là một triết gia nửa mùa, một người làm game tự phát, một thằng dev lười vô địch thiên hạ, v.v... Bất cứ thứ gì bạn muốn dùng để gọi tôi
 
-Tôi bắt đầu blog này như một cách lưu trữ suy nghĩ của mình và chia sẻ chúng với mọi người. Nếu có gì đó, trang này là cách để mô tả với thế giới tôi là ai, nhưng tôi thà để các blog tự nói lên điều đó. Dù sao thì, có một vài điểm nổi bật về con người vật lý của tôi mà bạn có thể muốn biết:
+## Các dự án đã làm
 
-- Tôi là người Việt Nam
-- Tôi dùng Arch btw
-- Trình soạn thảo mã nguồn ưa thích của tôi là Neovim
-- Tôi hiện đang theo học ngành Khoa học Máy tính tại Đại học Công nghệ Thông tin, ĐHQG-HCM
-- Tôi thực sự đam mê **phát triển bản thân** và **chia sẻ kiến thức**
+- **[Grimoire.NET](https://github.com/fm39hz/Grimoire.NET):** Hệ thống Lưu trữ & Xuất bản Kỹ thuật số được thiết kế để quản lý và xuất bản sách điện tử (ebook).
+  - _Tech stack :_ C#
+- **[nvim-dap-godot-mono](https://github.com/fm39hz/nvim-dap-godot-mono):** Một adapter đơn giản để debug dự án Godot 4 (Mono/C#) cho neovim
+  - _Tech stack :_ Lua
+- **[UDDSG](https://codeberg.org/fm39hz/UniversalDataDriven):** Một source generator để tạo catalogue dữ liệu tĩnh, reflection-free, AOT-safe từ file JSON trong dự án .NET.
+  - _Tech stack :_ C#, Roslyn Analyzer
+
+_Bạn có thể tìm thấy gần như tất cả các công việc và thử nghiệm của tôi trên [GitHub profile](https://github.com/fm39hz)._
+
+_Cảm ơn đã ghé thăm!_

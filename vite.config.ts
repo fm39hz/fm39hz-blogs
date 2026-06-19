@@ -3,7 +3,8 @@ import adapter from '@sveltejs/adapter-auto';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { escapeSvelte, mdsvex } from 'mdsvex';
 import rehypeKatexSvelte from 'rehype-katex-svelte';
-import remarkCollapse from 'remark-collapse';
+import headingRange from 'mdast-util-heading-range';
+import mdastToString from 'mdast-util-to-string';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import remarkToc from 'remark-toc';
@@ -59,7 +60,26 @@ export default defineConfig({
 						remarkGfm,
 						remarkMath,
 						[remarkToc, { tight: true }],
-						[remarkCollapse, { test: 'Table of contents' }],
+						[
+							function () {
+								return function (tree: any) {
+									headingRange(tree, 'Table of contents', (
+										start: any,
+										nodes: any[],
+										end: any,
+									) => [
+										start,
+										{ type: 'html', value: '<details>' },
+										{ type: 'html', value: '<summary>' },
+										{ type: 'text', value: mdastToString(start) },
+										{ type: 'html', value: '</summary>' },
+										...nodes,
+										{ type: 'html', value: '</details>' },
+										end,
+									]);
+								};
+							},
+						],
 					],
 					rehypePlugins: [rehypeKatexSvelte],
 				}),
