@@ -5,8 +5,8 @@ import { loadPageEntries } from '$lib/server';
 import Datetime from '$lib/components/Datetime.svelte';
 import Tag from '$lib/components/Tag.svelte';
 import LanguageToggle from '$lib/components/LanguageToggle.svelte';
+import LanguageContent from '$lib/components/LanguageContent.svelte';
 import { slugifyStr } from '$lib/tags';
-import { animate } from 'motion';
 
 const slug = page.params.slug;
 const matching = loadPageEntries(slug);
@@ -16,29 +16,7 @@ const meta = defaultEntry.metadata;
 const langToTitle = Object.fromEntries(matching.map((e) => [e.lang, e.metadata.title]));
 
 let lang = $state('en');
-
-function onToggle(next: string) {
-	lang = next;
-}
-
-$effect(() => {
-	for (const el of document.querySelectorAll<HTMLElement>('[data-lang]')) {
-		const isEnter = el.getAttribute('data-lang') === lang;
-		if (isEnter) {
-			el.removeAttribute('hidden');
-			const from = lang === 'en' ? 'inset(0 0 0 100%)' : 'inset(0 100% 0 0)';
-			requestAnimationFrame(() => {
-				el.style.clipPath = from;
-				requestAnimationFrame(() => {
-					animate(el, { clipPath: 'inset(0)' }, { duration: 0.4, ease: [0.22, 1, 0.36, 1] });
-				});
-			});
-		} else {
-			el.setAttribute('hidden', '');
-			el.style.clipPath = '';
-		}
-	}
-});
+function onToggle(next: string) { lang = next; }
 </script>
 
 <svelte:head>
@@ -61,9 +39,11 @@ $effect(() => {
 </svelte:head>
 
 <article class="py-8" data-pagefind-body>
-	{#each matching as { lang: l }}
-		<h1 data-lang={l} hidden={l !== lang} class="text-accent inline-block text-2xl font-bold sm:text-3xl">{langToTitle[l]}</h1>
-	{/each}
+	<LanguageContent {lang}>
+		{#each matching as { lang: l }}
+			<h1 data-lang={l} style={l !== lang ? 'display:none' : ''} class="text-accent inline-block text-2xl font-bold sm:text-3xl">{langToTitle[l]}</h1>
+		{/each}
+	</LanguageContent>
 
 	<div class="my-2 flex items-center gap-2">
 		<Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" />
@@ -72,11 +52,13 @@ $effect(() => {
 		{/if}
 	</div>
 
-	{#each matching as { lang: l, component: Component }}
-		<div data-lang={l} hidden={l !== lang} class="mt-8 w-full app-prose max-w-app">
-			<Component></Component>
-		</div>
-	{/each}
+	<LanguageContent {lang}>
+		{#each matching as { lang: l, component: Component }}
+			<div data-lang={l} style={l !== lang ? 'display:none' : ''} class="mt-8 w-full app-prose max-w-app">
+				<Component></Component>
+			</div>
+		{/each}
+	</LanguageContent>
 
 	<hr class="my-8 border-dashed" />
 	<ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8">

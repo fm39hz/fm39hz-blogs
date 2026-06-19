@@ -2,7 +2,7 @@
 import cfg from '$lib/config';
 import { loadContentPages } from '$lib/server';
 import LanguageToggle from '$lib/components/LanguageToggle.svelte';
-import { animate } from 'motion';
+import LanguageContent from '$lib/components/LanguageContent.svelte';
 
 const pages = loadContentPages();
 const matching = pages.filter((p) => p.slug === 'about');
@@ -13,31 +13,7 @@ const fullLangTitles = Object.fromEntries(
 );
 
 let lang = $state('en');
-
-function onToggle(next: string) {
-	lang = next;
-}
-
-let prevLang = $state('en');
-
-$effect(() => {
-	for (const el of document.querySelectorAll<HTMLElement>('[data-lang]')) {
-		const isEnter = el.getAttribute('data-lang') === lang;
-		if (isEnter) {
-			el.removeAttribute('hidden');
-			const from = lang === 'en' ? 'inset(0 0 0 100%)' : 'inset(0 100% 0 0)';
-			requestAnimationFrame(() => {
-				el.style.clipPath = from;
-				requestAnimationFrame(() => {
-					animate(el, { clipPath: 'inset(0)' }, { duration: 0.4, ease: [0.22, 1, 0.36, 1] });
-				});
-			});
-		} else {
-			el.setAttribute('hidden', '');
-			el.style.clipPath = '';
-		}
-	}
-});
+function onToggle(next: string) { lang = next; }
 </script>
 
 <svelte:head>
@@ -47,16 +23,18 @@ $effect(() => {
 
 <section class="py-8">
 	<div class="flex items-start justify-between gap-4">
-		<div>
+		<LanguageContent {lang}>
 			{#each matching as { lang: l }}
-				<h1 data-lang={l} hidden={l !== lang} class="text-2xl font-semibold sm:text-3xl">{langToTitle[l]}</h1>
+				<h1 data-lang={l} style={l !== lang ? 'display:none' : ''} class="text-2xl font-semibold sm:text-3xl">{langToTitle[l]}</h1>
 			{/each}
-		</div>
+		</LanguageContent>
 		<LanguageToggle {lang} {onToggle} />
 	</div>
-	{#each matching as { lang: l, component: Component }}
-		<div data-lang={l} hidden={l !== lang} class="app-prose mt-8">
-			<Component></Component>
-		</div>
-	{/each}
+	<LanguageContent {lang}>
+		{#each matching as { lang: l, component: Component }}
+			<div data-lang={l} style={l !== lang ? 'display:none' : ''} class="app-prose mt-8">
+				<Component></Component>
+			</div>
+		{/each}
+	</LanguageContent>
 </section>
