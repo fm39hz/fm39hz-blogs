@@ -26,7 +26,7 @@ let date = $derived(datetime.format('D MMM, YYYY'));
 </script>
 
 <div class="flex items-center gap-x-2 text-muted-foreground {className}">
-	<Icon icon="mdi:calendar-outline" class="inline-block size-6 min-w-5.5 {size === 'sm' ? 'scale-90' : ''}" />
+	<Icon icon="ph:calendar-blank" class="inline-block size-5 min-w-5 {size === 'sm' ? 'scale-90' : ''}" />
 	{#if isModified}
 		<span class="text-sm {size === 'lg' ? 'sm:text-base' : ''}">Updated:</span>
 	{/if}

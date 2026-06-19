@@ -24,11 +24,11 @@ const menu = new Collapsible();
 				class="focus-outline self-end p-2 sm:hidden"
 				aria-label={menu.open ? t.a11y.closeMenu : t.a11y.openMenu}
 			>
-				{#if menu.open}
-					<Icon icon="mdi:close" class="size-6" />
-				{:else}
-					<Icon icon="mdi:menu" class="size-6" />
-				{/if}
+			{#if menu.open}
+				<Icon icon="ph:x" class="size-6" />
+			{:else}
+				<Icon icon="ph:list" class="size-6" />
+			{/if}
 			</button>
 			<div class="{menu.open ? 'block' : 'hidden'} sm:block">
 				<ul
@@ -41,7 +41,7 @@ const menu = new Collapsible();
 					{#if cfg.features.showArchives}
 						<li class="col-span-2 flex items-center justify-center">
 							<a href="/archives" class="focus-outline flex size-full justify-center p-3 sm:relative sm:size-8 sm:p-0" title={t.nav.archives}>
-								<Icon icon="mdi:archive-outline" class="hidden sm:block sm:size-6" />
+								<Icon icon="ph:archive-box" class="hidden sm:block sm:size-6" />
 								<span class="sm:sr-only">{t.nav.archives}</span>
 							</a>
 						</li>
@@ -49,7 +49,7 @@ const menu = new Collapsible();
 					{#if cfg.features.search !== false}
 						<li class="col-span-1 flex items-center justify-center">
 							<a href="/search" class="focus-outline relative size-8 flex items-center justify-center" title={t.nav.search}>
-								<Icon icon="mdi:magnify" class="size-6" />
+								<Icon icon="ph:magnifying-glass" class="size-6" />
 							</a>
 						</li>
 					{/if}

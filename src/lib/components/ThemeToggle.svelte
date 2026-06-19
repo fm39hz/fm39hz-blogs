@@ -31,6 +31,6 @@ $effect(init);
 </script>
 
 <button {...toggle.trigger} aria-label="Toggle theme" class="focus-outline relative size-12 p-4 sm:size-8" title="Toggle theme">
-	<Icon icon="mdi:moon-waning-crescent" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-	<Icon icon="mdi:white-balance-sunny" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+	<Icon icon="ph:moon-fill" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-5 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+	<Icon icon="ph:sun-fill" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-5 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
 </button>

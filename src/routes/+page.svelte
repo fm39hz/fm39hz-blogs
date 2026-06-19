@@ -3,6 +3,7 @@ import PostCard from '$lib/components/PostCard.svelte';
 import Socials from '$lib/components/Socials.svelte';
 import cfg from '$lib/config';
 import { useTranslations } from '$lib/i18n';
+import Icon from '@iconify/svelte';
 import type { PostMeta } from '$lib/types';
 import { getSortedPosts, groupPostsBySlug } from '$lib/utils';
 
@@ -41,7 +42,7 @@ const recentPosts = sortedPosts.filter((p) => !p.metadata.featured);
 <section id="hero" class="border-border border-b pt-8 pb-6">
 	<h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">FM39hz's blog</h1>
 	<a target="_blank" href="/rss.xml" class="inline-block" aria-label="RSS Feed" title="RSS Feed">
-		<svg width="20" height="20" class="stroke-accent scale-125 stroke-3 rtl:-rotate-90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+		<Icon icon="ph:rss" class="size-5 text-accent" />
 	</a>
 	<p>This is my personal blogs, to mumbling about Work & Life</p>
 	{#if cfg.socials.length > 0}
@@ -81,6 +82,6 @@ const recentPosts = sortedPosts.filter((p) => !p.metadata.featured);
 <div class="my-8 text-center">
 	<a href="/posts" class="group inline-flex items-center gap-1 hover:text-accent">
 		{t.home.allPosts}
-		<svg class="inline-block rtl:-rotate-180" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+		<Icon icon="ph:arrow-right" class="size-5" />
 	</a>
 </div>

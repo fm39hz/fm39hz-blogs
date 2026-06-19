@@ -10,7 +10,7 @@
 			class="group inline-flex items-center gap-1 p-2 hover:rotate-6 sm:p-1"
 			title={linkTitle ?? `${cfg.site.title} on ${name.charAt(0).toUpperCase() + name.slice(1)}`}
 		>
-			<Icon icon="mdi:{name}" class="size-6 scale-125 sm:scale-110" />
+			<Icon icon="ph:{name === 'x' ? 'x-logo' : name === 'mail' ? 'envelope' : name === 'github' ? 'github-logo' : name === 'linkedin' ? 'linkedin-logo' : name}" class="size-6" />
 		</a>
 	{/each}
 </div>

@@ -5,6 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { escapeSvelte, mdsvex } from 'mdsvex';
 import rehypeKatexSvelte from 'rehype-katex-svelte';
 import remarkCollapse from 'remark-collapse';
+import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import remarkToc from 'remark-toc';
 import { createHighlighter } from 'shiki';
@@ -55,11 +56,12 @@ export default defineConfig({
 							return escapeSvelte(html);
 						},
 					},
-					remarkPlugins: [
-						remarkMath,
-						[remarkToc, { tight: true }],
-						[remarkCollapse, { test: 'Table of contents' }],
-					],
+				remarkPlugins: [
+					remarkGfm,
+					remarkMath,
+					[remarkToc, { tight: true }],
+					[remarkCollapse, { test: 'Table of contents' }],
+				],
 					rehypePlugins: [rehypeKatexSvelte],
 				}),
 			],

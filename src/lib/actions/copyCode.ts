@@ -1,37 +1,31 @@
+import { mount } from 'svelte';
+import CopyButton from '$lib/components/CopyButton.svelte';
+
 export function copyCode(node: HTMLElement) {
 	const preBlocks = node.querySelectorAll<HTMLPreElement>('pre');
-	const labels = new Map<HTMLButtonElement, string>();
+	const instances: Record<string, any> = {};
 
 	for (const pre of preBlocks) {
-		const btn = document.createElement('button');
-		btn.className =
-			'copy-code absolute end-3 -top-3 rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium';
-		btn.innerHTML = 'Copy';
-
 		const wrapper = document.createElement('div');
 		wrapper.style.position = 'relative';
-
-		pre.setAttribute('tabindex', '0');
-		pre.appendChild(btn);
 		pre.parentNode?.insertBefore(wrapper, pre);
 		wrapper.appendChild(pre);
 
-		labels.set(btn, 'Copy');
+		pre.setAttribute('tabindex', '0');
 
-		btn.addEventListener('click', async () => {
-			const code = pre.querySelector('code');
-			if (!code) return;
-			await navigator.clipboard.writeText(code.innerText);
-			btn.innerHTML = 'Copied';
-			setTimeout(() => {
-				btn.innerHTML = labels.get(btn) ?? 'Copy';
-			}, 700);
-		});
+		const anchor = document.createElement('div');
+		wrapper.appendChild(anchor);
+
+		const id = `copy-${Math.random().toString(36).slice(2, 8)}`;
+		const instance = mount(CopyButton, { target: anchor, props: { target: pre } });
+		instances[id] = instance;
 	}
 
 	return {
 		destroy() {
-			// no cleanup needed for simple DOM mutations
+			Object.values(instances).forEach((i: any) => {
+				i?.destroy?.();
+			});
 		},
 	};
 }
