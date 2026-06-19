@@ -1,8 +1,8 @@
 <script lang="ts">
 import cfg from '$lib/config';
-import { locale } from '$lib/i18n-state.svelte';
 import { loadContentPages } from '$lib/data/server';
 import { useTranslations } from '$lib/i18n';
+import { locale } from '$lib/i18n-state.svelte';
 import styles from './+page.module.scss';
 
 const pages = loadContentPages();
@@ -21,9 +21,9 @@ let entry = $derived(matching.find((e) => (e.lang ?? 'en') === locale.value) ?? 
   <meta name="description" content={entry.metadata.description} />
 </svelte:head>
 
-<section>
+<div class={styles.root}>
   <div class={styles.header}>
     <h1 class={styles.title}>{langToTitle[locale.value] ?? defaultEntry.metadata.title}</h1>
   </div>
   <div class="prose"><entry.component /></div>
-</section>
+</div>

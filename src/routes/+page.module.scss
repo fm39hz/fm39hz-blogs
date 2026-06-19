@@ -5,8 +5,7 @@
 .tagline { margin: 0; }
 .socialRow { margin-top: var(--space-md); display: flex; align-items: center; gap: var(--space-xs); }
 .socialRow span { white-space: nowrap; }
-.section { padding: var(--space-2xl) 0 var(--space-lg); border-bottom: var(--line-solid); }
-.section:last-child { border: none; }
+.section { padding: var(--space-xl) 0; }
 .section h2 { font-size: var(--fs-2xl); font-weight: 600; letter-spacing: 0.05em; }
 .section ul { list-style: none; padding: 0; margin: 0; }
 .section li { margin: var(--space-lg) 0; }

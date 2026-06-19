@@ -1,0 +1,4 @@
+.entry { padding-block: 0; }
+.entry + .entry { margin-top: var(--space-lg); padding-top: var(--space-lg); border-top: var(--line-solid); }
+.titleWrap { font-size: var(--fs-lg); font-weight: 500; margin: 0; }
+.desc { margin: var(--space-3xs) 0 0; font-size: var(--fs-xs); color: var(--muted-fg); }

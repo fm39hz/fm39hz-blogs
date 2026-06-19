@@ -1,4 +1,5 @@
 <script lang="ts">
+import ContentEntry from '$lib/components/ui/ContentEntry/ContentEntry.svelte';
 import cfg from '$lib/config';
 import { loadPosts } from '$lib/data/server';
 import { useTranslations } from '$lib/i18n';
@@ -18,12 +19,7 @@ const perPage = cfg.posts.perPage;
 <section>
   <h1 class={styles.h1}>{t.pages.postsTitle}</h1>
   <p class={styles.desc}>{t.pages.postsDesc}</p>
-  <ul class={styles.ul}>
-    {#each sorted.slice(0, perPage) as post}
-      <li class={styles.li}>
-        <a href="/posts/{post.slug}" class={styles.a}><h2>{post.metadata.title}</h2></a>
-        <p class={styles.p}>{post.metadata.description}</p>
-      </li>
-    {/each}
-  </ul>
+  {#each sorted.slice(0, perPage) as post}
+    <ContentEntry {post} />
+  {/each}
 </section>

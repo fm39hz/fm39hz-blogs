@@ -2,11 +2,13 @@
 import { page } from '$app/state';
 import { styleCheckboxes } from '$lib/actions/checkboxes';
 import { copyCode } from '$lib/actions/copyCode';
+import ButtonLink from '$lib/components/ui/ButtonLink/ButtonLink.svelte';
 import Datetime from '$lib/components/ui/Datetime/Datetime.svelte';
 import Tag from '$lib/components/ui/Tag/Tag.svelte';
 import cfg from '$lib/config';
-import { locale } from '$lib/i18n-state.svelte';
 import { loadPageEntries } from '$lib/data/server';
+import { useTranslations } from '$lib/i18n';
+import { locale } from '$lib/i18n-state.svelte';
 import { slugifyStr } from '$lib/tags';
 import styles from './+page.module.scss';
 
@@ -15,6 +17,7 @@ const matching = loadPageEntries(slug);
 const defaultEntry = matching.find((e) => e.lang === 'en') ?? matching[0];
 let entry = $derived(matching.find((e) => (e.lang ?? 'en') === locale.value) ?? defaultEntry);
 let meta = $derived(entry.metadata);
+let t = $derived(useTranslations(locale.value));
 </script>
 
 <svelte:head>
@@ -30,6 +33,8 @@ let meta = $derived(entry.metadata);
   <meta property="twitter:title" content={meta.title} />
   <meta property="twitter:description" content={meta.description} />
 </svelte:head>
+
+<nav class={styles.backNav}><ButtonLink href="/posts">&larr; {t.post.goBack}</ButtonLink></nav>
 
 <article use:copyCode use:styleCheckboxes>
   <h1 class={styles.title}>{meta.title}</h1>
