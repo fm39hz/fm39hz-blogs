@@ -1,0 +1,28 @@
+.toggle { display: flex; align-items: center; gap: 0.375rem; user-select: none; }
+
+.label { font-size: 0.75rem; font-weight: 500; color: var(--muted-fg); transition: color 0.2s; }
+.label.active { color: var(--accent); }
+
+.slider {
+  position: relative;
+  display: inline-flex;
+  height: 1.25rem;
+  width: 2.25rem;
+  align-items: center;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background: var(--muted);
+  transition: background 0.2s;
+  &.on { background: color-mix(in srgb, var(--accent) 20%, transparent); }
+}
+
+.knob {
+  display: inline-block;
+  height: 0.875rem;
+  width: 0.875rem;
+  border-radius: 9999px;
+  background: var(--accent);
+  transition: transform 0.2s;
+  margin-left: 2px;
+  &.right { transform: translateX(18px); }
+}

@@ -21,50 +21,61 @@ function onToggle(next: string) { lang = next; }
 </script>
 
 <svelte:head>
-	<title>{meta.title} | {cfg.site.title}</title>
-	<meta name="title" content="{meta.title} | {cfg.site.title}" />
-	<meta name="description" content={meta.description} />
-	<meta name="author" content={cfg.site.author} />
-	<meta property="og:type" content="article" />
-	<meta property="og:site_name" content={cfg.site.title} />
-	<meta property="og:title" content={meta.title} />
-	<meta property="og:description" content={meta.description} />
-	<meta property="og:url" content="{cfg.site.url}/posts/{slug}" />
-	<meta property="article:published_time" content={meta.pubDatetime} />
-	{#if meta.modDatetime}
-		<meta property="article:modified_time" content={meta.modDatetime} />
-	{/if}
-	<meta property="twitter:card" content="summary_large_image" />
-	<meta property="twitter:title" content={meta.title} />
-	<meta property="twitter:description" content={meta.description} />
+  <title>{meta.title} | {cfg.site.title}</title>
+  <meta name="description" content={meta.description} />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content={meta.title} />
+  <meta property="og:description" content={meta.description} />
+  <meta property="og:url" content="{cfg.site.url}/posts/{slug}" />
+  <meta property="article:published_time" content={meta.pubDatetime} />
+  {#if meta.modDatetime}
+    <meta property="article:modified_time" content={meta.modDatetime} />
+  {/if}
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:title" content={meta.title} />
+  <meta property="twitter:description" content={meta.description} />
 </svelte:head>
 
-<article class="py-8" data-pagefind-body use:copyCode>
-	<LanguageContent {lang}>
-		{#each matching as { lang: l }}
-			<h1 data-lang={l} class="text-accent inline-block text-2xl font-bold sm:text-3xl">{langToTitle[l]}</h1>
-		{/each}
-	</LanguageContent>
+<article use:copyCode>
+  <LanguageContent {lang}>
+    {#each matching as { lang: l }}
+      <h1 data-lang={l} class="title">{langToTitle[l]}</h1>
+    {/each}
+  </LanguageContent>
 
-	<div class="my-2 flex items-center gap-2">
-		<Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" />
-		{#if hasMultiLang}
-			<LanguageToggle {lang} {onToggle} />
-		{/if}
-	</div>
+  <div class="meta">
+    <Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" />
+    {#if hasMultiLang}
+      <LanguageToggle {lang} {onToggle} />
+    {/if}
+  </div>
 
-	<LanguageContent {lang}>
-		{#each matching as { lang: l, component: Component }}
-			<div data-lang={l} class="mt-8 w-full app-prose max-w-app">
-				<Component></Component>
-			</div>
-		{/each}
-	</LanguageContent>
+  <LanguageContent {lang}>
+    {#each matching as { lang: l, component: Component }}
+      <div data-lang={l} class="prose">
+        <Component></Component>
+      </div>
+    {/each}
+  </LanguageContent>
 
-	<hr class="my-8 border-dashed" />
-	<ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8">
-		{#each meta.tags ?? [] as tag}
-			<Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />
-		{/each}
-	</ul>
+  <hr />
+  <ul class="tags">
+    {#each meta.tags ?? [] as tag}
+      <Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />
+    {/each}
+  </ul>
 </article>
+
+<style>
+  article { padding: 2rem 0; }
+  .title { color: var(--accent); display: inline-block; font-size: 1.5rem; font-weight: 700; }
+  .meta { margin: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem; }
+  .prose { margin-top: 2rem; width: 100%; }
+  hr { margin: 2rem 0; border: none; border-top: 1px dashed var(--border); }
+  .tags { list-style: none; padding: 0; margin: 1rem 0 2rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+
+  @media (width >= 640px) {
+    .title { font-size: 1.875rem; }
+    .tags { margin: 2rem 0; }
+  }
+</style>

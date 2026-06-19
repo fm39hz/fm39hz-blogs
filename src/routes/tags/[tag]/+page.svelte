@@ -10,28 +10,39 @@ const t = useTranslations();
 const allPosts = loadPosts();
 const groups = groupPostsBySlug(allPosts);
 const displayPosts = groups.map((g) => g.defaultEntry);
-const tagParam = decodeURIComponent(page.params.tag!);
+const tagParam = decodeURIComponent(page.params.tag);
 
 const tagPosts = getSortedPosts(
-	displayPosts.filter((p) => slugifyAll(p.metadata.tags).includes(tagParam)),
+  displayPosts.filter((p) => slugifyAll(p.metadata.tags).includes(tagParam)),
 );
 </script>
 
 <svelte:head>
-	<title>{t.pages.tagTitle}: {tagParam} | {cfg.site.title}</title>
-	<meta name="description" content={`${t.pages.tagDesc} "${tagParam}".`} />
+  <title>{t.pages.tagTitle}: {tagParam} | {cfg.site.title}</title>
+  <meta name="description" content={`${t.pages.tagDesc} "${tagParam}".`} />
 </svelte:head>
 
-<section class="py-8">
-	<h1 class="text-2xl font-semibold sm:text-3xl">{t.pages.tagTitle}: {tagParam}</h1>
-	<p class="mt-2 mb-6 italic text-muted-foreground">{t.pages.tagDesc} "{tagParam}".</p>
-	<ul>
-		{#each tagPosts as post}
-			<li class="my-6">
-				<a href="/posts/{post.slug}" class="text-accent inline-block text-lg font-medium decoration-dashed underline-offset-4 hover:underline">
-					<h2>{post.metadata.title}</h2>
-				</a>
-			</li>
-		{/each}
-	</ul>
+<section>
+  <h1>{t.pages.tagTitle}: {tagParam}</h1>
+  <p class="desc">{t.pages.tagDesc} "{tagParam}".</p>
+  <ul>
+    {#each tagPosts as post}
+      <li>
+        <a href="/posts/{post.slug}">
+          <h2>{post.metadata.title}</h2>
+        </a>
+      </li>
+    {/each}
+  </ul>
 </section>
+
+<style>
+  section { padding: 2rem 0; }
+  h1 { font-size: 1.5rem; font-weight: 600; margin: 0; }
+  .desc { margin-top: 0.5rem; margin-bottom: 1.5rem; font-style: italic; color: var(--muted-fg); }
+  ul { list-style: none; padding: 0; }
+  li { margin: 1.5rem 0; }
+  a { color: var(--accent); font-size: 1.125rem; text-decoration: underline; text-decoration-style: dashed; }
+  a:hover { text-decoration: underline; }
+  h2 { margin: 0; font-size: inherit; display: inline; }
+</style>

@@ -4,18 +4,8 @@ import { useTranslations } from '$lib/i18n';
 import { formatDate, formatISO } from '$lib/utils/date';
 import cfg from '$lib/config';
 
-let {
-	pubDatetime,
-	modDatetime,
-	size = 'sm',
-	className = '',
-	locale = 'en',
-}: {
-	pubDatetime: string;
-	modDatetime?: string | null;
-	size?: 'sm' | 'lg';
-	className?: string;
-	locale?: string;
+let { pubDatetime, modDatetime, size = 'sm', className = '', locale = 'en' }: {
+  pubDatetime: string; modDatetime?: string | null; size?: 'sm' | 'lg'; className?: string; locale?: string;
 } = $props();
 
 let t = $derived(useTranslations(locale));
@@ -25,10 +15,18 @@ let date = $derived(formatDate(dt, cfg.site.timezone, locale));
 let iso = $derived(formatISO(dt, cfg.site.timezone));
 </script>
 
-<div class="flex items-center gap-x-2 text-muted-foreground {className}">
-	<Icon icon="ph:calendar-blank" class="inline-block size-5 min-w-5 {size === 'sm' ? 'scale-90' : ''}" />
-	{#if isModified}
-		<span class="text-sm {size === 'lg' ? 'sm:text-base' : ''}">{t.post.updatedAt}:</span>
-	{/if}
-	<time class="text-sm {size === 'lg' ? 'sm:text-base' : ''}" datetime={iso}>{date}</time>
+<div class="datetime {className}">
+  <Icon icon="ph:calendar-blank" class="icon {size}" />
+  {#if isModified}
+    <span class="label {size}">{t.post.updatedAt}:</span>
+  {/if}
+  <time datetime={iso} class={size}>{date}</time>
 </div>
+
+<style>
+  .datetime { display: flex; align-items: center; gap: 0.5rem; color: var(--muted-fg); }
+  .sm { font-size: 0.875rem; }
+  .lg { font-size: 1rem; }
+  .label { font-size: 0.875rem; }
+  @media (width >= 640px) { .lg { font-size: 1rem; } }
+</style>

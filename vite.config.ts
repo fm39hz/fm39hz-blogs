@@ -1,7 +1,6 @@
 import { paraglideVitePlugin } from '@inlang/paraglide-js';
 import adapter from '@sveltejs/adapter-auto';
 import { sveltekit } from '@sveltejs/kit/vite';
-import tailwindcss from '@tailwindcss/vite';
 import { escapeSvelte, mdsvex } from 'mdsvex';
 import rehypeKatexSvelte from 'rehype-katex-svelte';
 import remarkCollapse from 'remark-collapse';
@@ -15,7 +14,6 @@ let highlighter: Awaited<ReturnType<typeof createHighlighter>> | null = null;
 
 export default defineConfig({
 	plugins: [
-		tailwindcss(),
 		sveltekit({
 			compilerOptions: {
 				runes: ({ filename }) =>
@@ -24,7 +22,6 @@ export default defineConfig({
 				warningFilter: (warning) =>
 					!['script_context_deprecated'].includes(warning.code),
 			},
-
 			adapter: adapter(),
 			preprocess: [
 				mdsvex({
@@ -35,19 +32,8 @@ export default defineConfig({
 								highlighter = await createHighlighter({
 									themes: ['everforest-light', 'everforest-dark'],
 									langs: [
-										'javascript',
-										'typescript',
-										'python',
-										'css',
-										'html',
-										'bash',
-										'json',
-										'markdown',
-										'svelte',
-										'rust',
-										'go',
-										'yaml',
-										'diff',
+										'javascript', 'typescript', 'python', 'css', 'html',
+										'bash', 'json', 'markdown', 'svelte', 'rust', 'go', 'yaml', 'diff',
 									],
 								});
 							}
@@ -59,12 +45,12 @@ export default defineConfig({
 							return escapeSvelte(html.replace(/\s+tabindex="0"/g, ''));
 						},
 					},
-				remarkPlugins: [
-					remarkGfm,
-					remarkMath,
-					[remarkToc, { tight: true }],
-					[remarkCollapse, { test: 'Table of contents' }],
-				],
+					remarkPlugins: [
+						remarkGfm,
+						remarkMath,
+						[remarkToc, { tight: true }],
+						[remarkCollapse, { test: 'Table of contents' }],
+					],
 					rehypePlugins: [rehypeKatexSvelte],
 				}),
 			],

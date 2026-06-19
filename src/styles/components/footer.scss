@@ -1,0 +1,29 @@
+footer {
+  max-width: 48rem;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 1rem;
+  &.nomargin { margin-top: auto; }
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+  padding: 1.5rem 0;
+}
+
+p {
+  margin: 0.5rem 0;
+  text-align: center;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  color: var(--muted-fg);
+}
+
+@media (width >= 640px) {
+  .inner { flex-direction: row-reverse; padding: 1rem 0; }
+  p { margin: 0; }
+}

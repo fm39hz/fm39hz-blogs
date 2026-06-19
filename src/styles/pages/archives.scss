@@ -1,0 +1,9 @@
+.year { font-size: 1.5rem; font-weight: 700; }
+sup { color: var(--muted-fg); font-size: 0.875rem; margin-left: 0.25rem; }
+.year-group { margin-bottom: 1rem; }
+.month-group { display: flex; flex-direction: column; }
+.month-label { margin-top: 1.5rem; min-width: 9rem; font-size: 1.125rem; }
+.month-name { font-weight: 700; }
+@media (width >= 640px) {
+  .month-group { flex-direction: row; }
+}

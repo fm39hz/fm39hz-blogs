@@ -9,22 +9,32 @@ let i18n = $derived(useTranslations(locale));
 let currentTheme = $state<Theme>(Theme.DARK);
 
 function init() {
-	if (typeof document === 'undefined') return;
-	currentTheme = getStoredTheme();
-	applyTheme(currentTheme);
+  if (typeof document === 'undefined') return;
+  currentTheme = getStoredTheme();
+  applyTheme(currentTheme);
 }
 
 function toggleTheme() {
-	const button = document.getElementById('theme-btn');
-	if (!button) return;
-	const nextTheme = currentTheme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
-	animateThemeToggle(button, () => { currentTheme = nextTheme; applyTheme(nextTheme); });
+  const btn = document.getElementById('theme-btn');
+  if (!btn) return;
+  const next = currentTheme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
+  animateThemeToggle(btn, () => { currentTheme = next; applyTheme(next); });
 }
 
 $effect(init);
 </script>
 
-<button id="theme-btn" onclick={toggleTheme} aria-label={i18n.a11y.toggleTheme} class="focus-outline relative size-12 p-4 sm:size-8" title={i18n.a11y.toggleTheme}>
-	<Icon icon="ph:moon-fill" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-5 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-	<Icon icon="ph:sun-fill" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-5 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+<button id="theme-btn" onclick={toggleTheme} aria-label={i18n.a11y.toggleTheme} title={i18n.a11y.toggleTheme}>
+  <Icon icon="ph:moon-fill" class="moon" />
+  <Icon icon="ph:sun-fill" class="sun" />
 </button>
+
+<style>
+  button { position: relative; width: 3rem; height: 3rem; padding: 1rem; background: none; border: none; color: var(--fg); }
+  :global(.moon), :global(.sun) { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 1.25rem; height: 1.25rem; transition: all 0.3s; }
+  :global(.moon) { scale: 1; rotate: 0deg; }
+  :global(.sun) { scale: 0; rotate: 90deg; }
+  :global([data-theme="dark"]) .moon { scale: 0; rotate: -90deg; }
+  :global([data-theme="dark"]) .sun { scale: 1; rotate: 0deg; }
+  @media (width >= 640px) { button { width: 2rem; height: 2rem; padding: 0; } }
+</style>

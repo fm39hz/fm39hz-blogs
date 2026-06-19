@@ -3,7 +3,6 @@ import cfg from '$lib/config';
 import { useTranslations } from '$lib/i18n';
 import { Collapsible } from 'melt/builders';
 import Icon from '@iconify/svelte';
-import Socials from './Socials.svelte';
 import ThemeToggle from './ThemeToggle.svelte';
 
 let { locale = 'en' }: { locale?: string } = $props();
@@ -11,55 +10,75 @@ let t = $derived(useTranslations(locale));
 const menu = new Collapsible();
 </script>
 
-<a id="skip-to-content" href="#main-content" class="bg-background text-accent absolute inset-s-16 -top-full z-50 px-3 py-2 backdrop-blur-lg transition-all focus:top-4">
-	{t.a11y.skipToContent}
-</a>
+<a id="skip-link" href="#main-content">{t.a11y.skipToContent}</a>
 
-<header class="app-layout flex flex-col items-center justify-between sm:flex-row">
-	<div class="border-border bg-background relative flex w-full items-baseline justify-between border-b py-4 sm:items-center sm:py-6">
-		<a href="/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none">{cfg.site.title}</a>
-		<nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0">
-			<button
-				{...menu.trigger}
-				class="focus-outline self-end p-2 sm:hidden"
-				aria-label={menu.open ? t.a11y.closeMenu : t.a11y.openMenu}
-			>
-			{#if menu.open}
-				<Icon icon="ph:x" class="size-6" />
-			{:else}
-				<Icon icon="ph:list" class="size-6" />
-			{/if}
-			</button>
-			<div class="{menu.open ? 'block' : 'hidden'} sm:block">
-				<ul
-					{...menu.content}
-					class="[&>li>a]:hover:text-accent mt-4 w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&>li>a]:block sm:[&>li>a]:px-2 sm:[&>li>a]:py-1 [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium"
-				>
-					<li class="col-span-2"><a href="/posts" class="sm:px-2 sm:py-1">{t.nav.posts}</a></li>
-					<li class="col-span-2"><a href="/tags" class="sm:px-2 sm:py-1">{t.nav.tags}</a></li>
-					<li class="col-span-2"><a href="/about" class="sm:px-2 sm:py-1">{t.nav.about}</a></li>
-					{#if cfg.features.showArchives}
-						<li class="col-span-2 flex items-center justify-center">
-							<a href="/archives" class="focus-outline flex size-full justify-center p-3 sm:relative sm:size-8 sm:p-0" title={t.nav.archives}>
-								<Icon icon="ph:archive-box" class="hidden sm:block sm:size-6" />
-								<span class="sm:sr-only">{t.nav.archives}</span>
-							</a>
-						</li>
-					{/if}
-					{#if cfg.features.search !== false}
-						<li class="col-span-1 flex items-center justify-center">
-							<a href="/search" class="focus-outline relative size-8 flex items-center justify-center" title={t.nav.search}>
-								<Icon icon="ph:magnifying-glass" class="size-6" />
-							</a>
-						</li>
-					{/if}
-					{#if cfg.features.lightAndDarkMode}
-						<li class="col-span-1 flex items-center justify-center">
-							<ThemeToggle />
-						</li>
-					{/if}
-				</ul>
-			</div>
-		</nav>
-	</div>
+<header>
+  <div class="inner">
+    <a href="/" class="title">{cfg.site.title}</a>
+    <nav>
+      <button
+        {...menu.trigger}
+        class="menu-btn"
+        aria-label={menu.open ? t.a11y.closeMenu : t.a11y.openMenu}
+      >
+        <Icon icon={menu.open ? 'ph:x' : 'ph:list'} />
+      </button>
+      <div class="menu {menu.open ? 'open' : ''}">
+        <ul {...menu.content}>
+          <li><a href="/posts">{t.nav.posts}</a></li>
+          <li><a href="/tags">{t.nav.tags}</a></li>
+          <li><a href="/about">{t.nav.about}</a></li>
+          {#if cfg.features.showArchives}
+            <li><a href="/archives" title={t.nav.archives}><Icon icon="ph:archive-box" /></a></li>
+          {/if}
+          {#if cfg.features.search !== false}
+            <li><a href="/search" title={t.nav.search}><Icon icon="ph:magnifying-glass" /></a></li>
+          {/if}
+          {#if cfg.features.lightAndDarkMode}
+            <li><ThemeToggle /></li>
+          {/if}
+        </ul>
+      </div>
+    </nav>
+  </div>
 </header>
+
+<style>
+  header { max-width: 48rem; margin: 0 auto; width: 100%; padding: 0 1rem; }
+
+  #skip-link {
+    position: absolute; inset-inline-start: 4rem; top: -100%; z-index: 50;
+    background: var(--bg); color: var(--accent); padding: 0.5rem 0.75rem;
+    transition: top 0.2s;
+  }
+  #skip-link:focus { top: 1rem; }
+
+  .inner {
+    display: flex; align-items: baseline; justify-content: space-between;
+    border-bottom: 1px solid var(--border); padding: 1rem 0;
+  }
+
+  .title {
+    position: absolute;
+    font-size: 1.25rem; font-weight: 600; white-space: nowrap;
+    text-decoration: none; color: var(--fg);
+  }
+
+  .menu-btn { align-self: flex-end; padding: 0.5rem; background: none; border: none; color: var(--fg); }
+  .menu { display: none; }
+  .menu.open { display: block; }
+
+  nav ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; width: 11rem; margin-top: 1rem; }
+  nav li { display: flex; align-items: center; justify-content: center; }
+  nav a { display: block; text-align: center; padding: 0.75rem 1rem; text-decoration: none; color: var(--fg); font-weight: 500; }
+  nav a:hover { color: var(--accent); }
+
+  @media (width >= 640px) {
+    .inner { align-items: center; padding-top: 1.5rem; padding-bottom: 1.5rem; }
+    .title { position: static; font-size: 1.5rem; line-height: 1; }
+    .menu-btn { display: none; }
+    .menu, .menu.open { display: block; }
+    nav ul { display: flex; width: auto; gap: 1.25rem; margin-top: 0; }
+    nav a { padding: 0.25rem 0.5rem; }
+  }
+</style>

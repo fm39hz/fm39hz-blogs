@@ -22,7 +22,7 @@ export function animateThemeToggle(button: HTMLElement, callback: () => void): v
 	const originY = ((rect.top + rect.height / 2) / innerHeight) * 100;
 	const easing = AnimEasing.EASE_OUT_QUART;
 
-	const oldBackground = getComputedStyle(document.documentElement).getPropertyValue('--background').trim();
+	const oldBackground = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
 	callback();
 
 	const overlay = document.createElement('div');

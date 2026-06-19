@@ -6,12 +6,19 @@ const t = useTranslations();
 </script>
 
 <svelte:head>
-	<title>{t.pages.searchTitle} | {cfg.site.title}</title>
-	<meta name="description" content={t.pages.searchDesc} />
+  <title>{t.pages.searchTitle} | {cfg.site.title}</title>
+  <meta name="description" content={t.pages.searchDesc} />
 </svelte:head>
 
-<section class="py-8">
-	<h1 class="text-2xl font-semibold sm:text-3xl">{t.pages.searchTitle}</h1>
-	<p class="mt-2 mb-6 italic text-muted-foreground">{t.pages.searchDesc}</p>
-	<p class="text-muted-foreground">Search coming soon.</p>
+<section>
+  <h1>{t.pages.searchTitle}</h1>
+  <p class="desc">{t.pages.searchDesc}</p>
+  <p class="placeholder">Search coming soon.</p>
 </section>
+
+<style>
+  section { padding: 2rem 0; }
+  h1 { font-size: 1.5rem; font-weight: 600; margin: 0; }
+  .desc { margin-top: 0.5rem; margin-bottom: 1.5rem; font-style: italic; color: var(--muted-fg); }
+  .placeholder { color: var(--muted-fg); }
+</style>

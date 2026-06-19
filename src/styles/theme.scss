@@ -1,0 +1,19 @@
+:root, [data-theme="light"] {
+  --bg: #faedcd;
+  --fg: #5c6a72;
+  --accent: #93b259;
+  --accent-fg: #efebd4;
+  --muted: #e9f0e9;
+  --muted-fg: #829181;
+  --border: #f0f1d2;
+}
+
+[data-theme="dark"] {
+  --bg: #232a2e;
+  --fg: #d3c6aa;
+  --accent: #a7c080;
+  --accent-fg: #7a8478;
+  --muted: #514045;
+  --muted-fg: #9da9a0;
+  --border: #425047;
+}
