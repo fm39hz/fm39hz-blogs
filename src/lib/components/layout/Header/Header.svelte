@@ -3,7 +3,7 @@ import Icon from '@iconify/svelte';
 import { Collapsible } from 'melt/builders';
 import cfg from '$lib/config';
 import { useTranslations } from '$lib/i18n';
-import ThemeToggle from '../ThemeToggle/ThemeToggle.svelte';
+import GearMenu from '../GearMenu/GearMenu.svelte';
 import styles from './Header.module.scss';
 
 let { locale = 'en' }: { locale?: string } = $props();
@@ -30,9 +30,7 @@ const menu = new Collapsible();
           {#if cfg.features.search !== false}
             <li class={styles.navLi}><a href="/search" class={styles.navA} title={t.nav.search}><Icon icon="ph:magnifying-glass" /></a></li>
           {/if}
-          {#if cfg.features.lightAndDarkMode}
-            <li class={styles.navLi}><ThemeToggle /></li>
-          {/if}
+            <li class={styles.navLi}><GearMenu {locale} /></li>
         </ul>
       </div>
     </nav>

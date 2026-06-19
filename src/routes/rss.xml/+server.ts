@@ -5,7 +5,7 @@ import { rssXml } from '$lib/utils/xml';
 
 export const prerender = true;
 
-export const GET = async () => {
+export const GET = () => {
 	const allPosts = loadPosts();
 	const groups = groupPostsBySlug(allPosts);
 	const displayPosts = groups.map((g) => g.defaultEntry);

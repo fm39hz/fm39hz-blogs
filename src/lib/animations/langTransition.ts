@@ -1,4 +1,4 @@
-import { animate } from 'motion';
+import { animate } from 'motion/mini';
 import { ANIM_DURATION, AnimEasing } from '$lib/constants';
 
 export function animateLangSwitch(container: HTMLElement, currentLang: string): void {
@@ -16,18 +16,16 @@ export function animateLangSwitch(container: HTMLElement, currentLang: string): 
 
 	if (entering.length === 0) return;
 
-	// Fade out current
 	const fadeOut = leaving.map(
 		(el) => animate(el, { opacity: 0 }, { duration: ANIM_DURATION / 2 }).finished,
 	);
 
-	Promise.all(fadeOut).then(() => {
+	void Promise.all(fadeOut).then(() => {
 		for (const el of leaving) el.style.display = 'none';
 		for (const el of entering) {
 			el.style.display = 'block';
 			el.style.opacity = '0';
 		}
-		// Fade in new
 		for (const el of entering) {
 			animate(
 				el,

@@ -1,16 +1,16 @@
-.hero { border-bottom: var(--line-solid); padding: 2rem 0 1.5rem; }
-.h1 { margin: 1rem 0; font-size: 2.25rem; font-weight: 700; display: inline-block; }
+.hero { border-bottom: var(--line-solid); padding: var(--space-xl) 0 var(--space-lg); }
+.h1 { margin: var(--space-md) 0; font-size: var(--fs-4xl); font-weight: 700; display: inline-block; }
 .rss { display: inline-block; vertical-align: middle; color: var(--accent); }
 .rss :global(svg) { width: var(--icon-lg); height: var(--icon-lg); }
 .tagline { margin: 0; }
-.socialRow { margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+.socialRow { margin-top: var(--space-md); display: flex; align-items: center; gap: var(--space-xs); }
 .socialRow span { white-space: nowrap; }
-.section { padding: 3rem 0 1.5rem; border-bottom: var(--line-solid); }
+.section { padding: var(--space-2xl) 0 var(--space-lg); border-bottom: var(--line-solid); }
 .section:last-child { border: none; }
-.section h2 { font-size: 1.5rem; font-weight: 600; letter-spacing: 0.05em; }
+.section h2 { font-size: var(--fs-2xl); font-weight: 600; letter-spacing: 0.05em; }
 .section ul { list-style: none; padding: 0; margin: 0; }
-.section li { margin: 1.5rem 0; }
-.allPosts { text-align: center; margin: 2rem 0; }
+.section li { margin: var(--space-lg) 0; }
+.allPosts { text-align: center; margin: var(--space-xl) 0; }
 .allPosts a { color: var(--fg); text-decoration: none; }
 .allPosts a:hover { color: var(--accent); }
-@media (width >= 640px) { .h1 { margin: 2rem 0; font-size: 3rem; } }
+@media (width >= 640px) { .h1 { margin: var(--space-xl) 0; } }

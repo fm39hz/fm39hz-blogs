@@ -4,7 +4,7 @@ import { sitemapXml } from '$lib/utils/xml';
 
 export const prerender = true;
 
-export const GET = async () => {
+export const GET = () => {
 	const allPosts = loadPosts();
 	const slugs = [...new Set(allPosts.map((p) => p.slug))];
 	const urls = [

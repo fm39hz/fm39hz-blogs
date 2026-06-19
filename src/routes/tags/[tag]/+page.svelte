@@ -1,8 +1,8 @@
 <script lang="ts">
 import { page } from '$app/state';
 import cfg from '$lib/config';
-import { useTranslations } from '$lib/i18n';
 import { loadPosts } from '$lib/data/server';
+import { useTranslations } from '$lib/i18n';
 import { slugifyAll } from '$lib/tags';
 import { getSortedPosts, groupPostsBySlug } from '$lib/utils';
 import styles from './+page.module.scss';

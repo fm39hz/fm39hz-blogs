@@ -1,4 +1,4 @@
-import { animate } from 'motion';
+import { animate } from 'motion/mini';
 import { AnimEasing, THEME_TRANSITION_DURATION, Theme } from '$lib/constants';
 import type { ThemeMode } from '$lib/types';
 
@@ -31,7 +31,7 @@ export function animateThemeToggle(button: HTMLElement, callback: () => void): v
 	overlay.style.cssText = `position:fixed;inset:0;z-index:9999;pointer-events:none;background:${oldBackground};clip-path:circle(150% at ${originX}% ${originY}%)`;
 	document.body.appendChild(overlay);
 
-	animate(
+	void animate(
 		overlay,
 		{ clipPath: `circle(0% at ${originX}% ${originY}%)` },
 		{ duration: THEME_TRANSITION_DURATION, ease: easing },

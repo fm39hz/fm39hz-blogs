@@ -1,5 +1,5 @@
-.title { color: var(--accent); display: inline-block; font-size: 1.5rem; font-weight: 700; }
-.meta { margin: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem; }
-.hr { margin: 2rem 0; border: none; border-top: 1px dashed var(--border); }
-.tags { list-style: none; padding: 0; margin: 1rem 0 2rem; display: flex; flex-wrap: wrap; gap: 1rem; }
-@media (width >= 640px) { .title { font-size: 1.875rem; } .tags { margin: 2rem 0; } }
+.title { color: var(--accent); display: inline-block; font-size: var(--fs-2xl); font-weight: 700; }
+.meta { margin: var(--space-sm) 0; display: flex; align-items: center; gap: var(--space-sm); }
+.hr { margin: var(--space-xl) 0; border: none; border-top: 1px dashed var(--border); }
+.tags { list-style: none; padding: 0; margin: var(--space-md) 0 var(--space-xl); display: flex; flex-wrap: wrap; gap: var(--space-md); }
+@media (width >= 640px) { .title { font-size: var(--fs-3xl); } .tags { margin: var(--space-xl) 0; } }

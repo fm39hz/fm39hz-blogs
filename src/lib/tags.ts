@@ -3,7 +3,7 @@ import slugify from 'slugify';
 import type { PostMeta } from '$lib/types';
 import { postFilter } from '$lib/utils';
 
-const hasNonLatin = (str: string): boolean => /[^\x00-\x7F]/.test(str);
+const hasNonLatin = (str: string): boolean => /[^ -~]/.test(str);
 
 export function slugifyStr(str: string): string {
 	if (hasNonLatin(str)) return kebabcase(str);

@@ -1,0 +1,116 @@
+:global(.prose) {
+  line-height: var(--lh-normal, 1.75);
+  font-size: var(--fs-base);
+
+  > :first-child { margin-top: 0; }
+  > :last-child { margin-bottom: 0; }
+
+  :where(p) { margin-block: 1.25em; }
+  :where(h1) { margin-block: 0 0.75rem; font-size: var(--fs-3xl); }
+  :where(h2) { margin-block: 1.5em 0.75rem; font-size: var(--fs-2xl); }
+  :where(h3) { margin-block: 1.25em 0.75rem; font-size: var(--fs-lg); font-style: italic; }
+  :where(h4) { margin-block: 1em 0.75rem; }
+
+  :where(h1, h2, h3, h4, th) { color: var(--fg); }
+  :where(p, strong, ol, ul, figcaption, table, code) { color: var(--fg); }
+
+  :where(a) {
+    color: var(--fg);
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-underline-offset: 4px;
+    &:hover { color: var(--accent); }
+    &:focus-visible {
+      outline: 2px dashed var(--accent);
+      outline-offset: 2px;
+      text-decoration: none;
+    }
+  }
+
+  :where(img) {
+    max-width: 100%;
+    border: var(--line-solid);
+    border-radius: var(--br);
+    margin: 0 auto;
+    display: block;
+  }
+
+  :where(figcaption) { opacity: var(--op-muted); }
+
+  :where(hr) {
+    border: none;
+    border-top: var(--line-solid);
+    margin-block: 2em;
+  }
+
+  :where(table) {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    overflow-x: auto;
+    background: color-mix(in srgb, var(--bg) 97%, var(--fg));
+    border-radius: var(--br);
+    border: var(--border-w) dashed var(--border);
+    display: block;
+  }
+  :where(th, td) {
+    border: var(--border-w) dashed var(--border);
+    padding: var(--space-sm);
+  }
+  :where(th) {
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    font-weight: 600;
+  }
+  :where(th:first-child, td:first-child) { border-left: none; }
+  :where(th:last-child, td:last-child) { border-right: none; }
+  :where(tr:first-child th, tr:first-child td) { border-top: none; }
+  :where(tr:last-child th, tr:last-child td) { border-bottom: none; }
+
+  :where(code) {
+    background: color-mix(in srgb, var(--muted) 75%, transparent);
+    border-radius: var(--br);
+    padding: 0.125rem 0.25rem;
+    font-size: 0.9em;
+    &::before, &::after { content: none; }
+  }
+  :where(pre code) { background: inherit; padding: 0; }
+
+  :where(blockquote) {
+    border-left: 3px solid color-mix(in srgb, var(--accent) 80%, transparent);
+    opacity: var(--op-muted);
+    margin-inline: 0;
+    padding-inline-start: var(--space-md);
+    p { margin-block: 0.75em; }
+  }
+
+  :where(ul, ol) { padding-inline-start: 1.5rem; }
+  :where(li)::marker { color: var(--accent); }
+
+  :where(details) {
+    display: inline-block;
+    cursor: pointer;
+    user-select: none;
+    p { display: none; }
+    ul { margin: 0 !important; }
+  }
+  :where(summary) {
+    &:focus-visible {
+      outline: 2px dashed var(--accent);
+      outline-offset: 2px;
+      text-decoration: none;
+    }
+  }
+
+  :where(.task-list-item) {
+    list-style: none;
+    margin-inline-start: -1.25rem;
+    input[type="checkbox"] {
+      accent-color: var(--accent);
+      margin-inline-end: var(--space-sm);
+    }
+  }
+}
+
+@media (width < 640px) {
+  :global(.prose) { font-size: 0.9375rem; }
+}

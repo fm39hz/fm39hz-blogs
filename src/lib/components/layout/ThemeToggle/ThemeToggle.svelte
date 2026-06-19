@@ -1,34 +1,19 @@
 <script lang="ts">
 import Icon from '@iconify/svelte';
-import { Theme } from '$lib/constants';
 import { useTranslations } from '$lib/i18n';
-import { animateThemeToggle, applyTheme, getStoredTheme } from '$lib/animations/theme';
+import { initTheme, toggleTheme as toggleThemeFn } from './ThemeToggle';
 import styles from './ThemeToggle.module.scss';
 
 let { locale = 'en' }: { locale?: string } = $props();
 let i18n = $derived(useTranslations(locale));
-let currentTheme = $state<Theme>(Theme.DARK);
+let currentTheme = $state(initTheme());
 
-function init() {
-	if (typeof document === 'undefined') return;
-	currentTheme = getStoredTheme();
-	applyTheme(currentTheme);
+function handleToggle() {
+	currentTheme = toggleThemeFn(currentTheme);
 }
-
-function toggleTheme() {
-	const btn = document.getElementById('theme-btn');
-	if (!btn) return;
-	const next = currentTheme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
-	animateThemeToggle(btn, () => {
-		currentTheme = next;
-		applyTheme(next);
-	});
-}
-
-$effect(init);
 </script>
 
-<button id="theme-btn" class={styles.btn} onclick={toggleTheme} aria-label={i18n.a11y.toggleTheme} title={i18n.a11y.toggleTheme}>
+<button id="theme-btn" class={styles.btn} onclick={handleToggle} aria-label={i18n.a11y.toggleTheme} title={i18n.a11y.toggleTheme}>
   <Icon icon="ph:moon" class={styles.moon} />
   <Icon icon="ph:sun" class={styles.sun} />
 </button>

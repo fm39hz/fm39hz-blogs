@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Snippet } from 'svelte';
-import { Lang } from '$lib/constants';
 import { animateLangSwitch } from '$lib/animations/langTransition';
+import { Lang } from '$lib/constants';
 
 let { lang = Lang.EN, children }: { lang?: string; children?: Snippet<[]> } = $props();
 let container: HTMLDivElement | undefined = $state();

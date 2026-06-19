@@ -1,4 +1,5 @@
 import { MD_EXT_REGEX, SLUG_REGEX } from '$lib/constants';
+import type { PostMeta } from '$lib/types';
 
 function parseSlug(fileName: string): string {
 	return fileName.replace(SLUG_REGEX, '').replace(MD_EXT_REGEX, '');

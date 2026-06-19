@@ -14,9 +14,9 @@ export enum Dir {
 	AUTO = 'auto',
 }
 
-export enum AnimEasing {
-	EASE_OUT_QUART = 'cubic-bezier(0.22, 1, 0.36, 1)',
-}
+export const AnimEasing = {
+	EASE_OUT_QUART: [0.22, 1, 0.36, 1] as const,
+} as const;
 
 export type Language = `${Lang}`;
 

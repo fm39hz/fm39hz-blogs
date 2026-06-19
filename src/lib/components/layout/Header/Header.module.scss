@@ -1,6 +1,6 @@
 .root { max-width: var(--mw); margin: 0 auto; width: 100%; padding: 0 var(--space-md); position: relative; }
 .skipLink { position: absolute; inset-inline-start: 4rem; top: -100%; z-index: 50; background: var(--bg); color: var(--accent); padding: var(--space-sm) 0.75rem; transition: top var(--d-normal); text-decoration: none; font-size: var(--fs-sm); border-radius: var(--br); }
-.skipLink:focus { top: 0.5rem; }
+.skipLink:focus { top: var(--space-sm); }
 .inner { display: flex; align-items: baseline; justify-content: space-between; border-bottom: var(--line-solid); padding: var(--space-md) 0; }
 .title { position: absolute; font-size: var(--fs-xl); font-weight: 600; white-space: nowrap; text-decoration: none; color: var(--fg); }
 .menuBtn { align-self: flex-end; padding: var(--space-sm); background: none; border: none; color: var(--fg); min-height: 44px; min-width: 44px; }
@@ -9,7 +9,7 @@
 .menuOpen { display: block; }
 .navUl { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); width: 11rem; margin-top: var(--space-md); }
 .navLi { display: flex; align-items: center; justify-content: center; }
-.navA { display: block; text-align: center; padding: 0.75rem var(--space-md); text-decoration: none; color: var(--fg); font-weight: 500; }
+.navA { display: block; text-align: center; padding: var(--space-sm) var(--space-md) 0.5rem; text-decoration: none; color: var(--fg); font-weight: 500; }
 .navA:hover { color: var(--accent); }
 .navA :global(svg) { width: var(--icon-lg); height: var(--icon-lg); vertical-align: middle; }
 @media (width >= 640px) {
@@ -18,5 +18,5 @@
   .menuBtn { display: none; }
   .menu { display: block; }
   .navUl { display: flex; width: auto; gap: 1.25rem; margin-top: 0; }
-  .navA { padding: 0.25rem var(--space-sm); }
+  .navA { padding: var(--space-3xs) var(--space-sm); }
 }

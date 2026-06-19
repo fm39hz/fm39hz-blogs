@@ -4,18 +4,13 @@ import Footer from '$lib/components/layout/Footer/Footer.svelte';
 import Header from '$lib/components/layout/Header/Header.svelte';
 import cfg from '$lib/config';
 import '../styles/global.module.scss';
+import '$lib/design-system/foundations/prose.module.scss';
+import '$lib/design-system/foundations/code.module.scss';
+import { viewTransition } from './viewTransition';
 
 let { children } = $props();
 
-onNavigate((navigation) => {
-	if (!document.startViewTransition) return;
-	return new Promise((resolve) => {
-		document.startViewTransition(async () => {
-			resolve();
-			await navigation.complete;
-		});
-	});
-});
+onNavigate(viewTransition);
 </script>
 
 <svelte:head>
@@ -28,5 +23,5 @@ onNavigate((navigation) => {
 <Footer />
 
 <style>
-  main { max-width: 48rem; margin: 0 auto; width: 100%; padding: 0 1rem 1rem; flex: 1; }
+  main { max-width: var(--mw); margin: 0 auto; width: 100%; padding: 0 var(--space-md) var(--space-md); flex: 1; }
 </style>

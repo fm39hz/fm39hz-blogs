@@ -2,6 +2,7 @@
 import Icon from '@iconify/svelte';
 import { COPY_FEEDBACK_MS } from '$lib/constants';
 import { useTranslations } from '$lib/i18n';
+import { copyCode } from './CopyButton';
 import styles from './CopyButton.module.scss';
 
 let { target: codeBlock, locale = 'en' }: { target: HTMLPreElement; locale?: string } = $props();
@@ -9,9 +10,8 @@ let i18n = $derived(useTranslations(locale));
 let copied = $state(false);
 
 async function handleCopy() {
-	const code = codeBlock.querySelector('code');
-	if (!code) return;
-	await navigator.clipboard.writeText(code.innerText);
+	const ok = await copyCode(codeBlock);
+	if (!ok) return;
 	copied = true;
 	setTimeout(() => (copied = false), COPY_FEEDBACK_MS);
 }

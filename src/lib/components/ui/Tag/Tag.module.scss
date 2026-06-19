@@ -1,5 +1,5 @@
 .tag a { display: inline-flex; align-items: center; gap: var(--space-3xs); border-bottom: var(--border-w) var(--border-style) var(--fg); text-decoration: none; color: var(--fg); }
-.tag a:hover { border-color: var(--accent); color: var(--accent); margin-top: -0.125rem; }
+.tag a:hover { border-color: var(--accent); color: var(--accent); margin-top: calc(-1 * var(--space-3xs)); }
 .tag a:focus-visible { color: var(--accent); border: none; }
 .lg { font-size: var(--fs-lg); }
 .sm { font-size: var(--fs-xs); }

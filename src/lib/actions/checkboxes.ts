@@ -1,5 +1,5 @@
 export function styleCheckboxes(node: HTMLElement) {
-	const cells = node.querySelectorAll('td, th');
+	const cells = node.querySelectorAll<HTMLTableCellElement>('td, th');
 	for (const cell of cells) {
 		const text = cell.textContent ?? '';
 		const trimmed = text.trim();
