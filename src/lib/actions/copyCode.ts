@@ -1,5 +1,5 @@
 import { mount } from 'svelte';
-import CopyButton from '$lib/components/CopyButton.svelte';
+import CopyButton from '$lib/components/ui/CopyButton/CopyButton.svelte';
 
 export function copyCode(container: HTMLElement) {
 	const codeBlocks = container.querySelectorAll<HTMLPreElement>('pre');

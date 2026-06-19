@@ -1,0 +1,9 @@
+.h1 { font-size: 1.5rem; font-weight: 600; margin: 0; }
+.desc { margin-top: 0.5rem; margin-bottom: 1.5rem; font-style: italic; color: var(--muted-fg); }
+.year { font-size: 1.5rem; font-weight: 700; }
+.sup { color: var(--muted-fg); font-size: 0.875rem; margin-left: 0.25rem; }
+.yearGroup { margin-bottom: 1rem; }
+.monthGroup { display: flex; flex-direction: column; }
+.monthLabel { margin-top: 1.5rem; min-width: 9rem; font-size: 1.125rem; }
+.monthName { font-weight: 700; }
+@media (width >= 640px) { .monthGroup { flex-direction: row; } }

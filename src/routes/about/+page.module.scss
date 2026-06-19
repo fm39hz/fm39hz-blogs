@@ -1,0 +1,3 @@
+.header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.title { font-size: 1.5rem; font-weight: 600; margin: 0; }
+@media (width >= 640px) { .title { font-size: 1.875rem; } }
