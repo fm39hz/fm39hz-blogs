@@ -1,12 +1,12 @@
 <script lang="ts">
 import { page } from '$app/state';
-import Datetime from '$lib/components/Datetime.svelte';
-import LanguageToggle from '$lib/components/LanguageToggle.svelte';
-import Tag from '$lib/components/Tag.svelte';
 import cfg from '$lib/config';
 import { loadPageEntries } from '$lib/server';
+import Datetime from '$lib/components/Datetime.svelte';
+import Tag from '$lib/components/Tag.svelte';
+import LanguageToggle from '$lib/components/LanguageToggle.svelte';
 import { slugifyStr } from '$lib/tags';
-import { copyCode } from '$lib/actions/copyCode';
+import { animate } from 'motion';
 
 const slug = page.params.slug;
 const matching = loadPageEntries(slug);
@@ -14,11 +14,31 @@ const hasMultiLang = matching.length > 1;
 const defaultEntry = matching.find((e) => e.lang === 'en') ?? matching[0];
 const meta = defaultEntry.metadata;
 const langToTitle = Object.fromEntries(matching.map((e) => [e.lang, e.metadata.title]));
-const fullLangTitles = Object.fromEntries(
-	Object.entries(langToTitle).map(([l, t]) => [l, `${t} | ${cfg.site.title}`] as const),
-);
 
-let preferredLang = $state('en');
+let lang = $state('en');
+
+function onToggle(next: string) {
+	lang = next;
+}
+
+$effect(() => {
+	for (const el of document.querySelectorAll<HTMLElement>('[data-lang]')) {
+		const isEnter = el.getAttribute('data-lang') === lang;
+		if (isEnter) {
+			el.removeAttribute('hidden');
+			const from = lang === 'en' ? 'inset(0 0 0 100%)' : 'inset(0 100% 0 0)';
+			requestAnimationFrame(() => {
+				el.style.clipPath = from;
+				requestAnimationFrame(() => {
+					animate(el, { clipPath: 'inset(0)' }, { duration: 0.4, ease: [0.22, 1, 0.36, 1] });
+				});
+			});
+		} else {
+			el.setAttribute('hidden', '');
+			el.style.clipPath = '';
+		}
+	}
+});
 </script>
 
 <svelte:head>
@@ -40,20 +60,20 @@ let preferredLang = $state('en');
 	<meta property="twitter:description" content={meta.description} />
 </svelte:head>
 
-<article class="py-8" data-pagefind-body use:copyCode>
-	{#each matching as { lang }}
-		<h1 data-lang={lang} hidden={lang !== preferredLang} class="text-accent inline-block text-2xl font-bold sm:text-3xl">{langToTitle[lang]}</h1>
+<article class="py-8" data-pagefind-body>
+	{#each matching as { lang: l }}
+		<h1 data-lang={l} hidden={l !== lang} class="text-accent inline-block text-2xl font-bold sm:text-3xl">{langToTitle[l]}</h1>
 	{/each}
 
 	<div class="my-2 flex items-center gap-2">
 		<Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" />
 		{#if hasMultiLang}
-			<LanguageToggle entries={matching} titles={fullLangTitles} bind:preferredLang />
+			<LanguageToggle {lang} {onToggle} />
 		{/if}
 	</div>
 
-	{#each matching as { lang, component: Component }}
-		<div data-lang={lang} hidden={lang !== preferredLang} class="mt-8 w-full app-prose max-w-app">
+	{#each matching as { lang: l, component: Component }}
+		<div data-lang={l} hidden={l !== lang} class="mt-8 w-full app-prose max-w-app">
 			<Component></Component>
 		</div>
 	{/each}

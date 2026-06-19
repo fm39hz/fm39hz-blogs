@@ -1,44 +1,36 @@
 <script lang="ts">
-import { RadioGroup } from 'melt/builders';
+import { Toggle } from 'melt/builders';
 
 let {
-	entries,
-	titles = {},
-	preferredLang = $bindable('en'),
+	onToggle,
+	lang = 'en',
 }: {
-	entries: { lang: string }[];
-	titles?: Record<string, string>;
-	preferredLang?: string;
+	onToggle?: (lang: string) => void;
+	lang?: string;
 } = $props();
 
-const group = new RadioGroup({
-	value: () => preferredLang,
-	onValueChange: (v) => { preferredLang = v; switchLang(v); },
-	orientation: 'horizontal',
-});
-
-function switchLang(lang: string) {
-	document.querySelectorAll('[data-lang]').forEach((el) => {
-		const isHidden = el.getAttribute('data-lang') !== lang;
-		if (isHidden) el.setAttribute('hidden', '');
-		else el.removeAttribute('hidden');
-		el.setAttribute('aria-hidden', String(isHidden));
-	});
-	localStorage.setItem('preferredLang', lang);
+function handle() {
+	const next = lang === 'en' ? 'vi' : 'en';
+	onToggle?.(next);
 }
+
+const toggle = new Toggle({
+	value: () => lang === 'vi',
+	onValueChange: () => handle(),
+});
 </script>
 
-<div {...group.root} class="flex items-center gap-2 ms-auto">
-	{#each entries as { lang }, i}
-		{@const item = group.getItem(lang)}
-		{#if i > 0}
-			<span class="text-muted-foreground text-xs">|</span>
-		{/if}
-		<button
-			{...item.attrs}
-			class="text-xs font-medium px-2 py-0.5 rounded transition-colors hover:text-accent focus-visible:outline-accent {item.checked ? 'text-accent bg-accent/10' : 'text-muted-foreground'}"
-		>
-			{lang.toUpperCase()}
-		</button>
-	{/each}
+<div class="flex items-center gap-1.5 select-none">
+	<span class="text-xs font-medium {lang === 'en' ? 'text-accent' : 'text-muted-foreground'} transition-colors">EN</span>
+	<button
+		{...toggle.trigger}
+		onclick={handle}
+		class="relative inline-flex h-5 w-9 items-center rounded-full border border-border transition-colors {lang === 'vi' ? 'bg-accent/20' : 'bg-muted'}"
+		aria-label="Switch language"
+	>
+		<span
+			class="inline-block h-3.5 w-3.5 rounded-full bg-accent transition-all duration-200 {lang === 'vi' ? 'translate-x-[18px]' : 'translate-x-[2px]'}"
+		></span>
+	</button>
+	<span class="text-xs font-medium {lang === 'vi' ? 'text-accent' : 'text-muted-foreground'} transition-colors">VI</span>
 </div>
