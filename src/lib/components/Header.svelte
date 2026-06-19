@@ -7,7 +7,7 @@ import Socials from './Socials.svelte';
 import ThemeToggle from './ThemeToggle.svelte';
 
 let { locale = 'en' }: { locale?: string } = $props();
-const t = useTranslations(locale);
+let t = $derived(useTranslations(locale));
 const menu = new Collapsible();
 </script>
 

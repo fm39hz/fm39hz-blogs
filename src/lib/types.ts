@@ -1,3 +1,27 @@
+export enum Lang {
+	EN = 'en',
+	VI = 'vi',
+}
+
+export enum Theme {
+	LIGHT = 'light',
+	DARK = 'dark',
+}
+
+export enum Dir {
+	LTR = 'ltr',
+	RTL = 'rtl',
+	AUTO = 'auto',
+}
+
+export enum AnimEasing {
+	EASE_OUT_QUART = 'cubic-bezier(0.22, 1, 0.36, 1)',
+}
+
+export type Language = `${Lang}`;
+
+export type ThemeMode = `${Theme}`;
+
 export interface SiteConfig {
 	url: string;
 	title: string;
@@ -5,9 +29,9 @@ export interface SiteConfig {
 	author: string;
 	profile?: string;
 	ogImage?: string;
-	lang: string;
+	lang: Language;
 	timezone: string;
-	dir: 'ltr' | 'rtl' | 'auto';
+	dir: Dir;
 	googleVerification?: string;
 	hero: { title: string; tagline: string };
 }
@@ -49,6 +73,7 @@ export interface BlogConfig {
 }
 
 export interface PostMeta {
+	author?: string;
 	pubDatetime: string;
 	modDatetime?: string | null;
 	title: string;
@@ -60,5 +85,5 @@ export interface PostMeta {
 	canonicalURL?: string;
 	hideEditPost?: boolean;
 	timezone?: string;
-	lang?: 'en' | 'vi';
+	lang?: Language;
 }

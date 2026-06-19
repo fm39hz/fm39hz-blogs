@@ -1,50 +1,53 @@
+import type { Component } from 'svelte';
+import { SLUG_REGEX, MD_EXT_REGEX, Lang } from '$lib/constants';
 import type { PostMeta } from '$lib/types';
 
-export function loadPosts() {
-	const modules = import.meta.glob<{ metadata: PostMeta }>('/src/content/posts/*.md', {
-		eager: true,
-	});
+function parseSlug(fileName: string): string {
+	return fileName.replace(SLUG_REGEX, '').replace(MD_EXT_REGEX, '');
+}
+
+function parseLang(fileName: string, fallback = Lang.EN): string {
+	return (fileName.match(SLUG_REGEX)?.[1] ?? fallback) as string;
+}
+
+export interface PostEntry {
+	slug: string;
+	metadata: PostMeta;
+}
+
+export function loadPosts(): PostEntry[] {
+	const modules = import.meta.glob<{ metadata: PostMeta }>('/src/content/posts/*.md', { eager: true });
 	return Object.entries(modules).map(([path, mod]) => {
-		const file = path.split('/').pop()!;
-		const slug = file.replace(/\.(en|vi)\.md$/, '').replace(/\.md$/, '');
-		return { slug, metadata: mod.metadata };
+		const fileName = path.split('/').pop()!;
+		return { slug: parseSlug(fileName), metadata: mod.metadata };
 	});
 }
 
 export interface PageEntry {
 	slug: string;
 	lang: string;
-	component: any;
+	component: Component;
 	metadata: PostMeta;
 }
 
 export function loadPageEntries(slug: string): PageEntry[] {
-	const modules = import.meta.glob<{ default: any; metadata: PostMeta }>(
-		'/src/content/posts/*.md',
-		{ eager: true },
-	);
+	const modules = import.meta.glob<{ default: Component; metadata: PostMeta }>('/src/content/posts/*.md', { eager: true });
 	return Object.entries(modules)
 		.filter(([path]) => {
-			const file = path.split('/').pop()!;
-			const base = file.replace(/\.(en|vi)\.md$/, '').replace(/\.md$/, '');
-			return base === slug;
+			const fileName = path.split('/').pop()!;
+			return parseSlug(fileName) === slug;
 		})
 		.map(([path, mod]) => {
-			const file = path.split('/').pop()!;
-			const lang = (file.match(/\.(en|vi)\.md$/) ?? [])[1] ?? 'en';
-			return { slug, lang, component: mod.default, metadata: mod.metadata };
+			const fileName = path.split('/').pop()!;
+			return { slug, lang: parseLang(fileName), component: mod.default, metadata: mod.metadata };
 		});
 }
 
-export function loadContentPages() {
-	const modules = import.meta.glob<{ default: any; metadata: PostMeta }>(
-		'/src/content/pages/*.md',
-		{ eager: true },
-	);
+export function loadContentPages(): PageEntry[] {
+	const modules = import.meta.glob<{ default: Component; metadata: PostMeta }>('/src/content/pages/*.md', { eager: true });
 	return Object.entries(modules).map(([path, mod]) => {
-		const file = path.split('/').pop()!;
-		const slug = file.replace(/\.(en|vi)\.md$/, '').replace(/\.md$/, '');
-		const lang = file.match(/\.(en|vi)\.md$/)?.[1] ?? 'en';
-		return { slug, lang, component: mod.default, metadata: mod.metadata };
+		const fileName = path.split('/').pop()!;
+		const slug = parseSlug(fileName);
+		return { slug, lang: parseLang(fileName), component: mod.default, metadata: mod.metadata };
 	});
 }

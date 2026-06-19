@@ -18,7 +18,7 @@ let {
 	locale?: string;
 } = $props();
 
-const t = useTranslations(locale);
+let t = $derived(useTranslations(locale));
 let isModified = $derived(!!(modDatetime && modDatetime > pubDatetime));
 let dt = $derived(isModified ? (modDatetime ?? pubDatetime) : pubDatetime);
 let date = $derived(formatDate(dt, cfg.site.timezone, locale));

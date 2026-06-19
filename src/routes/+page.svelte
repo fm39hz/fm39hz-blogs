@@ -33,7 +33,7 @@ const recentPosts = sortedPosts.filter((p) => !p.metadata.featured);
 
 <section id="hero" class="border-border border-b pt-8 pb-6">
 	<h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">{cfg.site.hero.title}</h1>
-	<a target="_blank" href="/rss.xml" class="inline-block" aria-label="RSS Feed" title="RSS Feed">
+	<a target="_blank" href="/rss.xml" class="inline-block" aria-label={t.a11y.rssFeed} title={t.a11y.rssFeed}>
 		<Icon icon="ph:rss" class="size-5 text-accent" />
 	</a>
 	<p>{cfg.site.hero.tagline}</p>

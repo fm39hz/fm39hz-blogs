@@ -1,15 +1,10 @@
-import dayjs from 'dayjs';
 import cfg from '$lib/config';
 import type { PostMeta } from '$lib/types';
 
-export function formatDate(date: string, lang = 'en'): string {
-	return dayjs(date).locale(lang).format('MMM D, YYYY');
-}
-
 export function postFilter({ metadata }: { metadata: PostMeta }): boolean {
-	const isPublishTimePassed =
-		Date.now() > new Date(metadata.pubDatetime).getTime() - cfg.posts.scheduledPostMargin;
-	return !metadata.draft && (import.meta.env.DEV || isPublishTimePassed);
+	const margin = cfg.posts.scheduledPostMargin;
+	const isPublished = Date.now() > new Date(metadata.pubDatetime).getTime() - margin;
+	return !metadata.draft && (import.meta.env.DEV || isPublished);
 }
 
 export function getSortedPosts(posts: { slug: string; metadata: PostMeta }[]) {
@@ -20,20 +15,15 @@ export function getSortedPosts(posts: { slug: string; metadata: PostMeta }[]) {
 	});
 }
 
-export interface PostEntry {
-	slug: string;
-	metadata: PostMeta;
-}
-
 export interface PostGroup {
 	slug: string;
-	defaultEntry: PostEntry;
-	entries: PostEntry[];
+	defaultEntry: { slug: string; metadata: PostMeta };
+	entries: { slug: string; metadata: PostMeta }[];
 	hasMultiLang: boolean;
 }
 
-export function groupPostsBySlug(posts: PostEntry[]): PostGroup[] {
-	const map = new Map<string, PostEntry[]>();
+export function groupPostsBySlug(posts: { slug: string; metadata: PostMeta }[]): PostGroup[] {
+	const map = new Map<string, { slug: string; metadata: PostMeta }[]>();
 	for (const post of posts) {
 		const slug = post.slug;
 		if (!map.has(slug)) map.set(slug, []);
@@ -45,8 +35,4 @@ export function groupPostsBySlug(posts: PostEntry[]): PostGroup[] {
 			entries.find((e) => !e.metadata.lang || e.metadata.lang === 'en') ?? entries[0];
 		return { slug, defaultEntry, entries, hasMultiLang };
 	});
-}
-
-export function primaryPosts(posts: PostEntry[]): PostEntry[] {
-	return groupPostsBySlug(posts).map((g) => g.defaultEntry);
 }

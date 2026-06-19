@@ -21,7 +21,10 @@ export default defineConfig({
 				runes: ({ filename }) =>
 					filename.split(/[/\\]/).includes('node_modules') ? undefined : true,
 				experimental: { async: true },
+				warningFilter: (warning) =>
+					!['script_context_deprecated'].includes(warning.code),
 			},
+
 			adapter: adapter(),
 			preprocess: [
 				mdsvex({
@@ -53,7 +56,7 @@ export default defineConfig({
 								themes: { light: 'everforest-light', dark: 'everforest-dark' },
 								defaultColor: false,
 							});
-							return escapeSvelte(html);
+							return escapeSvelte(html.replace(/\s+tabindex="0"/g, ''));
 						},
 					},
 				remarkPlugins: [

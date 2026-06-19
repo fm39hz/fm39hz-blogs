@@ -1,22 +1,24 @@
 <script lang="ts">
+import type { Snippet } from 'svelte';
+import { Lang } from '$lib/constants';
 import { animateLangSwitch } from '$lib/utils/langTransition';
 
 let {
-	lang = 'en',
+	lang = Lang.EN,
 	children,
 }: {
 	lang?: string;
-	children?: any;
+	children?: Snippet<[]>;
 } = $props();
 
-let ref: HTMLDivElement | undefined = $state();
+let container: HTMLDivElement | undefined = $state();
 
 $effect(() => {
-	if (!ref) return;
-	animateLangSwitch(ref, lang);
+	if (!container) return;
+	animateLangSwitch(container, lang);
 });
 </script>
 
-<div bind:this={ref}>
+<div bind:this={container}>
 	{@render children?.()}
 </div>

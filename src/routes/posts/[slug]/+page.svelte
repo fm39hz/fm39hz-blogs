@@ -7,6 +7,7 @@ import Tag from '$lib/components/Tag.svelte';
 import LanguageToggle from '$lib/components/LanguageToggle.svelte';
 import LanguageContent from '$lib/components/LanguageContent.svelte';
 import { slugifyStr } from '$lib/tags';
+import { copyCode } from '$lib/actions/copyCode';
 
 const slug = page.params.slug;
 const matching = loadPageEntries(slug);
@@ -38,7 +39,7 @@ function onToggle(next: string) { lang = next; }
 	<meta property="twitter:description" content={meta.description} />
 </svelte:head>
 
-<article class="py-8" data-pagefind-body>
+<article class="py-8" data-pagefind-body use:copyCode>
 	<LanguageContent {lang}>
 		{#each matching as { lang: l }}
 			<h1 data-lang={l} class="text-accent inline-block text-2xl font-bold sm:text-3xl">{langToTitle[l]}</h1>

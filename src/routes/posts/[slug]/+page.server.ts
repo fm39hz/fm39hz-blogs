@@ -1,14 +1,15 @@
-import type { PostMeta } from '$lib/types';
+import { SLUG_REGEX, MD_EXT_REGEX } from '$lib/constants';
+
+function parseSlug(fileName: string): string {
+	return fileName.replace(SLUG_REGEX, '').replace(MD_EXT_REGEX, '');
+}
 
 export const entries = () => {
-	const modules = import.meta.glob<{ metadata: PostMeta }>('/src/content/posts/*.md', {
-		eager: true,
-	});
+	const modules = import.meta.glob<{ metadata: PostMeta }>('/src/content/posts/*.md', { eager: true });
 	const slugs = new Set<string>();
 	for (const path of Object.keys(modules)) {
-		const file = path.split('/').pop()!;
-		const slug = file.replace(/\.(en|vi)\.md$/, '').replace(/\.md$/, '');
-		slugs.add(slug);
+		const fileName = path.split('/').pop()!;
+		slugs.add(parseSlug(fileName));
 	}
 	return Array.from(slugs).map((slug) => ({ slug }));
 };

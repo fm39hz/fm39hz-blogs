@@ -3,7 +3,7 @@ import { useTranslations } from '$lib/i18n';
 import Socials from './Socials.svelte';
 
 let { locale = 'en', noMarginTop = false }: { locale?: string; noMarginTop?: boolean } = $props();
-const t = useTranslations(locale);
+let t = $derived(useTranslations(locale));
 const currentYear = new Date().getFullYear();
 </script>
 

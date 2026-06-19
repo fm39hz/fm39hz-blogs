@@ -1,3 +1,4 @@
+import { Lang, Dir } from '$lib/constants';
 import type { BlogConfig } from '$lib/types';
 
 const socialIcons: Record<string, string> = {
@@ -19,9 +20,9 @@ const cfg: BlogConfig = {
 		author: 'FM39hz',
 		profile: 'https://fm39hz.online/about',
 		ogImage: 'image.PNG',
-		lang: 'en',
+		lang: Lang.EN,
 		timezone: 'Asia/Bangkok',
-		dir: 'ltr',
+		dir: Dir.LTR,
 		hero: {
 			title: "FM39hz's blog",
 			tagline: 'This is my personal blogs, to mumbling about Work & Life',

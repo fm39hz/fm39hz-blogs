@@ -35,7 +35,7 @@ const totalPages = Math.ceil(sorted.length / perPage);
 		{/each}
 	</ul>
 	{#if totalPages > 1}
-		<nav class="mt-auto mb-8 flex justify-center gap-4" aria-label="Pagination Navigation">
+		<nav class="mt-auto mb-8 flex justify-center gap-4" aria-label={t.a11y.paginationNav}>
 			<a href="?page={2}" class="group inline-flex items-center gap-1 hover:text-accent" aria-label={t.a11y.goToNextPage}>
 				{t.pagination.next}
 				<svg class="inline-block rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>

@@ -40,6 +40,13 @@ export interface UIStrings {
 		openMenu: string;
 		closeMenu: string;
 		toggleTheme: string;
+		toggleLanguage: string;
+		copyCode: string;
+		rssFeed: string;
+		rssLinkTitle: string;
+		paginationNav: string;
+		archiveLink: string;
+		searchLink: string;
 		searchPlaceholder: string;
 		noResults: string;
 		goToPreviousPage: string;
@@ -95,6 +102,13 @@ const en: UIStrings = {
 		openMenu: 'Open menu',
 		closeMenu: 'Close menu',
 		toggleTheme: 'Toggle theme',
+		toggleLanguage: 'Switch language',
+		copyCode: 'Copy code block',
+		rssFeed: 'RSS Feed',
+		rssLinkTitle: 'RSS',
+		paginationNav: 'Pagination Navigation',
+		archiveLink: 'Archives',
+		searchLink: 'Search',
 		searchPlaceholder: 'Search posts...',
 		noResults: 'No results found',
 		goToPreviousPage: 'Go to previous page',
@@ -150,6 +164,13 @@ const vi: UIStrings = {
 		openMenu: 'Mở menu',
 		closeMenu: 'Đóng menu',
 		toggleTheme: 'Chuyển giao diện',
+		toggleLanguage: 'Chuyển ngôn ngữ',
+		copyCode: 'Sao chép code',
+		rssFeed: 'RSS',
+		rssLinkTitle: 'RSS',
+		paginationNav: 'Phân trang',
+		archiveLink: 'Lưu trữ',
+		searchLink: 'Tìm kiếm',
 		searchPlaceholder: 'Tìm bài viết...',
 		noResults: 'Không tìm thấy',
 		goToPreviousPage: 'Trang trước',
