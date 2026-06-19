@@ -68,6 +68,8 @@
 	scroll-margin-block: 1rem;
 }
 
+
+
 @layer base {
 	.app-prose {
 		@apply prose;
