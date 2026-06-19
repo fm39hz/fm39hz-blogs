@@ -1,10 +1,11 @@
-.hero { border-bottom: 1px solid var(--border); padding: 2rem 0 1.5rem; }
+.hero { border-bottom: var(--line-solid); padding: 2rem 0 1.5rem; }
 .h1 { margin: 1rem 0; font-size: 2.25rem; font-weight: 700; display: inline-block; }
 .rss { display: inline-block; vertical-align: middle; color: var(--accent); }
+.rss :global(svg) { width: var(--icon-lg); height: var(--icon-lg); }
 .tagline { margin: 0; }
 .socialRow { margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem; }
 .socialRow span { white-space: nowrap; }
-.section { padding: 3rem 0 1.5rem; border-bottom: 1px solid var(--border); }
+.section { padding: 3rem 0 1.5rem; border-bottom: var(--line-solid); }
 .section:last-child { border: none; }
 .section h2 { font-size: 1.5rem; font-weight: 600; letter-spacing: 0.05em; }
 .section ul { list-style: none; padding: 0; margin: 0; }

@@ -1,5 +1,5 @@
-.socials { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem; }
-.socials a { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.5rem; color: var(--fg); }
+.socials { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs); }
+.socials a { display: inline-flex; align-items: center; gap: var(--space-xs); padding: var(--space-sm); color: var(--fg); }
 .socials a:hover { color: var(--accent); rotate: 6deg; }
-.socials svg { width: 1.5rem; height: 1.5rem; }
-@media (width >= 640px) { .socials a { padding: 0.25rem; } }
+.socials svg { width: var(--icon-lg); height: var(--icon-lg); }
+@media (width >= 640px) { .socials a { padding: var(--space-xs); } }

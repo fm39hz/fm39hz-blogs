@@ -2,7 +2,7 @@
 import LanguageContent from '$lib/components/ui/LanguageContent/LanguageContent.svelte';
 import LanguageToggle from '$lib/components/ui/LanguageToggle/LanguageToggle.svelte';
 import cfg from '$lib/config';
-import { loadContentPages } from '$lib/server';
+import { loadContentPages } from '$lib/data/server';
 import styles from './+page.module.scss';
 
 const pages = loadContentPages();

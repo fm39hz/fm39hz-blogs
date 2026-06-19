@@ -1,7 +1,7 @@
 <script lang="ts">
 import { useTranslations } from '$lib/i18n';
-import styles from './Footer.module.scss';
 import Socials from '../../ui/Socials/Socials.svelte';
+import styles from './Footer.module.scss';
 
 let { locale = 'en', noMarginTop = false }: { locale?: string; noMarginTop?: boolean } = $props();
 let t = $derived(useTranslations(locale));

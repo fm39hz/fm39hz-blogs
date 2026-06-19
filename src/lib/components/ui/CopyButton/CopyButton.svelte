@@ -18,5 +18,8 @@ async function handleCopy() {
 </script>
 
 <button class={`${styles.btn} ${copied ? styles.copied : ''}`} onclick={handleCopy} aria-label={i18n.a11y.copyCode} title={i18n.a11y.copyCode}>
-  <Icon icon={copied ? 'ph:check' : 'ph:clipboard-text'} />
+  <Icon icon={copied ? 'ph:check' : 'ph:paperclip'} />
 </button>
+{#if copied}
+  <span class={styles.toast}>Copied!</span>
+{/if}

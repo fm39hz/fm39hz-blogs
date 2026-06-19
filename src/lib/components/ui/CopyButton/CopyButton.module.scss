@@ -1,5 +1,17 @@
-.btn { position: absolute; inset-inline-end: 0.75rem; top: -0.75rem; z-index: 1; transform: rotate(2deg); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: color-mix(in srgb, var(--bg) 90%, transparent); color: var(--fg); border: 1px solid color-mix(in srgb, var(--accent) 60%, transparent); border-radius: 0.25rem; padding: 0; font-size: 0.75rem; transition: transform 0.2s, border-color 0.2s, background 0.2s; }
-.btn:hover { transform: rotate(0deg) scale(1.1); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 15%, var(--bg)); }
-.btn:active { transform: rotate(0deg) scale(0.95); }
-.btn.copied { transform: rotate(0deg) scale(1.15); }
-.btn svg { width: 0.875rem; height: 0.875rem; }
+.btn {
+  position: absolute; inset-inline-end: 0; top: -0.75rem; z-index: 2;
+  transform: rotate(-20deg); display: flex; align-items: center; justify-content: center;
+  background: none; color: var(--fg); border: none; padding: 0; cursor: pointer;
+  transition: transform var(--d-fast) var(--ease-out);
+}
+.btn:hover { transform: rotate(-15deg) scale(var(--scale-hover)); color: var(--accent); }
+.btn:active { transform: rotate(-20deg) scale(var(--scale-active)); }
+.btn.copied { transform: rotate(-10deg) scale(var(--scale-pop)); color: var(--accent); }
+.btn svg { width: var(--icon-lg); height: var(--icon-lg); }
+.toast {
+  position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  z-index: 9999; pointer-events: none; white-space: nowrap;
+  background: var(--accent); color: var(--bg);
+  padding: var(--space-sm) var(--space-md); border-radius: var(--br-full);
+  font-size: var(--fs-sm);
+}

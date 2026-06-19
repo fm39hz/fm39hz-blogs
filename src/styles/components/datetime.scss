@@ -1,7 +1,0 @@
-.datetime { display: flex; align-items: center; gap: 0.5rem; color: var(--muted-fg); }
-.icon { display: inline-block; }
-.sm { font-size: 0.875rem; }
-.lg { font-size: 1rem; }
-.label { font-size: 0.875rem; }
-
-@media (width >= 640px) { .lg { font-size: 1rem; } }

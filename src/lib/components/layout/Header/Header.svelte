@@ -3,17 +3,16 @@ import Icon from '@iconify/svelte';
 import { Collapsible } from 'melt/builders';
 import cfg from '$lib/config';
 import { useTranslations } from '$lib/i18n';
-import styles from './Header.module.scss';
 import ThemeToggle from '../ThemeToggle/ThemeToggle.svelte';
+import styles from './Header.module.scss';
 
 let { locale = 'en' }: { locale?: string } = $props();
 let t = $derived(useTranslations(locale));
 const menu = new Collapsible();
 </script>
 
-<a id="skip-link" href="#main-content" class={styles.skipLink}>{t.a11y.skipToContent}</a>
-
 <header class={styles.root}>
+  <a id="skip-link" href="#main-content" class={styles.skipLink}>{t.a11y.skipToContent}</a>
   <div class={styles.inner}>
     <a href="/" class={styles.title}>{cfg.site.title}</a>
     <nav>

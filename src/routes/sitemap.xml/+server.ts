@@ -1,6 +1,6 @@
 import cfg from '$lib/config';
-import { loadPosts } from '$lib/server';
-import { sitemapXml } from '$lib/xml';
+import { loadPosts } from '$lib/data/server';
+import { sitemapXml } from '$lib/utils/xml';
 
 export const prerender = true;
 

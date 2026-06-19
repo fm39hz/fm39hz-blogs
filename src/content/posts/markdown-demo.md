@@ -14,7 +14,7 @@ This post demonstrates the various markdown features supported.
 
 ## Text formatting
 
-**Bold**, *italic*, ~~strikethrough~~, `inline code`
+**Bold**, _italic_, ~~strikethrough~~, `inline code`
 
 ## Lists
 
@@ -68,12 +68,12 @@ $$
 
 ## Table
 
-| Feature | Status | Notes |
-|---------|--------|-------|
-| LaTeX | ✅ | rehype-katex |
-| Syntax highlighting | ✅ | shiki |
-| Dark mode | ✅ | Tailwind |
-| Mermaid | 🔜 | Coming soon |
+| Feature             | Status | Notes        |
+| ------------------- | ------ | ------------ |
+| LaTeX               | [x]    | rehype-katex |
+| Syntax highlighting | [x]    | shiki        |
+| Dark mode           | [x]    | Tailwind     |
+| Mermaid             | [/]    | Coming soon  |
 
 ## Links
 

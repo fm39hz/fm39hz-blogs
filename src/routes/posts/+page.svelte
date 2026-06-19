@@ -1,7 +1,7 @@
 <script lang="ts">
 import cfg from '$lib/config';
 import { useTranslations } from '$lib/i18n';
-import { loadPosts } from '$lib/server';
+import { loadPosts } from '$lib/data/server';
 import { getSortedPosts, groupPostsBySlug } from '$lib/utils';
 import styles from './+page.module.scss';
 

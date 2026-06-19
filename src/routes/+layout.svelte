@@ -1,10 +1,21 @@
 <script lang="ts">
+import { onNavigate } from '$app/navigation';
 import Footer from '$lib/components/layout/Footer/Footer.svelte';
 import Header from '$lib/components/layout/Header/Header.svelte';
 import cfg from '$lib/config';
-import '../styles/global.scss';
+import '../styles/global.module.scss';
 
 let { children } = $props();
+
+onNavigate((navigation) => {
+	if (!document.startViewTransition) return;
+	return new Promise((resolve) => {
+		document.startViewTransition(async () => {
+			resolve();
+			await navigation.complete;
+		});
+	});
+});
 </script>
 
 <svelte:head>

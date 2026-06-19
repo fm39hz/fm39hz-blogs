@@ -1,12 +1,13 @@
 <script lang="ts">
 import { page } from '$app/state';
+import { styleCheckboxes } from '$lib/actions/checkboxes';
 import { copyCode } from '$lib/actions/copyCode';
 import Datetime from '$lib/components/ui/Datetime/Datetime.svelte';
 import LanguageContent from '$lib/components/ui/LanguageContent/LanguageContent.svelte';
 import LanguageToggle from '$lib/components/ui/LanguageToggle/LanguageToggle.svelte';
 import Tag from '$lib/components/ui/Tag/Tag.svelte';
 import cfg from '$lib/config';
-import { loadPageEntries } from '$lib/server';
+import { loadPageEntries } from '$lib/data/server';
 import { slugifyStr } from '$lib/tags';
 import styles from './+page.module.scss';
 
@@ -36,7 +37,7 @@ function onToggle(next: string) {
   <meta property="twitter:description" content={meta.description} />
 </svelte:head>
 
-<article use:copyCode>
+<article use:copyCode use:styleCheckboxes>
   <LanguageContent {lang}>
     {#each matching as { lang: l }}<h1 data-lang={l} class={styles.title}>{langToTitle[l]}</h1>{/each}
   </LanguageContent>

@@ -1,7 +1,7 @@
-.tag a { display: inline-flex; align-items: center; gap: 0.125rem; border-bottom: 2px dashed var(--fg); text-decoration: none; color: var(--fg); }
+.tag a { display: inline-flex; align-items: center; gap: var(--space-3xs); border-bottom: var(--border-w) var(--border-style) var(--fg); text-decoration: none; color: var(--fg); }
 .tag a:hover { border-color: var(--accent); color: var(--accent); margin-top: -0.125rem; }
 .tag a:focus-visible { color: var(--accent); border: none; }
-.lg { font-size: 1.125rem; }
-.sm { font-size: 0.875rem; }
-.lg svg { width: 1.25rem; height: 1.25rem; opacity: 0.8; }
-.sm svg { width: 1rem; height: 1rem; opacity: 0.8; }
+.lg { font-size: var(--fs-lg); }
+.sm { font-size: var(--fs-xs); }
+.lg svg { width: var(--icon-md); height: var(--icon-md); opacity: var(--op-muted); }
+.sm svg { width: var(--icon-sm); height: var(--icon-sm); opacity: var(--op-muted); }
