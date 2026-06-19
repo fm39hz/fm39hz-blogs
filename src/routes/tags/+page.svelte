@@ -2,20 +2,12 @@
 import Tag from '$lib/components/Tag.svelte';
 import cfg from '$lib/config';
 import { useTranslations } from '$lib/i18n';
+import { loadPosts } from '$lib/server';
 import { getUniqueTags } from '$lib/tags';
-import type { PostMeta } from '$lib/types';
 import { getSortedPosts, groupPostsBySlug } from '$lib/utils';
 
 const t = useTranslations();
-
-const modules = import.meta.glob<{ metadata: PostMeta }>('/src/content/posts/*.md', {
-	eager: true,
-});
-const allPosts = Object.entries(modules).map(([path, mod]) => {
-	const file = path.split('/').pop()!;
-	const slug = file.replace(/\.(en|vi)\.md$/, '').replace(/\.md$/, '');
-	return { slug, metadata: mod.metadata };
-});
+const allPosts = loadPosts();
 const groups = groupPostsBySlug(allPosts);
 const displayPosts = groups.map((g) => g.defaultEntry);
 const tags = getUniqueTags(displayPosts);

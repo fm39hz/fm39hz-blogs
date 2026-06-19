@@ -4,19 +4,11 @@ import Socials from '$lib/components/Socials.svelte';
 import cfg from '$lib/config';
 import { useTranslations } from '$lib/i18n';
 import Icon from '@iconify/svelte';
-import type { PostMeta } from '$lib/types';
+import { loadPosts } from '$lib/server';
 import { getSortedPosts, groupPostsBySlug } from '$lib/utils';
 
 const t = useTranslations();
-
-const modules = import.meta.glob<{ metadata: PostMeta }>('/src/content/posts/*.md', {
-	eager: true,
-});
-const allPosts = Object.entries(modules).map(([path, mod]) => {
-	const file = path.split('/').pop()!;
-	const slug = file.replace(/\.(en|vi)\.md$/, '').replace(/\.md$/, '');
-	return { slug, metadata: mod.metadata };
-});
+const allPosts = loadPosts();
 const groups = groupPostsBySlug(allPosts);
 const displayPosts = groups.map((g) => g.defaultEntry);
 const sortedPosts = getSortedPosts(displayPosts);
@@ -40,11 +32,11 @@ const recentPosts = sortedPosts.filter((p) => !p.metadata.featured);
 </svelte:head>
 
 <section id="hero" class="border-border border-b pt-8 pb-6">
-	<h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">FM39hz's blog</h1>
+	<h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">{cfg.site.hero.title}</h1>
 	<a target="_blank" href="/rss.xml" class="inline-block" aria-label="RSS Feed" title="RSS Feed">
 		<Icon icon="ph:rss" class="size-5 text-accent" />
 	</a>
-	<p>This is my personal blogs, to mumbling about Work & Life</p>
+	<p>{cfg.site.hero.tagline}</p>
 	{#if cfg.socials.length > 0}
 		<div class="mt-4 flex max-sm:flex-col sm:items-center">
 			<div class="me-2 mb-1 whitespace-nowrap sm:mb-0">{t.home.socialLinks}:</div>

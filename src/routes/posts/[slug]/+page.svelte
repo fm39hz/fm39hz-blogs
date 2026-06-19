@@ -41,7 +41,7 @@ function onToggle(next: string) { lang = next; }
 <article class="py-8" data-pagefind-body>
 	<LanguageContent {lang}>
 		{#each matching as { lang: l }}
-			<h1 data-lang={l} style={l !== lang ? 'display:none' : ''} class="text-accent inline-block text-2xl font-bold sm:text-3xl">{langToTitle[l]}</h1>
+			<h1 data-lang={l} class="text-accent inline-block text-2xl font-bold sm:text-3xl">{langToTitle[l]}</h1>
 		{/each}
 	</LanguageContent>
 
@@ -54,7 +54,7 @@ function onToggle(next: string) { lang = next; }
 
 	<LanguageContent {lang}>
 		{#each matching as { lang: l, component: Component }}
-			<div data-lang={l} style={l !== lang ? 'display:none' : ''} class="mt-8 w-full app-prose max-w-app">
+			<div data-lang={l} class="mt-8 w-full app-prose max-w-app">
 				<Component></Component>
 			</div>
 		{/each}

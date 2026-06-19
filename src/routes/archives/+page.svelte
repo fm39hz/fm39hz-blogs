@@ -1,19 +1,11 @@
 <script lang="ts">
 import cfg from '$lib/config';
 import { useTranslations } from '$lib/i18n';
-import type { PostMeta } from '$lib/types';
+import { loadPosts } from '$lib/server';
 import { getSortedPosts, groupPostsBySlug } from '$lib/utils';
 
 const t = useTranslations();
-
-const modules = import.meta.glob<{ metadata: PostMeta }>('/src/content/posts/*.md', {
-	eager: true,
-});
-const allPosts = Object.entries(modules).map(([path, mod]) => {
-	const file = path.split('/').pop()!;
-	const slug = file.replace(/\.(en|vi)\.md$/, '').replace(/\.md$/, '');
-	return { slug, metadata: mod.metadata };
-});
+const allPosts = loadPosts();
 const groups = groupPostsBySlug(allPosts);
 const displayPosts = groups.map((g) => g.defaultEntry);
 const sorted = getSortedPosts(displayPosts);

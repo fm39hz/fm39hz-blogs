@@ -1,43 +1,20 @@
 <script lang="ts">
 import Icon from '@iconify/svelte';
-import { animate } from 'motion';
+import { getStoredTheme, applyTheme, animateThemeToggle } from '$lib/utils/theme';
 
 let theme = $state<'light' | 'dark'>('dark');
 
 function init() {
 	if (typeof document === 'undefined') return;
-	const stored = localStorage.getItem('theme');
-	const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-	theme = stored === 'light' ? 'light' : stored === 'dark' ? 'dark' : prefersDark ? 'dark' : 'light';
-	apply(theme);
+	theme = getStoredTheme();
+	applyTheme(theme);
 }
 
-function apply(t: string) {
-	document.firstElementChild?.setAttribute('data-theme', t);
-	localStorage.setItem('theme', t);
-}
-
-async function toggle() {
+function toggle() {
 	const btn = document.getElementById('theme-btn');
-	const cx = btn ? ((btn.getBoundingClientRect().left + btn.getBoundingClientRect().width / 2) / innerWidth) * 100 : 50;
-	const cy = btn ? ((btn.getBoundingClientRect().top + btn.getBoundingClientRect().height / 2) / innerHeight) * 100 : 50;
-
-	const old = getComputedStyle(document.documentElement).getPropertyValue('--background').trim();
+	if (!btn) return;
 	const next = theme === 'dark' ? 'light' : 'dark';
-
-	// switch theme underneath
-	theme = next;
-	apply(next);
-
-	// overlay with old bg, full coverage
-	const overlay = document.createElement('div');
-	overlay.style.cssText = `position:fixed;inset:0;z-index:9999;pointer-events:none;background:${old};clip-path:circle(150% at ${cx}% ${cy}%)`;
-	document.body.appendChild(overlay);
-
-	// animate clip-path closing to reveal new theme
-	await animate(overlay, { clipPath: `circle(0% at ${cx}% ${cy}%)` }, { duration: 0.7, ease: [0.22, 1, 0.36, 1] }).finished;
-
-	overlay.remove();
+	animateThemeToggle(btn, next, () => { theme = next; applyTheme(next); });
 }
 
 $effect(init);

@@ -1,5 +1,16 @@
 import type { BlogConfig } from '$lib/types';
 
+const socialIcons: Record<string, string> = {
+	github: 'ph:github-logo',
+	x: 'ph:x-logo',
+	linkedin: 'ph:linkedin-logo',
+	mail: 'ph:envelope',
+	facebook: 'ph:facebook-logo',
+	telegram: 'ph:telegram-logo',
+	whatsapp: 'ph:whatsapp-logo',
+	pinterest: 'ph:pinterest-logo',
+};
+
 const cfg: BlogConfig = {
 	site: {
 		url: 'https://fm39hz.online',
@@ -11,6 +22,10 @@ const cfg: BlogConfig = {
 		lang: 'en',
 		timezone: 'Asia/Bangkok',
 		dir: 'ltr',
+		hero: {
+			title: "FM39hz's blog",
+			tagline: 'This is my personal blogs, to mumbling about Work & Life',
+		},
 	},
 	posts: {
 		perPage: 4,
@@ -40,3 +55,4 @@ const cfg: BlogConfig = {
 };
 
 export default cfg;
+export { socialIcons };

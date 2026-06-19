@@ -4,9 +4,11 @@ import { Toggle } from 'melt/builders';
 let {
 	onToggle,
 	lang = 'en',
+	labels = { en: 'EN', vi: 'VI' },
 }: {
 	onToggle?: (lang: string) => void;
 	lang?: string;
+	labels?: Record<string, string>;
 } = $props();
 
 function handle() {
@@ -21,7 +23,7 @@ const toggle = new Toggle({
 </script>
 
 <div class="flex items-center gap-1.5 select-none">
-	<span class="text-xs font-medium {lang === 'en' ? 'text-accent' : 'text-muted-foreground'} transition-colors">EN</span>
+	<span class="text-xs font-medium {lang === 'en' ? 'text-accent' : 'text-muted-foreground'} transition-colors">{labels.en ?? 'EN'}</span>
 	<button
 		{...toggle.trigger}
 		onclick={handle}
@@ -32,5 +34,5 @@ const toggle = new Toggle({
 			class="inline-block h-3.5 w-3.5 rounded-full bg-accent transition-all duration-200 {lang === 'vi' ? 'translate-x-[18px]' : 'translate-x-[2px]'}"
 		></span>
 	</button>
-	<span class="text-xs font-medium {lang === 'vi' ? 'text-accent' : 'text-muted-foreground'} transition-colors">VI</span>
+	<span class="text-xs font-medium {lang === 'vi' ? 'text-accent' : 'text-muted-foreground'} transition-colors">{labels.vi ?? 'VI'}</span>
 </div>

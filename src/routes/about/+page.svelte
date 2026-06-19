@@ -25,14 +25,14 @@ function onToggle(next: string) { lang = next; }
 	<div class="flex items-start justify-between gap-4">
 		<LanguageContent {lang}>
 			{#each matching as { lang: l }}
-				<h1 data-lang={l} style={l !== lang ? 'display:none' : ''} class="text-2xl font-semibold sm:text-3xl">{langToTitle[l]}</h1>
+				<h1 data-lang={l} class="text-2xl font-semibold sm:text-3xl">{langToTitle[l]}</h1>
 			{/each}
 		</LanguageContent>
 		<LanguageToggle {lang} {onToggle} />
 	</div>
 	<LanguageContent {lang}>
 		{#each matching as { lang: l, component: Component }}
-			<div data-lang={l} style={l !== lang ? 'display:none' : ''} class="app-prose mt-8">
+			<div data-lang={l} class="app-prose mt-8">
 				<Component></Component>
 			</div>
 		{/each}

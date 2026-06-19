@@ -9,6 +9,7 @@ export interface SiteConfig {
 	timezone: string;
 	dir: 'ltr' | 'rtl' | 'auto';
 	googleVerification?: string;
+	hero: { title: string; tagline: string };
 }
 
 export interface PostsConfig {
@@ -30,6 +31,7 @@ export interface SocialLink {
 	name: string;
 	url: string;
 	linkTitle?: string;
+	icon?: string;
 }
 
 export interface ShareLink {
