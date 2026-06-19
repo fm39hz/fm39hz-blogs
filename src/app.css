@@ -153,7 +153,14 @@
 			@apply focus-visible:outline-accent focus-visible:border-transparent focus-visible:outline-2 focus-visible:outline-dashed;
 		}
 
-		.task-list-item {
+		.katex {
+		color: var(--foreground);
+	}
+	.katex-display {
+		@apply my-4 overflow-x-auto overflow-y-hidden;
+	}
+
+	.task-list-item {
 			@apply list-none -ms-5;
 			input[type="checkbox"] {
 				@apply accent-accent me-2;
