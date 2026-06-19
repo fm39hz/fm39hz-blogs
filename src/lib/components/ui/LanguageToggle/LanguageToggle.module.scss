@@ -1,7 +1,0 @@
-.toggle { display: flex; align-items: center; gap: var(--space-2xs); user-select: none; }
-.label { font-size: var(--fs-sm); font-weight: 500; color: var(--muted-fg); transition: color var(--d-normal); }
-.active { color: var(--accent); }
-.slider { position: relative; display: inline-flex; height: 1.25rem; width: 2.25rem; align-items: center; border-radius: var(--br-full); border: 2px solid var(--border); background: var(--muted); transition: background var(--d-normal); }
-.sliderOn { background: color-mix(in srgb, var(--accent) 20%, transparent); }
-.knob { display: inline-block; height: 0.875rem; width: 0.875rem; border-radius: var(--br-full); background: var(--accent); transition: transform var(--d-normal); margin-left: 2px; }
-.knobRight { transform: translateX(18px); }

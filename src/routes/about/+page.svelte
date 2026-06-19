@@ -1,8 +1,8 @@
 <script lang="ts">
-import LanguageContent from '$lib/components/ui/LanguageContent/LanguageContent.svelte';
-import LanguageToggle from '$lib/components/ui/LanguageToggle/LanguageToggle.svelte';
 import cfg from '$lib/config';
+import { locale } from '$lib/i18n-state.svelte';
 import { loadContentPages } from '$lib/data/server';
+import { useTranslations } from '$lib/i18n';
 import styles from './+page.module.scss';
 
 const pages = loadContentPages();
@@ -12,23 +12,18 @@ const langToTitle = Object.fromEntries(matching.map((e) => [e.lang, e.metadata.t
 const fullLangTitles = Object.fromEntries(
 	Object.entries(langToTitle).map(([l, t]) => [l, `${t} | ${cfg.site.title}`]),
 );
-
-let lang = $state('en');
-function onToggle(next: string) {
-	lang = next;
-}
+let t = $derived(useTranslations(locale.value));
+let entry = $derived(matching.find((e) => (e.lang ?? 'en') === locale.value) ?? defaultEntry);
 </script>
 
-<svelte:head><title>{fullLangTitles[lang] ?? defaultEntry.metadata.title} | {cfg.site.title}</title><meta name="description" content={defaultEntry.metadata.description} /></svelte:head>
+<svelte:head>
+  <title>{fullLangTitles[locale.value] ?? defaultEntry.metadata.title} | {cfg.site.title}</title>
+  <meta name="description" content={entry.metadata.description} />
+</svelte:head>
 
 <section>
   <div class={styles.header}>
-    <LanguageContent {lang}>
-      {#each matching as { lang: l }}<h1 data-lang={l} class={styles.title}>{langToTitle[l]}</h1>{/each}
-    </LanguageContent>
-    <LanguageToggle {lang} {onToggle} />
+    <h1 class={styles.title}>{langToTitle[locale.value] ?? defaultEntry.metadata.title}</h1>
   </div>
-  <LanguageContent {lang}>
-    {#each matching as { lang: l, component: Component }}<div data-lang={l} class="prose"><Component /></div>{/each}
-  </LanguageContent>
+  <div class="prose"><entry.component /></div>
 </section>

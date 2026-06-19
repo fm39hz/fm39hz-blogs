@@ -5,14 +5,13 @@ import { animate } from 'motion/mini';
 import { animateThemeToggle } from '$lib/animations/theme';
 import { Lang } from '$lib/constants';
 import { useTranslations } from '$lib/i18n';
+import { locale, setLocale } from '$lib/i18n-state.svelte';
 import { AnimEasing } from '$lib/types';
 import styles from './GearMenu.module.scss';
 
-let { locale = 'en' }: { locale?: string } = $props();
-let i18n = $derived(useTranslations(locale));
+let i18n = $derived(useTranslations(locale.value));
 
 let currentTheme = $state<'light' | 'dark'>('dark');
-let currentLang = $state<string>(locale ?? Lang.EN);
 let gearEl = $state<HTMLElement | null>(null);
 
 const DURATION = 0.3;
@@ -46,8 +45,7 @@ function toggleTheme() {
 }
 
 function toggleLang() {
-	const next = currentLang === Lang.EN ? Lang.VI : Lang.EN;
-	currentLang = next;
+	setLocale(locale.value === Lang.EN ? Lang.VI : Lang.EN);
 }
 </script>
 
@@ -71,7 +69,7 @@ function toggleLang() {
 
     <button class={styles.item} onclick={toggleLang}>
       <Icon icon="ph:translate" class={styles.itemIcon} />
-      <span>{currentLang === Lang.EN ? 'EN' : 'VI'}</span>
+      <span>{locale.value === Lang.EN ? 'EN' : 'VI'}</span>
     </button>
   </div>
 </div>

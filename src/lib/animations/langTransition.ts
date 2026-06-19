@@ -16,8 +16,14 @@ export function animateLangSwitch(container: HTMLElement, currentLang: string): 
 
 	if (entering.length === 0) return;
 
+	// Pages slide: leaving slides left, entering slides in from right
 	const fadeOut = leaving.map(
-		(el) => animate(el, { opacity: 0 }, { duration: ANIM_DURATION / 2 }).finished,
+		(el) =>
+			animate(
+				el,
+				{ x: [0, -10], opacity: [1, 0] },
+				{ duration: ANIM_DURATION / 2, ease: AnimEasing.EASE_OUT_QUART },
+			).finished,
 	);
 
 	void Promise.all(fadeOut).then(() => {
@@ -25,11 +31,12 @@ export function animateLangSwitch(container: HTMLElement, currentLang: string): 
 		for (const el of entering) {
 			el.style.display = 'block';
 			el.style.opacity = '0';
+			el.style.transform = 'translateX(10px)';
 		}
 		for (const el of entering) {
 			animate(
 				el,
-				{ opacity: 1 },
+				{ x: [10, 0], opacity: [0, 1] },
 				{ duration: ANIM_DURATION, ease: AnimEasing.EASE_OUT_QUART },
 			);
 		}

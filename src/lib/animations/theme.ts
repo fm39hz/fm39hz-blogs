@@ -1,5 +1,4 @@
-import { animate } from 'motion/mini';
-import { AnimEasing, THEME_TRANSITION_DURATION, Theme } from '$lib/constants';
+import { Theme } from '$lib/constants';
 import type { ThemeMode } from '$lib/types';
 
 export function getStoredTheme(): ThemeMode {
@@ -16,24 +15,66 @@ export function applyTheme(mode: ThemeMode): void {
 	localStorage.setItem('theme', mode);
 }
 
-export function animateThemeToggle(button: HTMLElement, callback: () => void): void {
-	const rect = button.getBoundingClientRect();
-	const originX = ((rect.left + rect.width / 2) / innerWidth) * 100;
-	const originY = ((rect.top + rect.height / 2) / innerHeight) * 100;
-	const easing = AnimEasing.EASE_OUT_QUART;
+const VT_ID = 'fm-vt';
+const CURVE = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
-	const oldBackground = getComputedStyle(document.documentElement)
-		.getPropertyValue('--bg')
-		.trim();
-	callback();
+function injectVT(darkToLight: boolean): void {
+	const old = document.getElementById(VT_ID);
+	if (old) old.remove();
 
-	const overlay = document.createElement('div');
-	overlay.style.cssText = `position:fixed;inset:0;z-index:9999;pointer-events:none;background:${oldBackground};clip-path:circle(150% at ${originX}% ${originY}%)`;
-	document.body.appendChild(overlay);
+	const s = document.createElement('style');
+	s.id = VT_ID;
 
-	void animate(
-		overlay,
-		{ clipPath: `circle(0% at ${originX}% ${originY}%)` },
-		{ duration: THEME_TRANSITION_DURATION, ease: easing },
-	).finished.then(() => overlay.remove());
+	// Override UA defaults: disable crossfade, set mix-blend-mode to normal
+	// so old snapshot fully blocks new where it's visible.
+	// The clip-path on old determines the reveal: where old is clipped,
+	// new shows through underneath.
+	const base = `
+		::view-transition-old(root), ::view-transition-new(root) {
+			mix-blend-mode: normal !important;
+		}
+		::view-transition-old(root) {
+			animation-duration: 0.55s !important;
+			animation-timing-function: ${CURVE} !important;
+			animation-fill-mode: forwards !important;
+		}
+	`;
+
+	if (darkToLight) {
+		s.textContent = `
+			${base}
+			::view-transition-old(root) {
+				animation-name: vt-open !important;
+			}
+			@keyframes vt-open {
+				from { clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); }
+				to   { clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%); }
+			}
+		`;
+	} else {
+		s.textContent = `
+			${base}
+			::view-transition-old(root) {
+				animation-name: vt-close !important;
+			}
+			@keyframes vt-close {
+				from { clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); }
+				to   { clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%); }
+			}
+		`;
+	}
+	document.head.appendChild(s);
+}
+
+export function animateThemeToggle(_button: HTMLElement, callback: () => void): void {
+	if (typeof document === 'undefined' || !document.startViewTransition) {
+		callback();
+		return;
+	}
+	const isDark = document.firstElementChild?.getAttribute('data-theme') === 'dark';
+	injectVT(isDark);
+	void document.startViewTransition(() => {
+		callback();
+		setTimeout(() => document.getElementById(VT_ID)?.remove(), 700);
+	});
 }

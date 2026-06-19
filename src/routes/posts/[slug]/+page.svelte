@@ -3,24 +3,18 @@ import { page } from '$app/state';
 import { styleCheckboxes } from '$lib/actions/checkboxes';
 import { copyCode } from '$lib/actions/copyCode';
 import Datetime from '$lib/components/ui/Datetime/Datetime.svelte';
-import LanguageContent from '$lib/components/ui/LanguageContent/LanguageContent.svelte';
-import LanguageToggle from '$lib/components/ui/LanguageToggle/LanguageToggle.svelte';
 import Tag from '$lib/components/ui/Tag/Tag.svelte';
 import cfg from '$lib/config';
+import { locale } from '$lib/i18n-state.svelte';
 import { loadPageEntries } from '$lib/data/server';
 import { slugifyStr } from '$lib/tags';
 import styles from './+page.module.scss';
 
-const slug = page.params.slug;
+const slug = page.params.slug ?? '';
 const matching = loadPageEntries(slug);
-const hasMultiLang = matching.length > 1;
 const defaultEntry = matching.find((e) => e.lang === 'en') ?? matching[0];
-const meta = defaultEntry.metadata;
-const langToTitle = Object.fromEntries(matching.map((e) => [e.lang, e.metadata.title]));
-let lang = $state('en');
-function onToggle(next: string) {
-	lang = next;
-}
+let entry = $derived(matching.find((e) => (e.lang ?? 'en') === locale.value) ?? defaultEntry);
+let meta = $derived(entry.metadata);
 </script>
 
 <svelte:head>
@@ -38,16 +32,11 @@ function onToggle(next: string) {
 </svelte:head>
 
 <article use:copyCode use:styleCheckboxes>
-  <LanguageContent {lang}>
-    {#each matching as { lang: l }}<h1 data-lang={l} class={styles.title}>{langToTitle[l]}</h1>{/each}
-  </LanguageContent>
+  <h1 class={styles.title}>{meta.title}</h1>
   <div class={styles.meta}>
     <Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" />
-    {#if hasMultiLang}<LanguageToggle {lang} {onToggle} />{/if}
   </div>
-  <LanguageContent {lang}>
-    {#each matching as { lang: l, component: Component }}<div data-lang={l} class="prose"><Component /></div>{/each}
-  </LanguageContent>
+  <div class="prose"><entry.component /></div>
   <hr class={styles.hr} />
   <ul class={styles.tags}>{#each meta.tags ?? [] as tag}<Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />{/each}</ul>
 </article>
