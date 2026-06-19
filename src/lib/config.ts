@@ -1,4 +1,4 @@
-import { Lang, Dir } from '$lib/constants';
+import { Dir, Lang } from '$lib/constants';
 import type { BlogConfig } from '$lib/types';
 
 const socialIcons: Record<string, string> = {

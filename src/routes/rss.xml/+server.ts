@@ -1,6 +1,6 @@
-import type { PostMeta } from '$lib/types';
 import { loadPosts } from '$lib/server';
-import { groupPostsBySlug, getSortedPosts } from '$lib/utils';
+import type { PostMeta } from '$lib/types';
+import { getSortedPosts, groupPostsBySlug } from '$lib/utils';
 import { rssXml } from '$lib/xml';
 
 export const prerender = true;

@@ -1,18 +1,26 @@
 <script lang="ts">
-import { Lang } from '$lib/constants';
-import type { Language } from '$lib/types';
-import { useTranslations } from '$lib/i18n';
 import { Toggle } from 'melt/builders';
+import { Lang } from '$lib/constants';
+import { useTranslations } from '$lib/i18n';
+import type { Language } from '$lib/types';
 
-let { onToggle, lang = Lang.EN, locale = 'en', labels = { [Lang.EN]: 'EN', [Lang.VI]: 'VI' } }: {
-  onToggle?: (nextLang: Language) => void; lang?: Language; locale?: string; labels?: Partial<Record<Language, string>>;
+let {
+	onToggle,
+	lang = Lang.EN,
+	locale = 'en',
+	labels = { [Lang.EN]: 'EN', [Lang.VI]: 'VI' },
+}: {
+	onToggle?: (nextLang: Language) => void;
+	lang?: Language;
+	locale?: string;
+	labels?: Partial<Record<Language, string>>;
 } = $props();
 
 let i18n = $derived(useTranslations(locale));
 
 function toggleLang() {
-  const next = lang === Lang.EN ? Lang.VI : Lang.EN;
-  onToggle?.(next);
+	const next = lang === Lang.EN ? Lang.VI : Lang.EN;
+	onToggle?.(next);
 }
 
 const meltToggle = new Toggle({ value: () => lang === Lang.VI, onValueChange: () => toggleLang() });

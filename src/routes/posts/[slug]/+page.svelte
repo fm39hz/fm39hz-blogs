@@ -1,13 +1,13 @@
 <script lang="ts">
 import { page } from '$app/state';
+import { copyCode } from '$lib/actions/copyCode';
+import Datetime from '$lib/components/Datetime.svelte';
+import LanguageContent from '$lib/components/LanguageContent.svelte';
+import LanguageToggle from '$lib/components/LanguageToggle.svelte';
+import Tag from '$lib/components/Tag.svelte';
 import cfg from '$lib/config';
 import { loadPageEntries } from '$lib/server';
-import Datetime from '$lib/components/Datetime.svelte';
-import Tag from '$lib/components/Tag.svelte';
-import LanguageToggle from '$lib/components/LanguageToggle.svelte';
-import LanguageContent from '$lib/components/LanguageContent.svelte';
 import { slugifyStr } from '$lib/tags';
-import { copyCode } from '$lib/actions/copyCode';
 
 const slug = page.params.slug;
 const matching = loadPageEntries(slug);
@@ -17,7 +17,9 @@ const meta = defaultEntry.metadata;
 const langToTitle = Object.fromEntries(matching.map((e) => [e.lang, e.metadata.title]));
 
 let lang = $state('en');
-function onToggle(next: string) { lang = next; }
+function onToggle(next: string) {
+	lang = next;
+}
 </script>
 
 <svelte:head>

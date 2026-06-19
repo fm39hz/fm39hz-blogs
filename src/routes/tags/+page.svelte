@@ -1,10 +1,10 @@
 <script lang="ts">
+import Tag from '$lib/components/Tag.svelte';
 import cfg from '$lib/config';
 import { useTranslations } from '$lib/i18n';
 import { loadPosts } from '$lib/server';
 import { getUniqueTags } from '$lib/tags';
 import { getSortedPosts, groupPostsBySlug } from '$lib/utils';
-import Tag from '$lib/components/Tag.svelte';
 
 const t = useTranslations();
 const allPosts = loadPosts();

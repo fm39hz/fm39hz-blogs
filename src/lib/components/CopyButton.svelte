@@ -1,18 +1,18 @@
 <script lang="ts">
 import Icon from '@iconify/svelte';
-import { useTranslations } from '$lib/i18n';
 import { COPY_FEEDBACK_MS } from '$lib/constants';
+import { useTranslations } from '$lib/i18n';
 
 let { target: codeBlock, locale = 'en' }: { target: HTMLPreElement; locale?: string } = $props();
 let i18n = $derived(useTranslations(locale));
 let copied = $state(false);
 
 async function handleCopy() {
-  const code = codeBlock.querySelector('code');
-  if (!code) return;
-  await navigator.clipboard.writeText(code.innerText);
-  copied = true;
-  setTimeout(() => (copied = false), COPY_FEEDBACK_MS);
+	const code = codeBlock.querySelector('code');
+	if (!code) return;
+	await navigator.clipboard.writeText(code.innerText);
+	copied = true;
+	setTimeout(() => (copied = false), COPY_FEEDBACK_MS);
 }
 </script>
 

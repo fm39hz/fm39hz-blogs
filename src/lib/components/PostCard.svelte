@@ -1,7 +1,14 @@
 <script lang="ts">
 import { formatDate } from '$lib/utils/date';
 
-let { post }: { post: { slug: string; metadata: { title: string; description: string; pubDatetime: string; tags?: string[] } } } = $props();
+let {
+	post,
+}: {
+	post: {
+		slug: string;
+		metadata: { title: string; description: string; pubDatetime: string; tags?: string[] };
+	};
+} = $props();
 </script>
 
 <article class="post-card">

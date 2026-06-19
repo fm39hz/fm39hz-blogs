@@ -12,13 +12,16 @@ const sorted = getSortedPosts(displayPosts);
 
 const years: Record<string, { month: number; posts: typeof sorted }[]> = {};
 for (const post of sorted) {
-  const d = new Date(post.metadata.pubDatetime);
-  const y = String(d.getFullYear());
-  const m = d.getMonth() + 1;
-  if (!years[y]) years[y] = [];
-  let mg = years[y].find(g => g.month === m);
-  if (!mg) { mg = { month: m, posts: [] }; years[y].push(mg); }
-  mg.posts.push(post);
+	const d = new Date(post.metadata.pubDatetime);
+	const y = String(d.getFullYear());
+	const m = d.getMonth() + 1;
+	if (!years[y]) years[y] = [];
+	let mg = years[y].find((g) => g.month === m);
+	if (!mg) {
+		mg = { month: m, posts: [] };
+		years[y].push(mg);
+	}
+	mg.posts.push(post);
 }
 for (const y of Object.keys(years)) years[y].sort((a, b) => b.month - a.month);
 const sortedYears = Object.entries(years).sort(([a], [b]) => Number(b) - Number(a));

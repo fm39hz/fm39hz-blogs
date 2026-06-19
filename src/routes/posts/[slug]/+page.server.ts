@@ -1,11 +1,13 @@
-import { SLUG_REGEX, MD_EXT_REGEX } from '$lib/constants';
+import { MD_EXT_REGEX, SLUG_REGEX } from '$lib/constants';
 
 function parseSlug(fileName: string): string {
 	return fileName.replace(SLUG_REGEX, '').replace(MD_EXT_REGEX, '');
 }
 
 export const entries = () => {
-	const modules = import.meta.glob<{ metadata: PostMeta }>('/src/content/posts/*.md', { eager: true });
+	const modules = import.meta.glob<{ metadata: PostMeta }>('/src/content/posts/*.md', {
+		eager: true,
+	});
 	const slugs = new Set<string>();
 	for (const path of Object.keys(modules)) {
 		const fileName = path.split('/').pop()!;

@@ -1,5 +1,5 @@
 import { animate } from 'motion';
-import { THEME_TRANSITION_DURATION, Theme, AnimEasing } from '$lib/constants';
+import { AnimEasing, THEME_TRANSITION_DURATION, Theme } from '$lib/constants';
 import type { ThemeMode } from '$lib/types';
 
 export function getStoredTheme(): ThemeMode {
@@ -22,7 +22,9 @@ export function animateThemeToggle(button: HTMLElement, callback: () => void): v
 	const originY = ((rect.top + rect.height / 2) / innerHeight) * 100;
 	const easing = AnimEasing.EASE_OUT_QUART;
 
-	const oldBackground = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+	const oldBackground = getComputedStyle(document.documentElement)
+		.getPropertyValue('--bg')
+		.trim();
 	callback();
 
 	const overlay = document.createElement('div');

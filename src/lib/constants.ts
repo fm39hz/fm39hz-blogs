@@ -1,6 +1,6 @@
-import { Lang, Theme, Dir, AnimEasing } from '$lib/types';
+import { AnimEasing, Dir, Lang, Theme } from '$lib/types';
 
-export { Lang, Theme, Dir, AnimEasing };
+export { AnimEasing, Dir, Lang, Theme };
 
 export const ANIM_DURATION = 0.3;
 export const THEME_TRANSITION_DURATION = 0.7;

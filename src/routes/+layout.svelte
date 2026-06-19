@@ -1,7 +1,7 @@
 <script lang="ts">
-import cfg from '$lib/config';
-import Header from '$lib/components/Header.svelte';
 import Footer from '$lib/components/Footer.svelte';
+import Header from '$lib/components/Header.svelte';
+import cfg from '$lib/config';
 import '../styles/global.scss';
 
 let { children } = $props();

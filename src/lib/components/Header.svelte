@@ -1,8 +1,8 @@
 <script lang="ts">
+import Icon from '@iconify/svelte';
+import { Collapsible } from 'melt/builders';
 import cfg from '$lib/config';
 import { useTranslations } from '$lib/i18n';
-import { Collapsible } from 'melt/builders';
-import Icon from '@iconify/svelte';
 import ThemeToggle from './ThemeToggle.svelte';
 
 let { locale = 'en' }: { locale?: string } = $props();

@@ -13,7 +13,7 @@ const displayPosts = groups.map((g) => g.defaultEntry);
 const tagParam = decodeURIComponent(page.params.tag);
 
 const tagPosts = getSortedPosts(
-  displayPosts.filter((p) => slugifyAll(p.metadata.tags).includes(tagParam)),
+	displayPosts.filter((p) => slugifyAll(p.metadata.tags).includes(tagParam)),
 );
 </script>
 

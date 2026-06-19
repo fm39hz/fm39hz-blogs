@@ -68,8 +68,6 @@
 	scroll-margin-block: 1rem;
 }
 
-
-
 @layer base {
 	.app-prose {
 		@apply prose;
@@ -156,13 +154,13 @@
 		}
 
 		.katex {
-		color: var(--foreground);
-	}
-	.katex-display {
-		@apply my-4 overflow-x-auto overflow-y-hidden;
-	}
+			color: var(--foreground);
+		}
+		.katex-display {
+			@apply my-4 overflow-x-auto overflow-y-hidden;
+		}
 
-	.task-list-item {
+		.task-list-item {
 			@apply list-none -ms-5;
 			input[type="checkbox"] {
 				@apply accent-accent me-2;
@@ -176,14 +174,18 @@
 		background: var(--shiki-light-bg) !important;
 		color: var(--shiki-light);
 	}
-	.shiki span { color: var(--shiki-light); }
+	.shiki span {
+		color: var(--shiki-light);
+	}
 
 	[data-theme="dark"] .shiki {
 		border-color: var(--shiki-dark) !important;
 		background: var(--shiki-dark-bg) !important;
 		color: var(--shiki-dark);
 	}
-	[data-theme="dark"] .shiki span { color: var(--shiki-dark); }
+	[data-theme="dark"] .shiki span {
+		color: var(--shiki-dark);
+	}
 
 	.copy-code {
 		transform: rotate(2deg);
@@ -199,15 +201,22 @@
 		border-color: color-mix(in srgb, var(--accent) 60%, transparent);
 		padding: 0;
 		cursor: pointer;
-		transition: transform 0.2s ease, border-color 0.2s, background 0.2s;
+		transition:
+			transform 0.2s ease,
+			border-color 0.2s,
+			background 0.2s;
 	}
 	.copy-code:hover {
 		transform: rotate(0deg) scale(1.1);
 		border-color: var(--accent);
 		background: color-mix(in srgb, var(--accent) 15%, var(--background));
 	}
-	.copy-code:active { transform: rotate(0deg) scale(0.95); }
-	.copy-code.copied { transform: rotate(0deg) scale(1.15); }
+	.copy-code:active {
+		transform: rotate(0deg) scale(0.95);
+	}
+	.copy-code.copied {
+		transform: rotate(0deg) scale(1.15);
+	}
 
 	.shiki .line.diff.add {
 		@apply relative inline-block w-full bg-green-400/20 before:absolute before:-left-3 before:text-green-500 before:content-['+'];

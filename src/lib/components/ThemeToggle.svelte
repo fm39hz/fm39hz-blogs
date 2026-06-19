@@ -2,23 +2,26 @@
 import Icon from '@iconify/svelte';
 import { Theme } from '$lib/constants';
 import { useTranslations } from '$lib/i18n';
-import { getStoredTheme, applyTheme, animateThemeToggle } from '$lib/utils/theme';
+import { animateThemeToggle, applyTheme, getStoredTheme } from '$lib/utils/theme';
 
 let { locale = 'en' }: { locale?: string } = $props();
 let i18n = $derived(useTranslations(locale));
 let currentTheme = $state<Theme>(Theme.DARK);
 
 function init() {
-  if (typeof document === 'undefined') return;
-  currentTheme = getStoredTheme();
-  applyTheme(currentTheme);
+	if (typeof document === 'undefined') return;
+	currentTheme = getStoredTheme();
+	applyTheme(currentTheme);
 }
 
 function toggleTheme() {
-  const btn = document.getElementById('theme-btn');
-  if (!btn) return;
-  const next = currentTheme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
-  animateThemeToggle(btn, () => { currentTheme = next; applyTheme(next); });
+	const btn = document.getElementById('theme-btn');
+	if (!btn) return;
+	const next = currentTheme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
+	animateThemeToggle(btn, () => {
+		currentTheme = next;
+		applyTheme(next);
+	});
 }
 
 $effect(init);

@@ -1,5 +1,6 @@
 <script lang="ts">
 import Icon from '@iconify/svelte';
+
 let { tag, tagName, size = 'lg' }: { tag: string; tagName: string; size?: 'sm' | 'lg' } = $props();
 </script>
 

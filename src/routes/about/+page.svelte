@@ -1,19 +1,21 @@
 <script lang="ts">
+import LanguageContent from '$lib/components/LanguageContent.svelte';
+import LanguageToggle from '$lib/components/LanguageToggle.svelte';
 import cfg from '$lib/config';
 import { loadContentPages } from '$lib/server';
-import LanguageToggle from '$lib/components/LanguageToggle.svelte';
-import LanguageContent from '$lib/components/LanguageContent.svelte';
 
 const pages = loadContentPages();
 const matching = pages.filter((p) => p.slug === 'about');
 const defaultEntry = matching.find((e) => e.lang === 'en') ?? matching[0];
 const langToTitle = Object.fromEntries(matching.map((e) => [e.lang, e.metadata.title]));
 const fullLangTitles = Object.fromEntries(
-  Object.entries(langToTitle).map(([l, t]) => [l, `${t} | ${cfg.site.title}`]),
+	Object.entries(langToTitle).map(([l, t]) => [l, `${t} | ${cfg.site.title}`]),
 );
 
 let lang = $state('en');
-function onToggle(next: string) { lang = next; }
+function onToggle(next: string) {
+	lang = next;
+}
 </script>
 
 <svelte:head>

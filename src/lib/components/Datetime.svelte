@@ -1,11 +1,21 @@
 <script lang="ts">
 import Icon from '@iconify/svelte';
+import cfg from '$lib/config';
 import { useTranslations } from '$lib/i18n';
 import { formatDate, formatISO } from '$lib/utils/date';
-import cfg from '$lib/config';
 
-let { pubDatetime, modDatetime, size = 'sm', className = '', locale = 'en' }: {
-  pubDatetime: string; modDatetime?: string | null; size?: 'sm' | 'lg'; className?: string; locale?: string;
+let {
+	pubDatetime,
+	modDatetime,
+	size = 'sm',
+	className = '',
+	locale = 'en',
+}: {
+	pubDatetime: string;
+	modDatetime?: string | null;
+	size?: 'sm' | 'lg';
+	className?: string;
+	locale?: string;
 } = $props();
 
 let t = $derived(useTranslations(locale));

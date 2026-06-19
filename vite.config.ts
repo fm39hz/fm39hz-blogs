@@ -19,8 +19,7 @@ export default defineConfig({
 				runes: ({ filename }) =>
 					filename.split(/[/\\]/).includes('node_modules') ? undefined : true,
 				experimental: { async: true },
-				warningFilter: (warning) =>
-					!['script_context_deprecated'].includes(warning.code),
+				warningFilter: (warning) => !['script_context_deprecated'].includes(warning.code),
 			},
 			adapter: adapter(),
 			preprocess: [
@@ -32,8 +31,19 @@ export default defineConfig({
 								highlighter = await createHighlighter({
 									themes: ['everforest-light', 'everforest-dark'],
 									langs: [
-										'javascript', 'typescript', 'python', 'css', 'html',
-										'bash', 'json', 'markdown', 'svelte', 'rust', 'go', 'yaml', 'diff',
+										'javascript',
+										'typescript',
+										'python',
+										'css',
+										'html',
+										'bash',
+										'json',
+										'markdown',
+										'svelte',
+										'rust',
+										'go',
+										'yaml',
+										'diff',
 									],
 								});
 							}

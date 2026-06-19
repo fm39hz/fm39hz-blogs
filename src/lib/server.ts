@@ -1,5 +1,5 @@
 import type { Component } from 'svelte';
-import { SLUG_REGEX, MD_EXT_REGEX, Lang } from '$lib/constants';
+import { Lang, MD_EXT_REGEX, SLUG_REGEX } from '$lib/constants';
 import type { PostMeta } from '$lib/types';
 
 function parseSlug(fileName: string): string {
@@ -16,7 +16,9 @@ export interface PostEntry {
 }
 
 export function loadPosts(): PostEntry[] {
-	const modules = import.meta.glob<{ metadata: PostMeta }>('/src/content/posts/*.md', { eager: true });
+	const modules = import.meta.glob<{ metadata: PostMeta }>('/src/content/posts/*.md', {
+		eager: true,
+	});
 	return Object.entries(modules).map(([path, mod]) => {
 		const fileName = path.split('/').pop()!;
 		return { slug: parseSlug(fileName), metadata: mod.metadata };
@@ -31,7 +33,10 @@ export interface PageEntry {
 }
 
 export function loadPageEntries(slug: string): PageEntry[] {
-	const modules = import.meta.glob<{ default: Component; metadata: PostMeta }>('/src/content/posts/*.md', { eager: true });
+	const modules = import.meta.glob<{ default: Component; metadata: PostMeta }>(
+		'/src/content/posts/*.md',
+		{ eager: true },
+	);
 	return Object.entries(modules)
 		.filter(([path]) => {
 			const fileName = path.split('/').pop()!;
@@ -39,12 +44,20 @@ export function loadPageEntries(slug: string): PageEntry[] {
 		})
 		.map(([path, mod]) => {
 			const fileName = path.split('/').pop()!;
-			return { slug, lang: parseLang(fileName), component: mod.default, metadata: mod.metadata };
+			return {
+				slug,
+				lang: parseLang(fileName),
+				component: mod.default,
+				metadata: mod.metadata,
+			};
 		});
 }
 
 export function loadContentPages(): PageEntry[] {
-	const modules = import.meta.glob<{ default: Component; metadata: PostMeta }>('/src/content/pages/*.md', { eager: true });
+	const modules = import.meta.glob<{ default: Component; metadata: PostMeta }>(
+		'/src/content/pages/*.md',
+		{ eager: true },
+	);
 	return Object.entries(modules).map(([path, mod]) => {
 		const fileName = path.split('/').pop()!;
 		const slug = parseSlug(fileName);

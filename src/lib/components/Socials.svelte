@@ -1,10 +1,10 @@
 <script lang="ts">
-import cfg, { socialIcons } from '$lib/config';
 import Icon from '@iconify/svelte';
+import cfg, { socialIcons } from '$lib/config';
 
 function iconName(name: string): string {
-  const link = cfg.socials.find(s => s.name === name);
-  return link?.icon ?? socialIcons[name] ?? `ph:${name}`;
+	const link = cfg.socials.find((s) => s.name === name);
+	return link?.icon ?? socialIcons[name] ?? `ph:${name}`;
 }
 </script>
 

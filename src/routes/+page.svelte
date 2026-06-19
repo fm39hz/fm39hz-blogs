@@ -1,10 +1,10 @@
 <script lang="ts">
+import PostCard from '$lib/components/PostCard.svelte';
+import Socials from '$lib/components/Socials.svelte';
 import cfg from '$lib/config';
 import { useTranslations } from '$lib/i18n';
 import { loadPosts } from '$lib/server';
 import { getSortedPosts, groupPostsBySlug } from '$lib/utils';
-import Socials from '$lib/components/Socials.svelte';
-import PostCard from '$lib/components/PostCard.svelte';
 import '../styles/pages/home.scss';
 
 const t = useTranslations();
