@@ -92,6 +92,6 @@ export default defineConfig({
 			extensions: ['.svelte', '.svx', '.md'],
 			experimental: { remoteFunctions: true, handleRenderingErrors: true },
 		}),
-		paraglideVitePlugin({ project: './project.inlang', outdir: './lib/paraglide' }),
+		paraglideVitePlugin({ project: './project.inlang', outdir: './src/lib/paraglide' }),
 	],
 });
