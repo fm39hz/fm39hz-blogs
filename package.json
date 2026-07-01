@@ -16,7 +16,6 @@
 		"@biomejs/biome": "^2.5.0",
 		"@iconify/svelte": "^5.2.2",
 		"@inlang/paraglide-js": "^2.18.2",
-		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/adapter-vercel": "^6.3.4",
 		"@sveltejs/kit": "next",
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",
