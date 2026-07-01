@@ -92,4 +92,4 @@ Tôi không định nghĩa game, tôi chỉ đang khám phá bản chất của 
 
 ---
 
-**[Hà Nội, 07/07/2025](https://www.google.com/search?q=)**
+Hà Nội, 07/07/2025

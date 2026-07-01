@@ -86,4 +86,4 @@ I am not defining anything, as I am simply exploring their essence. If you make 
 
 ---
 
-[**Hanoi, 07/07/2025**]()
+**Hanoi, 07/07/2025**
