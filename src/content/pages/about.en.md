@@ -14,7 +14,7 @@ lang: en
   - _Tech Stack:_ C#
 - **[nvim-dap-godot-mono](https://github.com/fm39hz/nvim-dap-godot-mono):** A simple adapter to debug Godot 4 (Mono/C#) projects for neovim
   - _Tech Stack:_ Lua
-- **[UDDSG](https://codeberg.org/fm39hz/UniversalDataDriven):** A source generator for creating reflection-free, AOT-safe static data catalogs from JSON files in .NET projects.
+- **[Catalyst](https://github.com/fm39hz/Catalyst):** A Game modeling framework for C# and .NET
   - _Tech Stack:_ C#, Roslyn Analyzer
 
 _You can find almost all of my work and experimentations on my [GitHub profile](https://github.com/fm39hz)._
