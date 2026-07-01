@@ -3,7 +3,7 @@ import { onNavigate } from '$app/navigation';
 import Footer from '$lib/components/layout/Footer/Footer.svelte';
 import Header from '$lib/components/layout/Header/Header.svelte';
 import cfg from '$lib/config';
-import '../styles/global.module.scss';
+import '../styles/global.scss';
 import '$lib/design-system/foundations/prose.module.scss';
 import '$lib/design-system/foundations/code.module.scss';
 import { viewTransition } from './viewTransition';
