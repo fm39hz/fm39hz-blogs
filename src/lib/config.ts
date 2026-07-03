@@ -34,7 +34,7 @@ const cfg: BlogConfig = {
 		{ name: 'github', url: 'https://github.com/fm39hz' },
 		{ name: 'x', url: 'https://x.com/fm39hz' },
 		{ name: 'linkedin', url: 'https://www.linkedin.com/in/fm39hz' },
-		{ name: 'mail', url: 'mailto:hitpoint2k3@gmail.com' },
+		{ name: 'mail', url: 'mailto:fm39hz@gmail.com' },
 	],
 	shareLinks: [
 		{ name: 'facebook', url: 'https://www.facebook.com/sharer.php?u=' },
