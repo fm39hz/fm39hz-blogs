@@ -1,6 +1,6 @@
 <script lang="ts">
 import Icon from '@iconify/svelte';
-import { Popover } from 'melt/builders';
+import { Collapsible } from 'melt/builders';
 import { animate } from 'motion/mini';
 import { animateThemeToggle } from '$lib/animations/theme';
 import { Lang } from '$lib/constants';
@@ -30,7 +30,7 @@ $effect(() => {
 	if (stored === 'light' || stored === 'dark') currentTheme = stored;
 });
 
-const popover = new Popover({
+const menu = new Collapsible({
 	onOpenChange: (open) => gearRotate(open ? 180 : 0),
 });
 
@@ -51,7 +51,7 @@ function toggleLang() {
 
 <div class={styles.root}>
   <button
-    {...popover.trigger}
+    {...menu.trigger}
     id="gear-btn"
     class={styles.gear}
     bind:this={gearEl}
@@ -61,16 +61,17 @@ function toggleLang() {
     <Icon icon="ph:gear" class={styles.icon} />
   </button>
 
-  <div {...popover.content} class={styles.dropdown}>
-    <button class={styles.item} onclick={toggleTheme}>
-      <Icon icon={currentTheme === 'dark' ? 'ph:moon' : 'ph:sun'} class={styles.itemIcon} />
-      <span>{currentTheme === 'dark' ? 'Dark' : 'Light'}</span>
-    </button>
+  {#if menu.open}
+    <div {...menu.content} class={styles.dropdown} role="menu">
+      <button class={styles.item} onclick={toggleTheme} role="menuitem">
+        <Icon icon={currentTheme === 'dark' ? 'ph:moon' : 'ph:sun'} class={styles.itemIcon} />
+        <span>{currentTheme === 'dark' ? 'Dark' : 'Light'}</span>
+      </button>
 
-    <button class={styles.item} onclick={toggleLang}>
-      <Icon icon="ph:translate" class={styles.itemIcon} />
-      <span>{locale.value === Lang.EN ? 'EN' : 'VI'}</span>
-    </button>
-  </div>
+      <button class={styles.item} onclick={toggleLang} role="menuitem">
+        <Icon icon="ph:translate" class={styles.itemIcon} />
+        <span>{locale.value === Lang.EN ? 'EN' : 'VI'}</span>
+      </button>
+    </div>
+  {/if}
 </div>
-

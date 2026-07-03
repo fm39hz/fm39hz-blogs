@@ -3,8 +3,8 @@ export const fonts = {
 } as const;
 
 export const fontSizes = {
-	'--fs-xs': '0.875rem',
-	'--fs-sm': '0.75rem',
+	'--fs-xs': '0.75rem',
+	'--fs-sm': '0.875rem',
 	'--fs-base': '1rem',
 	'--fs-lg': '1.125rem',
 	'--fs-xl': '1.25rem',

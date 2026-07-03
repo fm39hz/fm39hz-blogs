@@ -1,4 +1,8 @@
-.root { position: relative; display: inline-flex; }
+/* GearMenu is an anchor-positioned dropdown attached to .root */
+.root {
+  position: relative;
+  display: inline-flex;
+}
 
 .gear {
   display: flex; align-items: center; justify-content: center;
@@ -6,41 +10,39 @@
   padding: var(--space-md);
   background: none; border: none; color: var(--fg); cursor: pointer;
   &:hover { color: var(--accent); }
-  &:hover .icon { rotate: 30deg; }
 }
 
 .icon {
   width: var(--icon-lg); height: var(--icon-lg);
-  transition: rotate var(--d-normal) var(--ease-out);
+  display: block;
 }
 
+/* Dropdown anchored to the bottom-end of .root */
 .dropdown {
-  --drop-gap: var(--space-sm);
   position: absolute;
-  inset: auto !important;
-  margin: 0 !important;
-  top: calc(100% + var(--drop-gap));
+  top: calc(100% + var(--space-xs));
   inset-inline-end: 0;
-  z-index: 50;
-  min-width: 12rem;
+  z-index: var(--z-dropdown, 100);
+  min-width: 10rem;
   background: var(--bg);
   border: var(--border-w) var(--border-style) var(--border);
   border-radius: var(--br);
-  padding: var(--space-xs);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: var(--space-2xs);
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--fg) 12%, transparent);
 }
 
 .item {
   display: flex; align-items: center; gap: var(--space-sm);
   width: 100%;
-  padding: var(--space-sm) var(--space-md);
+  padding: var(--space-xs) var(--space-sm);
   background: none; border: none; color: var(--fg); cursor: pointer;
   font-size: var(--fs-sm); font-family: var(--font-body);
   border-radius: var(--br);
+  text-align: start;
   &:hover { background: var(--muted); color: var(--accent); }
 }
 
-.itemIcon { width: var(--icon-md); height: var(--icon-md); }
+.itemIcon { width: var(--icon-md); height: var(--icon-md); flex-shrink: 0; }
 
 @media (width >= 640px) {
   .gear { width: 2rem; height: 2rem; padding: 0; }

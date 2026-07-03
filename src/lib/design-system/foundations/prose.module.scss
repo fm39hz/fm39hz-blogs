@@ -1,24 +1,88 @@
+/*
+ * Prose — Typography foundation for markdown-rendered content
+ *
+ * Design intent: "Handwritten notebook" aesthetic
+ *   - earthy palette (--bg, --fg, --accent = sage green)
+ *   - monospace font throughout
+ *   - dashed borders as ruling lines
+ *   - rough-notation handles brushstroke effects (blockquote, mark)
+ *
+ * Element rationale:
+ *   h1  — page title, rendered outside prose in +page.svelte
+ *   h2  — section divider: uppercase + letter-spacing = notebook tab
+ *   h3  — subsection: italic = margin note, softer hierarchy
+ *   h4  — inline label: bold base size, no visual trick
+ *   p   — body text
+ *   a   — underlined, dashed to match border system
+ *   blockquote — indented passage; bracket drawn by rough-notation
+ *   mark       — inline highlight; brushstroke drawn by rough-notation
+ *   code       — inline snippet, muted background
+ *   pre/shiki  — fenced block, styled separately in code.module.scss
+ *   hr  — section break = dashed ruling line
+ *   table — structured data, dashed cell borders
+ *   ul/ol — list with accent-colored markers
+ *   details/summary — collapsible note
+ *   task-list — checkbox lists from GFM
+ */
+
 :global(.prose) {
-  line-height: var(--lh-normal, 1.75);
+  line-height: var(--lh-normal);
   font-size: var(--fs-base);
 
   > :first-child { margin-top: 0; }
-  > :last-child { margin-bottom: 0; }
+  > :last-child  { margin-bottom: 0; }
 
+  /* ── Paragraphs ─────────────────────────────────────────── */
   :where(p) { margin-block: 1.25em; }
-  :where(h1) { margin-block: 0 0.75rem; font-size: var(--fs-3xl); }
-  :where(h2) { margin-block: 1.5em 0.75rem; font-size: var(--fs-2xl); }
-  :where(h3) { margin-block: 1.25em 0.75rem; font-size: var(--fs-lg); font-style: italic; }
-  :where(h4) { margin-block: 1em 0.75rem; }
 
-  :where(h1, h2, h3, h4, th) { color: var(--fg); }
-  :where(p, strong, ol, ul, figcaption, table, code) { color: var(--fg); }
+  /* ── Headings ───────────────────────────────────────────── */
+  /*
+   * h2: notebook section tab — uppercase + tracked letters + dashed underline
+   *     signals "new chapter" in long-form writing
+   */
+  :where(h2) {
+    margin-block: 2em 0.75rem;
+    font-size: var(--fs-2xl);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding-bottom: var(--space-xs);
+    border-bottom: var(--border-w) var(--border-style) var(--border);
+    color: var(--fg);
+  }
 
+  /*
+   * h3: margin note — italic signals "this is an aside or sub-point",
+   *     slightly muted to de-emphasise vs h2
+   */
+  :where(h3) {
+    margin-block: 1.5em 0.5rem;
+    font-size: var(--fs-lg);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--fg);
+  }
+
+  /*
+   * h4: inline label — same size as body text but bold,
+   *     reads as a field label rather than a structural marker
+   */
+  :where(h4) {
+    margin-block: 1.25em 0.25rem;
+    font-size: var(--fs-base);
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  :where(h1, h2, h3, h4) { line-height: var(--lh-tight); }
+
+  /* ── Links ──────────────────────────────────────────────── */
   :where(a) {
     color: var(--fg);
     text-decoration: underline;
     text-decoration-style: dashed;
     text-underline-offset: 4px;
+    transition: color var(--d-fast);
     &:hover { color: var(--accent); }
     &:focus-visible {
       outline: 2px dashed var(--accent);
@@ -27,6 +91,7 @@
     }
   }
 
+  /* ── Images ─────────────────────────────────────────────── */
   :where(img) {
     max-width: 100%;
     border: var(--line-solid);
@@ -34,73 +99,125 @@
     margin: 0 auto;
     display: block;
   }
+  :where(figcaption) {
+    text-align: center;
+    font-size: var(--fs-xs);
+    color: var(--muted-fg);
+    margin-top: var(--space-xs);
+  }
 
-  :where(figcaption) { opacity: var(--op-muted); }
-
+  /* ── Horizontal rule ─────────────────────────────────────── */
+  /*
+   * Dashed line = notebook ruling; margin larger than text blocks
+   * to signal a true section break
+   */
   :where(hr) {
     border: none;
     border-top: var(--line-solid);
-    margin-block: 2em;
+    margin-block: 2.5em;
   }
 
+  /* ── Blockquote ──────────────────────────────────────────── */
+  /*
+   * rough-notation draws the left bracket annotation (SVG, animated).
+   * We only set spacing and text style here — no border, no background.
+   * The lib injects its SVG as a sibling element.
+   */
+  :where(blockquote) {
+    margin-inline: 0;
+    padding-inline-start: var(--space-xl);
+    padding-block: var(--space-2xs);
+    font-style: italic;
+    color: var(--muted-fg);
+
+    p { margin-block: 0.5em; }
+    p:first-child { margin-top: 0; }
+    p:last-child  { margin-bottom: 0; }
+  }
+
+  /* ── Mark (inline highlight) ─────────────────────────────── */
+  /*
+   * rough-notation draws the highlight brushstroke.
+   * We keep mark transparent so the library's SVG is the only visual.
+   * position: relative is required by rough-notation for correct placement.
+   */
+  :where(mark) {
+    background: transparent;
+    color: inherit;
+  }
+
+  /* ── Inline code ─────────────────────────────────────────── */
+  :where(code) {
+    background: color-mix(in srgb, var(--muted) 80%, transparent);
+    border-radius: var(--br);
+    padding: var(--space-3xs) var(--space-2xs);
+    font-size: 0.9em;
+    /* mdsvex wraps backtick code in <code> with no extra punctuation needed */
+    &::before, &::after { content: none; }
+  }
+
+  /* Reset code inside pre blocks — shiki owns that styling */
+  :where(pre code) { background: none; padding: 0; border-radius: 0; }
+
+  /* ── Tables ──────────────────────────────────────────────── */
   :where(table) {
     border-collapse: separate;
     border-spacing: 0;
     width: 100%;
+    display: block;
     overflow-x: auto;
     background: color-mix(in srgb, var(--bg) 97%, var(--fg));
     border-radius: var(--br);
     border: var(--border-w) dashed var(--border);
-    display: block;
   }
   :where(th, td) {
     border: var(--border-w) dashed var(--border);
-    padding: var(--space-sm);
+    padding: var(--space-xs) var(--space-sm);
+    text-align: start;
   }
   :where(th) {
     background: color-mix(in srgb, var(--accent) 10%, transparent);
     font-weight: 600;
+    font-size: var(--fs-sm);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
+  /* Remove doubled borders at edges */
   :where(th:first-child, td:first-child) { border-left: none; }
-  :where(th:last-child, td:last-child) { border-right: none; }
+  :where(th:last-child,  td:last-child)  { border-right: none; }
   :where(tr:first-child th, tr:first-child td) { border-top: none; }
-  :where(tr:last-child th, tr:last-child td) { border-bottom: none; }
+  :where(tr:last-child  th, tr:last-child  td) { border-bottom: none; }
 
-  :where(code) {
-    background: color-mix(in srgb, var(--muted) 75%, transparent);
-    border-radius: var(--br);
-    padding: 0.125rem 0.25rem;
-    font-size: 0.9em;
-    &::before, &::after { content: none; }
-  }
-  :where(pre code) { background: inherit; padding: 0; }
-
-  :where(blockquote) {
-    border-left: 3px solid color-mix(in srgb, var(--accent) 80%, transparent);
-    opacity: var(--op-muted);
-    margin-inline: 0;
-    padding-inline-start: var(--space-md);
-    p { margin-block: 0.75em; }
-  }
-
+  /* ── Lists ───────────────────────────────────────────────── */
   :where(ul, ol) { padding-inline-start: 1.5rem; }
+  :where(li) { margin-block: var(--space-2xs); }
   :where(li)::marker { color: var(--accent); }
+  :where(li > ul, li > ol) { margin-block: var(--space-2xs); }
 
+  /* ── Details / Summary ───────────────────────────────────── */
   :where(details) {
-    display: inline-block;
     cursor: pointer;
     user-select: none;
+    border: var(--border-w) var(--border-style) var(--border);
+    border-radius: var(--br);
+    padding: var(--space-xs) var(--space-sm);
+
     p { display: none; }
     ul { margin: 0 !important; }
+
+    &[open] p { display: block; }
   }
   :where(summary) {
+    font-weight: 600;
+    list-style: none;
+    &::marker, &::-webkit-details-marker { display: none; }
     &:focus-visible {
       outline: 2px dashed var(--accent);
       outline-offset: 2px;
-      text-decoration: none;
     }
   }
 
+  /* ── GFM task list checkboxes ────────────────────────────── */
   :where(.task-list-item) {
     list-style: none;
     margin-inline-start: -1.25rem;
@@ -113,4 +230,5 @@
 
 @media (width < 640px) {
   :global(.prose) { font-size: 0.9375rem; }
+  :global(.katex-display) { font-size: var(--fs-sm); }
 }
