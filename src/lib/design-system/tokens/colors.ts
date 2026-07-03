@@ -26,12 +26,3 @@ export const colors = {
 	},
 } satisfies ColorTokens;
 
-export const tailwindColors = {
-	background: 'var(--background)',
-	foreground: 'var(--foreground)',
-	accent: 'var(--accent)',
-	'accent-foreground': 'var(--accent-foreground)',
-	muted: 'var(--muted)',
-	'muted-foreground': 'var(--muted-foreground)',
-	border: 'var(--border)',
-};

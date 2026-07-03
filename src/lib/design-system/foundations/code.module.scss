@@ -43,7 +43,25 @@
       color-mix(in srgb, var(--muted-fg) 15%, transparent) 1.5rem
     );
   }
+
+  // Notebook binder spiral holes on the left edge
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    width: 0.5rem;
+    pointer-events: none;
+    background-image: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--fg) 25%, transparent) 0.125rem,
+      transparent 0.15rem
+    );
+    background-size: 100% 1.5rem;
+  }
 }
+
 
 [data-theme="dark"] :global(.shiki) {
   border-color: var(--shiki-dark, var(--fg)) !important;

@@ -20,6 +20,7 @@
 		"@sveltejs/kit": "next",
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",
 		"@types/lodash.kebabcase": "^4.1.9",
+		"@types/node": "^26.0.1",
 		"dayjs": "^1.11.21",
 		"katex": "^0.17.0",
 		"lodash.kebabcase": "^4.1.1",

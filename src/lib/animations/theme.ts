@@ -1,4 +1,4 @@
-import { Theme } from '$lib/constants';
+import { Theme, AnimEasing } from '$lib/constants';
 import type { ThemeMode } from '$lib/types';
 
 export function getStoredTheme(): ThemeMode {
@@ -16,7 +16,7 @@ export function applyTheme(mode: ThemeMode): void {
 }
 
 const VT_ID = 'fm-vt';
-const CURVE = 'cubic-bezier(0.22, 1, 0.36, 1)';
+const CURVE = `cubic-bezier(${AnimEasing.EASE_OUT_QUART.join(', ')})`;
 
 function injectVT(darkToLight: boolean): void {
 	const old = document.getElementById(VT_ID);

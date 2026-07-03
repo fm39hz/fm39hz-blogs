@@ -108,9 +108,78 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
   :global(.katex-display) { font-size: 0.875rem; }
 }
 
-:global(.cb) { display: inline-block; width: 0.75rem; height: 0.75rem; border: 2px solid var(--accent); border-radius: 50%; vertical-align: middle; position: relative; }
-:global(.cb.full) { background: var(--accent); }
-:global(.cb.half)::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--accent); clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%); }
+:global(.cb) {
+  display: inline-block;
+  width: 1.1rem;
+  height: 1.1rem;
+  vertical-align: middle;
+  margin-inline-end: 0.25rem;
+}
+
+:global(.cb circle) {
+  stroke: var(--accent);
+  stroke-width: 2px;
+  fill: none;
+}
+
+:global(.cb .cb-path) {
+  stroke: var(--accent);
+  stroke-width: 2.5px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  stroke-dasharray: 30;
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :global(.cb .cb-path) {
+    stroke-dashoffset: 30;
+    animation: cb-draw 0.35s var(--ease-out) forwards;
+  }
+
+  /* Custom notebook page turn transition */
+  @keyframes page-turn-out {
+    from {
+      transform: translateX(0) scale(1);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%) scale(0.98);
+      opacity: 0;
+    }
+  }
+
+  @keyframes page-turn-in {
+    from {
+      transform: translateX(100%) scale(1.02);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0) scale(1);
+      opacity: 1;
+    }
+  }
+
+  ::view-transition-old(root) {
+    animation: 0.35s var(--ease-out) both page-turn-out !important;
+  }
+
+  ::view-transition-new(root) {
+    animation: 0.35s var(--ease-out) both page-turn-in !important;
+  }
+
+  ::view-transition-old(root), ::view-transition-new(root) {
+    mix-blend-mode: normal !important;
+  }
+}
+
+@keyframes cb-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
 
 :global(.katex) { color: var(--fg); }
 :global(.katex-display) { margin: 1rem 0; overflow-x: auto; overflow-y: hidden; }
+

@@ -15,7 +15,7 @@ export function copyCode(container: HTMLElement) {
 		const anchor = document.createElement('div');
 		wrapper.appendChild(anchor);
 
-		const instance = mount(CopyButton, { target: anchor, props: { codeBlock: block } });
+		const instance = mount(CopyButton, { target: anchor, props: { target: block } });
 		mounted.push(instance);
 	}
 

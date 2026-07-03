@@ -30,7 +30,7 @@ const menu = new Collapsible();
           {#if cfg.features.search !== false}
             <li class={styles.navLi}><a href="/search" class={styles.navA} title={t.nav.search}><Icon icon="ph:magnifying-glass" /></a></li>
           {/if}
-            <li class={styles.navLi}><GearMenu {locale} /></li>
+            <li class={styles.navLi}><GearMenu /></li>
         </ul>
       </div>
     </nav>
