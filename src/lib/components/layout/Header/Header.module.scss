@@ -23,7 +23,7 @@
 
 .inner {
   display: flex;
-  flex-wrap: wrap; /* Allows menu to wrap below title on mobile */
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   border-bottom: var(--line-solid);
@@ -55,15 +55,20 @@
   :global(svg) { width: var(--icon-lg); height: var(--icon-lg); display: block; }
 }
 
-/* On mobile, the collapsible menu wraps below the header inner bar */
 .menu {
   display: none;
-  width: 100%;
-  margin-top: var(--space-md);
 }
 
 .menuOpen {
   display: block;
+  position: fixed;
+  inset: 0;
+  top: 4rem;
+  z-index: var(--z-modal);
+  background: var(--bg);
+  padding: var(--space-md);
+  border-top: var(--line-solid);
+  overflow-y: auto;
 }
 
 .navUl {
@@ -123,10 +128,15 @@
     display: none; /* Hide hamburger trigger on desktop */
   }
   
-  .menu {
+  .menu, .menuOpen {
     display: block;
-    width: auto;
-    margin-top: 0;
+    position: static;
+    inset: auto;
+    z-index: auto;
+    background: none;
+    padding: 0;
+    border: none;
+    overflow: visible;
   }
   
   .navUl {

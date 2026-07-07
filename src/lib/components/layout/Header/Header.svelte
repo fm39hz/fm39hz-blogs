@@ -19,8 +19,8 @@ const menu = new Collapsible();
       <button {...menu.trigger} class={styles.menuBtn} aria-label={menu.open ? t.a11y.closeMenu : t.a11y.openMenu}>
         <Icon icon={menu.open ? 'ph:x' : 'ph:list'} />
       </button>
-      <div class={`${styles.menu} ${menu.open ? styles.menuOpen : ''}`}>
-        <ul {...menu.content} class={styles.navUl}>
+      <div class={`${styles.menu} ${menu.open ? styles.menuOpen : ''}`} onclick={() => { if (menu.open) menu.open = false; }}>
+        <ul {...menu.content} class={styles.navUl} onclick={(e) => e.stopPropagation()}>
           <li class={styles.navLi}><a href="/logs" class={styles.navA}>{t.nav.posts}</a></li>
           <li class={styles.navLi}><a href="/thesaurus" class={styles.navA}>{t.nav.tags}</a></li>
           <li class={styles.navLi}><a href="/author" class={styles.navA}>{t.nav.about}</a></li>
