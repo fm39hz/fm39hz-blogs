@@ -20,13 +20,13 @@ const menu = new Collapsible();
         <Icon icon={menu.open ? 'ph:x' : 'ph:list'} />
       </button>
       <div class={`${styles.menu} ${menu.open ? styles.menuOpen : ''}`} onclick={() => { if (menu.open) menu.open = false; }}>
-        <ul {...menu.content} class={styles.navUl} onclick={(e) => e.stopPropagation()}>
+        <ul {...menu.content} class={styles.navUl}>
           <li class={styles.navLi}><a href="/articles" class={styles.navA}>{t.nav.posts}</a></li>
           <li class={styles.navLi}><a href="/topics" class={styles.navA}>{t.nav.tags}</a></li>
-          <li class={styles.navLi}><a href="/author" class={styles.navA}>{t.nav.about}</a></li>
           {#if cfg.features.showArchives}
             <li class={styles.navLi}><a href="/archives" class={styles.navA}>{t.nav.archives}</a></li>
           {/if}
+          <li class={styles.navLi}><a href="/author" class={styles.navA}>{t.nav.about}</a></li>
           <li class={styles.navUtil}>
             {#if cfg.features.search !== false}
               <a href="/search" class={styles.navA} title={t.nav.search}><Icon icon="ph:magnifying-glass" /></a>

@@ -160,27 +160,14 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
     animation: cb-draw 0.35s var(--ease-out) forwards;
   }
 
-  /* Custom notebook page turn transition */
   @keyframes page-turn-out {
-    from {
-      transform: translateX(0) scale(1);
-      opacity: 1;
-    }
-    to {
-      transform: translateX(-100%) scale(0.98);
-      opacity: 0;
-    }
+    from { transform: translateX(0); opacity: 1; }
+    to   { transform: translateX(-100%); opacity: 0; }
   }
 
   @keyframes page-turn-in {
-    from {
-      transform: translateX(100%) scale(1.02);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0) scale(1);
-      opacity: 1;
-    }
+    from { transform: translateX(100%); opacity: 0; }
+    to   { transform: translateX(0); opacity: 1; }
   }
 
   ::view-transition-old(root) {
@@ -193,6 +180,7 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
 
   ::view-transition-old(root), ::view-transition-new(root) {
     mix-blend-mode: normal !important;
+    background: var(--bg);
   }
 }
 

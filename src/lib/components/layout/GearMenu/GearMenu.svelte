@@ -1,29 +1,16 @@
 <script lang="ts">
 import Icon from '@iconify/svelte';
 import { Collapsible } from 'melt/builders';
-import { animate } from 'motion/mini';
 import { animateThemeToggle } from '$lib/animations/theme';
 import { Lang } from '$lib/constants';
 import { useTranslations } from '$lib/i18n';
 import { locale, setLocale } from '$lib/i18n-state.svelte';
-import { AnimEasing } from '$lib/types';
 import styles from './GearMenu.module.scss';
 
 let i18n = $derived(useTranslations(locale.value));
 
 let currentTheme = $state<'light' | 'dark'>('dark');
-let gearEl = $state<HTMLElement | null>(null);
 let rootEl = $state<HTMLElement | null>(null);
-
-const DURATION = 0.3;
-function gearRotate(deg: number) {
-	if (!gearEl) return;
-	animate(
-		gearEl,
-		{ rotate: `${deg}deg` },
-		{ duration: DURATION, ease: AnimEasing.EASE_OUT_QUART },
-	);
-}
 
 $effect(() => {
 	if (typeof document === 'undefined') return;
@@ -32,7 +19,7 @@ $effect(() => {
 });
 
 const menu = new Collapsible({
-	onOpenChange: (open) => gearRotate(open ? 180 : 0),
+	onOpenChange: (open) => {},
 });
 
 $effect(() => {
@@ -66,11 +53,10 @@ function toggleLang() {
     {...menu.trigger}
     id="gear-btn"
     class={styles.gear}
-    bind:this={gearEl}
     aria-label={i18n.a11y.openMenu}
     title={i18n.a11y.openMenu}
   >
-    <Icon icon="ph:gear" class={styles.icon} />
+    <Icon icon="ph:gear" class={styles.icon} style="rotate: {menu.open ? 180 : 0}deg" />
   </button>
 
   {#if menu.open}
