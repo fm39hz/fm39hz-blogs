@@ -59,7 +59,7 @@ const en: UIStrings = {
 	nav: {
 		home: 'Home',
 		posts: 'Logs',
-		tags: 'Thesaurus',
+		tags: 'Topics',
 		about: 'Author',
 		archives: 'Binder',
 		search: 'Find',
