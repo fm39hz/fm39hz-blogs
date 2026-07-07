@@ -40,7 +40,7 @@ const monthFormatter = new Intl.DateTimeFormat('en', { month: 'long' });
       {#each monthGroups as { month, posts }}
         <div class={styles.monthGroup}>
           <div class={styles.monthLabel}><span class={styles.monthName}>{monthFormatter.format(new Date(2000, month - 1, 1))}</span><sup class={styles.sup}>{posts.length}</sup></div>
-          <ul>{#each posts as post}<li><a href="/posts/{post.slug}">{post.metadata.title}</a></li>{/each}</ul>
+          <ul>{#each posts as post}<li><a href="/logs/{post.slug}">{post.metadata.title}</a></li>{/each}</ul>
         </div>
       {/each}
     </div>

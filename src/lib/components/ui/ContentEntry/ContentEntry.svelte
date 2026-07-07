@@ -14,7 +14,7 @@ let {
 
 <article class={styles.entry}>
   <h2 class={styles.titleWrap}>
-    <ButtonLink href="/posts/{post.slug}">{post.metadata.title}</ButtonLink>
+    <ButtonLink href="/logs/{post.slug}">{post.metadata.title}</ButtonLink>
   </h2>
   <p class={styles.desc}>{post.metadata.description}</p>
 </article>

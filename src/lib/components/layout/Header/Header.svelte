@@ -21,8 +21,8 @@ const menu = new Collapsible();
       </button>
       <div class={`${styles.menu} ${menu.open ? styles.menuOpen : ''}`}>
         <ul {...menu.content} class={styles.navUl}>
-          <li class={styles.navLi}><a href="/posts" class={styles.navA}>{t.nav.posts}</a></li>
-          <li class={styles.navLi}><a href="/tags" class={styles.navA}>{t.nav.tags}</a></li>
+          <li class={styles.navLi}><a href="/logs" class={styles.navA}>{t.nav.posts}</a></li>
+          <li class={styles.navLi}><a href="/index" class={styles.navA}>{t.nav.tags}</a></li>
           <li class={styles.navLi}><a href="/author" class={styles.navA}>{t.nav.about}</a></li>
           {#if cfg.features.showArchives}
             <li class={styles.navLi}><a href="/archives" class={styles.navA} title={t.nav.archives}><Icon icon="ph:archive-box" /></a></li>

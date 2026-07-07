@@ -6,7 +6,7 @@ let { tag, tagName, size = 'lg' }: { tag: string; tagName: string; size?: 'sm' |
 </script>
 
 <li class={styles.tag}>
-  <a href="/tags/{tag}/" class={styles[size]}>
+  <a href="/index/{tag}/" class={styles[size]}>
     <Icon icon="ph:tag" class={styles[size]} />
     {tagName}
   </a>

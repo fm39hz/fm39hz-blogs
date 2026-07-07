@@ -9,9 +9,9 @@ export const GET = () => {
 	const slugs = [...new Set(allPosts.map((p) => p.slug))];
 	const urls = [
 		cfg.site.url,
-		`${cfg.site.url}/posts`,
+		`${cfg.site.url}/logs`,
 		`${cfg.site.url}/author`,
-		...slugs.map((s) => `${cfg.site.url}/posts/${s}`),
+		...slugs.map((s) => `${cfg.site.url}/logs/${s}`),
 	];
 
 	return new Response(sitemapXml(urls), {

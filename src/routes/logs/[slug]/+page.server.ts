@@ -6,7 +6,7 @@ function parseSlug(fileName: string): string {
 }
 
 export const entries = () => {
-	const modules = import.meta.glob<{ metadata: PostMeta }>('/src/content/posts/*.md', {
+	const modules = import.meta.glob<{ metadata: PostMeta }>('/src/content/logs/*.md', {
 		eager: true,
 	});
 	const slugs = new Set<string>();

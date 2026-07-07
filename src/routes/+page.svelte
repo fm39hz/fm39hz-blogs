@@ -42,4 +42,4 @@ const recentPosts = sortedPosts.filter((p) => !p.metadata.featured);
   </section>
 {/if}
 
-<div class={styles.allPosts}><a href="/posts">{t.home.allPosts} &rarr;</a></div>
+<div class={styles.allPosts}><a href="/logs">{t.home.allPosts} &rarr;</a></div>
