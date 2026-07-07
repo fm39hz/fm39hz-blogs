@@ -119,16 +119,22 @@
 
   /* ── Blockquote ──────────────────────────────────────────── */
   /*
-   * rough-notation draws the left bracket annotation (SVG, animated).
-   * We only set spacing and text style here — no border, no background.
-   * The lib injects its SVG as a sibling element.
+   * Pencil-wiggle effect: SVG displacement filter + Caveat handwriting font.
+   * SVG <animate> cycles the noise seed for a stop-motion sketchy look.
    */
   :where(blockquote) {
-    margin-inline: 0;
-    padding-inline-start: var(--space-xl);
-    padding-block: var(--space-2xs);
-    font-style: italic;
-    color: var(--muted-fg);
+    font-family: var(--font-handwriting);
+    font-size: var(--fs-xl);
+    line-height: var(--lh-tight);
+    color: var(--accent);
+
+    padding: var(--space-sm) var(--space-md);
+    margin: var(--space-md) 0;
+
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+
+    filter: url('#pencil-wiggle');
 
     p { margin-block: 0.5em; }
     p:first-child { margin-top: 0; }

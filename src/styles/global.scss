@@ -8,8 +8,8 @@
   --border: color-mix(in srgb, var(--fg) 20%, var(--bg));
   --border-w: 2px;
   --border-style: dashed;
-  --font-body: 'JetBrains Mono', ui-monospace, monospace;
-  --font-handwriting: 'Caveat', cursive;
+  --font-body: 'Sriracha', cursive;
+  --font-handwriting: 'Borel', cursive;
   --fs-xs: 0.75rem;
   --fs-sm: 0.875rem;
   --fs-base: 1rem;
@@ -69,6 +69,11 @@
   --border: color-mix(in srgb, var(--fg) 30%, var(--bg));
   --border-w: 2px;
   --border-style: dashed;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  color: var(--fg);
 }
 
 *, *::before, *::after {
@@ -192,4 +197,8 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
 
 :global(.katex) { color: var(--fg); }
 :global(.katex-display) { margin: 1rem 0; overflow-x: auto; overflow-y: hidden; }
+
+.sketchy-quote {
+  filter: url('#pencil-wiggle');
+}
 
