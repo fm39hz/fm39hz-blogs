@@ -3,7 +3,6 @@ import { annotate } from 'rough-notation';
 /**
  * Applies rough-notation hand-drawn annotations to markdown prose elements.
  *
- * - blockquote: bracket on the left edge (suited for multi-line quoted passages)
  * - mark: highlight brushstroke (suited for inline emphasis, supports multiline)
  *
  * Annotations are triggered lazily via IntersectionObserver so they draw
@@ -19,36 +18,6 @@ export function roughNotation(node: HTMLElement) {
 
 	const observers: IntersectionObserver[] = [];
 	const annotations: ReturnType<typeof annotate>[] = [];
-
-	// --- blockquote: left bracket ---
-	const quotes = node.querySelectorAll<HTMLElement>('blockquote');
-	quotes.forEach((quote) => {
-		const color = getCSSVar('--accent');
-		const ann = annotate(quote, {
-			type: 'bracket',
-			brackets: ['left'],
-			color,
-			strokeWidth: 2.5,
-			animate: true,
-			animationDuration: 500,
-			padding: [4, 0],
-		});
-		annotations.push(ann);
-
-		const observer = new IntersectionObserver(
-			(entries) => {
-				for (const entry of entries) {
-					if (entry.isIntersecting) {
-						ann.show();
-						observer.unobserve(quote);
-					}
-				}
-			},
-			{ threshold: 0.1 },
-		);
-		observer.observe(quote);
-		observers.push(observer);
-	});
 
 	// --- mark: highlight brushstroke ---
 	const marks = node.querySelectorAll<HTMLElement>('mark');
