@@ -15,7 +15,7 @@ export const GET = () => {
 		sorted.map((p) => ({
 			title: p.metadata.title,
 			description: p.metadata.description,
-			url: `${import.meta.env.BASE_URL ?? ''}/logs/${p.slug}`,
+			url: `${import.meta.env.BASE_URL ?? ''}/articles/${p.slug}`,
 			date: p.metadata.modDatetime ?? p.metadata.pubDatetime,
 		})),
 	);

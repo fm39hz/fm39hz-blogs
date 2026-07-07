@@ -49,7 +49,7 @@ const monthFormatter = new Intl.DateTimeFormat('en', { month: 'long' });
           </div>
           <ul class={styles.postList}>
             {#each posts as post}
-              <li class={styles.postItem}><a href="/logs/{post.slug}">{post.metadata.title}</a></li>
+              <li class={styles.postItem}><a href="/articles/{post.slug}">{post.metadata.title}</a></li>
             {/each}
           </ul>
         </div>

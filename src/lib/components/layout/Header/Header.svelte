@@ -21,7 +21,7 @@ const menu = new Collapsible();
       </button>
       <div class={`${styles.menu} ${menu.open ? styles.menuOpen : ''}`} onclick={() => { if (menu.open) menu.open = false; }}>
         <ul {...menu.content} class={styles.navUl} onclick={(e) => e.stopPropagation()}>
-          <li class={styles.navLi}><a href="/logs" class={styles.navA}>{t.nav.posts}</a></li>
+          <li class={styles.navLi}><a href="/articles" class={styles.navA}>{t.nav.posts}</a></li>
           <li class={styles.navLi}><a href="/topics" class={styles.navA}>{t.nav.tags}</a></li>
           <li class={styles.navLi}><a href="/author" class={styles.navA}>{t.nav.about}</a></li>
           <li class={styles.navUtil}>

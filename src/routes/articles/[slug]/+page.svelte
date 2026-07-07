@@ -29,7 +29,7 @@ let t = $derived(useTranslations(locale.value));
     <meta property="og:type" content="article" />
     <meta property="og:title" content={meta.title} />
     <meta property="og:description" content={meta.description} />
-    <meta property="og:url" content="{cfg.site.url}/logs/{slug}" />
+    <meta property="og:url" content="{cfg.site.url}/articles/{slug}" />
     <meta property="article:published_time" content={meta.pubDatetime} />
     {#if meta.modDatetime}<meta property="article:modified_time" content={meta.modDatetime} />{/if}
     <meta property="twitter:card" content="summary_large_image" />
@@ -38,7 +38,7 @@ let t = $derived(useTranslations(locale.value));
   {/if}
 </svelte:head>
 
-<nav class={styles.backNav}><ButtonLink href="/logs">&larr; {t.post.goBack}</ButtonLink></nav>
+<nav class={styles.backNav}><ButtonLink href="/articles">&larr; {t.post.goBack}</ButtonLink></nav>
 
 {#if entry}
   <article class={styles.articleContainer} use:copyCode use:styleCheckboxes use:renderMermaid use:roughNotation>

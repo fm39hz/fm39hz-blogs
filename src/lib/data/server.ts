@@ -16,7 +16,7 @@ export interface PostEntry {
 }
 
 export function loadPosts(): PostEntry[] {
-	const modules = import.meta.glob<{ metadata: PostMeta }>('/src/content/logs/*.md', {
+	const modules = import.meta.glob<{ metadata: PostMeta }>('/src/content/articles/*.md', {
 		eager: true,
 	});
 	return Object.entries(modules).map(([path, mod]) => {
@@ -34,7 +34,7 @@ export interface PageEntry {
 
 export function loadPageEntries(slug: string): PageEntry[] {
 	const modules = import.meta.glob<{ default: Component; metadata: PostMeta }>(
-		'/src/content/logs/*.md',
+		'/src/content/articles/*.md',
 		{ eager: true },
 	);
 	return Object.entries(modules)

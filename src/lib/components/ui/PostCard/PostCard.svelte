@@ -13,7 +13,7 @@ let {
 </script>
 
 <article class={styles.card}>
-  <a href="/logs/{post.slug}">
+  <a href="/articles/{post.slug}">
     <h2>{post.metadata.title}</h2>
     <p>{post.metadata.description}</p>
     <div class={styles.meta}>

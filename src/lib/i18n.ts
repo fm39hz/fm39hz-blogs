@@ -58,7 +58,7 @@ export interface UIStrings {
 const en: UIStrings = {
 	nav: {
 		home: 'Home',
-		posts: 'Logs',
+		posts: 'Articles',
 		tags: 'Topics',
 		about: 'Author',
 		archives: 'Archives',
@@ -90,12 +90,12 @@ const en: UIStrings = {
 		tagDesc: 'All the articles with the index card',
 		tagsTitle: 'Index',
 		tagsDesc: 'All the index cards used in posts.',
-		postsTitle: 'Logs',
-		postsDesc: "All the notebook entries I've logged.",
+		postsTitle: 'Articles',
+		postsDesc: "All the articles I've logged.",
 		archivesTitle: 'Archives',
 		archivesDesc: "All the entries I've archived.",
 		searchTitle: 'Find',
-		searchDesc: 'Find any logged note ...',
+		searchDesc: 'Find any articles ...',
 	},
 	a11y: {
 		skipToContent: 'Skip to content',
