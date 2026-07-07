@@ -1,5 +1,7 @@
 <script lang="ts">
+import { dev } from '$app/environment';
 import { onNavigate } from '$app/navigation';
+import { injectAnalytics } from '@vercel/analytics/sveltekit';
 import Footer from '$lib/components/layout/Footer/Footer.svelte';
 import Header from '$lib/components/layout/Header/Header.svelte';
 import cfg from '$lib/config';
@@ -10,6 +12,7 @@ import { viewTransition } from './viewTransition';
 
 let { children } = $props();
 
+injectAnalytics({ mode: dev ? 'development' : 'production' });
 onNavigate(viewTransition);
 </script>
 
