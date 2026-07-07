@@ -3,11 +3,11 @@ import type { BlogConfig } from '$lib/types';
 
 const cfg: BlogConfig = {
 	site: {
-		url: 'https://fm39hz.online',
+		url: 'https://fm39hz.is-a.dev',
 		title: 'FM39hz',
 		description: 'A personal site to serve my ego',
 		author: 'FM39hz',
-		profile: 'https://fm39hz.online/author',
+		profile: 'https://fm39hz.is-a.dev/author',
 		ogImage: 'image.PNG',
 		lang: Lang.EN,
 		timezone: 'Asia/Bangkok',
