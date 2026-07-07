@@ -30,11 +30,11 @@ onNavigate(viewTransition);
 
 <svg xmlns="http://www.w3.org/2000/svg" style="position: absolute; width: 0; height: 0; pointer-events: none;" aria-hidden="true">
   <defs>
-    <filter id="pencil-wiggle">
-      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise">
-        <animate attributeName="seed" values="1;2;3;4;1" dur="1s" repeatCount="indefinite" />
+    <filter id="pencil-wiggle" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" result="noise">
+        <animate attributeName="seed" values="1;2;3;4;1" dur="0.4s" repeatCount="indefinite" />
       </feTurbulence>
-      <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G" />
     </filter>
   </defs>
 </svg>

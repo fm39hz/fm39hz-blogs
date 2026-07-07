@@ -119,8 +119,8 @@
 
   /* ── Blockquote ──────────────────────────────────────────── */
   /*
-   * Pencil-wiggle effect: SVG displacement filter + Caveat handwriting font.
-   * SVG <animate> cycles the noise seed for a stop-motion sketchy look.
+   * Pencil-wiggle effect: static SVG displacement filter
+   * + stop-motion transform shake for Squigglevision look.
    */
   blockquote {
     font-family: var(--font-handwriting);
