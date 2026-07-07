@@ -18,6 +18,7 @@ let highlighter: Awaited<ReturnType<typeof createHighlighter>> | null = null;
 const tocOptions: Parameters<typeof remarkToc>[0] = { tight: true };
 
 export default defineConfig({
+	build: { chunkSizeWarningLimit: 1500 },
 	plugins: [
 		sveltekit({
 			compilerOptions: {
