@@ -1,0 +1,2 @@
+bun scripts/update-dates.mjs
+bunx lint-staged

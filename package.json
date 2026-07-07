@@ -7,7 +7,7 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
-		"prepare": "svelte-kit sync || echo ''",
+		"prepare": "husky && svelte-kit sync || true",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"format": "bunx --bun @biomejs/biome check --max-diagnostics 100 --write --unsafe",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
@@ -22,7 +22,9 @@
 		"@types/lodash.kebabcase": "^4.1.9",
 		"@types/node": "^26.0.1",
 		"dayjs": "^1.11.21",
+		"husky": "^9.1.7",
 		"katex": "^0.17.0",
+		"lint-staged": "^17.0.8",
 		"lodash.kebabcase": "^4.1.1",
 		"mdsvex": "^0.12.7",
 		"rehype-katex-svelte": "^1.2.0",
@@ -38,6 +40,9 @@
 		"svelte-check": "^4.6.0",
 		"typescript": "^6.0.3",
 		"vite": "^8.0.16"
+	},
+	"lint-staged": {
+		"*.{js,ts,svelte,scss,css,md,json}": "bunx --bun @biomejs/biome check --max-diagnostics 100 --write --unsafe"
 	},
 	"dependencies": {
 		"@vercel/analytics": "^2.0.1",
