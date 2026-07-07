@@ -125,10 +125,10 @@
   :where(blockquote) {
     font-family: var(--font-handwriting);
     font-size: var(--fs-xl);
-    line-height: var(--lh-tight);
+    line-height: 1.6;
     color: var(--accent);
 
-    padding: var(--space-sm) var(--space-md);
+    padding: var(--space-lg) var(--space-md) var(--space-md);
     margin: var(--space-md) 0;
 
     border: 2px solid var(--accent);

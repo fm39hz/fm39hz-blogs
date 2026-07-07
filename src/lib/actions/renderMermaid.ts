@@ -4,7 +4,21 @@ export function renderMermaid(container: HTMLElement) {
 
 	(async () => {
 		const { default: mermaid } = await import('mermaid');
-		mermaid.initialize({ startOnLoad: false });
+		const s = getComputedStyle(document.documentElement);
+		const accent = s.getPropertyValue('--accent').trim();
+		const fg = s.getPropertyValue('--fg').trim();
+		mermaid.initialize({
+			startOnLoad: false,
+			fontFamily: s.getPropertyValue('--font-body').trim() || 'sans-serif',
+			theme: 'base',
+			themeVariables: {
+				primaryBorderColor: accent,
+				primaryTextColor: fg,
+				lineColor: fg,
+				lineWidth: '2',
+				borderRadius: '4px',
+			},
+		});
 		try {
 			await mermaid.run({ nodes: blocks });
 		} catch (e) {
