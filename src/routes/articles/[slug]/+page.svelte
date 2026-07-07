@@ -6,6 +6,7 @@ import { renderMermaid } from '$lib/actions/renderMermaid';
 import { roughNotation } from '$lib/actions/roughNotation';
 import ButtonLink from '$lib/components/ui/ButtonLink/ButtonLink.svelte';
 import Datetime from '$lib/components/ui/Datetime/Datetime.svelte';
+import PostSignature from '$lib/components/ui/PostSignature/PostSignature.svelte';
 import Tag from '$lib/components/ui/Tag/Tag.svelte';
 import cfg from '$lib/config';
 import { loadPageEntries } from '$lib/data/server';
@@ -48,6 +49,7 @@ let t = $derived(useTranslations(locale.value));
     </div>
     <div class="prose"><entry.component /></div>
     <hr class={styles.hr} />
+    <PostSignature location={meta.location} pubDatetime={meta.pubDatetime} lang={entry?.lang} />
     <ul class={styles.tags}>{#each meta.tags ?? [] as tag}<Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />{/each}</ul>
   </article>
 {/if}

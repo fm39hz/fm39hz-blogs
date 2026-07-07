@@ -2,6 +2,7 @@
 author: FM39hz
 pubDatetime: 2026-07-07
 title: Another way to engineer a game
+location: Hanoi
 featured: false
 draft: false
 lang: en
@@ -148,6 +149,3 @@ Because these bindings are strictly orthogonal to the core domain semantics, the
 - **Zero Reflection Mechanics:** Eliminating dynamic dependency injection and runtime layout determination guarantees total execution predictability and seamless ahead-of-time (AOT) compilation compatibility.
 - **Composition Over Abstraction:** External framework modules should not be wrapped inside opaque abstraction facades. Instead, they must be composed explicitly at the compilation boundary through structural glue code generated based on pure domain blueprints.
 
----
-
-**Hanoi, 07/07/2026**

@@ -3,6 +3,7 @@ author: FM39hz
 pubDatetime: 2025-07-07
 modDatetime: 2026-05-26
 title: My thoughts about Games
+location: Hanoi
 featured: false
 draft: false
 lang: en
@@ -84,6 +85,3 @@ Cuz, before you try to make a 'fun', 'moving', or 'groundbreaking' game, etc… 
 
 I am not defining anything, as I am simply exploring their essence. If you make games to tell a deep story, to become a millionaire, or to show off, perhaps this article isn't what you're looking for. But if you want to understand the thing you are passionate about, I hope this provides a perspective worth pondering.
 
----
-
-**Hanoi, 07/07/2025**

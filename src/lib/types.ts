@@ -84,6 +84,7 @@ export interface PostMeta {
 	description: string;
 	canonicalURL?: string;
 	hideEditPost?: boolean;
+	location?: string;
 	timezone?: string;
 	lang?: Language;
 }
