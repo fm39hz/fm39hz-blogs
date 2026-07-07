@@ -4,8 +4,8 @@ import Footer from '$lib/components/layout/Footer/Footer.svelte';
 import Header from '$lib/components/layout/Header/Header.svelte';
 import cfg from '$lib/config';
 import '../styles/global.scss';
-import '$lib/design-system/foundations/prose.module.scss';
-import '$lib/design-system/foundations/code.module.scss';
+import '$lib/design-system/foundations/prose.scss';
+import '$lib/design-system/foundations/code.scss';
 import { viewTransition } from './viewTransition';
 
 let { children } = $props();

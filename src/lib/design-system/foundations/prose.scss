@@ -25,7 +25,7 @@
  *   task-list — checkbox lists from GFM
  */
 
-:global(.prose) {
+.prose {
   line-height: var(--lh-normal);
   font-size: var(--fs-base);
 
@@ -33,14 +33,14 @@
   > :last-child  { margin-bottom: 0; }
 
   /* ── Paragraphs ─────────────────────────────────────────── */
-  :where(p) { margin-block: 1.25em; }
+  p { margin-block: 1.25em; }
 
   /* ── Headings ───────────────────────────────────────────── */
   /*
    * h2: notebook section tab — uppercase + tracked letters + dashed underline
    *     signals "new chapter" in long-form writing
    */
-  :where(h2) {
+  h2 {
     margin-block: 2em 0.75rem;
     font-size: var(--fs-2xl);
     font-weight: 700;
@@ -55,7 +55,7 @@
    * h3: margin note — italic signals "this is an aside or sub-point",
    *     slightly muted to de-emphasise vs h2
    */
-  :where(h3) {
+  h3 {
     margin-block: 1.5em 0.5rem;
     font-size: var(--fs-lg);
     font-weight: 600;
@@ -67,17 +67,17 @@
    * h4: inline label — same size as body text but bold,
    *     reads as a field label rather than a structural marker
    */
-  :where(h4) {
+  h4 {
     margin-block: 1.25em 0.25rem;
     font-size: var(--fs-base);
     font-weight: 700;
     color: var(--fg);
   }
 
-  :where(h1, h2, h3, h4) { line-height: var(--lh-tight); }
+  h1, h2, h3, h4 { line-height: var(--lh-tight); }
 
   /* ── Links ──────────────────────────────────────────────── */
-  :where(a) {
+  a {
     color: var(--fg);
     text-decoration: underline;
     text-decoration-style: dashed;
@@ -92,14 +92,14 @@
   }
 
   /* ── Images ─────────────────────────────────────────────── */
-  :where(img) {
+  img {
     max-width: 100%;
     border: var(--line-solid);
     border-radius: var(--br);
     margin: 0 auto;
     display: block;
   }
-  :where(figcaption) {
+  figcaption {
     text-align: center;
     font-size: var(--fs-xs);
     color: var(--muted-fg);
@@ -111,7 +111,7 @@
    * Dashed line = notebook ruling; margin larger than text blocks
    * to signal a true section break
    */
-  :where(hr) {
+  hr {
     border: none;
     border-top: var(--line-solid);
     margin-block: 2.5em;
@@ -122,7 +122,7 @@
    * Pencil-wiggle effect: SVG displacement filter + Caveat handwriting font.
    * SVG <animate> cycles the noise seed for a stop-motion sketchy look.
    */
-  :where(blockquote) {
+  blockquote {
     font-family: var(--font-handwriting);
     font-size: var(--fs-xl);
     line-height: 1.6;
@@ -147,13 +147,13 @@
    * We keep mark transparent so the library's SVG is the only visual.
    * position: relative is required by rough-notation for correct placement.
    */
-  :where(mark) {
+  mark {
     background: transparent;
     color: inherit;
   }
 
   /* ── Inline code ─────────────────────────────────────────── */
-  :where(code) {
+  code {
     font-family: 'JetBrains Mono', ui-monospace, monospace;
     background: color-mix(in srgb, var(--muted) 80%, transparent);
     border-radius: var(--br);
@@ -163,10 +163,10 @@
   }
 
   /* Reset code inside pre blocks — shiki owns that styling */
-  :where(pre code) { background: none; padding: 0; border-radius: 0; }
+  pre code { background: none; padding: 0; border-radius: 0; }
 
   /* ── Tables ──────────────────────────────────────────────── */
-  :where(table) {
+  table {
     border-collapse: separate;
     border-spacing: 0;
     width: 100%;
@@ -176,12 +176,12 @@
     border-radius: var(--br);
     border: var(--border-w) dashed var(--border);
   }
-  :where(th, td) {
+  th, td {
     border: var(--border-w) dashed var(--border);
     padding: var(--space-xs) var(--space-sm);
     text-align: start;
   }
-  :where(th) {
+  th {
     background: color-mix(in srgb, var(--accent) 10%, transparent);
     font-weight: 600;
     font-size: var(--fs-sm);
@@ -189,19 +189,19 @@
     text-transform: uppercase;
   }
   /* Remove doubled borders at edges */
-  :where(th:first-child, td:first-child) { border-left: none; }
-  :where(th:last-child,  td:last-child)  { border-right: none; }
-  :where(tr:first-child th, tr:first-child td) { border-top: none; }
-  :where(tr:last-child  th, tr:last-child  td) { border-bottom: none; }
+  th:first-child, td:first-child { border-left: none; }
+  th:last-child,  td:last-child  { border-right: none; }
+  tr:first-child th, tr:first-child td { border-top: none; }
+  tr:last-child  th, tr:last-child  td { border-bottom: none; }
 
   /* ── Lists ───────────────────────────────────────────────── */
-  :where(ul, ol) { padding-inline-start: 1.5rem; }
-  :where(li) { margin-block: var(--space-2xs); }
-  :where(li)::marker { color: var(--accent); }
-  :where(li > ul, li > ol) { margin-block: var(--space-2xs); }
+  ul, ol { padding-inline-start: 1.5rem; }
+  li { margin-block: var(--space-2xs); }
+  li::marker { color: var(--accent); }
+  li > ul, li > ol { margin-block: var(--space-2xs); }
 
   /* ── GFM task list checkboxes ────────────────────────────── */
-  :where(.task-list-item) {
+  .task-list-item {
     list-style: none;
     margin-inline-start: -1.25rem;
     input[type="checkbox"] {
@@ -212,6 +212,6 @@
 }
 
 @media (width < 640px) {
-  :global(.prose) { font-size: 0.9375rem; }
-  :global(.katex-display) { font-size: var(--fs-sm); }
+  .prose { font-size: 0.9375rem; }
+  .katex-display { font-size: var(--fs-sm); }
 }

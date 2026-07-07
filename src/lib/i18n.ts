@@ -59,8 +59,8 @@ const en: UIStrings = {
 	nav: {
 		home: 'Home',
 		posts: 'Logs',
-		tags: 'Index',
-		about: 'About',
+		tags: 'Thesaurus',
+		about: 'Author',
 		archives: 'Binder',
 		search: 'Find',
 	},

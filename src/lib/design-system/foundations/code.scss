@@ -1,4 +1,4 @@
-:global(.shiki) {
+.shiki {
   position: relative;
   font-family: 'JetBrains Mono', ui-monospace, monospace;
   border: var(--border-w) var(--border-style);
@@ -64,7 +64,7 @@
 }
 
 
-[data-theme="dark"] :global(.shiki) {
+[data-theme="dark"] .shiki {
   border-color: var(--shiki-dark, var(--fg)) !important;
   background: var(--shiki-dark-bg, color-mix(in srgb, var(--bg) 97%, var(--fg))) !important;
   color: var(--shiki-dark, var(--fg)) !important;
