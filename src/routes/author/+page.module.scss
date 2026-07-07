@@ -1,0 +1,23 @@
+.root {
+  padding-top: var(--space-md);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  border-bottom: var(--line-solid);
+  padding-bottom: var(--space-sm);
+}
+
+.title {
+  font-family: var(--font-handwriting);
+  font-size: var(--fs-4xl); /* Caveat font looks slightly smaller, so we boost size to 4xl */
+  font-weight: 700;
+  margin: 0;
+  color: var(--accent);
+  transform: rotate(-2deg); /* Artistic signature slant */
+  display: inline-block;
+}

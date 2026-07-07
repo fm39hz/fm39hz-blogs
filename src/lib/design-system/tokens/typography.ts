@@ -1,5 +1,6 @@
 export const fonts = {
 	'--font-body': "'JetBrains Mono', ui-monospace, monospace",
+	'--font-handwriting': "'Caveat', cursive",
 } as const;
 
 export const fontSizes = {

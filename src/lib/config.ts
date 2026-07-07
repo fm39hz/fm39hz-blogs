@@ -7,7 +7,7 @@ const cfg: BlogConfig = {
 		title: 'FM39hz',
 		description: 'A personal site to serve my ego',
 		author: 'FM39hz',
-		profile: 'https://fm39hz.online/about',
+		profile: 'https://fm39hz.online/author',
 		ogImage: 'image.PNG',
 		lang: Lang.EN,
 		timezone: 'Asia/Bangkok',

@@ -10,7 +10,7 @@ export const GET = () => {
 	const urls = [
 		cfg.site.url,
 		`${cfg.site.url}/posts`,
-		`${cfg.site.url}/about`,
+		`${cfg.site.url}/author`,
 		...slugs.map((s) => `${cfg.site.url}/posts/${s}`),
 	];
 

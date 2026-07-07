@@ -6,7 +6,7 @@ import { locale } from '$lib/i18n-state.svelte';
 import styles from './+page.module.scss';
 
 const pages = loadContentPages();
-const matching = pages.filter((p) => p.slug === 'about');
+const matching = pages.filter((p) => p.slug === 'author');
 const defaultEntry = matching.find((e) => e.lang === 'en') ?? matching[0];
 const langToTitle = Object.fromEntries(matching.map((e) => [e.lang, e.metadata.title]));
 const fullLangTitles = Object.fromEntries(
