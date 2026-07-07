@@ -49,7 +49,7 @@ let t = $derived(useTranslations(locale.value));
     </div>
     <div class="prose"><entry.component /></div>
     <hr class={styles.hr} />
-    <PostSignature location={meta.location} pubDatetime={meta.pubDatetime} lang={entry?.lang} />
+    <PostSignature location={meta.location} pubDatetime={meta.pubDatetime} />
     <ul class={styles.tags}>{#each meta.tags ?? [] as tag}<Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />{/each}</ul>
   </article>
 {/if}

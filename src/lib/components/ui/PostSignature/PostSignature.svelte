@@ -1,14 +1,12 @@
 <script lang="ts">
-import type { PostMeta } from '$lib/types';
+import cfg from '$lib/config';
 
 let {
 	location,
 	pubDatetime,
-	lang = 'en',
 }: {
 	location?: string | null;
 	pubDatetime: string;
-	lang?: string;
 } = $props();
 
 let dateStr = $derived.by(() => {
@@ -18,15 +16,11 @@ let dateStr = $derived.by(() => {
 	const year = d.getFullYear();
 	return `${day}/${month}/${year}`;
 });
+
+let author = $derived(cfg.site.author);
 </script>
 
-<p class="sig">
-  {#if lang === 'vi'}
-    {location ?? 'Việt Nam'}, {dateStr}
-  {:else}
-    <strong>{location ?? 'Vietnam'}, {dateStr}</strong>
-  {/if}
-</p>
+<p class="sig">{author}{location ? `, ${location}` : ''}, {dateStr}</p>
 
 <style>
   .sig {
