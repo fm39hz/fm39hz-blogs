@@ -2,6 +2,7 @@
 import { page } from '$app/state';
 import { styleCheckboxes } from '$lib/actions/checkboxes';
 import { copyCode } from '$lib/actions/copyCode';
+import { renderMermaid } from '$lib/actions/renderMermaid';
 import { roughNotation } from '$lib/actions/roughNotation';
 import ButtonLink from '$lib/components/ui/ButtonLink/ButtonLink.svelte';
 import Datetime from '$lib/components/ui/Datetime/Datetime.svelte';
@@ -40,7 +41,7 @@ let t = $derived(useTranslations(locale.value));
 <nav class={styles.backNav}><ButtonLink href="/posts">&larr; {t.post.goBack}</ButtonLink></nav>
 
 {#if entry}
-  <article class={styles.articleContainer} use:copyCode use:styleCheckboxes use:roughNotation>
+  <article class={styles.articleContainer} use:copyCode use:styleCheckboxes use:renderMermaid use:roughNotation>
     <h1 class={styles.title}>{meta.title}</h1>
     <div class={styles.meta}>
       <Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" />

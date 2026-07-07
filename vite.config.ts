@@ -32,6 +32,9 @@ export default defineConfig({
 					extensions: ['.svx', '.md'],
 					highlight: {
 						highlighter: async (code: string, lang: string | null | undefined) => {
+							if (lang === 'mermaid') {
+								return escapeSvelte(`<pre class="mermaid">${code}</pre>`);
+							}
 							if (!highlighter) {
 								highlighter = await createHighlighter({
 									themes: ['everforest-light', 'everforest-dark'],
