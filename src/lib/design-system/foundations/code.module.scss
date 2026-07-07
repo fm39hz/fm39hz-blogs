@@ -1,5 +1,6 @@
 :global(.shiki) {
   position: relative;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
   border: var(--border-w) var(--border-style);
   border-radius: var(--br);
   border-color: var(--shiki-light, var(--fg)) !important;

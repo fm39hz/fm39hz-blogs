@@ -154,11 +154,11 @@
 
   /* ── Inline code ─────────────────────────────────────────── */
   :where(code) {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
     background: color-mix(in srgb, var(--muted) 80%, transparent);
     border-radius: var(--br);
     padding: var(--space-3xs) var(--space-2xs);
     font-size: 0.9em;
-    /* mdsvex wraps backtick code in <code> with no extra punctuation needed */
     &::before, &::after { content: none; }
   }
 
