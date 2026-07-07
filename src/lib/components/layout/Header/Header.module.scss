@@ -94,7 +94,9 @@
 .navUtil {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
+  justify-content: flex-end;
+  gap: var(--space-xs);
+  width: 100%;
 }
 
 .navUtil .navA {
@@ -104,6 +106,7 @@
 .navA {
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: var(--space-sm) var(--space-md);
   text-decoration: none;
   color: var(--fg);
@@ -162,7 +165,13 @@
     padding-bottom: 0;
   }
   
+  .navUtil {
+    width: auto;
+    justify-content: flex-start;
+  }
+
   .navA {
+    justify-content: flex-start;
     padding: var(--space-3xs) var(--space-sm);
     
     &:hover {
