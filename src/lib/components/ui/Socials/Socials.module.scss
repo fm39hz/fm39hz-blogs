@@ -1,5 +1,16 @@
 .socials { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs); }
-.socials a { display: inline-flex; align-items: center; gap: var(--space-xs); padding: var(--space-sm); color: var(--fg); }
-.socials a:hover { color: var(--accent); rotate: 6deg; }
+.socials a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  color: var(--fg);
+  transition: color var(--d-fast), scale var(--d-fast), rotate var(--d-fast);
+}
+.socials a:hover {
+  color: var(--accent);
+  rotate: var(--rotate-val, 6deg);
+  scale: var(--zoom-val, 1.1);
+}
 .socials svg { width: var(--icon-lg); height: var(--icon-lg); }
 @media (width >= 640px) { .socials a { padding: var(--space-xs); } }
