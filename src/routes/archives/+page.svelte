@@ -36,11 +36,22 @@ const monthFormatter = new Intl.DateTimeFormat('en', { month: 'long' });
   <p class={styles.desc}>{t.pages.archivesDesc}</p>
   {#each sortedYears as [year, monthGroups]}
     <div class={styles.yearGroup}>
-      <span class={styles.year}>{year}</span><sup class={styles.sup}>{monthGroups.reduce((s, g) => s + g.posts.length, 0)}</sup>
+      <div class={styles.yearHeader}>
+        <span class={styles.yearNum}>{year}</span>
+        <span class={styles.yearCount}>{monthGroups.reduce((s, g) => s + g.posts.length, 0)} logs</span>
+      </div>
       {#each monthGroups as { month, posts }}
         <div class={styles.monthGroup}>
-          <div class={styles.monthLabel}><span class={styles.monthName}>{monthFormatter.format(new Date(2000, month - 1, 1))}</span><sup class={styles.sup}>{posts.length}</sup></div>
-          <ul>{#each posts as post}<li><a href="/logs/{post.slug}">{post.metadata.title}</a></li>{/each}</ul>
+          <div class={styles.monthHeader}>
+            <span class={styles.monthDot}></span>
+            <span class={styles.monthName}>{monthFormatter.format(new Date(2000, month - 1, 1))}</span>
+            <span class={styles.monthCount}>({posts.length})</span>
+          </div>
+          <ul class={styles.postList}>
+            {#each posts as post}
+              <li class={styles.postItem}><a href="/logs/{post.slug}">{post.metadata.title}</a></li>
+            {/each}
+          </ul>
         </div>
       {/each}
     </div>
