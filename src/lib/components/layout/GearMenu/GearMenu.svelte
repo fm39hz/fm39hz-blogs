@@ -13,6 +13,7 @@ let i18n = $derived(useTranslations(locale.value));
 
 let currentTheme = $state<'light' | 'dark'>('dark');
 let gearEl = $state<HTMLElement | null>(null);
+let rootEl = $state<HTMLElement | null>(null);
 
 const DURATION = 0.3;
 function gearRotate(deg: number) {
@@ -34,6 +35,17 @@ const menu = new Collapsible({
 	onOpenChange: (open) => gearRotate(open ? 180 : 0),
 });
 
+$effect(() => {
+	if (!menu.open) return;
+	const handleClick = (e: MouseEvent) => {
+		if (rootEl && !rootEl.contains(e.target as Node)) {
+			menu.open = false;
+		}
+	};
+	queueMicrotask(() => document.addEventListener('click', handleClick));
+	return () => document.removeEventListener('click', handleClick);
+});
+
 function toggleTheme() {
 	const next = currentTheme === 'dark' ? 'light' : 'dark';
 	const btn = document.getElementById('gear-btn');
@@ -49,7 +61,7 @@ function toggleLang() {
 }
 </script>
 
-<div class={styles.root}>
+<div class={styles.root} bind:this={rootEl}>
   <button
     {...menu.trigger}
     id="gear-btn"
@@ -62,7 +74,7 @@ function toggleLang() {
   </button>
 
   {#if menu.open}
-    <div {...menu.content} class={styles.dropdown} role="menu">
+    <div {...menu.content} class={styles.dropdown} role="menu" onkeydown={(e) => { if (e.key === 'Escape') menu.open = false; }}>
       <button class={styles.item} onclick={toggleTheme} role="menuitem">
         <Icon icon={currentTheme === 'dark' ? 'ph:moon' : 'ph:sun'} class={styles.itemIcon} />
         <span>{currentTheme === 'dark' ? 'Dark' : 'Light'}</span>

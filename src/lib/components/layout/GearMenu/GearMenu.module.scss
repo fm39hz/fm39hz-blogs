@@ -1,7 +1,8 @@
 /* GearMenu is an anchor-positioned dropdown attached to .root */
 .root {
   position: relative;
-  display: inline-flex;
+  display: flex;
+  align-items: center;
 }
 
 .gear {
