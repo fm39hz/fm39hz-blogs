@@ -91,6 +91,16 @@
   }
 }
 
+.navUtil {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.navUtil .navA {
+  padding: var(--space-3xs) var(--space-sm);
+}
+
 .navA {
   display: flex;
   align-items: center;

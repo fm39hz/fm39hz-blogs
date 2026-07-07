@@ -24,13 +24,15 @@ const menu = new Collapsible();
           <li class={styles.navLi}><a href="/logs" class={styles.navA}>{t.nav.posts}</a></li>
           <li class={styles.navLi}><a href="/topics" class={styles.navA}>{t.nav.tags}</a></li>
           <li class={styles.navLi}><a href="/author" class={styles.navA}>{t.nav.about}</a></li>
-          {#if cfg.features.showArchives}
-            <li class={styles.navLi}><a href="/archives" class={styles.navA} title={t.nav.archives}><Icon icon="ph:archive-box" /></a></li>
-          {/if}
-          {#if cfg.features.search !== false}
-            <li class={styles.navLi}><a href="/search" class={styles.navA} title={t.nav.search}><Icon icon="ph:magnifying-glass" /></a></li>
-          {/if}
-            <li class={styles.navLi}><GearMenu /></li>
+          <li class={styles.navUtil}>
+            {#if cfg.features.showArchives}
+              <a href="/archives" class={styles.navA}>{t.nav.archives}</a>
+            {/if}
+            {#if cfg.features.search !== false}
+              <a href="/search" class={styles.navA} title={t.nav.search}><Icon icon="ph:magnifying-glass" /></a>
+            {/if}
+            <GearMenu />
+          </li>
         </ul>
       </div>
     </nav>
