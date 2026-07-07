@@ -76,6 +76,13 @@
   color: var(--fg);
 }
 
+.prose blockquote {
+  font-family: var(--font-handwriting);
+}
+.prose blockquote .katex {
+  font-family: var(--font-handwriting), KaTeX_Main, serif;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   border-color: var(--border);
@@ -102,8 +109,8 @@ a:focus-visible, button:focus-visible {
 }
 
 @media (width < 640px) {
-  :global(.prose), :global(.app-prose) { font-size: 0.9375rem; }
-  :global(.katex-display) { font-size: 0.875rem; }
+  .prose, .app-prose { font-size: 0.9375rem; }
+  .katex-display { font-size: 0.875rem; }
 }
 
 body {
@@ -120,10 +127,10 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
 :target { scroll-margin-block: 1rem; }
 
 @media (width < 640px) {
-  :global(.katex-display) { font-size: 0.875rem; }
+  .katex-display { font-size: 0.875rem; }
 }
 
-:global(.cb) {
+.cb {
   display: inline-block;
   width: 1.1rem;
   height: 1.1rem;
@@ -131,13 +138,13 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
   margin-inline-end: 0.25rem;
 }
 
-:global(.cb circle) {
+.cb circle {
   stroke: var(--accent);
   stroke-width: 2px;
   fill: none;
 }
 
-:global(.cb .cb-path) {
+.cb .cb-path {
   stroke: var(--accent);
   stroke-width: 2.5px;
   stroke-linecap: round;
@@ -148,7 +155,7 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  :global(.cb .cb-path) {
+  .cb .cb-path {
     stroke-dashoffset: 30;
     animation: cb-draw 0.35s var(--ease-out) forwards;
   }
@@ -195,14 +202,14 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
   }
 }
 
-:global(.katex) { color: var(--fg); }
-:global(.katex-display) { margin: 1rem 0; overflow-x: auto; overflow-y: hidden; }
+.katex { color: var(--fg); }
+.katex-display { margin: 1rem 0; overflow-x: auto; overflow-y: hidden; }
 
 .sketchy-quote {
   filter: url('#pencil-wiggle');
 }
 
-:global(.prose) details {
+.prose details {
   cursor: pointer;
   user-select: none;
   border: var(--border-w) var(--border-style) var(--border);
@@ -214,7 +221,7 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
 
   &[open] p { display: block; }
 }
-:global(.prose) summary {
+.prose summary {
   font-weight: 600;
   list-style: none;
   &::marker, &::-webkit-details-marker { display: none; }
