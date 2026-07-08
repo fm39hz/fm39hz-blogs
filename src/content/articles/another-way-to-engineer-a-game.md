@@ -1,8 +1,8 @@
 ---
 author: FM39hz
 pubDatetime: 2026-07-07
+modDatetime: 2026-07-08
 title: Another way to engineer a game
-location: Hanoi
 featured: false
 draft: false
 lang: en
@@ -148,4 +148,3 @@ Because these bindings are strictly orthogonal to the core domain semantics, the
 - **Architecture Over Runtime:** Structural relationships, access validation, and hardware-facing integration points must be fully resolved before execution. The runtime is merely a mechanical execution loop.
 - **Zero Reflection Mechanics:** Eliminating dynamic dependency injection and runtime layout determination guarantees total execution predictability and seamless ahead-of-time (AOT) compilation compatibility.
 - **Composition Over Abstraction:** External framework modules should not be wrapped inside opaque abstraction facades. Instead, they must be composed explicitly at the compilation boundary through structural glue code generated based on pure domain blueprints.
-

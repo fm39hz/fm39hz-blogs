@@ -3,7 +3,6 @@ author: FM39hz
 pubDatetime: 2025-07-07
 modDatetime: 2026-05-26
 title: My thoughts about Games
-location: Hanoi
 featured: false
 draft: false
 lang: en
@@ -84,4 +83,3 @@ In reality, we don't need an absolutely precise definition, we just need to get 
 Cuz, before you try to make a 'fun', 'moving', or 'groundbreaking' game, etc… just, you know, try to make a game first. Do the things that make your product _have to be_ a game well. From that foundation of 'game', we can then make it into a 'great game'. Adapting a movie or a novel into a game is not a simple process, and you should keep it as is.
 
 I am not defining anything, as I am simply exploring their essence. If you make games to tell a deep story, to become a millionaire, or to show off, perhaps this article isn't what you're looking for. But if you want to understand the thing you are passionate about, I hope this provides a perspective worth pondering.
-
