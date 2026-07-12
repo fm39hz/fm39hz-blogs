@@ -4,27 +4,35 @@
   border: var(--border-w) var(--border-style);
   border-radius: var(--br);
   border-color: var(--shiki-light, var(--fg)) !important;
-  padding: var(--space-md);
+  padding: 1.5rem 1.5rem 2rem 2.5rem;
   font-size: var(--fs-sm);
   line-height: 1.5rem;
   background: var(--shiki-light-bg, color-mix(in srgb, var(--bg) 97%, var(--fg))) !important;
   color: var(--shiki-light, var(--fg)) !important;
+  overflow-x: auto;
 
   span { color: var(--shiki-light, inherit); }
-  .line { display: block; }
+
+  code {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .line {
+    display: block;
+    position: relative;
+    min-height: 1.5rem;
+  }
 
   .line.diff.add {
-    display: inline-block; width: 100%;
     background: rgba(74 222 128 / 0.2);
     &::before { content: '+'; position: absolute; inset-inline-start: -0.75rem; color: #22c55e; }
   }
   .line.diff.remove {
-    display: inline-block; width: 100%;
     background: rgba(239 68 68 / 0.2);
     &::before { content: '-'; position: absolute; inset-inline-start: -0.75rem; color: #ef4444; }
   }
   .line.highlighted {
-    display: inline-block; width: 100%;
     background: rgb(148 163 184 / 0.2);
   }
   .highlighted-word {
@@ -33,14 +41,19 @@
     padding: 0.125rem 0.25rem;
   }
 
+  // Notebook binder line rulings in the background
   &::before {
     content: '';
     position: absolute;
-    inset: var(--space-md);
+    top: 0;
+    bottom: 0;
+    left: var(--space-md);
+    right: var(--space-md);
     pointer-events: none;
     background: repeating-linear-gradient(
-      transparent, transparent 1.4rem,
-      color-mix(in srgb, var(--muted-fg) 15%, transparent) 1.4rem,
+      transparent,
+      transparent calc(1.5rem - 1px),
+      color-mix(in srgb, var(--muted-fg) 15%, transparent) calc(1.5rem - 1px),
       color-mix(in srgb, var(--muted-fg) 15%, transparent) 1.5rem
     );
   }
@@ -49,8 +62,8 @@
   &::after {
     content: '';
     position: absolute;
-    top: 0.5rem;
-    bottom: 0.5rem;
+    top: 0;
+    bottom: 0;
     left: 0.5rem;
     width: 0.5rem;
     pointer-events: none;
@@ -60,6 +73,7 @@
       transparent 0.15rem
     );
     background-size: 100% 1.5rem;
+    background-repeat: repeat-y;
   }
 }
 

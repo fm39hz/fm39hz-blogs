@@ -13,9 +13,9 @@ const allPosts = loadPosts();
 const groups = groupPostsBySlug(allPosts);
 const displayPosts = groups.map((g) => g.defaultEntry);
 const tagParam = $derived(decodeURIComponent(page.params.tag ?? ''));
-const tagPosts = $derived(getSortedPosts(
-	displayPosts.filter((p) => slugifyAll(p.metadata.tags).includes(tagParam)),
-));
+const tagPosts = $derived(
+	getSortedPosts(displayPosts.filter((p) => slugifyAll(p.metadata.tags).includes(tagParam))),
+);
 </script>
 
 <svelte:head><title>{t.pages.tagTitle}: {tagParam} | {cfg.site.title}</title><meta name="description" content={`${t.pages.tagDesc} "${tagParam}".`} /></svelte:head>

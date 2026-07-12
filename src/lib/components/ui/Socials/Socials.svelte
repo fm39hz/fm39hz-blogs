@@ -10,10 +10,10 @@ function iconName(name: string): string {
 }
 
 const anim = {
-	github:   '--rotate-val: -12deg; --zoom-val: 1.15',
-	x:        '--rotate-val: 8deg;   --zoom-val: 1.25',
+	github: '--rotate-val: -12deg; --zoom-val: 1.15',
+	x: '--rotate-val: 8deg;   --zoom-val: 1.25',
 	linkedin: '--rotate-val: -6deg;  --zoom-val: 1.1',
-	mail:     '--rotate-val: 10deg;  --zoom-val: 1.2',
+	mail: '--rotate-val: 10deg;  --zoom-val: 1.2',
 } as Record<string, string>;
 </script>
 

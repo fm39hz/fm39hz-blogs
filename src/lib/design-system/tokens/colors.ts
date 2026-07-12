@@ -25,4 +25,3 @@ export const colors = {
 		'--line': 'color-mix(in srgb, var(--fg) 15%, var(--bg))',
 	},
 } satisfies ColorTokens;
-

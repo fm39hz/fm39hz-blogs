@@ -663,9 +663,8 @@ end
 
 For example, in a game with enemy AI:
 
-```
-Enemy_Idle:
-  → Enemy_Wander when timer > 2s
+```yaml
+Enemy_Idle: → Enemy_Wander when timer > 2s
   → Enemy_Chase when distance < 80px
 
 Enemy_Chase:
@@ -768,7 +767,7 @@ Spawn in GameplayWorld → automatically creates a counterpart in RenderWorld vi
 
 Bridges don't copy individual components. They **synthesize** a struct serving the target world:
 
-```
+```rust
 SpriteProxy = {
     Position   ← WorldPosition.Value
     Direction  ← Orientation.Value

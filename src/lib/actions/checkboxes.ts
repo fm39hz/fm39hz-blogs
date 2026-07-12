@@ -30,4 +30,3 @@ export function styleCheckboxes(node: HTMLElement) {
 		}
 	}
 }
-

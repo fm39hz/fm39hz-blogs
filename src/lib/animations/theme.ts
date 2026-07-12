@@ -1,4 +1,4 @@
-import { Theme, AnimEasing } from '$lib/constants';
+import { AnimEasing, Theme } from '$lib/constants';
 import type { ThemeMode } from '$lib/types';
 
 export function getStoredTheme(): ThemeMode {
