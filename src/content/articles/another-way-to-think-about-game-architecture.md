@@ -19,7 +19,7 @@ This article is about **how to host a game in software** without letting the eng
 
 The thesis is small enough to keep on one line:
 
-> **Designers parameterize the game. Programmers write law as systems. The boundary between those jobs is enforced by construction-not by code review hope.**
+> **Designers parameterize the game. Programmers write rule as systems. The boundary between those jobs is enforced by construction-not by code review hope.**
 
 Everything below exists to make that line operational. If a construct does not serve it, cut it.
 
@@ -27,13 +27,13 @@ A running example stays with us: a top-down 2D action game-move, strike, take hi
 
 ---
 
-## 1. Game law and infrastructure are different jobs
+## 1. Game rule and infrastructure are different jobs
 
-A game design document does not speak in GPU types. It says _hit lands_, _knockback_, _opening_, _the bat is chasing_. Infrastructure speaks in overlaps, atlases, device polls, and solver steps. When those vocabularies share the same functions, **changing the machine changes the law**. That is the first architectural failure mode, and it is permanent until the boundary is restored.
+A game design document does not speak in GPU types. It says _hit lands_, _knockback_, _opening_, _the bat is chasing_. Infrastructure speaks in overlaps, atlases, device polls, and solver steps. When those vocabularies share the same functions, **changing the machine changes the rule**. That is the first architectural failure mode, and it is permanent until the boundary is restored.
 
 ### 1.1 Boundary map
 
-| Design says                   | Lives in game law                                     | Lives in infrastructure                 |
+| Design says                   | Lives in game rule                                    | Lives in infrastructure                 |
 | ----------------------------- | ----------------------------------------------------- | --------------------------------------- |
 | Hit lands                     | `StrikeDef`, `Hit` signal, health write               | Overlap / distance / contact generation |
 | Push apart                    | `SpaceClaim`, separation policy                       | Circle-push or physics penetration math |
@@ -45,13 +45,13 @@ A game design document does not speak in GPU types. It says _hit lands_, _knockb
 | Terrain                       | walkability as **game facts** if rules need them      | Tile collision, nav mesh build          |
 | Camera / render / audio graph | follow _intent_ if authored                           | Matrices, viewports, mixers, voices     |
 
-**Rule of thumb for law code:** it does not name colliders, hitboxes, sprites, textures, draw, GPU, shader channels, or audio graphs. Infrastructure owns those words. Rule owns _what a hit means_ once a hit is known to have occurred.
+**Rule of thumb for rule code:** it does not name colliders, hitboxes, sprites, textures, draw, GPU, shader channels, or audio graphs. Infrastructure owns those words. Rule owns _what a hit means_ once a hit is known to have occurred.
 
 ### 1.2 Litmus
 
-Delete the infrastructure assembly (renderer binding, input binding, spatial backend). Replace it with another (different engine, different physics, headless stubs). **Game law still compiles, unchanged.**
+Delete the infrastructure assembly (renderer binding, input binding, spatial backend). Replace it with another (different engine, different physics, headless stubs). **Game rule still compiles, unchanged.**
 
-If law imports infrastructure packages “only for `Vector2`,” the camel’s nose is already inside. Math types will not stay lonely.
+If rule imports infrastructure packages “only for `Vector2`,” the camel’s nose is already inside. Math types will not stay lonely.
 
 ### 1.3 Case: “hit lands”
 
@@ -96,7 +96,7 @@ graph TB
 
 - **Being** - a named point in design space. Characters, AI states, sensor definitions, effect templates, prototypes: all beings if they are catalog entries. Beings live in the immutable catalog (**Knowledge**). They are not entities.
 - **Concept** - a viewpoint, not a parent class and not a tag. Tags mark; concepts **constrain visibility**: through `Mobile` you may see the aspects `Mobile` reveals, and nothing else via that lens. Concepts carry no fields.
-- **Aspect** - a pure data shape. No methods that implement game law. The same struct type may later appear as a mutable ECS component; the _role_ (catalog vs live) is usage, not a second type hierarchy.
+- **Aspect** - a pure data shape. No methods that implement game rule. The same struct type may later appear as a mutable ECS component; the _role_ (catalog vs live) is usage, not a second type hierarchy.
 
 $$B_i = \bigl(C_{B_i},\; A_{B_i}\bigr) \quad \text{where} \quad A_{B_i} = \bigcup_{c \,\in\, C_{B_i}} \text{Reveals}(c)$$
 
@@ -129,7 +129,7 @@ graph LR
     Visual --> Silhouette
 ```
 
-Nearby in semantic space: an enemy without `Striker`; a pot with only `Breakable` + `Visual`; `BatIdle` as a being that claims `State`; `SDistance` as a being that claims `Sensor`. **One knowledge, many roles**-so generic law can key off _roles and aspects_, not marketing names.
+Nearby in semantic space: an enemy without `Striker`; a pot with only `Breakable` + `Visual`; `BatIdle` as a being that claims `State`; `SDistance` as a being that claims `Sensor`. **One knowledge, many roles**-so generic rule can key off _roles and aspects_, not marketing names.
 
 ### 2.3 Example concept → aspect table (action game)
 
@@ -171,7 +171,7 @@ No `any`, no `unknown`, no untyped bags on the authoring boundary. Runtime guess
 | Identity         | Design name / static id              | Handle local to a world       |
 | Examples         | Player def, BatChase, SHealthPercent | “that bat instance on screen” |
 
-An entity is a **component bag**. Architecturally it need not “know it is Player.” Debug may show spawn source; law must not require `if (is Player)` to scale.
+An entity is a **component bag**. Architecturally it need not “know it is Player.” Debug may show spawn source; rule must not require `if (is Player)` to scale.
 
 ---
 
@@ -215,7 +215,7 @@ flowchart LR
 
 _$prototype_ (or equivalent) is an **authoring convenience**. After bake, only leaf values exist in pools.
 
-Optional compile-time emission (typed being markers, aspect structs, sensor dispatch, system schedules) is a **strategy** for catching errors early. The architecture requires _frozen, typed Knowledge and accountable law_-not a particular generator brand.
+Optional compile-time emission (typed being markers, aspect structs, sensor dispatch, system schedules) is a **strategy** for catching errors early. The architecture requires _frozen, typed Knowledge and accountable rule_-not a particular generator brand.
 
 ---
 
@@ -301,7 +301,7 @@ Ref<Sensor>  probe;
 
 Scoping by **concept/role** means a `Ref<State>` can only be used to read aspects _State_ reveals. Identity by **role**, not by cast list name, is what keeps systems generic.
 
-### 5.3 What law is forbidden to do
+### 5.3 What rule is forbidden to do
 
 Rule that branches on _Player_ / _Bat_ / _GrassBreak_ as proper nouns will grow linearly with content. Content identity belongs in authoring and validation (“every Breakable must declare OnDestroy”), not in `if` ladders inside systems.
 
@@ -309,7 +309,7 @@ Rule that branches on _Player_ / _Bat_ / _GrassBreak_ as proper nouns will grow 
 
 ## 6. The world store: ECS as substrate, not religion
 
-Systems need a place for mutable fields. That place is usually an ECS (or SoA tables with the same permissions). **The architecture does not mandate a vendor.** It mandates a **semantic surface** law can use without importing engine types.
+Systems need a place for mutable fields. That place is usually an ECS (or SoA tables with the same permissions). **The architecture does not mandate a vendor.** It mandates a **semantic surface** rule can use without importing engine types.
 
 ### 6.1 Declare semantics, map storage
 
@@ -326,7 +326,7 @@ Store.Declare<MyWorldBackend>(
 // Rule then speaks: entity.Look<HealthPool>(), entity.Grant(velocity)
 ```
 
-Why not a single lowest-common-denominator `IEcsStore` interface forced on every backend? Because backends differ; a thin interface becomes either a lie or a slow virtual soup. **Declaration + typed surface** keeps law ubiquitous while the mapping stays local to infrastructure.
+Why not a single lowest-common-denominator `IEcsStore` interface forced on every backend? Because backends differ; a thin interface becomes either a lie or a slow virtual soup. **Declaration + typed surface** keeps rule ubiquitous while the mapping stays local to infrastructure.
 
 ### 6.2 Heterogeneous domains
 
@@ -360,7 +360,7 @@ flowchart TB
     end
 
     subgraph Worlds["Worlds — project-declared, bound to groups"]
-        W1["World A → Gameplay<br/>e.g. law + living combat state"]
+        W1["World A → Gameplay<br/>e.g. rule + living combat state"]
         W2["World B → PostFrame<br/>e.g. draw proxies — if you want one"]
         W3["World C → PostFrame<br/>e.g. cues — optional"]
         W4["World D → FixedUpdate<br/>e.g. solver — optional"]
@@ -381,9 +381,9 @@ flowchart TB
 
 ### 7.2 Why add a world (earn the wall)
 
-1. **Ownership** - different mutation rights / cognitive boundaries (law store vs presentation store).
+1. **Ownership** - different mutation rights / cognitive boundaries (rule store vs presentation store).
 2. **Group placement** - different phase or tick policy (fixed step vs variable).
-3. **Replaceability** - omit presentational worlds on server/CI; law worlds untouched.
+3. **Replaceability** - omit presentational worlds on server/CI; rule worlds untouched.
 4. **Layout freedom** - §6.2, per store.
 
 Do **not** split because a blog showed three boxes. Split when two sets of state must not share a writer set—or must not share a tick policy.
@@ -421,7 +421,7 @@ Same C# aspect struct can be knowledge data and component payload; **immutabilit
 
 ---
 
-## 9. Systems: law as one-sentence processes
+## 9. Systems: rule as one-sentence processes
 
 ### 9.1 Grain
 
@@ -582,7 +582,7 @@ flowchart LR
 - Sensor **definition** is a being.
 - Sensor **provider** is a closed function that sense world-state into values.
 - Dispatch is closed, not a reflective plugin soup on the hot path.
-- Providers that read pure gameplay fields live with game law assemblies; providers that need spatial acceleration live with infrastructure. Rule consumes **floats**, not query internals.
+- Providers that read pure gameplay fields live with game rule assemblies; providers that need spatial acceleration live with infrastructure. Rule consumes **floats**, not query internals.
 
 Extension path: declare sensor being → implement provider → rebuild dispatch. Decision systems remain untouched.
 
@@ -618,7 +618,7 @@ sequenceDiagram
 2. **Synthesize minimum surface** - do not copy the whole entity. Destination learns a proxy shaped for its job, not the source’s full component set.
 3. **Counterpart lifecycle** - spawn in source may create a counterpart in destination; destroy propagates. Linking maps are bridge/infrastructure concern.
 4. **Double-buffer / snapshot** - consumers see a consistent frame, not a tearing mid-wave view.
-5. **Bridges are infrastructure** - game law does not reference them.
+5. **Bridges are infrastructure** - game rule does not reference them.
 6. **Optional** - zero bridges is valid; N bridges follow N world edges you actually declared.
 
 ---
@@ -666,7 +666,7 @@ A frame is a **traceable $\Delta t$ transaction**: injection in, systems run by 
 | ----- | ------------------------- | ------------------------------------------------- | ----------------- |
 | 1     | PreFrame                  | Capture injection (input, net input on server, …) | variable          |
 | 2     | FixedUpdate               | Worlds/systems that need stable $dt$ (if any)     | fixed accumulator |
-| 3     | Gameplay                  | Primary law worlds                                | variable          |
+| 3     | Gameplay                  | Primary rule worlds                               | variable          |
 | 4     | PostFrame                 | Worlds that only consume snapshots (if any)       | variable          |
 
 **Groups are not worlds.** A group may host zero or more worlds you declared. Empty groups are fine. Waves are compiler-derived **inside** a group’s systems—not a second hand-edited timeline.
@@ -722,7 +722,7 @@ Dependencies are architecture. A shape that matches the constraints:
 ```mermaid
 graph TB
     Infra["Infrastructure<br/>engine bindings · overlap · render · bridges · store declare"]
-    Game["Game law<br/>friction · movement · decision · strike · health · game sensors"]
+    Game["Game rule<br/>friction · movement · decision · strike · health · game sensors"]
     Domain["Domain<br/>world markers · signals · runtime-only components · authoring data"]
     Core["Shared kernel<br/>Knowledge types · system attributes · host abstractions"]
 
@@ -733,14 +733,14 @@ graph TB
 | Assembly       | Allowed                                              | Forbidden                                        |
 | -------------- | ---------------------------------------------------- | ------------------------------------------------ |
 | Domain         | concepts/aspects authoring, markers, events          | behavior, I/O                                    |
-| Game law       | systems + sensors over game fields                   | engine packages, draw, device poll               |
+| Game rule      | systems + sensors over game fields                   | engine packages, draw, device poll               |
 | Infrastructure | bindings, measurement, bridges, presentation systems | exclusive ownership of damage tables / AI policy |
 
-Package references must make the litmus in §1.2 mechanically true. If the dependency graph can reach a renderer from law, the boundary is already fiction.
+Package references must make the litmus in §1.2 mechanically true. If the dependency graph can reach a renderer from rule, the boundary is already fiction.
 
 ### 14.1 Illustrative system placement
 
-**Game law (examples):** Friction, SpeedClamp, Movement, Decision, Strike, Health, PushApart policy, lifespan timers, generic state-enter applicators.
+**Game rule (examples):** Friction, SpeedClamp, Movement, Decision, Strike, Health, PushApart policy, lifespan timers, generic state-enter applicators.
 
 **Infrastructure (examples):** InputCapture, Overlap/Hit publishing, Camera presentation, Sprite render, Audio playback, spatial sensors, all bridges.
 
@@ -750,7 +750,7 @@ Ground truth for reads/writes is always the system body (or its explicit declara
 
 ## 15. Leverage: when the architecture is actually working
 
-The semantic model and the world split are worthless if law still hardcodes content. **Leverage** is the share of decisions that live in Knowledge.
+The semantic model and the world split are worthless if rule still hardcodes content. **Leverage** is the share of decisions that live in Knowledge.
 
 | Change                                 | Healthy cost                                |
 | -------------------------------------- | ------------------------------------------- |
@@ -782,15 +782,15 @@ These are not optional polish; they are how §2–§12 stay honest under feature
 
 Few enough to remember. If it is taste, it is not here.
 
-1. **Game law and infrastructure do not share vocabulary or package edges** that fail the litmus in §1.2.
+1. **Game rule and infrastructure do not share vocabulary or package edges** that fail the litmus in §1.2.
 2. **Being / Concept / Aspect is the catalog language**; reveals are total; aspects are pure data.
 3. **Knowledge is immutable after freeze**; materialize copies one way; no catalog write-back from entities.
 4. **Entities are component bags in exactly one world**; they are not beings; cross-world traffic is bridges only (and only if multiple worlds exist). Worlds are project-declared and bound to **execution groups**—not a fixed Render/Audio cast.
-5. **Live catalog linkage is role-scoped (`Ref<TConcept>`)**; law does not scale by proper nouns.
+5. **Live catalog linkage is role-scoped (`Ref<TConcept>`)**; rule does not scale by proper nouns.
 6. **Systems are one-sentence, world-bound, and R/W-accountable**; waves follow conflicts; **groups** are architectural phase slots.
 7. **Decision is pure evaluation over parameterized primitives**; sensors are closed extractions to scalars.
 8. **Structural mutation and cross-world sync happen at barriers**; snapshots are consistent.
-9. **Leverage is mandatory:** new content defaults to authoring, not new law types.
+9. **Leverage is mandatory:** new content defaults to authoring, not new rule types.
 10. **No reflective hot-path discovery** of systems, sensors, or catalog rows-bake/generate/close the set.
 
 ---
@@ -819,8 +819,8 @@ SPAWN / TRANSITION
   state enter: state-being aspects → grants / spawns
 
 PERMISSION
-  Domain ⊂ Game law ⊂ Infrastructure (dependencies point inward to kernel)
-  law never imports engine presentation stacks
+  Domain ⊂ Game rule ⊂ Infrastructure (dependencies point inward to kernel)
+  rule never imports engine presentation stacks
 ```
 
 ### 17.1 The swing, labeled once
@@ -843,7 +843,7 @@ If one function owns two rows from different layers, it is a temporary hack that
 
 Another way to think about game architecture is to stop treating “architecture” as a catalog of patterns (ECS, singleton, event bus) and start treating it as **enforced separations**:
 
-- law against machinery,
+- rule against machinery,
 - catalog against life,
 - viewpoint against free-form bags,
 - world against world (when you declared more than one),

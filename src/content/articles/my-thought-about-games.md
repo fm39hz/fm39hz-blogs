@@ -1,11 +1,10 @@
 ---
 author: FM39hz
 pubDatetime: 2025-07-07
-modDatetime: 2026-05-26
+modDatetime: 2026-07-12
 title: My thoughts about Games
 featured: false
 draft: false
-lang: en
 tags:
   - game-dev
   - rambling
@@ -41,10 +40,10 @@ Perhaps a game isn't a 'magic circle', a 'storytelling machine', 'interesting ch
 - Where:
   - Agents are not just the player, but also adaptive AI, DMs, referees, or game managers. They are entities possessing **Agency** - the capacity to make independent choices or inject unpredictable actions into the possibility space. A trap swinging on a timer or an NPC walking a predefined loop is not an Agent; they are simply Rules manifesting as moving clockwork. An Agent acts _upon_ the clockwork, yet no Agent stands above the rules.
   - Rules, here, are not just mechanical logic, they are psychological, mathematical, kinematic, or any logic that can be parameterized. Randomness, endogenous rules, and agents responsible for mapping rules, if they exist, must all be parameterized into rules.
-- From this, we derive two **Theorems**:
-  - _Theorem 1_:
+- From this, we derive two **Consequences**:
+  - _Consequence 1_:
     > There is no such thing as 'playing in the wrong way' if you are still following the rules. If an action lies within the possibility space allowed by the rules, it cannot be called 'wrong'.
-  - _Theorem 2_:
+  - _Consequence 2_:
     > A game is inherently neutral. It possesses no inherent moral attributes, experiences, or social significance, because attributes are not things that change based on who is observing them.
 
 ### **Sufficient Condition**
