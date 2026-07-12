@@ -34,7 +34,8 @@ export default defineConfig({
 					highlight: {
 						highlighter: async (code: string, lang: string | null | undefined) => {
 							if (lang === 'mermaid') {
-								return escapeSvelte(`<pre class="mermaid">${code}</pre>`);
+								const safe = code.replace(/`/g, '\\`');
+								return `{@html \`<pre class="mermaid">${safe}</pre>\`}`;
 							}
 							if (!highlighter) {
 								highlighter = await createHighlighter({
