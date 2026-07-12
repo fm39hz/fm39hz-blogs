@@ -51,6 +51,8 @@ The architecture rests on three pillars: the ABC semantic model (Being–Concept
 
 Throughout this paper, a top-down 2D Action RPG is used as a running example to demonstrate each concept concretely.
 
+---
+
 ## 0. Thesis
 
 > **Game designer writes JSON. Programmer writes systems. Compiler handles the rest.**
@@ -133,10 +135,6 @@ graph TB
     B -- "belongs to ≥1" --> C
     C -- "reveals ≥1" --> A
     A -. "lives independently<br/>does not belong to any Concept" .-> A
-
-    style B fill:#4a90d9,color:#fff
-    style C fill:#e8a838,color:#fff
-    style A fill:#50b86c,color:#fff
 ```
 
 **Being** — a coordinate point in semantic space. Player, Bat, Grass, Bat_Idle, S_HealthPercent — all Beings. They live in Knowledge, not as entities.
@@ -178,19 +176,6 @@ graph LR
     Combatant -- reveals --> HP
     Striker -- reveals --> SD
     Visual -- reveals --> Sil
-
-    style Player fill:#4a90d9,color:#fff
-    style Mobile fill:#e8a838,color:#fff
-    style Combatant fill:#e8a838,color:#fff
-    style Striker fill:#e8a838,color:#fff
-    style Visual fill:#e8a838,color:#fff
-    style WP fill:#50b86c,color:#fff
-    style Vel fill:#50b86c,color:#fff
-    style MP fill:#50b86c,color:#fff
-    style SC fill:#50b86c,color:#fff
-    style HP fill:#50b86c,color:#fff
-    style SD fill:#50b86c,color:#fff
-    style Sil fill:#50b86c,color:#fff
 ```
 
 The Player Being sits at coordinate `{Mobile, Combatant, Striker, Visual}`. An enemy might be nearby in semantic space but lack `Striker`. A destructible prop might only have `{Breakable, Visual}`. AI states and sensors are also Beings — `Bat_Idle → [State]`, `S_HealthPercent → [Sensor]`.
@@ -336,11 +321,6 @@ flowchart TB
     OF --> E4
     ABOUT --> E3
     ABOUT --> E5
-
-    style OF fill:#4a90d9,color:#fff
-    style ABOUT fill:#e8a838,color:#fff
-    style E4 fill:#d94a4a,color:#fff
-    style E5 fill:#d94a4a,color:#fff
 ```
 
 **`Of<TConcept, TAspect>(being)`** — lensed. Each (Concept, Aspect) pair has its own storage. Concept doesn't reveal Aspect → compile error.
@@ -355,9 +335,6 @@ flowchart LR
     IDX --> FS{"FlatStore<br/>has type?"}
     FS -->|yes| ARR["flatStore[AspectType][slot]<br/><b>O(1)</b>"]
     FS -->|no| POOL["pools[conceptId][slot]<br/><b>O(1)</b>"]
-
-    style ARR fill:#50b86c,color:#fff
-    style POOL fill:#e8a838,color:#fff
 ```
 
 No boxing. No dictionary. No hashing. Pure index arithmetic. FlatStore is the hot path — all Aspects of the same type sit contiguously in memory.
@@ -386,11 +363,6 @@ graph TB
         REF -->|"stored on"| ENT
         REF -.->|"points back to"| KB
     end
-
-    style IN fill:#4a90d9,color:#fff
-    style REF fill:#e8a838,color:#fff
-    style KB fill:#50b86c,color:#fff
-    style ENT fill:#d9d9d9,color:#333
 ```
 
 ### 5.1 `In.Being<T>()` — Compile-Time Token
@@ -432,10 +404,6 @@ flowchart LR
     end
 
     D --> SG --> GC
-
-    style D fill:#e8a838,color:#fff
-    style SG fill:#4a90d9,color:#fff
-    style GC fill:#50b86c,color:#fff
 ```
 
 ### 6.1 Declaration — Semantics First
@@ -449,6 +417,26 @@ Source gen reads the declaration → emits extension methods. Game code uses `Lo
 ### 6.3 Why Not an Interface?
 
 An interface (`IECSStore`) would force every ECS engine into the same shape. Wrong — each engine has a different API surface. Declaration lets the consumer **map** semantics onto a specific API; source gen emits a typed bridge. No runtime dispatch.
+
+### 6.4 Heterogeneous State Spaces
+
+Different sub-domains require different physical memory layouts. Global physics needs contiguous memory for dense cache-friendly iteration (**Archetype-based**). Gameplay logic involves rapid allocation and removal of volatile tags (**Sparse-set**).
+
+```mermaid
+graph TD
+    subgraph SimulationHost [Simulation Host]
+        direction LR
+        subgraph PhysicsWorld [Physics Domain]
+            Arch[Archetype Storage<br>Contiguous Layout]
+        end
+        subgraph GameplayWorld [Gameplay Domain]
+            Sparse[Sparse-Set Storage<br>Decoupled Arrays]
+        end
+        PhysicsWorld -->|Inter-World Bridges| GameplayWorld
+    end
+```
+
+Because ECS bindings are declarative per-world, the architecture rejects a single global database. `PhysicsWorld` can declare an Archetype backend while `GameplayWorld` declares a Sparse-Set backend. The compiler generates unrolled static execution blocks for each, resolving physical layouts exactly once at the execution boundary. Zero runtime boxing, zero virtual dispatch.
 
 ---
 
@@ -474,10 +462,6 @@ graph TB
     GameplayWorld -->|"AudioBridge<br/>copy AudioCue"| AudioWorld
 
     GameplayWorld -.-|"❌ direct access"| RenderWorld
-
-    style GameplayWorld fill:#4a90d9,color:#fff
-    style RenderWorld fill:#50b86c,color:#fff
-    style AudioWorld fill:#e8a838,color:#fff
 ```
 
 ### 7.1 Isolation Guarantee
@@ -486,9 +470,10 @@ Entity #42 in GameplayWorld ≠ Entity #42 in RenderWorld. Same ID, different wo
 
 ### 7.2 Why Separate
 
-1. **Parallel rendering** — different databases, no conflicts
-2. **Headless testing** — drop RenderWorld + AudioWorld, game logic runs without a GPU
-3. **Engine swap** — delete all render systems, replace with new ones, GameplayWorld unchanged
+1. **Parallel execution** — different databases, no conflicts.
+2. **Heterogeneous storage** — see §6.4. Worlds can use different ECS engines optimized for their specific access patterns.
+3. **Headless servers & testing** — bindings are orthogonal. Compiling a headless server means dropping RenderWorld and AudioWorld from the compilation target. The compiler omits the glue code, leaving pure simulation logic untouched.
+4. **Engine swap** — delete all render systems, replace with new ones, GameplayWorld unchanged.
 
 ---
 
@@ -511,11 +496,6 @@ graph TB
     end
 
     Design -->|"Materializer<br/>copies"| CA
-
-    style Design fill:#50b86c,color:#fff
-    style CA fill:#4a90d9,color:#fff
-    style RO fill:#e8a838,color:#fff
-    style EV fill:#d94a4a,color:#fff
 ```
 
 **Aspect as Component** — same type for Knowledge (immutable) and ECS (mutable). Spawn = copy. Entity lives independently. No sync back.
@@ -595,12 +575,6 @@ graph LR
     MV -->|"RAW: WorldPosition"| OD
     OD -->|"RAW: HitEvent"| ST
     ST -->|"RAW: HealthPool"| HE
-
-    style Wave1 fill:#e8f4e8,stroke:#50b86c
-    style Wave2 fill:#fff3e0,stroke:#e8a838
-    style Wave3 fill:#e8f4e8,stroke:#50b86c
-    style Wave4 fill:#fff3e0,stroke:#e8a838
-    style Wave5 fill:#fde8e8,stroke:#d94a4a
 ```
 
 | Conflict   | Condition              | Consequence   |
@@ -643,12 +617,6 @@ graph TB
     DS --> BLEND
     SL --> GOAP
     DS --> GOAP
-
-    style Primitives fill:#e8f4e8,stroke:#50b86c
-    style FSM fill:#4a90d9,color:#fff
-    style UA fill:#e8a838,color:#fff
-    style BLEND fill:#9b59b6,color:#fff
-    style GOAP fill:#d94a4a,color:#fff
 ```
 
 One `StateEngine.Evaluate`. One `DecisionSystem`. Different data. Designers choose the pattern through JSON composition — not through code.
@@ -681,10 +649,6 @@ flowchart TB
     PICK --> RESULT{"Different from<br/>current state?"}
     RESULT -->|"Yes"| TRANSITION["Transition<br/>Reset StateDuration"]
     RESULT -->|"No"| KEEP["Stay"]
-
-    style START fill:#4a90d9,color:#fff
-    style TRANSITION fill:#50b86c,color:#fff
-    style KEEP fill:#e8a838,color:#fff
 ```
 
 `StateEngine.Evaluate` is a **pure function**. No side effects. Deterministic.
@@ -740,11 +704,6 @@ flowchart LR
     S2 --> DT
     S3 --> DT
     DT --> SE
-
-    style World fill:#4a90d9,color:#fff
-    style Sensors fill:#e8a838,color:#fff
-    style Dispatch fill:#50b86c,color:#fff
-    style Engine fill:#9b59b6,color:#fff
 ```
 
 ### 11.1 Static Method — Zero Virtual Call
@@ -896,19 +855,19 @@ sequenceDiagram
 
     P->>S: Tick(dt)
 
-    rect rgb(230, 245, 230)
+    rect
         Note over S: ── PreFrame ──
         S->>S: Execute(PreFrame)
     end
 
-    rect rgb(255, 243, 224)
+    rect
         Note over S: ── FixedUpdate ──
         loop accumulator ≥ 1/60s
             S->>S: Execute(FixedUpdate, 1/60)
         end
     end
 
-    rect rgb(224, 236, 255)
+    rect
         Note over S: ── Gameplay ──
         S->>GW: Wave 1 (parallel): Input, Friction, Decision
         S->>GW: Wave 2: SpeedClamp
@@ -921,7 +880,7 @@ sequenceDiagram
         B->>AW: AudioCue (double-buffered)
     end
 
-    rect rgb(253, 232, 232)
+    rect
         Note over S: ── PostFrame ──
         S->>RW: SpriteRenderSystem
         RW->>RW: FlushAndRender()
@@ -971,11 +930,6 @@ graph TD
     INFRA --> GAME --> DOMAIN
     DOMAIN --> FCORE
     INFRA -.->|"MonoGame, Arch"| EXT["External Libs"]
-
-    style INFRA fill:#d94a4a,color:#fff
-    style GAME fill:#4a90d9,color:#fff
-    style DOMAIN fill:#50b86c,color:#fff
-    style FCORE fill:#e8a838,color:#fff
 ```
 
 **Dependency rule:** `Prototype.Game` must not reference MonoGame, Arch, or any hardware library. If the NuGet dependency graph contains them → build break.
