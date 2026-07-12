@@ -2,6 +2,10 @@ export function renderMermaid(container: HTMLElement) {
 	const blocks = [...container.querySelectorAll<HTMLPreElement>('pre.mermaid')];
 	if (!blocks.length) return { destroy() {} };
 
+	for (const pre of blocks) {
+		pre.setAttribute('data-code', pre.textContent || '');
+	}
+
 	(async () => {
 		const { default: mermaid } = await import('mermaid');
 		const s = getComputedStyle(document.documentElement);
