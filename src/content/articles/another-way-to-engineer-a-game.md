@@ -45,11 +45,11 @@ graph TD
 
 ### Abstract
 
-This paper describes the architecture of Fantasia, a game framework built on the premise that game design and game infrastructure are fundamentally different concerns and should never be mixed. The architecture solves three core problems: (1) complete separation of game logic from infrastructure, allowing engine replacement without touching gameplay code, (2) enabling game designers to author all game content — characters, stats, AI behavior, state graphs — entirely in JSON without programming, and (3) catching every architectural violation at compile-time rather than runtime.
+This article describes the architecture of Fantasia, a game framework built on the premise that game design and game infrastructure are fundamentally different concerns and should never be mixed. The architecture solves three core problems: (1) complete separation of game logic from infrastructure, allowing engine replacement without touching gameplay code, (2) enabling game designers to author all game content — characters, stats, AI behavior, state graphs — entirely in JSON without programming, and (3) catching every architectural violation at compile-time rather than runtime.
 
 The architecture rests on three pillars: the ABC semantic model (Being–Concept–Aspect) as a ubiquitous language for describing game worlds, an immutable Knowledge database compiled from JSON at build-time, and a source generator pipeline that automatically produces typed code, execution schedules, and dispatch tables from declarative data.
 
-Throughout this paper, a top-down 2D Action RPG is used as a running example to demonstrate each concept concretely.
+Throughout this article, a top-down 2D Action RPG is used as a running example to demonstrate each concept concretely.
 
 ---
 
@@ -57,7 +57,7 @@ Throughout this paper, a top-down 2D Action RPG is used as a running example to 
 
 > **Game designer writes JSON. Programmer writes systems. Compiler handles the rest.**
 
-Every design decision in this paper exists to serve the statement above. If a design doesn't serve it — it shouldn't exist.
+Every design decision in this article exists to serve the statement above. If a design doesn't serve it — it shouldn't exist.
 
 - **Designer** writes no code. All game content lives in JSON using GDD-native language.
 - **Programmer** writes no boilerplate. Pure logic only — one system, one job.
