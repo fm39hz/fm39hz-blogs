@@ -136,9 +136,17 @@
 
     filter: url('#pencil-wiggle');
 
+    quotes: "“" "”";
+
     p { margin-block: 0.5em; }
     p:first-child { margin-top: 0; }
     p:last-child  { margin-bottom: 0; }
+
+    p:first-child::before { content: open-quote; }
+    p:last-child::after { content: close-quote; }
+
+    &:not(:has(p))::before { content: open-quote; }
+    &:not(:has(p))::after { content: close-quote; }
   }
 
   /* ── Mark (inline highlight) ─────────────────────────────── */
