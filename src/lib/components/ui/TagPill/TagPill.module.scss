@@ -1,0 +1,27 @@
+.tag a {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--fg);
+  background: transparent;
+  padding: var(--space-3xs) var(--space-sm);
+  border-radius: var(--br-full);
+  font-family: var(--font-body);
+  transition: color var(--d-fast);
+  
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+.tag a:focus-visible {
+  color: var(--accent);
+  outline: 2px dashed var(--accent);
+  outline-offset: 2px;
+}
+
+.lg { font-size: var(--fs-lg); }
+.sm { font-size: var(--fs-xs); }

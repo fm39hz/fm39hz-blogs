@@ -1,0 +1,38 @@
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm);
+  background: none;
+  border: none;
+  color: var(--fg);
+  cursor: pointer;
+  border-radius: var(--br);
+  transition: color var(--d-fast), background var(--d-fast);
+  min-height: 44px;
+  min-width: 44px;
+  
+  &:hover {
+    color: var(--accent);
+  }
+
+  :global(svg) {
+    width: var(--icon-lg);
+    height: var(--icon-lg);
+    display: block;
+    transition: rotate var(--d-slow) var(--ease-out);
+  }
+}
+
+@media (width >= 640px) {
+  .btn {
+    min-height: 32px;
+    min-width: 32px;
+    padding: var(--space-3xs);
+    
+    :global(svg) {
+      width: var(--icon-md);
+      height: var(--icon-md);
+    }
+  }
+}

@@ -1,23 +1,16 @@
-/* GearMenu is an anchor-positioned dropdown attached to .root */
 .root {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-.gear {
-  display: flex; align-items: center; justify-content: center;
-  width: 3rem; height: 3rem;
-  padding: var(--space-md);
-  background: none; border: none; color: var(--fg); cursor: pointer;
-  &:hover { color: var(--accent); }
+.gearBtn {
+  &[aria-expanded="true"] :global(svg) {
+    rotate: 180deg;
+  }
 }
 
-.icon {
-  width: var(--icon-lg); height: var(--icon-lg);
-  display: block;
-  transition: rotate 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-}
+
 
 /* Dropdown anchored to the bottom-end of .root */
 .dropdown {
@@ -46,6 +39,4 @@
 
 .itemIcon { width: var(--icon-md); height: var(--icon-md); flex-shrink: 0; }
 
-@media (width >= 640px) {
-  .gear { width: 2rem; height: 2rem; padding: 0; }
-}
+

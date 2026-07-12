@@ -2,6 +2,7 @@
 import Icon from '@iconify/svelte';
 import { Collapsible } from 'melt/builders';
 import { animateThemeToggle } from '$lib/animations/theme';
+import IconButton from '$lib/components/ui/IconButton/IconButton.svelte';
 import { Lang } from '$lib/constants';
 import { useTranslations } from '$lib/i18n';
 import { locale, setLocale } from '$lib/i18n-state.svelte';
@@ -18,19 +19,32 @@ $effect(() => {
 	if (stored === 'light' || stored === 'dark') currentTheme = stored;
 });
 
-const menu = new Collapsible({
-	onOpenChange: (open) => {},
-});
+const menu = new Collapsible();
 
+// Register listeners once on mount to avoid event bubbling race conditions
 $effect(() => {
-	if (!menu.open) return;
 	const handleClick = (e: MouseEvent) => {
-		if (rootEl && !rootEl.contains(e.target as Node)) {
+		if (!menu.open) return;
+		const target = e.target as HTMLElement;
+		// If the target element was detached from the DOM during Svelte's reactive render cycle, ignore it
+		if (!target || !target.isConnected) return;
+		if (rootEl && !rootEl.contains(target)) {
 			menu.open = false;
 		}
 	};
-	queueMicrotask(() => document.addEventListener('click', handleClick));
-	return () => document.removeEventListener('click', handleClick);
+
+	const handleKeydown = (e: KeyboardEvent) => {
+		if (e.key === 'Escape' && menu.open) {
+			menu.open = false;
+		}
+	};
+
+	document.addEventListener('click', handleClick);
+	document.addEventListener('keydown', handleKeydown);
+	return () => {
+		document.removeEventListener('click', handleClick);
+		document.removeEventListener('keydown', handleKeydown);
+	};
 });
 
 function toggleTheme() {
@@ -49,18 +63,17 @@ function toggleLang() {
 </script>
 
 <div class={styles.root} bind:this={rootEl}>
-  <button
+  <IconButton
     {...menu.trigger}
     id="gear-btn"
-    class={styles.gear}
+    class={styles.gearBtn}
+    icon="ph:gear"
     aria-label={i18n.a11y.openMenu}
     title={i18n.a11y.openMenu}
-  >
-    <Icon icon="ph:gear" class={styles.icon} style="rotate: {menu.open ? 180 : 0}deg" />
-  </button>
+  />
 
   {#if menu.open}
-    <div {...menu.content} class={styles.dropdown} role="menu" onkeydown={(e) => { if (e.key === 'Escape') menu.open = false; }}>
+    <div {...menu.content} class={styles.dropdown} role="menu">
       <button class={styles.item} onclick={toggleTheme} role="menuitem">
         <Icon icon={currentTheme === 'dark' ? 'ph:moon' : 'ph:sun'} class={styles.itemIcon} />
         <span>{currentTheme === 'dark' ? 'Dark' : 'Light'}</span>

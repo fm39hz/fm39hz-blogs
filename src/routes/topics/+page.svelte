@@ -1,5 +1,5 @@
 <script lang="ts">
-import Tag from '$lib/components/ui/Tag/Tag.svelte';
+import TagLine from '$lib/components/ui/TagLine/TagLine.svelte';
 import cfg from '$lib/config';
 import { loadPosts } from '$lib/data/server';
 import { useTranslations } from '$lib/i18n';
@@ -19,5 +19,5 @@ const tags = getUniqueTags(displayPosts);
 <section>
   <h1 class={styles.h1}>{t.pages.tagsTitle}</h1>
   <p class={styles.desc}>{t.pages.tagsDesc}</p>
-  <ul class={styles.ul}>{#each tags as { tag, tagName }}<Tag {tag} {tagName} />{/each}</ul>
+  <ul class={styles.ul}>{#each tags as { tag, tagName }}<TagLine {tag} {tagName} />{/each}</ul>
 </section>

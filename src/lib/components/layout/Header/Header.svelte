@@ -1,10 +1,25 @@
 <script lang="ts">
-import Icon from '@iconify/svelte';
+import Icon, { loadIcons } from '@iconify/svelte';
 import { Collapsible } from 'melt/builders';
+import { browser } from '$app/environment';
+import IconButton from '$lib/components/ui/IconButton/IconButton.svelte';
+import NavLink from '$lib/components/ui/NavLink/NavLink.svelte';
 import cfg from '$lib/config';
 import { useTranslations } from '$lib/i18n';
 import GearMenu from '../GearMenu/GearMenu.svelte';
 import styles from './Header.module.scss';
+
+if (browser) {
+	loadIcons([
+		'ph:gear',
+		'ph:x',
+		'ph:list',
+		'ph:magnifying-glass',
+		'ph:moon',
+		'ph:sun',
+		'ph:translate',
+	]);
+}
 
 let { locale = 'en' }: { locale?: string } = $props();
 let t = $derived(useTranslations(locale));
@@ -61,20 +76,28 @@ let headerClass = $derived(
     <div class={styles.inner}>
       <a href="/" class={styles.title}>{cfg.site.title}</a>
       <nav>
-        <button {...menu.trigger} class={styles.menuBtn} aria-label={menu.open ? t.a11y.closeMenu : t.a11y.openMenu}>
-          <Icon icon={menu.open ? 'ph:x' : 'ph:list'} />
-        </button>
+        <IconButton
+          {...menu.trigger}
+          class={styles.menuBtn}
+          icon={menu.open ? 'ph:x' : 'ph:list'}
+          aria-label={menu.open ? t.a11y.closeMenu : t.a11y.openMenu}
+        />
         <div class={`${styles.menu} ${menu.open ? styles.menuOpen : ''}`} role="presentation" onclick={(e) => { if (e.target === e.currentTarget) menu.open = false; }} onkeydown={() => {}}>
           <ul {...menu.content} class={styles.navUl}>
-            <li class={styles.navLi}><a href="/articles" class={styles.navA} onclick={() => menu.open = false}>{t.nav.posts}</a></li>
-            <li class={styles.navLi}><a href="/topics" class={styles.navA} onclick={() => menu.open = false}>{t.nav.tags}</a></li>
+            <li class={styles.navLi}><NavLink href="/articles" onclick={() => menu.open = false}>{t.nav.posts}</NavLink></li>
+            <li class={styles.navLi}><NavLink href="/topics" onclick={() => menu.open = false}>{t.nav.tags}</NavLink></li>
             {#if cfg.features.showArchives}
-              <li class={styles.navLi}><a href="/archives" class={styles.navA} onclick={() => menu.open = false}>{t.nav.archives}</a></li>
+              <li class={styles.navLi}><NavLink href="/archives" onclick={() => menu.open = false}>{t.nav.archives}</NavLink></li>
             {/if}
-            <li class={styles.navLi}><a href="/author" class={styles.navA} onclick={() => menu.open = false}>{t.nav.about}</a></li>
+            <li class={styles.navLi}><NavLink href="/author" onclick={() => menu.open = false}>{t.nav.about}</NavLink></li>
             <li class={styles.navUtil}>
               {#if cfg.features.search !== false}
-                <a href="/search" class={styles.navA} title={t.nav.search} onclick={() => menu.open = false}><Icon icon="ph:magnifying-glass" /></a>
+                <IconButton
+                  href="/search"
+                  icon="ph:magnifying-glass"
+                  title={t.nav.search}
+                  onclick={() => menu.open = false}
+                />
               {/if}
               <GearMenu />
             </li>

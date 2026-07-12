@@ -122,7 +122,7 @@ a:focus-visible, button:focus-visible {
 
 /* Mobile touch targets */
 @media (pointer: coarse) {
-  button, [role="button"], .navA, .menuBtn { min-height: 44px; }
+  button, [role="button"] { min-height: 44px; }
 }
 
 @media (width < 640px) {
@@ -138,6 +138,11 @@ body {
   min-height: 100svh;
   display: flex;
   flex-direction: column;
+}
+
+mark {
+  background: transparent;
+  color: inherit;
 }
 
 button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }

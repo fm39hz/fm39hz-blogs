@@ -4,9 +4,9 @@
   border: var(--border-w) var(--border-style);
   border-radius: var(--br);
   border-color: var(--shiki-light, var(--fg)) !important;
-  padding: 1.5rem 1.5rem 2rem 2.5rem;
+  padding: var(--space-lg) var(--space-lg) var(--space-xl) calc(var(--space-lg) + var(--space-md));
   font-size: var(--fs-sm);
-  line-height: 1.5rem;
+  line-height: var(--space-lg);
   background: var(--shiki-light-bg, color-mix(in srgb, var(--bg) 97%, var(--fg))) !important;
   color: var(--shiki-light, var(--fg)) !important;
   overflow-x: auto;
@@ -21,7 +21,7 @@
   .line {
     display: block;
     position: relative;
-    min-height: 1.5rem;
+    min-height: var(--space-lg);
   }
 
   .line.diff.add {
@@ -37,8 +37,8 @@
   }
   .highlighted-word {
     border: 1px solid var(--border);
-    border-radius: 0.125rem;
-    padding: 0.125rem 0.25rem;
+    border-radius: var(--space-3xs);
+    padding: var(--space-3xs) var(--space-2xs);
   }
 
   // Notebook binder line rulings in the background
@@ -52,9 +52,9 @@
     pointer-events: none;
     background: repeating-linear-gradient(
       transparent,
-      transparent calc(1.5rem - 1px),
-      color-mix(in srgb, var(--muted-fg) 15%, transparent) calc(1.5rem - 1px),
-      color-mix(in srgb, var(--muted-fg) 15%, transparent) 1.5rem
+      transparent calc(var(--space-lg) - 1px),
+      color-mix(in srgb, var(--muted-fg) 15%, transparent) calc(var(--space-lg) - 1px),
+      color-mix(in srgb, var(--muted-fg) 15%, transparent) var(--space-lg)
     );
   }
 
@@ -64,15 +64,15 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 0.5rem;
-    width: 0.5rem;
+    left: var(--space-sm);
+    width: var(--space-sm);
     pointer-events: none;
     background-image: radial-gradient(
       circle,
-      color-mix(in srgb, var(--fg) 25%, transparent) 0.125rem,
+      color-mix(in srgb, var(--fg) 25%, transparent) var(--space-3xs),
       transparent 0.15rem
     );
-    background-size: 100% 1.5rem;
+    background-size: 100% var(--space-lg);
     background-repeat: repeat-y;
   }
 }

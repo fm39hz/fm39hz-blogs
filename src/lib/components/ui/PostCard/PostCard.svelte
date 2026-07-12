@@ -1,5 +1,8 @@
 <script lang="ts">
+import { slugifyStr } from '$lib/tags';
 import { formatDate } from '$lib/utils/date';
+import ButtonLink from '../ButtonLink/ButtonLink.svelte';
+import TagPill from '../TagPill/TagPill.svelte';
 import styles from './PostCard.module.scss';
 
 let {
@@ -13,18 +16,20 @@ let {
 </script>
 
 <article class={styles.card}>
-  <a href="/articles/{post.slug}">
-    <h2>{post.metadata.title}</h2>
-    <p>{post.metadata.description}</p>
-    <div class={styles.meta}>
-      <time datetime={post.metadata.pubDatetime}>{formatDate(post.metadata.pubDatetime)}</time>
-      {#if post.metadata.tags}
-        <span class={styles.tags}>
-          {#each post.metadata.tags as tag}
-            <span>#{tag}</span>
-          {/each}
-        </span>
-      {/if}
-    </div>
-  </a>
+  <h2>
+    <ButtonLink href="/articles/{post.slug}">
+      {post.metadata.title}
+    </ButtonLink>
+  </h2>
+  <p>{post.metadata.description}</p>
+  <div class={styles.meta}>
+    <time datetime={post.metadata.pubDatetime}>{formatDate(post.metadata.pubDatetime)}</time>
+    {#if post.metadata.tags}
+      <ul class={styles.tags}>
+        {#each post.metadata.tags as tag}
+          <TagPill tag={slugifyStr(tag)} tagName={tag} size="sm" />
+        {/each}
+      </ul>
+    {/if}
+  </div>
 </article>

@@ -2,7 +2,11 @@
 import type { Snippet } from 'svelte';
 import styles from './ButtonLink.module.scss';
 
-let { href, children }: { href: string; children?: Snippet } = $props();
+let {
+	href,
+	children,
+	class: className = '',
+}: { href: string; children?: Snippet; class?: string } = $props();
 </script>
 
-<a {href} class={styles.link}>{@render children?.()}</a>
+<a {href} class={`${styles.link} ${className}`}>{@render children?.()}</a>

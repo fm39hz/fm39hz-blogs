@@ -7,7 +7,7 @@ import { roughNotation } from '$lib/actions/roughNotation';
 import ButtonLink from '$lib/components/ui/ButtonLink/ButtonLink.svelte';
 import Datetime from '$lib/components/ui/Datetime/Datetime.svelte';
 import PostSignature from '$lib/components/ui/PostSignature/PostSignature.svelte';
-import Tag from '$lib/components/ui/Tag/Tag.svelte';
+import TagLine from '$lib/components/ui/TagLine/TagLine.svelte';
 import cfg from '$lib/config';
 import { loadPageEntries } from '$lib/data/server';
 import { useTranslations } from '$lib/i18n';
@@ -50,6 +50,6 @@ let t = $derived(useTranslations(locale.value));
     <div class="prose"><entry.component /></div>
     <hr class={styles.hr} />
     <PostSignature location={meta.location} pubDatetime={meta.pubDatetime} />
-    <ul class={styles.tags}>{#each meta.tags ?? [] as tag}<Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />{/each}</ul>
+    <ul class={styles.tags}>{#each meta.tags ?? [] as tag}<TagLine tag={slugifyStr(tag)} tagName={tag} size="sm" />{/each}</ul>
   </article>
 {/if}

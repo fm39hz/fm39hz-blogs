@@ -131,8 +131,8 @@
     padding: var(--space-lg) var(--space-md) var(--space-md);
     margin: var(--space-md) 0;
 
-    border: 2px solid var(--accent);
-    border-radius: 4px;
+    border: var(--border-w) solid var(--accent);
+    border-radius: var(--br);
 
     filter: url('#pencil-wiggle');
 
@@ -165,7 +165,7 @@
     font-family: 'JetBrains Mono', ui-monospace, monospace;
     background: color-mix(in srgb, var(--accent) 12%, transparent);
     border-radius: var(--br);
-    padding: 0.1rem 0.25rem;
+    padding: var(--space-3xs) var(--space-2xs);
     font-size: 0.85em;
     line-height: normal;
     vertical-align: -0.06em;
@@ -180,6 +180,19 @@
     font-size: inherit;
     line-height: inherit;
     vertical-align: baseline;
+  }
+
+  /* Mermaid loading container */
+  pre.mermaid {
+    opacity: 0;
+    color: transparent;
+    transition: opacity var(--d-normal) ease;
+    overflow: hidden;
+    border: var(--border-w) var(--border-style);
+    border-radius: var(--br);
+    background: color-mix(in srgb, var(--bg) 97%, var(--fg));
+    padding: var(--space-md);
+    margin: var(--space-md) 0;
   }
 
   /* ── Tables ──────────────────────────────────────────────── */

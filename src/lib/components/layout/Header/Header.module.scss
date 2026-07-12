@@ -63,18 +63,6 @@
 
 .menuBtn {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-sm);
-  background: none;
-  border: none;
-  color: var(--fg);
-  min-height: 44px;
-  min-width: 44px;
-  cursor: pointer;
-  
-  &:hover { color: var(--accent); }
-  :global(svg) { width: var(--icon-lg); height: var(--icon-lg); display: block; }
 }
 
 .menu {
@@ -121,32 +109,6 @@
   width: 100%;
 }
 
-.navUtil .navA {
-  padding: var(--space-3xs) var(--space-sm);
-}
-
-.navA {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-sm) var(--space-md);
-  text-decoration: none;
-  color: var(--fg);
-  font-weight: 500;
-  border-radius: var(--br);
-  
-  &:hover {
-    color: var(--accent);
-    background: var(--muted);
-  }
-  
-  :global(svg) {
-    margin-inline-end: var(--space-sm);
-    width: var(--icon-md);
-    height: var(--icon-md);
-  }
-}
-
 /* Desktop styles and larger viewports */
 @media (width >= 640px) {
   .inner {
@@ -160,7 +122,7 @@
   }
   
   .menuBtn {
-    display: none; /* Hide hamburger trigger on desktop */
+    display: none;
   }
   
   .menu, .menuOpen {
@@ -190,18 +152,5 @@
   .navUtil {
     width: auto;
     justify-content: flex-start;
-  }
-
-  .navA {
-    justify-content: flex-start;
-    padding: var(--space-3xs) var(--space-sm);
-    
-    &:hover {
-      background: none; /* No blocky backgrounds on desktop header nav */
-    }
-    
-    :global(svg) {
-      margin-inline-end: var(--space-3xs);
-    }
   }
 }
