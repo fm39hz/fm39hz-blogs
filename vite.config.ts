@@ -53,6 +53,7 @@ export default defineConfig({
 										'go',
 										'yaml',
 										'diff',
+										'csharp',
 									],
 								});
 							}

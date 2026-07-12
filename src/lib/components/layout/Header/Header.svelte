@@ -19,7 +19,7 @@ const menu = new Collapsible();
       <button {...menu.trigger} class={styles.menuBtn} aria-label={menu.open ? t.a11y.closeMenu : t.a11y.openMenu}>
         <Icon icon={menu.open ? 'ph:x' : 'ph:list'} />
       </button>
-      <div class={`${styles.menu} ${menu.open ? styles.menuOpen : ''}`} onclick={(e) => { if (e.target === e.currentTarget) menu.open = false; }}>
+      <div class={`${styles.menu} ${menu.open ? styles.menuOpen : ''}`} role="presentation" onclick={(e) => { if (e.target === e.currentTarget) menu.open = false; }} onkeydown={() => {}}>
         <ul {...menu.content} class={styles.navUl}>
           <li class={styles.navLi}><a href="/articles" class={styles.navA}>{t.nav.posts}</a></li>
           <li class={styles.navLi}><a href="/topics" class={styles.navA}>{t.nav.tags}</a></li>
