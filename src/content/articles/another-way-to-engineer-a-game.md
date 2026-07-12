@@ -149,6 +149,7 @@ $$B_i = \bigl(C_{B_i},\; A_{B_i}\bigr) \quad \text{where} \quad A_{B_i} = \bigcu
 
 ```mermaid
 graph LR
+subgraph " "
     Player["<b>Player</b><br/><i>Being</i>"]
 
     Mobile["<b>Mobile</b><br/><i>Concept</i>"]
@@ -176,6 +177,7 @@ graph LR
     Combatant -- reveals --> HP
     Striker -- reveals --> SD
     Visual -- reveals --> Sil
+end
 ```
 
 The Player Being sits at coordinate `{Mobile, Combatant, Striker, Visual}`. An enemy might be nearby in semantic space but lack `Striker`. A destructible prop might only have `{Breakable, Visual}`. AI states and sensors are also Beings — `Bat_Idle → [State]`, `S_HealthPercent → [Sensor]`.
@@ -331,10 +333,12 @@ flowchart TB
 
 ```mermaid
 flowchart LR
+subgraph " "
     BID["beingId"] --> IDX["beingIndices[beingId]<br/>→ slot"]
     IDX --> FS{"FlatStore<br/>has type?"}
     FS -->|yes| ARR["flatStore[AspectType][slot]<br/><b>O(1)</b>"]
     FS -->|no| POOL["pools[conceptId][slot]<br/><b>O(1)</b>"]
+end
 ```
 
 No boxing. No dictionary. No hashing. Pure index arithmetic. FlatStore is the hot path — all Aspects of the same type sit contiguously in memory.
@@ -625,6 +629,7 @@ One `StateEngine.Evaluate`. One `DecisionSystem`. Different data. Designers choo
 
 ```mermaid
 flowchart TB
+subgraph " "
     START["Current State"] --> LINKS["Iterate Links<br/>from current state"]
     LINKS --> GATE{"Gate<br/>evaluation"}
 
@@ -649,6 +654,7 @@ flowchart TB
     PICK --> RESULT{"Different from<br/>current state?"}
     RESULT -->|"Yes"| TRANSITION["Transition<br/>Reset StateDuration"]
     RESULT -->|"No"| KEEP["Stay"]
+end
 ```
 
 `StateEngine.Evaluate` is a **pure function**. No side effects. Deterministic.
