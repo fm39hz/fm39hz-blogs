@@ -10,6 +10,7 @@ import ButtonLink from '$lib/components/ui/ButtonLink/ButtonLink.svelte';
 import Datetime from '$lib/components/ui/Datetime/Datetime.svelte';
 import PostSignature from '$lib/components/ui/PostSignature/PostSignature.svelte';
 import TableOfContents from '$lib/components/ui/TableOfContents/TableOfContents.svelte';
+import { bindTocRailInsets } from '$lib/components/ui/TableOfContents/tocRail.svelte';
 import TagLine from '$lib/components/ui/TagLine/TagLine.svelte';
 import cfg from '$lib/config';
 import { loadPageEntries } from '$lib/data/server';
@@ -24,6 +25,15 @@ let defaultEntry = $derived(matching.find((e) => e.lang === 'en') ?? matching[0]
 let entry = $derived(matching.find((e) => (e.lang ?? 'en') === locale.value) ?? defaultEntry);
 let meta = $derived(entry?.metadata ?? { title: '', description: '', pubDatetime: '', tags: [] });
 let t = $derived(useTranslations(locale.value));
+
+let tocReady = $state(false);
+let railEl = $state<HTMLElement | null>(null);
+
+// Grow/shrink equal top+bottom insets while page scrolls (label rides top edge)
+$effect(() => {
+	if (!railEl || !tocReady) return;
+	return bindTocRailInsets(railEl);
+});
 </script>
 
 <svelte:head>
@@ -43,21 +53,50 @@ let t = $derived(useTranslations(locale.value));
 </svelte:head>
 
 {#if entry}
-  <div class={`${styles.pageLayout} toc-active`}>
-    <article class={styles.articleContainer} use:copyCode use:styleCheckboxes use:renderMermaid use:roughNotation use:lightboxAction use:responsiveTables>
-      <nav class={styles.backNav}><ButtonLink href="/articles">&larr; {t.post.goBack}</ButtonLink></nav>
+  <div class={styles.page}>
+    <header class={styles.contentHeader}>
       <h1 class={styles.title}>{meta.title}</h1>
-      <div class={styles.meta}>
-        <Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" />
-      </div>
+    </header>
+
+    <div class={styles.toolbar}>
+      <nav class={styles.backNav} aria-label={t.post.goBack}>
+        <ButtonLink href="/articles">&larr; {t.post.goBack}</ButtonLink>
+      </nav>
+      <Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" />
+    </div>
+
+    <article
+      class={styles.article}
+      use:copyCode
+      use:styleCheckboxes
+      use:renderMermaid
+      use:roughNotation
+      use:lightboxAction
+      use:responsiveTables
+    >
       <div class="prose"><entry.component /></div>
       <hr class={styles.hr} />
       <PostSignature location={meta.location} pubDatetime={meta.pubDatetime} />
-      <ul class={styles.tags}>{#each meta.tags ?? [] as tag}<TagLine tag={slugifyStr(tag)} tagName={tag} size="sm" />{/each}</ul>
+      <ul class={styles.tags}>
+        {#each meta.tags ?? [] as tag}
+          <TagLine tag={slugifyStr(tag)} tagName={tag} size="sm" />
+        {/each}
+      </ul>
     </article>
-    
-    <aside class={styles.sidebar}>
-      <TableOfContents />
-    </aside>
   </div>
+
+  <!--
+    Fixed rail, out of flow.
+    top = bottom = --toc-inset (equal). Scroll shrinks inset → rail grows,
+    label stays at top of rail (sticky header of panel), list centers active item.
+  -->
+  <aside
+    bind:this={railEl}
+    class={styles.tocRail}
+    data-ready={tocReady ? 'true' : undefined}
+    aria-hidden={!tocReady}
+  >
+    <p class={styles.tocLabel}>{t.post.onThisPage}</p>
+    <TableOfContents onReady={(has) => (tocReady = has)} />
+  </aside>
 {/if}

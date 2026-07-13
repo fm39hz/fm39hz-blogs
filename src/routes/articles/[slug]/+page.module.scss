@@ -1,13 +1,46 @@
-.backNav { padding-block: var(--space-md) 0; }
-.title { color: var(--accent); display: inline-block; font-size: var(--fs-2xl); font-weight: 700; }
-.meta { margin: var(--space-sm) 0; display: flex; align-items: center; gap: var(--space-sm); }
-.hr { margin: var(--space-xl) 0; border: none; border-top: 1px dashed var(--border); }
-.tags { list-style: none; padding: 0; margin: var(--space-md) 0 var(--space-xl); display: flex; flex-wrap: wrap; gap: var(--space-md); }
-@media (width >= 640px) { .title { font-size: var(--fs-3xl); } .tags { margin: var(--space-xl) 0; } }
+/* Content = --mw. TOC rail = fixed right, equal insets, grows on scroll. */
 
-.articleContainer {
+.page {
+  max-width: var(--mw);
+  margin-inline: auto;
+  width: 100%;
+}
+
+.contentHeader {
+  padding-block: var(--space-md) var(--space-sm);
+}
+
+.title {
+  color: var(--accent);
+  display: inline-block;
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+  margin: 0;
+}
+
+.toolbar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding-block: var(--space-sm);
+  margin-bottom: var(--space-md);
+  background: var(--bg);
+  border-bottom: var(--line-solid);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-raised);
+}
+
+.backNav {
+  flex-shrink: 0;
+}
+
+.article {
   position: relative;
+  min-width: 0;
   padding-left: 1.25rem;
+
   &::before {
     content: '';
     position: absolute;
@@ -19,40 +52,97 @@
   }
 }
 
+.hr {
+  margin: var(--space-xl) 0;
+  border: none;
+  border-top: 1px dashed var(--border);
+}
+
+.tags {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-md) 0 var(--space-xl);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.tocRail {
+  display: none;
+}
+
+.tocLabel {
+  margin: 0;
+  padding: 0 0 var(--space-xs) var(--space-md);
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted-fg);
+  white-space: nowrap;
+  flex-shrink: 0;
+  /* sticks to top of the expanding rail */
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: linear-gradient(to bottom, var(--bg) 70%, transparent);
+}
+
 @media (width >= 640px) {
-  .articleContainer {
+  .title {
+    font-size: var(--fs-3xl);
+  }
+
+  .tags {
+    margin: var(--space-xl) 0;
+  }
+
+  .article {
     padding-left: 2rem;
+
     &::before {
       left: 0.75rem;
     }
   }
 }
 
-:global(body:has(.toc-active) main) {
-  @media (width >= 1200px) {
-    max-width: 74rem;
+/* Dock TOC just outside the centered --mw column (not viewport edge).
+ * At 125% zoom rem grows → content wider → gutter shrinks; content-relative
+ * left + max-width:gutter prevents overlap. Hide when gutter too tight. */
+@media (width >= 68rem) {
+  .tocRail[data-ready='true'] {
+    --toc-w: 15rem;
+    --toc-gap: var(--space-lg);
+    --toc-inset: 17vh; /* JS sets px; top === bottom */
+    --toc-gutter: calc(50% - (var(--mw) / 2) - var(--toc-gap) - var(--space-md));
+
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    z-index: var(--z-raised);
+    inset-inline-start: calc(50% + (var(--mw) / 2) + var(--toc-gap));
+    inset-inline-end: auto;
+    top: var(--toc-inset);
+    bottom: var(--toc-inset);
+    width: min(var(--toc-w), max(0px, var(--toc-gutter)));
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .tocRail[data-ready='true'] .tocLabel,
+  .tocRail[data-ready='true'] :global(nav) {
+    pointer-events: auto;
+  }
+
+  .tocRail[data-ready='true'] :global(nav) {
+    flex: 1 1 auto;
+    min-height: 0;
   }
 }
 
-.pageLayout {
-  position: relative;
-  max-width: var(--mw);
-  margin: 0 auto;
-  width: 100%;
-}
-
-.sidebar {
-  display: none;
-}
-
-@media (width >= 1200px) {
-  .sidebar {
-    display: block;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: calc(100% + var(--space-lg));
-    width: 260px;
+@media (width < 68rem) {
+  .tocRail {
+    display: none !important;
   }
 }
-

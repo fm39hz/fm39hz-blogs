@@ -16,6 +16,7 @@ export interface UIStrings {
 		tagLabel: string;
 		backToTop: string;
 		goBack: string;
+		onThisPage: string;
 		editPage: string;
 		previousPost: string;
 		nextPost: string;
@@ -73,6 +74,7 @@ const en: UIStrings = {
 		tagLabel: 'Tags',
 		backToTop: 'Back to top',
 		goBack: 'Go back',
+		onThisPage: 'On this page',
 		editPage: 'Edit page',
 		previousPost: 'Previous Post',
 		nextPost: 'Next Post',
@@ -135,6 +137,7 @@ const vi: UIStrings = {
 		tagLabel: 'Thẻ',
 		backToTop: 'Lên đầu',
 		goBack: 'Quay lại',
+		onThisPage: 'Trên trang này',
 		editPage: 'Sửa trang',
 		previousPost: 'Bài trước',
 		nextPost: 'Bài sau',

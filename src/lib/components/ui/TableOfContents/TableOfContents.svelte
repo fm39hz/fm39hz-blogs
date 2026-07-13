@@ -2,98 +2,70 @@
 import { onMount } from 'svelte';
 import { browser } from '$app/environment';
 import styles from './TableOfContents.module.scss';
+import {
+	centerActiveInList,
+	collectHeadings,
+	observeActiveHeading,
+	type TocHeading,
+} from './toc.svelte';
 
-let headings = $state<{ id: string; text: string; level: number }[]>([]);
-let activeId = $state<string>('');
-let containerEl = $state<HTMLElement | null>(null);
+let {
+	onReady,
+}: {
+	onReady?: (hasHeadings: boolean) => void;
+} = $props();
+
+let headings = $state<TocHeading[]>([]);
+let activeId = $state('');
+let listEl = $state<HTMLElement | null>(null);
 
 $effect(() => {
-	if (!activeId || !containerEl) return;
-	const activeLink = containerEl.querySelector(`.${styles.active}`);
-	if (activeLink) {
-		activeLink.scrollIntoView({
-			behavior: 'smooth',
-			block: 'nearest',
-		});
-	}
+	onReady?.(headings.length > 0);
+});
+
+// Center active when possible (clamped — ends can't balance)
+$effect(() => {
+	if (!browser || !activeId || !listEl) return;
+	const active = listEl.querySelector<HTMLElement>(`[data-toc-id="${activeId}"]`);
+	if (!active) return;
+	centerActiveInList(listEl, active, true);
 });
 
 onMount(() => {
 	const prose = document.querySelector('.prose');
-	if (!prose) return;
-
-	const elements = prose.querySelectorAll<HTMLHeadingElement>('h2, h3');
-	const items = Array.from(elements).map((el) => {
-		if (!el.id) {
-			const text = el.textContent ?? '';
-			el.id = text
-				.toLowerCase()
-				.replace(/[^a-z0-9]+/g, '-')
-				.replace(/(^-|-$)/g, '');
-		}
-		return {
-			id: el.id,
-			text: el.textContent ?? '',
-			level: Number.parseInt(el.tagName.substring(1)),
-		};
-	});
-	headings = items;
-
-	if (items.length === 0) return;
-
-	const headingStates = new Map<string, boolean>();
-	const observer = new IntersectionObserver(
-		(entries) => {
-			for (const entry of entries) {
-				headingStates.set(entry.target.id, entry.isIntersecting);
-			}
-
-			let firstVisibleId = '';
-			for (const item of items) {
-				if (headingStates.get(item.id)) {
-					firstVisibleId = item.id;
-					break;
-				}
-			}
-
-			if (firstVisibleId) {
-				activeId = firstVisibleId;
-			} else {
-				const scrollY = window.scrollY;
-				let lastAboveId = items[0].id;
-				for (const item of items) {
-					const el = document.getElementById(item.id);
-					if (el && el.offsetTop - 120 < scrollY) {
-						lastAboveId = item.id;
-					} else {
-						break;
-					}
-				}
-				activeId = lastAboveId;
-			}
-		},
-		{
-			rootMargin: '-80px 0px -60% 0px',
-		},
-	);
-
-	for (const item of items) {
-		const el = document.getElementById(item.id);
-		if (el) observer.observe(el);
+	if (!prose) {
+		onReady?.(false);
+		return;
 	}
 
+	const items = collectHeadings(prose);
+	headings = items;
+	onReady?.(items.length > 0);
+	if (items.length === 0) return;
+
+	const onResize = () => {
+		if (!listEl || !activeId) return;
+		const active = listEl.querySelector<HTMLElement>(`[data-toc-id="${activeId}"]`);
+		if (active) centerActiveInList(listEl, active, false);
+	};
+	window.addEventListener('resize', onResize);
+
+	const stop = observeActiveHeading(items, (id) => {
+		activeId = id;
+	});
+
 	return () => {
-		observer.disconnect();
+		stop();
+		window.removeEventListener('resize', onResize);
 	};
 });
 </script>
 
 {#if browser && headings.length > 0}
-  <nav bind:this={containerEl} class={styles.wrapper} aria-label="Table of contents">
-    <div class={styles.title}>On this page</div>
-    <ul class={styles.list}>
-      {#each headings as { id, text, level }}
-        <li class={`${styles.item} ${styles[`level-${level}`]}`}>
+  <nav class={styles.nav} aria-label="Table of contents">
+    <ul bind:this={listEl} class={styles.list}>
+      {#each headings as { id, text, level } (id)}
+        <li class={`${styles.item} ${styles[`level-${level}`]}`} data-toc-id={id}>
           <a
             href="#{id}"
             class={`${styles.link} ${activeId === id ? styles.active : ''}`}
@@ -101,6 +73,7 @@ onMount(() => {
               e.preventDefault();
               document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
               history.pushState(null, '', `#${id}`);
+              activeId = id;
             }}
           >
             {text}
