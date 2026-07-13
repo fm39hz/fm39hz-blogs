@@ -4,6 +4,8 @@ import { dev } from '$app/environment';
 import { onNavigate } from '$app/navigation';
 import Footer from '$lib/components/layout/Footer/Footer.svelte';
 import Header from '$lib/components/layout/Header/Header.svelte';
+import Lightbox from '$lib/components/ui/Lightbox/Lightbox.svelte';
+import Toaster from '$lib/components/ui/Toaster/Toaster.svelte';
 import cfg from '$lib/config';
 import '../styles/global.scss';
 import '$lib/design-system/foundations/prose.scss';
@@ -15,6 +17,9 @@ let { children } = $props();
 injectAnalytics({ mode: dev ? 'development' : 'production' });
 onNavigate(viewTransition);
 </script>
+
+<Toaster />
+<Lightbox />
 
 <svelte:head>
   <link rel="alternate" type="application/rss+xml" title="{cfg.site.title} RSS" href="/rss.xml" />

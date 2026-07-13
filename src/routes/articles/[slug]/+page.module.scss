@@ -28,3 +28,31 @@
   }
 }
 
+:global(body:has(.toc-active) main) {
+  @media (width >= 1200px) {
+    max-width: 74rem;
+  }
+}
+
+.pageLayout {
+  position: relative;
+  max-width: var(--mw);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.sidebar {
+  display: none;
+}
+
+@media (width >= 1200px) {
+  .sidebar {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(100% + var(--space-lg));
+    width: 260px;
+  }
+}
+

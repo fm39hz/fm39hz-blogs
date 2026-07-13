@@ -2,11 +2,13 @@
 import { page } from '$app/state';
 import { styleCheckboxes } from '$lib/actions/checkboxes';
 import { copyCode } from '$lib/actions/copyCode';
+import { lightboxAction } from '$lib/actions/lightbox';
 import { renderMermaid } from '$lib/actions/renderMermaid';
 import { roughNotation } from '$lib/actions/roughNotation';
 import ButtonLink from '$lib/components/ui/ButtonLink/ButtonLink.svelte';
 import Datetime from '$lib/components/ui/Datetime/Datetime.svelte';
 import PostSignature from '$lib/components/ui/PostSignature/PostSignature.svelte';
+import TableOfContents from '$lib/components/ui/TableOfContents/TableOfContents.svelte';
 import TagLine from '$lib/components/ui/TagLine/TagLine.svelte';
 import cfg from '$lib/config';
 import { loadPageEntries } from '$lib/data/server';
@@ -39,17 +41,22 @@ let t = $derived(useTranslations(locale.value));
   {/if}
 </svelte:head>
 
-<nav class={styles.backNav}><ButtonLink href="/articles">&larr; {t.post.goBack}</ButtonLink></nav>
-
 {#if entry}
-  <article class={styles.articleContainer} use:copyCode use:styleCheckboxes use:renderMermaid use:roughNotation>
-    <h1 class={styles.title}>{meta.title}</h1>
-    <div class={styles.meta}>
-      <Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" />
-    </div>
-    <div class="prose"><entry.component /></div>
-    <hr class={styles.hr} />
-    <PostSignature location={meta.location} pubDatetime={meta.pubDatetime} />
-    <ul class={styles.tags}>{#each meta.tags ?? [] as tag}<TagLine tag={slugifyStr(tag)} tagName={tag} size="sm" />{/each}</ul>
-  </article>
+  <div class={`${styles.pageLayout} toc-active`}>
+    <article class={styles.articleContainer} use:copyCode use:styleCheckboxes use:renderMermaid use:roughNotation use:lightboxAction>
+      <nav class={styles.backNav}><ButtonLink href="/articles">&larr; {t.post.goBack}</ButtonLink></nav>
+      <h1 class={styles.title}>{meta.title}</h1>
+      <div class={styles.meta}>
+        <Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" />
+      </div>
+      <div class="prose"><entry.component /></div>
+      <hr class={styles.hr} />
+      <PostSignature location={meta.location} pubDatetime={meta.pubDatetime} />
+      <ul class={styles.tags}>{#each meta.tags ?? [] as tag}<TagLine tag={slugifyStr(tag)} tagName={tag} size="sm" />{/each}</ul>
+    </article>
+    
+    <aside class={styles.sidebar}>
+      <TableOfContents />
+    </aside>
+  </div>
 {/if}

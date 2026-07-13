@@ -8,10 +8,3 @@
 .btn:active { transform: rotate(-20deg) scale(var(--scale-active)); }
 .btn.copied { transform: rotate(-10deg) scale(var(--scale-pop)); color: var(--accent); }
 .btn svg { width: var(--icon-lg); height: var(--icon-lg); }
-.toast {
-  position: fixed; bottom: var(--space-xl); left: 50%; transform: translateX(-50%);
-  z-index: var(--z-toast); pointer-events: none; white-space: nowrap;
-  background: var(--accent); color: var(--bg);
-  padding: var(--space-sm) var(--space-md); border-radius: var(--br-full);
-  font-size: var(--fs-sm);
-}
