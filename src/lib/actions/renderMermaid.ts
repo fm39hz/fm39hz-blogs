@@ -36,7 +36,8 @@ export function renderMermaid(container: HTMLElement) {
 				await mermaid.run({ nodes: blocks });
 				for (const pre of blocks) {
 					const svg = pre.querySelector('svg');
-					if (svg) svg.style.filter = 'url(#pencil-wiggle)';
+					// animated pencil wiggle — own layer via .pencil-edge
+					if (svg) svg.classList.add('pencil-edge');
 					pre.style.opacity = '1';
 				}
 			} catch (e) {

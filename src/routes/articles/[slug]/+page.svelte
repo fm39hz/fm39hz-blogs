@@ -3,6 +3,7 @@ import { page } from '$app/state';
 import { styleCheckboxes } from '$lib/actions/checkboxes';
 import { copyCode } from '$lib/actions/copyCode';
 import { lightboxAction } from '$lib/actions/lightbox';
+import { pencilEdge } from '$lib/actions/pencilEdge';
 import { renderMermaid } from '$lib/actions/renderMermaid';
 import { responsiveTables } from '$lib/actions/responsiveTables';
 import { roughNotation } from '$lib/actions/roughNotation';
@@ -10,7 +11,6 @@ import ButtonLink from '$lib/components/ui/ButtonLink/ButtonLink.svelte';
 import Datetime from '$lib/components/ui/Datetime/Datetime.svelte';
 import PostSignature from '$lib/components/ui/PostSignature/PostSignature.svelte';
 import TableOfContents from '$lib/components/ui/TableOfContents/TableOfContents.svelte';
-import { bindTocRailInsets } from '$lib/components/ui/TableOfContents/tocRail.svelte';
 import TagLine from '$lib/components/ui/TagLine/TagLine.svelte';
 import cfg from '$lib/config';
 import { loadPageEntries } from '$lib/data/server';
@@ -27,13 +27,6 @@ let meta = $derived(entry?.metadata ?? { title: '', description: '', pubDatetime
 let t = $derived(useTranslations(locale.value));
 
 let tocReady = $state(false);
-let railEl = $state<HTMLElement | null>(null);
-
-// Grow/shrink equal top+bottom insets while page scrolls (label rides top edge)
-$effect(() => {
-	if (!railEl || !tocReady) return;
-	return bindTocRailInsets(railEl);
-});
 </script>
 
 <svelte:head>
@@ -67,6 +60,7 @@ $effect(() => {
 
     <article
       class={styles.article}
+      use:pencilEdge
       use:copyCode
       use:styleCheckboxes
       use:renderMermaid
@@ -85,13 +79,8 @@ $effect(() => {
     </article>
   </div>
 
-  <!--
-    Fixed rail, out of flow.
-    top = bottom = --toc-inset (equal). Scroll shrinks inset → rail grows,
-    label stays at top of rail (sticky header of panel), list centers active item.
-  -->
+  <!-- Fixed rail, out of flow. Geometry is static CSS (equal insets). -->
   <aside
-    bind:this={railEl}
     class={styles.tocRail}
     data-ready={tocReady ? 'true' : undefined}
     aria-hidden={!tocReady}

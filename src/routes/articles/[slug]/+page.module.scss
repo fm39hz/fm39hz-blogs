@@ -114,7 +114,7 @@
   .tocRail[data-ready='true'] {
     --toc-w: 15rem;
     --toc-gap: var(--space-lg);
-    --toc-inset: 17vh; /* JS sets px; top === bottom */
+    --toc-inset: 17vh; /* equal static insets — vertically centered, no scroll thrash */
     --toc-gutter: calc(50% - (var(--mw) / 2) - var(--toc-gap) - var(--space-md));
 
     display: flex;

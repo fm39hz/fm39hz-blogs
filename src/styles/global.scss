@@ -10,6 +10,8 @@
   --border-style: dashed;
   --font-body: 'Sriracha', cursive;
   --font-handwriting: 'Borel', cursive;
+  /* OT features for handwriting surfaces — calt/liga only (no rand on web) */
+  --font-hand-features: "calt" 1, "liga" 1;
   --fs-xs: 0.75rem;
   --fs-sm: 0.875rem;
   --fs-base: 1rem;
@@ -84,6 +86,7 @@
 
 .prose blockquote {
   font-family: var(--font-handwriting);
+  font-feature-settings: var(--font-hand-features);
 }
 .prose blockquote .katex {
   font-family: var(--font-handwriting), KaTeX_Main, serif;
@@ -258,8 +261,43 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
 .katex { color: var(--fg); }
 .katex-display { margin: 1rem 0; overflow-x: auto; overflow-y: hidden; }
 
+/*
+ * Handwriting + pencil wiggle:
+ * 1) font glyphs + OT features (text intact)
+ * 2) .pencil-edge = animated SVG filter on an OWN compositor layer
+ *    so seed animation re-filters only that box (not the whole page).
+ */
+.hand,
+.sketchy-quote {
+  font-family: var(--font-handwriting);
+  font-feature-settings: var(--font-hand-features);
+}
+
+.pencil-edge,
 .sketchy-quote {
   filter: url('#pencil-wiggle');
+  /* promote layer — isolates filter invalidation from document scroll */
+  transform: translateZ(0);
+  isolation: isolate;
+  backface-visibility: hidden;
+  will-change: filter;
+}
+
+/* Off-screen / not yet painted: static edge — no seed animation cost */
+.pencil-edge[data-pencil='static'],
+.sketchy-quote[data-pencil='static'],
+blockquote[data-pencil='static'] {
+  filter: url('#pencil-edge-static');
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pencil-edge,
+  .sketchy-quote,
+  .prose blockquote {
+    filter: url('#pencil-edge-static') !important;
+    will-change: auto !important;
+  }
 }
 
 .prose details {
