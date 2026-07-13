@@ -41,7 +41,7 @@ If something does not serve that line, cut it. I will keep a top-down 2D action 
 
 A few consequences fall out right away. If swapping the machine rewrites the rule, the boundary was never real. If new content needs proper-noun branches inside rule code, parameterization already failed. If packages, names, and schedule disagree with the separations you claim, the diagram was decoration.
 
-## Rule against machinery
+## Game & Infrastructure
 
 A design document does not speak in GPU types, or some case, Engine types. It says _hit lands_, _knockback_, _opening_, _the bat is chasing_. Infrastructure speaks in overlaps, atlases, device polls, solver steps. Share those vocabularies in the same functions, and changing the machine changes the game. That is the first failure mode I care about.
 
@@ -143,7 +143,7 @@ Being is not entity. A being lives in Knowledge, does not mutate in play, and is
 
 Again, this is not "the game is a schema." It is just how design and rule share coordinates without collapsing into storage slang or class trees: viewpoint against free-form bags, role against proper noun.
 
-## Knowledge against life
+## Knowledge, and... life?
 
 "Player max HP is 4" is design. "Entity 17 has 2 HP" is life. Those are different kinds of truth, and if you put them in one address space you get either live buffs rewriting the next spawn's blueprint, or endless reparsing because nothing was ever frozen.
 
@@ -211,7 +211,7 @@ sequenceDiagram
 
 Why split Knowledge and life so hard? Because if you cannot tell design fact from this-instance-now, you already lost the difference between law and weather, and once that is gone, the blackbox owns you again.
 
-## Rules, and honest reads and writes
+## Rules, and the greatness of honest reads and writes
 
 Rules need mutable fields. That place is often an ECS, or SoA tables with the same permissions, and I do not care which vendor. I care that rule can touch life without importing engine words, and that every mutable touch is visible to ordering, because order without visible dependence is fake.
 
