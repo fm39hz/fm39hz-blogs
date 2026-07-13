@@ -8,7 +8,7 @@
     position: sticky;
     top: 0;
     z-index: var(--z-sticky);
-    transition: transform var(--d-normal) ease, box-shadow var(--d-normal) ease, background-color var(--d-normal) ease;
+    transition: transform var(--d-normal) var(--ease-out), box-shadow var(--d-normal) var(--ease-out), background-color var(--d-normal) var(--ease-out);
   }
 
   .hidden {
@@ -35,7 +35,7 @@
   z-index: var(--z-sticky);
   background: var(--bg);
   color: var(--accent);
-  padding: var(--space-sm) 0.75rem;
+  padding: var(--space-sm) calc(var(--space-xs) * 2);
   transition: top var(--d-normal);
   text-decoration: none;
   font-size: var(--fs-sm);

@@ -1,4 +1,11 @@
-export { durations, easings, scales } from './animation';
+export {
+	AnimDuration,
+	AnimDurationMs,
+	AnimEasing,
+	durations,
+	easings,
+	scales,
+} from './animation';
 export type { ColorTokens } from './colors';
 export { colors } from './colors';
 export { socialIcons } from './icons';

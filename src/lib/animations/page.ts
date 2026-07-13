@@ -1,5 +1,6 @@
 import { animate } from 'motion/mini';
-import { AnimEasing } from '$lib/types';
+import { AnimDuration, AnimEasing } from '$lib/constants';
+import { prefersReducedMotion } from './reduce';
 
 type PageDir = 'book-open' | 'book-close' | 'page-down' | 'page-up';
 
@@ -13,8 +14,10 @@ const CLIP = {
 export function pageReveal(
 	originEl: HTMLElement,
 	dir: PageDir = 'book-open',
-	duration = 0.5,
+	duration = AnimDuration.scene,
 ): Promise<void> {
+	if (prefersReducedMotion()) return Promise.resolve();
+
 	const rect = originEl.getBoundingClientRect();
 	const originX = ((rect.left + rect.width / 2) / innerWidth) * 100;
 	const originY = ((rect.top + rect.height / 2) / innerHeight) * 100;
@@ -32,18 +35,14 @@ export function pageReveal(
 	].join(';');
 	document.body.appendChild(overlay);
 
-	const anim = animate(
-		overlay,
-		{ clipPath: clips[0] },
-		{ duration, ease: AnimEasing.EASE_OUT_QUART },
-	);
+	const anim = animate(overlay, { clipPath: clips[0] }, { duration, ease: AnimEasing.out });
 	return anim.finished.then(() => overlay.remove());
 }
 
 export function pageConceal(
 	originEl: HTMLElement,
 	dir: PageDir = 'book-close',
-	duration = 0.4,
+	duration = AnimDuration.page,
 ): Promise<HTMLElement> {
 	const rect = originEl.getBoundingClientRect();
 	const originX = ((rect.left + rect.width / 2) / innerWidth) * 100;
@@ -62,10 +61,8 @@ export function pageConceal(
 	].join(';');
 	document.body.appendChild(overlay);
 
-	const anim = animate(
-		overlay,
-		{ clipPath: clips[1] },
-		{ duration, ease: AnimEasing.EASE_OUT_QUART },
-	);
+	if (prefersReducedMotion()) return Promise.resolve(overlay);
+
+	const anim = animate(overlay, { clipPath: clips[1] }, { duration, ease: AnimEasing.out });
 	return anim.finished.then(() => overlay);
 }

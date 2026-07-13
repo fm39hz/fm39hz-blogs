@@ -48,8 +48,11 @@
   --scale-pop: 1.15;
   --d-fast: 0.15s;
   --d-normal: 0.2s;
+  --d-enter: 0.25s;
   --d-slow: 0.3s;
-  --d-theme: 0.7s;
+  --d-page: 0.35s;
+  --d-scene: 0.5s;
+  --d-theme: 0.55s;
   --mw: 48rem;
   --lh-tight: 1.25;
   --lh-normal: 1.75;
@@ -199,7 +202,7 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
 @media (prefers-reduced-motion: no-preference) {
   .cb .cb-path {
     stroke-dashoffset: 30;
-    animation: cb-draw 0.35s var(--ease-out) forwards;
+    animation: cb-draw var(--d-page) var(--ease-out) forwards;
   }
 
   @keyframes page-turn-out {
@@ -213,16 +216,33 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
   }
 
   ::view-transition-old(root) {
-    animation: 0.35s var(--ease-out) both page-turn-out !important;
+    animation: var(--d-page) var(--ease-out) both page-turn-out !important;
   }
 
   ::view-transition-new(root) {
-    animation: 0.35s var(--ease-out) both page-turn-in !important;
+    animation: var(--d-page) var(--ease-out) both page-turn-in !important;
   }
 
   ::view-transition-old(root), ::view-transition-new(root) {
     mix-blend-mode: normal !important;
     background: var(--bg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }
 

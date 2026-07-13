@@ -2,6 +2,7 @@
 import Icon from '@iconify/svelte';
 import { spring } from 'svelte/motion';
 import { browser } from '$app/environment';
+import { AnimDurationMs } from '$lib/constants';
 import styles from './TableCardStack.module.scss';
 
 interface Props {
@@ -132,7 +133,7 @@ function nextCard() {
 	setTimeout(() => {
 		animatingCardIdx = null;
 		animationDirection = null;
-	}, 500);
+	}, AnimDurationMs.scene);
 }
 
 function prevCard() {
@@ -147,7 +148,7 @@ function prevCard() {
 	setTimeout(() => {
 		animatingCardIdx = null;
 		animationDirection = null;
-	}, 500);
+	}, AnimDurationMs.scene);
 }
 
 function getCardClass(idx: number) {

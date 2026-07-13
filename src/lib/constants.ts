@@ -1,10 +1,13 @@
-import { AnimEasing, Dir, Lang, Theme } from '$lib/types';
+import { AnimDuration, AnimDurationMs, AnimEasing } from '$lib/design-system/tokens/animation';
+import { Dir, Lang, Theme } from '$lib/types';
 
-export { AnimEasing, Dir, Lang, Theme };
+export { AnimDuration, AnimDurationMs, AnimEasing, Dir, Lang, Theme };
 
-export const ANIM_DURATION = 0.3;
-export const THEME_TRANSITION_DURATION = 0.7;
-export const COPY_FEEDBACK_MS = 700;
+/** @deprecated use AnimDuration.slow */
+export const ANIM_DURATION = AnimDuration.slow;
+/** @deprecated use AnimDuration.theme */
+export const THEME_TRANSITION_DURATION = AnimDuration.theme;
+export const COPY_FEEDBACK_MS = AnimDurationMs.theme;
 export const COPY_BTN_SIZE = 28;
 export const COPY_BTN_ROTATE = 2;
 export const POSTS_DIR = '/src/content/articles/*.md';

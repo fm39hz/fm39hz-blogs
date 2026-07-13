@@ -14,10 +14,6 @@ export enum Dir {
 	AUTO = 'auto',
 }
 
-export const AnimEasing = {
-	EASE_OUT_QUART: [0.22, 1, 0.36, 1] as const,
-} as const;
-
 export type Language = `${Lang}`;
 
 export type ThemeMode = `${Theme}`;

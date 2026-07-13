@@ -1,5 +1,5 @@
 import { pageReveal } from '$lib/animations/page';
 
 export function animatePageReveal(originEl: HTMLElement) {
-	void pageReveal(originEl, 'page-down', 0.5);
+	void pageReveal(originEl, 'page-down');
 }

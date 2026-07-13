@@ -5,6 +5,9 @@
   transition: transform var(--d-fast) var(--ease-out);
 }
 .btn:hover { transform: rotate(-15deg) scale(var(--scale-hover)); color: var(--accent); }
-.btn:active { transform: rotate(-20deg) scale(var(--scale-active)); }
+.btn:active {
+  transform: rotate(-20deg) scale(var(--scale-active));
+  transition-timing-function: var(--ease-bounce);
+}
 .btn.copied { transform: rotate(-10deg) scale(var(--scale-pop)); color: var(--accent); }
 .btn svg { width: var(--icon-lg); height: var(--icon-lg); }

@@ -186,7 +186,7 @@
   pre.mermaid {
     opacity: 0;
     color: transparent;
-    transition: opacity var(--d-normal) ease;
+    transition: opacity var(--d-normal) var(--ease-out);
     overflow: hidden;
     border: var(--border-w) var(--border-style);
     border-radius: var(--br);

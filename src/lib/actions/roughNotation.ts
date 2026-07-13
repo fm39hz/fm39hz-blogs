@@ -1,4 +1,6 @@
 import { annotate } from 'rough-notation';
+import { prefersReducedMotion } from '$lib/animations/reduce';
+import { AnimDurationMs } from '$lib/constants';
 
 /**
  * Applies rough-notation hand-drawn annotations to markdown prose elements.
@@ -29,8 +31,8 @@ export function roughNotation(node: HTMLElement) {
 			type: 'highlight',
 			color,
 			multiline: true,
-			animate: true,
-			animationDuration: 600,
+			animate: !prefersReducedMotion(),
+			animationDuration: AnimDurationMs.scene,
 		});
 		annotations.push(ann);
 

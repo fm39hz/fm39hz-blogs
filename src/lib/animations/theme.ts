@@ -1,5 +1,6 @@
-import { AnimEasing, Theme } from '$lib/constants';
+import { AnimDuration, AnimDurationMs, AnimEasing, Theme } from '$lib/constants';
 import type { ThemeMode } from '$lib/types';
+import { prefersReducedMotion } from './reduce';
 
 export function getStoredTheme(): ThemeMode {
 	if (typeof localStorage === 'undefined') return Theme.DARK;
@@ -16,7 +17,7 @@ export function applyTheme(mode: ThemeMode): void {
 }
 
 const VT_ID = 'fm-vt';
-const CURVE = `cubic-bezier(${AnimEasing.EASE_OUT_QUART.join(', ')})`;
+const CURVE = `cubic-bezier(${AnimEasing.out.join(', ')})`;
 
 function injectVT(darkToLight: boolean): void {
 	const old = document.getElementById(VT_ID);
@@ -34,7 +35,7 @@ function injectVT(darkToLight: boolean): void {
 			mix-blend-mode: normal !important;
 		}
 		::view-transition-old(root) {
-			animation-duration: 0.55s !important;
+			animation-duration: ${AnimDuration.theme}s !important;
 			animation-timing-function: ${CURVE} !important;
 			animation-fill-mode: forwards !important;
 		}
@@ -67,7 +68,11 @@ function injectVT(darkToLight: boolean): void {
 }
 
 export function animateThemeToggle(_button: HTMLElement, callback: () => void): void {
-	if (typeof document === 'undefined' || !document.startViewTransition) {
+	if (
+		typeof document === 'undefined' ||
+		!document.startViewTransition ||
+		prefersReducedMotion()
+	) {
 		callback();
 		return;
 	}
@@ -75,6 +80,6 @@ export function animateThemeToggle(_button: HTMLElement, callback: () => void): 
 	injectVT(isDark);
 	void document.startViewTransition(() => {
 		callback();
-		setTimeout(() => document.getElementById(VT_ID)?.remove(), 700);
+		setTimeout(() => document.getElementById(VT_ID)?.remove(), AnimDurationMs.theme);
 	});
 }

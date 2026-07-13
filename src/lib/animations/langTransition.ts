@@ -1,5 +1,6 @@
 import { animate } from 'motion/mini';
-import { ANIM_DURATION, AnimEasing } from '$lib/constants';
+import { AnimDuration, AnimEasing } from '$lib/constants';
+import { prefersReducedMotion } from './reduce';
 
 export function animateLangSwitch(container: HTMLElement, currentLang: string): void {
 	const entering: HTMLElement[] = [];
@@ -16,13 +17,23 @@ export function animateLangSwitch(container: HTMLElement, currentLang: string): 
 
 	if (entering.length === 0) return;
 
+	if (prefersReducedMotion()) {
+		for (const el of leaving) el.style.display = 'none';
+		for (const el of entering) {
+			el.style.display = 'block';
+			el.style.opacity = '1';
+			el.style.transform = '';
+		}
+		return;
+	}
+
 	// Pages slide: leaving slides left, entering slides in from right
 	const fadeOut = leaving.map(
 		(el) =>
 			animate(
 				el,
 				{ x: [0, -10], opacity: [1, 0] },
-				{ duration: ANIM_DURATION / 2, ease: AnimEasing.EASE_OUT_QUART },
+				{ duration: AnimDuration.fast, ease: AnimEasing.out },
 			).finished,
 	);
 
@@ -37,7 +48,7 @@ export function animateLangSwitch(container: HTMLElement, currentLang: string): 
 			animate(
 				el,
 				{ x: [10, 0], opacity: [0, 1] },
-				{ duration: ANIM_DURATION, ease: AnimEasing.EASE_OUT_QUART },
+				{ duration: AnimDuration.slow, ease: AnimEasing.out },
 			);
 		}
 	});

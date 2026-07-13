@@ -108,7 +108,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2xs);
-  padding: 4px var(--space-xs);
+  padding: var(--space-2xs) var(--space-xs);
   border-radius: var(--br-full);
   border: 1px dashed var(--border);
   font-size: var(--fs-xs);
@@ -145,7 +145,7 @@
 .badgeVal {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--space-2xs);
 }
 
 .badgeIcon {
@@ -166,7 +166,7 @@
 .field {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--space-3xs);
   border-bottom: 1px dashed color-mix(in srgb, var(--border) 30%, transparent);
   padding-bottom: var(--space-3xs);
   transition: opacity var(--d-fast);
@@ -199,7 +199,7 @@
     background-color: color-mix(in srgb, var(--accent) 8%, var(--bg));
     border: var(--border-w) solid var(--border);
     border-radius: var(--br-sm);
-    padding: 1px 4px;
+    padding: 1px var(--space-2xs);
     font-family: var(--font-code);
     font-size: var(--fs-2xs);
     white-space: nowrap;
@@ -209,12 +209,12 @@
 // ── Shuffling Animations ──────────────────────────────────
 
 .slideDown {
-  animation: slide-down-next 0.50s var(--ease-out) forwards;
+  animation: slide-down-next var(--d-scene) var(--ease-out) forwards;
   pointer-events: none;
 }
 
 .slideUp {
-  animation: slide-up-prev 0.50s var(--ease-out) forwards;
+  animation: slide-up-prev var(--d-scene) var(--ease-out) forwards;
   pointer-events: none;
 }
 

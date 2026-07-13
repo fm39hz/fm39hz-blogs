@@ -62,7 +62,7 @@
 .postList {
   list-style: none;
   padding: 0;
-  margin: 0 0 0 1.25rem;
+  margin: 0 0 0 calc(var(--space-md) + var(--space-2xs));
   border-inline-start: 2px dashed var(--border);
 }
 

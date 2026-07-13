@@ -1,5 +1,7 @@
 <script lang="ts">
 import { browser } from '$app/environment';
+import { prefersReducedMotion } from '$lib/animations/reduce';
+import { AnimDurationMs } from '$lib/constants';
 import styles from './TagPill.module.scss';
 
 let {
@@ -28,8 +30,8 @@ function roughTagAction(node: HTMLElement) {
 		const ann = annotate(node, {
 			type: 'highlight',
 			color,
-			animate: true,
-			animationDuration: 600,
+			animate: !prefersReducedMotion(),
+			animationDuration: AnimDurationMs.scene,
 		});
 
 		const observer = new IntersectionObserver(
