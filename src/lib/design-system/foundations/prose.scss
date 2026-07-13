@@ -196,15 +196,15 @@
   }
 
   /* ── Tables ──────────────────────────────────────────────── */
-  /* wrapper for overflow on small screens */
   :where(table) {
     width: 100%;
-    table-layout: fixed;
+    table-layout: auto;
     border-collapse: separate;
     border-spacing: 0;
     background: color-mix(in srgb, var(--bg) 97%, var(--fg));
     border-radius: var(--br);
     border: var(--border-w) dashed var(--border);
+    margin: var(--space-md) 0;
   }
   th, td {
     border: var(--border-w) dashed var(--border);
@@ -223,6 +223,59 @@
   th:last-child,  td:last-child  { border-right: none; }
   tr:first-child th, tr:first-child td { border-top: none; }
   tr:last-child  th, tr:last-child  td { border-bottom: none; }
+
+  // Responsive Table Stacking for mobile (no horizontal scroll UX)
+  @media (max-width: 768px) {
+    :where(table) {
+      border: none;
+      background: transparent;
+      margin: var(--space-md) 0;
+      display: block;
+    }
+    :where(thead) {
+      display: none;
+    }
+    :where(tbody), :where(tr), :where(td) {
+      display: block;
+    }
+    :where(tr) {
+      margin-bottom: var(--space-md);
+      border: var(--border-w) dashed var(--border);
+      border-radius: var(--br);
+      background: color-mix(in srgb, var(--bg) 97%, var(--fg));
+      padding: var(--space-sm);
+      box-shadow: 2px 2px 0 var(--border);
+      
+      // Clear double border removal on mobile cards
+      th, td {
+        border-left: none !important;
+        border-right: none !important;
+        border-top: none !important;
+        border-bottom: none !important;
+      }
+    }
+    :where(td) {
+      border: none;
+      padding: var(--space-xs) 0 !important;
+      text-align: start;
+      display: block;
+      
+      &:not(:last-child) {
+        border-bottom: 1px dashed color-mix(in srgb, var(--border) 40%, transparent) !important;
+      }
+      
+      &::before {
+        content: attr(data-label);
+        display: block;
+        font-weight: 700;
+        font-size: var(--fs-2xs);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--accent);
+        margin-bottom: 4px;
+      }
+    }
+  }
 
   /* ── Lists ───────────────────────────────────────────────── */
   ul, ol { padding-inline-start: 1.5rem; }

@@ -4,6 +4,7 @@ import { styleCheckboxes } from '$lib/actions/checkboxes';
 import { copyCode } from '$lib/actions/copyCode';
 import { lightboxAction } from '$lib/actions/lightbox';
 import { renderMermaid } from '$lib/actions/renderMermaid';
+import { responsiveTables } from '$lib/actions/responsiveTables';
 import { roughNotation } from '$lib/actions/roughNotation';
 import ButtonLink from '$lib/components/ui/ButtonLink/ButtonLink.svelte';
 import Datetime from '$lib/components/ui/Datetime/Datetime.svelte';
@@ -43,7 +44,7 @@ let t = $derived(useTranslations(locale.value));
 
 {#if entry}
   <div class={`${styles.pageLayout} toc-active`}>
-    <article class={styles.articleContainer} use:copyCode use:styleCheckboxes use:renderMermaid use:roughNotation use:lightboxAction>
+    <article class={styles.articleContainer} use:copyCode use:styleCheckboxes use:renderMermaid use:roughNotation use:lightboxAction use:responsiveTables>
       <nav class={styles.backNav}><ButtonLink href="/articles">&larr; {t.post.goBack}</ButtonLink></nav>
       <h1 class={styles.title}>{meta.title}</h1>
       <div class={styles.meta}>
