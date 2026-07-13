@@ -21,6 +21,9 @@ export function renderMermaid(container: HTMLElement) {
 				fontFamily: s.getPropertyValue('--font-body').trim() || 'sans-serif',
 				theme: 'base',
 				look: 'handDrawn',
+				flowchart: {
+					htmlLabels: false,
+				},
 				themeVariables: {
 					primaryBorderColor: accent,
 					primaryTextColor: fg,

@@ -32,11 +32,50 @@ export async function copyCode(codeBlock: HTMLPreElement): Promise<boolean> {
 
 function svgToPng(svg: SVGSVGElement): Promise<Blob> {
 	return new Promise((resolve, reject) => {
-		if (!svg.getAttribute('xmlns')) {
-			svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+		// 1. Clone the SVG to manipulate it safely
+		const clone = svg.cloneNode(true) as SVGSVGElement;
+		if (!clone.getAttribute('xmlns')) {
+			clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
 		}
 
-		const svgString = new XMLSerializer().serializeToString(svg);
+		// 2. Replace all <foreignObject> elements with standard SVG <text> elements
+		// to prevent canvas tainting security blocks in WebKit/Blink browsers
+		const foreignObjects = Array.from(clone.querySelectorAll('foreignObject'));
+		for (const fo of foreignObjects) {
+			const textContent = fo.textContent?.trim() || '';
+			const width = parseFloat(fo.getAttribute('width') || '0');
+			const height = parseFloat(fo.getAttribute('height') || '0');
+			const x = parseFloat(fo.getAttribute('x') || '0');
+			const y = parseFloat(fo.getAttribute('y') || '0');
+
+			const textNode = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+			textNode.textContent = textContent;
+			// Center the text inside the original foreignObject container
+			textNode.setAttribute('x', String(x + width / 2));
+			textNode.setAttribute('y', String(y + height / 2 + 4)); // Adjust vertical baseline shift
+			textNode.setAttribute('dominant-baseline', 'central');
+			textNode.setAttribute('text-anchor', 'middle');
+			textNode.setAttribute('font-family', 'sans-serif');
+			textNode.setAttribute('font-size', '13px');
+			textNode.setAttribute('font-weight', '600');
+			textNode.setAttribute('fill', 'var(--fg)');
+
+			fo.parentNode?.replaceChild(textNode, fo);
+		}
+
+		// 3. Resolve CSS theme variables to absolute hex/rgb colors since SVG drawn
+		// on canvas in <img> context has no access to parent document custom styles
+		const s = getComputedStyle(document.documentElement);
+		const accentColor = s.getPropertyValue('--accent').trim() || '#6f884c';
+		const fgColor = s.getPropertyValue('--fg').trim() || '#2d3129';
+		const bgColor = s.getPropertyValue('--bg').trim() || '#fdf6e3';
+
+		let svgString = new XMLSerializer().serializeToString(clone);
+		svgString = svgString
+			.replace(/var\(--fg\)/g, fgColor)
+			.replace(/var\(--accent\)/g, accentColor)
+			.replace(/var\(--bg\)/g, bgColor);
+
 		const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
 		const url = URL.createObjectURL(svgBlob);
 
@@ -56,22 +95,28 @@ function svgToPng(svg: SVGSVGElement): Promise<Blob> {
 				return;
 			}
 
-			// Fill background with same background as the pre block
+			// Fill canvas background matching theme
 			const style = getComputedStyle(
 				svg.closest('.shiki') || svg.closest('pre') || document.body,
 			);
-			ctx.fillStyle = style.backgroundColor || '#ffffff';
+			ctx.fillStyle = style.backgroundColor || bgColor;
 			ctx.fillRect(0, 0, width, height);
 
 			ctx.drawImage(img, 0, 0, width, height);
-			canvas.toBlob((blob) => {
+
+			try {
+				canvas.toBlob((blob) => {
+					URL.revokeObjectURL(url);
+					if (blob) {
+						resolve(blob);
+					} else {
+						reject(new Error('Canvas toBlob returned null'));
+					}
+				}, 'image/png');
+			} catch (err) {
 				URL.revokeObjectURL(url);
-				if (blob) {
-					resolve(blob);
-				} else {
-					reject(new Error('Canvas toBlob returned null'));
-				}
-			}, 'image/png');
+				reject(err);
+			}
 		};
 
 		img.onerror = (err) => {
