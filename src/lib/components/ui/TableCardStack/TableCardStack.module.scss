@@ -1,0 +1,210 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: var(--space-md) 0;
+}
+
+.stackWrapper {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  touch-action: pan-y;
+}
+
+.card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: color-mix(in srgb, var(--bg) 97%, var(--fg));
+  border: var(--border-w) dashed var(--border);
+  border-radius: var(--br);
+  padding: var(--space-sm);
+  box-shadow: 2px 2px 0 var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  box-sizing: border-box;
+  overflow-y: auto;
+  
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: color-mix(in srgb, var(--border) 40%, transparent);
+    border-radius: var(--br-full);
+  }
+}
+
+.dummyCard2 {
+  transform: translate3d(4px, 4px, 0) rotate(1.5deg);
+  opacity: 0.85;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.dummyCard3 {
+  transform: translate3d(8px, 8px, 0) rotate(-1.2deg);
+  opacity: 0.5;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.activeCard {
+  z-index: 3;
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-y;
+  
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.hiddenCard {
+  display: none !important;
+}
+
+// ── Shuffling Animations ──────────────────────────────────
+
+.slideDown {
+  animation: slide-down-next 0.50s var(--ease-out) forwards;
+  pointer-events: none;
+}
+
+.slideUp {
+  animation: slide-up-prev 0.50s var(--ease-out) forwards;
+  pointer-events: none;
+}
+
+@keyframes slide-down-next {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    z-index: 4;
+  }
+  45% {
+    transform: translate3d(150px, -12px, 0) rotate(8deg);
+    z-index: 4;
+  }
+  55% {
+    transform: translate3d(150px, -12px, 0) rotate(8deg);
+    z-index: 1;
+  }
+  100% {
+    transform: translate3d(8px, 8px, 0) rotate(-1.2deg);
+    z-index: 1;
+  }
+}
+
+@keyframes slide-up-prev {
+  0% {
+    transform: translate3d(8px, 8px, 0) rotate(-1.2deg);
+    z-index: 1;
+  }
+  45% {
+    transform: translate3d(-150px, -12px, 0) rotate(-8deg);
+    z-index: 1;
+  }
+  55% {
+    transform: translate3d(-150px, -12px, 0) rotate(-8deg);
+    z-index: 4;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    z-index: 4;
+  }
+}
+
+// ──────────────────────────────────────────────────────────
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-bottom: 1px dashed color-mix(in srgb, var(--border) 40%, transparent);
+  padding-bottom: var(--space-3xs);
+  
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+.label {
+  font-weight: 700;
+  font-size: var(--fs-2xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+}
+
+.value {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  color: var(--fg);
+  line-height: var(--lh-sm);
+
+  :global(code) {
+    background-color: color-mix(in srgb, var(--accent) 8%, var(--bg));
+    border: var(--border-w) solid var(--border);
+    border-radius: var(--br-sm);
+    padding: 1px 4px;
+    font-family: var(--font-code);
+    font-size: var(--fs-2xs);
+    white-space: nowrap;
+  }
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.navBtn {
+  background: var(--bg);
+  border: var(--border-w) solid var(--border);
+  border-radius: var(--br-full);
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--fg);
+  box-shadow: 2px 2px 0 var(--border);
+  transition: transform var(--d-fast) var(--ease-out), box-shadow var(--d-fast) var(--ease-out), color var(--d-fast);
+
+  &:hover {
+    color: var(--accent);
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--border);
+  }
+
+  &:active {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 var(--border);
+  }
+
+  :global(svg) {
+    width: var(--icon-md);
+    height: var(--icon-md);
+    display: block;
+  }
+}
+
+.indicator {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  color: var(--muted-fg);
+  font-weight: 700;
+}
