@@ -220,10 +220,10 @@ Once per project or domain, map a small surface onto the concrete store, then le
 ```csharp
 // shape: consumer names the verbs; mapping stays in infrastructure
 Store.Declare<MyWorldBackend>(
-    look:    (store, e) => /* read component */,
-    grant:   (store, e, c) => /* write component */,
-    create:  (store) => /* new entity */,
-    destroy: (store, e) => /* destroy */
+    look:    (store, e) => /* read */,
+    grant:   (store, e, c) => /* write */,
+    materialize:  (store) => /* create */,
+    destruct: (store, e) => /* destroy */
 );
 // rule then speaks: entity.Look<HealthPool>(), entity.Grant(velocity)
 ```
@@ -234,7 +234,15 @@ If you cannot state a rule in one short sentence, split it. Friction slows veloc
 
 A rule is bound to one world, exposes a run entry, and treats that world's store as its data bus. Knowledge is read-only context and is never counted as mutable conflict. Constructor-injected god services recreate the global soup under a cleaner name.
 
-Every touch of mutable state must be visible to the scheduler, whether by attribute or by closed-generic call-site scan. Looking a component is a read, granting a component is a write, and publishing a signal is a write, while Knowledge `Of` and `About` are not mutable conflicts. Life participates in conflict analysis; Knowledge does not, because it is frozen context. `Look` and `Grant` must be closed generic at the call site, because open helpers that hide `Grant<T>` behind an unconstrained `T` make dependence analysis impossible, and on any path that claims automatic ordering they should be forbidden. And do not create a mutable local just to hold something you looked: if that intermediate is used by the current rule, it deserves its own rule run before this one.
+Every touch of mutable state must be visible to the scheduler, whether by attribute or by closed-generic call-site scan. Looking a component is a read, granting a component is a write, and publishing a signal is a write, while Knowledge `Of` and `About` are not mutable conflicts. Life participates in conflict analysis; Knowledge does not, because it is frozen context. `Look` and `Grant` must be closed generic at the call site, because open helpers that hide `Grant<T>` behind an unconstrained `T` make dependence analysis impossible, and on any path that claims automatic ordering they should be forbidden. And do not create a mutable temp just to hold something you just looked: if that intermediate is used by the current rule, it deserves its own rule, which run before this one.
+
+> Remember to focus on where the fact & rule intersect, that's where your architecture lives.
+> At the intersection, a rule is declarative about facts: it names what it
+> looks and what it grants. It is not an imperative script that drives other
+> rules, hides order in call stacks, or mutates temp state so later steps
+> "just know." Procedure inside one Grant path (clamp, integrate) is fine.
+> Orchestration across facts is not: that belongs to separate rules and the
+> wave graph, not to one function barking commands.
 
 Conflicts become waves. If A writes X and B reads X, B runs after A. If both write X, order them. If A reads X and B writes X, B runs after A. If there is no shared mutable touch, they may parallelize.
 
@@ -272,7 +280,7 @@ Clockwork, injection, decision, and resolution can share a scheduler without sha
 
 Behavior over life has to be small, accountable in reads and writes, and free of content proper nouns. Otherwise parameterization dies in the programmer's calendar, and order dies in hope.
 
-## Agency without turning the game into machines
+## Actually, why does we need to know about decision type anyway?
 
 Games need trajectories, for both player and AI, that designers can extend without a new type per label. The move is not "pick FSM or utility AI as the identity of intelligence." It is small composable data, one pure evaluator, and side effects elsewhere. From a hard graph until you truly need heavier scoring or planning, you should not rewrite the evaluator twice.
 
@@ -298,7 +306,7 @@ Decision wants scalars, and the world is not scalars, so sensors extract. A sens
 
 If this starts to feel like "the game is a graph of states," stop. The graph is one authoring shape for legal trajectories. The game remains the possibility space those trajectories move through, under rules, at $\Delta t$, with agents able to force change.
 
-## What a frame is allowed to mean
+## What a 'frame' is allowed to mean
 
 A frame is a traceable $\Delta t$ transaction: injection in, rules under a defendable order derived from reads and writes, structural mutation at barriers, optional projection across ownership walls, and one-frame signals cleared. That is enough for the outer loop, and it is also where "rule + possibility space + agents" stops being abstract and starts being software.
 
