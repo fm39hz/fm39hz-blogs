@@ -28,7 +28,6 @@
   box-shadow: 2px 2px 0 var(--border);
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
   box-sizing: border-box;
   overflow-y: auto;
   
@@ -71,6 +70,140 @@
 
 .hiddenCard {
   display: none !important;
+}
+
+// ── Title & Text Structure ───────────────────────────────
+
+.cardTitle {
+  font-family: var(--font-header);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--fg);
+  padding-bottom: var(--space-3xs);
+  margin-top: 0;
+  margin-bottom: var(--space-xs);
+  border-bottom: 2px dashed color-mix(in srgb, var(--border) 60%, transparent);
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.singleValue {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  color: var(--fg);
+  line-height: var(--lh-md);
+}
+
+// ── Pattern A: Horizontal Badges (Comparison) ─────────────
+
+.badgeRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  justify-content: flex-start;
+  margin-top: var(--space-2xs);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: 4px var(--space-xs);
+  border-radius: var(--br-full);
+  border: 1px dashed var(--border);
+  font-size: var(--fs-xs);
+  transition: all var(--d-fast);
+}
+
+.badgeActive {
+  border-style: solid;
+  border-color: var(--accent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, var(--bg));
+  font-weight: 700;
+}
+
+.badgeInactive {
+  opacity: 0.45;
+  border-color: color-mix(in srgb, var(--border) 50%, transparent);
+  color: var(--muted-fg);
+  background: transparent;
+}
+
+.badgeNeutral {
+  background: color-mix(in srgb, var(--bg) 95%, var(--fg));
+}
+
+.badgeLabel {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: var(--fs-2xs);
+  opacity: 0.85;
+  margin-right: 2px;
+}
+
+.badgeVal {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.badgeIcon {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  stroke-width: 3px;
+}
+
+// ── Pattern B: Vertical Stacked Fields (Descriptive) ─────
+
+.fieldList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-bottom: 1px dashed color-mix(in srgb, var(--border) 30%, transparent);
+  padding-bottom: var(--space-3xs);
+  transition: opacity var(--d-fast);
+  
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+.fieldInactive {
+  opacity: 0.45;
+}
+
+.fieldLabel {
+  font-weight: 700;
+  font-size: var(--fs-2xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+}
+
+.fieldValue {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  color: var(--fg);
+  line-height: var(--lh-sm);
+
+  :global(code) {
+    background-color: color-mix(in srgb, var(--accent) 8%, var(--bg));
+    border: var(--border-w) solid var(--border);
+    border-radius: var(--br-sm);
+    padding: 1px 4px;
+    font-family: var(--font-code);
+    font-size: var(--fs-2xs);
+    white-space: nowrap;
+  }
 }
 
 // ── Shuffling Animations ──────────────────────────────────
@@ -123,45 +256,7 @@
   }
 }
 
-// ──────────────────────────────────────────────────────────
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  border-bottom: 1px dashed color-mix(in srgb, var(--border) 40%, transparent);
-  padding-bottom: var(--space-3xs);
-  
-  &:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-}
-
-.label {
-  font-weight: 700;
-  font-size: var(--fs-2xs);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--accent);
-}
-
-.value {
-  font-family: var(--font-body);
-  font-size: var(--fs-xs);
-  color: var(--fg);
-  line-height: var(--lh-sm);
-
-  :global(code) {
-    background-color: color-mix(in srgb, var(--accent) 8%, var(--bg));
-    border: var(--border-w) solid var(--border);
-    border-radius: var(--br-sm);
-    padding: 1px 4px;
-    font-family: var(--font-code);
-    font-size: var(--fs-2xs);
-    white-space: nowrap;
-  }
-}
+// ── Navigation Buttons ────────────────────────────────────
 
 .navigation {
   display: flex;
