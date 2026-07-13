@@ -1,31 +1,27 @@
+/* Breakpoint: BP.sm = 640 (design-system/tokens/layout.ts) */
+
+/* ── Structure ──────────────────────────────────────────── */
+
 .root {
   background: var(--bg);
   width: 100%;
 }
 
-@media (width < 640px) {
-  .root {
-    position: sticky;
-    top: 0;
-    z-index: var(--z-sticky);
-    transition: transform var(--d-normal) var(--ease-out), box-shadow var(--d-normal) var(--ease-out), background-color var(--d-normal) var(--ease-out);
-  }
-
-  .hidden {
-    transform: translateY(-100%);
-  }
-
-  .scrolled {
-    box-shadow: 0 4px 20px color-mix(in srgb, var(--fg) 4%, transparent);
-  }
+.shell {
+  max-width: var(--mw);
+  margin-inline: auto;
+  width: 100%;
+  padding-inline: var(--space-md);
 }
 
-.container {
-  max-width: var(--mw);
-  margin: 0 auto;
-  width: 100%;
-  padding: 0 var(--space-md);
+.bar {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  border-bottom: var(--line-solid);
+  padding-block: var(--space-md);
 }
 
 .skipLink {
@@ -36,20 +32,14 @@
   background: var(--bg);
   color: var(--accent);
   padding: var(--space-sm) calc(var(--space-xs) * 2);
-  transition: top var(--d-normal);
+  transition: top var(--d-normal) var(--ease-out);
   text-decoration: none;
   font-size: var(--fs-sm);
   border-radius: var(--br);
-  &:focus { top: var(--space-sm); }
-}
 
-.inner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: var(--line-solid);
-  padding: var(--space-md) 0;
+  &:focus {
+    top: var(--space-sm);
+  }
 }
 
 .title {
@@ -57,31 +47,16 @@
   font-weight: 700;
   white-space: nowrap;
   text-decoration: none;
-  color: var(--accent); /* Brand identity */
+  color: var(--accent);
   font-family: var(--font-body);
 }
 
 .menuBtn {
   display: flex;
+  flex-shrink: 0;
 }
 
-.menu {
-  display: none;
-}
-
-.menuOpen {
-  display: block;
-  position: fixed;
-  inset: 0;
-  top: 4rem;
-  z-index: var(--z-modal);
-  background: var(--bg);
-  padding: var(--space-md);
-  border-top: var(--line-solid);
-  overflow-y: auto;
-}
-
-.navUl {
+.list {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -89,68 +64,179 @@
   flex-direction: column;
   gap: var(--space-xs);
   width: 100%;
-}
 
-.navLi {
-  width: 100%;
-  border-bottom: 1px dashed var(--border);
-  padding-bottom: var(--space-2xs);
-  
-  &:last-child {
-    border-bottom: none;
+  > li {
+    width: 100%;
+    border-bottom: 1px dashed var(--border);
+    padding-bottom: var(--space-2xs);
+
+    &:last-child {
+      border-bottom: none;
+    }
   }
 }
 
-.navUtil {
+.utils {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: var(--space-xs);
-  width: 100%;
 }
 
-/* Desktop styles and larger viewports */
-@media (width >= 640px) {
-  .inner {
-    flex-wrap: nowrap; /* Keep elements inline */
-    padding-top: var(--space-lg);
-    padding-bottom: var(--space-lg);
+.spacer {
+  display: none;
+}
+
+/* Scrim only used when mobile menu open (mounted via {#if}) */
+.scrim {
+  display: none;
+}
+
+/* ── Mobile ───────────────────────────────────────────────
+ * fixed bar + content-sized panel (slide down) + scrim opacity
+ * mirrors GearMenu: panel hugs content, outside = dismiss
+ */
+@media (width < 640px) {
+  .root {
+    position: fixed;
+    top: 0;
+    inset-inline: 0;
+    z-index: var(--z-sticky);
+    transition:
+      transform var(--d-normal) var(--ease-out),
+      box-shadow var(--d-normal) var(--ease-out);
   }
-  
+
+  .root[data-hidden='true'] {
+    transform: translateY(-100%);
+  }
+
+  .root[data-elevated='true'],
+  .root[data-open='true'] {
+    box-shadow: 0 4px 20px color-mix(in srgb, var(--fg) 4%, transparent);
+  }
+
+  .root[data-open='true'] {
+    z-index: var(--z-modal);
+    transform: none; /* force visible while open */
+  }
+
+  .panel {
+    display: none;
+  }
+
+  .root[data-open='true'] .panel {
+    display: block;
+    background: var(--bg);
+    border-bottom: var(--line-solid);
+    padding-block: var(--space-sm) var(--space-md);
+    animation: header-panel-in var(--d-enter) var(--ease-out) both;
+  }
+
+  .scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: calc(var(--z-modal) - 1);
+    margin: 0;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    background: color-mix(in srgb, var(--fg) 28%, transparent);
+    animation: header-scrim-in var(--d-normal) var(--ease-out) both;
+  }
+
+  .spacer {
+    display: block;
+    height: var(--header-bar-h, 4.5rem);
+    pointer-events: none;
+    visibility: hidden;
+  }
+}
+
+@keyframes header-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes header-scrim-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ── Desktop ────────────────────────────────────────────── */
+@media (width >= 640px) {
+  .root {
+    position: relative;
+  }
+
+  .shell {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    border-bottom: var(--line-solid);
+  }
+
+  .bar {
+    border-bottom: none;
+    padding-block: var(--space-lg);
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
   .title {
     font-size: var(--fs-2xl);
   }
-  
+
   .menuBtn {
     display: none;
   }
-  
-  .menu, .menuOpen {
+
+  .panel {
     display: block;
-    position: static;
-    inset: auto;
-    z-index: auto;
-    background: none;
-    padding: 0;
-    border: none;
-    overflow: visible;
+    flex: 0 0 auto;
   }
-  
-  .navUl {
+
+  .list {
     flex-direction: row;
     align-items: center;
-    gap: 1.25rem;
+    gap: var(--space-lg);
     width: auto;
+
+    > li {
+      width: auto;
+      border-bottom: none;
+      padding-bottom: 0;
+    }
   }
-  
-  .navLi {
-    width: auto;
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-  
-  .navUtil {
-    width: auto;
+
+  .utils {
     justify-content: flex-start;
+  }
+
+  .scrim {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    transition: none;
+  }
+
+  .root[data-open='true'] .panel,
+  .scrim {
+    animation: none;
   }
 }
