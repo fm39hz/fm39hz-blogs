@@ -87,8 +87,28 @@
   box-sizing: border-box;
   border-color: var(--border);
   outline-color: color-mix(in srgb, var(--accent) 75%, transparent);
-  scrollbar-width: auto;
-  scrollbar-color: var(--muted) transparent;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--border) 40%, transparent) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: color-mix(in srgb, var(--border) 40%, transparent);
+  border: 1px dashed var(--border);
+  border-radius: var(--br-full);
+  
+  &:hover {
+    background-color: var(--accent);
+    border: 1px solid var(--accent);
+  }
 }
 
 html {
