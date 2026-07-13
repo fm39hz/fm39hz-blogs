@@ -1,50 +1,25 @@
 <script lang="ts">
 import Icon from '@iconify/svelte';
-import { Collapsible } from 'melt/builders';
 import { animateThemeToggle } from '$lib/animations/theme';
 import IconButton from '$lib/components/ui/IconButton/IconButton.svelte';
 import { Lang } from '$lib/constants';
 import { useTranslations } from '$lib/i18n';
 import { locale, setLocale } from '$lib/i18n-state.svelte';
+import { DismissibleCollapsible } from '$lib/ui/dismissibleCollapsible.svelte';
 import styles from './GearMenu.module.scss';
 
 let i18n = $derived(useTranslations(locale.value));
-
 let currentTheme = $state<'light' | 'dark'>('dark');
-let rootEl = $state<HTMLElement | null>(null);
+
+const panel = new DismissibleCollapsible({
+	outsideClick: true,
+	scrollLock: false,
+});
 
 $effect(() => {
 	if (typeof document === 'undefined') return;
 	const stored = localStorage.getItem('theme');
 	if (stored === 'light' || stored === 'dark') currentTheme = stored;
-});
-
-const menu = new Collapsible();
-
-// Register listeners once on mount to avoid event bubbling race conditions
-$effect(() => {
-	const handleClick = (e: MouseEvent) => {
-		if (!menu.open) return;
-		const target = e.target as HTMLElement;
-		// If the target element was detached from the DOM during Svelte's reactive render cycle, ignore it
-		if (!target || !target.isConnected) return;
-		if (rootEl && !rootEl.contains(target)) {
-			menu.open = false;
-		}
-	};
-
-	const handleKeydown = (e: KeyboardEvent) => {
-		if (e.key === 'Escape' && menu.open) {
-			menu.open = false;
-		}
-	};
-
-	document.addEventListener('click', handleClick);
-	document.addEventListener('keydown', handleKeydown);
-	return () => {
-		document.removeEventListener('click', handleClick);
-		document.removeEventListener('keydown', handleKeydown);
-	};
 });
 
 function toggleTheme() {
@@ -62,9 +37,9 @@ function toggleLang() {
 }
 </script>
 
-<div class={styles.root} bind:this={rootEl}>
+<div class={styles.root} bind:this={panel.rootEl}>
   <IconButton
-    {...menu.trigger}
+    {...panel.menu.trigger}
     id="gear-btn"
     class={styles.gearBtn}
     icon="ph:gear"
@@ -72,8 +47,8 @@ function toggleLang() {
     title={i18n.a11y.openMenu}
   />
 
-  {#if menu.open}
-    <div {...menu.content} class={styles.dropdown} role="menu">
+  {#if panel.open}
+    <div {...panel.menu.content} class={styles.dropdown} role="menu">
       <button class={styles.item} onclick={toggleTheme} role="menuitem">
         <Icon icon={currentTheme === 'dark' ? 'ph:moon' : 'ph:sun'} class={styles.itemIcon} />
         <span>{currentTheme === 'dark' ? 'Dark' : 'Light'}</span>

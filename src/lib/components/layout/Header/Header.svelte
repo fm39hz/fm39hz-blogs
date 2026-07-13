@@ -13,19 +13,12 @@ let t = $derived(useTranslations(locale));
 const header = new SiteHeader();
 </script>
 
-<!--
-  Mobile open (GearMenu-shaped):
-  - bar stays fixed
-  - panel = content height, slides down
-  - scrim = opacity over page, tap dismiss
-  Desktop: in-flow horizontal nav
--->
 <header
-  bind:this={header.rootEl}
+  bind:this={header.nav.rootEl}
   class={styles.root}
   data-hidden={header.hidden ? 'true' : undefined}
   data-elevated={header.elevated ? 'true' : undefined}
-  data-open={header.menu.open ? 'true' : undefined}
+  data-open={header.nav.open ? 'true' : undefined}
   style:--header-bar-h={header.barHeightStyle}
 >
   <div class={styles.shell}>
@@ -33,15 +26,15 @@ const header = new SiteHeader();
       <a id="skip-link" href="#main-content" class={styles.skipLink}>{t.a11y.skipToContent}</a>
       <a href="/" class={styles.title}>{cfg.site.title}</a>
       <IconButton
-        {...header.menu.trigger}
+        {...header.nav.menu.trigger}
         class={styles.menuBtn}
-        icon={header.menu.open ? 'ph:x' : 'ph:list'}
-        aria-label={header.menu.open ? t.a11y.closeMenu : t.a11y.openMenu}
+        icon={header.nav.open ? 'ph:x' : 'ph:list'}
+        aria-label={header.nav.open ? t.a11y.closeMenu : t.a11y.openMenu}
       />
     </div>
 
     <nav class={styles.panel} aria-label="Primary">
-      <ul {...header.menu.content} class={styles.list}>
+      <ul {...header.nav.menu.content} class={styles.list}>
         <li>
           <NavLink href="/articles" onclick={header.close}>{t.nav.posts}</NavLink>
         </li>
@@ -72,14 +65,9 @@ const header = new SiteHeader();
   </div>
 </header>
 
-<!-- Page dim — outside panel, tap closes (GearMenu outside-click equivalent) -->
-{#if header.menu.open}
-  <button
-    type="button"
-    class={styles.scrim}
-    aria-label={t.a11y.closeMenu}
-    onclick={header.close}
-  ></button>
+<!-- Visual dim only — dismiss via DismissibleCollapsible outside-click / Escape -->
+{#if header.nav.open}
+  <div class={styles.scrim} aria-hidden="true"></div>
 {/if}
 
 <div class={styles.spacer} aria-hidden="true"></div>

@@ -138,10 +138,7 @@
     position: fixed;
     inset: 0;
     z-index: calc(var(--z-modal) - 1);
-    margin: 0;
-    padding: 0;
-    border: none;
-    cursor: pointer;
+    pointer-events: none; /* dismiss = document outside-click on real content */
     background: color-mix(in srgb, var(--fg) 28%, transparent);
     animation: header-scrim-in var(--d-normal) var(--ease-out) both;
   }
