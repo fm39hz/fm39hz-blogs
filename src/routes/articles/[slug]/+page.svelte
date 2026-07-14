@@ -13,14 +13,16 @@ import PostSignature from '$lib/components/ui/PostSignature/PostSignature.svelte
 import TableOfContents from '$lib/components/ui/TableOfContents/TableOfContents.svelte';
 import TagLine from '$lib/components/ui/TagLine/TagLine.svelte';
 import cfg from '$lib/config';
-import { loadPageEntries } from '$lib/data/server';
+import type { PageEntry } from '$lib/data/server';
 import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
 import { slugifyStr } from '$lib/tags';
 import styles from './+page.module.scss';
 
+let { data }: { data: { posts: PageEntry[] } } = $props();
+
 let slug = $derived(page.params.slug ?? '');
-let matching = $derived(loadPageEntries(slug));
+let matching = $derived(data.posts);
 let defaultEntry = $derived(matching.find((e) => e.lang === 'en') ?? matching[0]);
 let entry = $derived(matching.find((e) => (e.lang ?? 'en') === locale.value) ?? defaultEntry);
 let meta = $derived(entry?.metadata ?? { title: '', description: '', pubDatetime: '', tags: [] });
@@ -55,7 +57,10 @@ let tocReady = $state(false);
       <nav class={styles.backNav} aria-label={t.post.goBack}>
         <ButtonLink href="/articles">&larr; {t.post.goBack}</ButtonLink>
       </nav>
-      <Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" />
+      <div class={styles.toolbarRight}>
+        <Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" />
+        <TableOfContents mode="mobile" />
+      </div>
     </div>
 
     <article
@@ -86,6 +91,6 @@ let tocReady = $state(false);
     aria-hidden={!tocReady}
   >
     <p class={styles.tocLabel}>{t.post.onThisPage}</p>
-    <TableOfContents onReady={(has) => (tocReady = has)} />
+    <TableOfContents mode="desktop" onReady={(has) => (tocReady = has)} />
   </aside>
 {/if}

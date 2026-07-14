@@ -1,6 +1,7 @@
 <script lang="ts">
 import { onMount } from 'svelte';
 import { browser } from '$app/env';
+import { lockPageScroll, type ScrollLockHandle } from '$lib/utils/scrollLock';
 import styles from './TableOfContents.module.scss';
 import {
 	centerActiveInList,
@@ -10,14 +11,20 @@ import {
 } from './toc.svelte';
 
 let {
+	mode = 'desktop',
 	onReady,
 }: {
+	mode?: 'desktop' | 'mobile';
 	onReady?: (hasHeadings: boolean) => void;
 } = $props();
 
 let headings = $state<TocHeading[]>([]);
 let activeId = $state('');
 let listEl = $state<HTMLElement | null>(null);
+
+// Mobile drawer and progress states
+let drawerOpen = $state(false);
+let scrollProgress = $state(0);
 
 $effect(() => {
 	onReady?.(headings.length > 0);
@@ -31,6 +38,28 @@ $effect(() => {
 	centerActiveInList(listEl, active, true);
 });
 
+// Prevent body scroll when mobile drawer is open using lockPageScroll helper
+$effect(() => {
+	if (!browser) return;
+	let lock: ScrollLockHandle | null = null;
+	if (drawerOpen) {
+		lock = lockPageScroll();
+	}
+	return () => {
+		lock?.release();
+	};
+});
+
+function updateScrollProgress() {
+	const doc = document.documentElement;
+	const total = doc.scrollHeight - doc.clientHeight;
+	if (total <= 0) {
+		scrollProgress = 0;
+	} else {
+		scrollProgress = Math.min(1, Math.max(0, window.scrollY / total));
+	}
+}
+
 onMount(() => {
 	const prose = document.querySelector('.prose');
 	if (!prose) {
@@ -42,6 +71,12 @@ onMount(() => {
 	headings = items;
 	onReady?.(items.length > 0);
 	if (items.length === 0) return;
+
+	// Listen to scroll to update progress circle (mobile only)
+	if (mode === 'mobile') {
+		window.addEventListener('scroll', updateScrollProgress, { passive: true });
+		updateScrollProgress();
+	}
 
 	const onResize = () => {
 		if (!listEl || !activeId) return;
@@ -57,29 +92,109 @@ onMount(() => {
 	return () => {
 		stop();
 		window.removeEventListener('resize', onResize);
+		window.removeEventListener('scroll', updateScrollProgress);
 	};
 });
 </script>
 
 {#if browser && headings.length > 0}
-  <nav class={styles.nav} aria-label="Table of contents">
-    <ul bind:this={listEl} class={styles.list}>
-      {#each headings as { id, text, level } (id)}
-        <li class={`${styles.item} ${styles[`level-${level}`]}`} data-toc-id={id}>
-          <a
-            href="#{id}"
-            class={`${styles.link} ${activeId === id ? styles.active : ''}`}
-            onclick={(e) => {
-              e.preventDefault();
-              document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-              history.pushState(null, '', `#${id}`);
-              activeId = id;
-            }}
+  {#if mode === 'desktop'}
+    <!-- Desktop Table of Contents Sidebar -->
+    <nav class={styles.nav} aria-label="Table of contents">
+      <ul bind:this={listEl} class={styles.list}>
+        {#each headings as { id, text, level } (id)}
+          <li class={`${styles.item} ${styles[`level-${level}`]}`} data-toc-id={id}>
+            <a
+              href="#{id}"
+              class={`${styles.link} ${activeId === id ? styles.active : ''}`}
+              onclick={(e) => {
+                e.preventDefault();
+                document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+                history.pushState(null, '', `#${id}`);
+                activeId = id;
+              }}
+            >
+              {text}
+            </a>
+          </li>
+        {/each}
+      </ul>
+    </nav>
+  {:else if mode === 'mobile'}
+    <!-- Mobile Inline Toolbar Button with Reading Progress -->
+    <button
+      class={styles.mobileBtn}
+      aria-label="Table of contents"
+      onclick={() => drawerOpen = true}
+    >
+      <svg class={styles.progressSvg} width="36" height="36" viewBox="0 0 36 36">
+        <circle class={styles.progressBg} cx="18" cy="18" r="15" />
+        <circle
+          class={styles.progressFill}
+          cx="18"
+          cy="18"
+          r="15"
+          stroke-dasharray="94.24"
+          stroke-dashoffset={94.24 - (scrollProgress * 94.24)}
+        />
+      </svg>
+      <div class={styles.mobileBtnIcon}>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="8" y1="6" x2="21" y2="6"></line>
+          <line x1="8" y1="12" x2="21" y2="12"></line>
+          <line x1="8" y1="18" x2="21" y2="18"></line>
+          <line x1="3" y1="6" x2="3.01" y2="6"></line>
+          <line x1="3" y1="12" x2="3.01" y2="12"></line>
+          <line x1="3" y1="18" x2="3.01" y2="18"></line>
+        </svg>
+      </div>
+    </button>
+
+    <!-- Mobile Drawer Bottom Sheet -->
+    {#if drawerOpen}
+      <!-- svelte-ignore a11y_click_events_have_key_events -->
+      <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+      <div
+        class={styles.drawerOverlay}
+        onclick={() => drawerOpen = false}
+        role="presentation"
+      ></div>
+
+      <div class={styles.drawerContent} role="dialog" aria-modal="true" aria-label="Table of contents menu">
+        <div class={styles.drawerHeader}>
+          <span class={styles.drawerTitle}>Mục lục</span>
+          <button
+            class={styles.drawerClose}
+            onclick={() => drawerOpen = false}
+            aria-label="Close menu"
           >
-            {text}
-          </a>
-        </li>
-      {/each}
-    </ul>
-  </nav>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <ul class={styles.drawerList}>
+          {#each headings as { id, text, level } (id)}
+            <li class={`${styles.drawerItem} ${styles[`drawerLevel-${level}`]}`}>
+              <a
+                href="#{id}"
+                class={`${styles.drawerLink} ${activeId === id ? styles.drawerActive : ''}`}
+                onclick={(e) => {
+                  e.preventDefault();
+                  drawerOpen = false;
+                  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+                  history.pushState(null, '', `#${id}`);
+                  activeId = id;
+                }}
+              >
+                {text}
+              </a>
+            </li>
+          {/each}
+        </ul>
+      </div>
+    {/if}
+  {/if}
 {/if}

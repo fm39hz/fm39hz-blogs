@@ -1,27 +1,24 @@
 import type { Component } from 'svelte';
-import { Lang, MD_EXT_REGEX, SLUG_REGEX } from '$lib/constants';
 import type { PostMeta } from '$lib/types';
-
-function parseSlug(fileName: string): string {
-	return fileName.replace(SLUG_REGEX, '').replace(MD_EXT_REGEX, '');
-}
-
-function parseLang(fileName: string, fallback = Lang.EN): string {
-	return (fileName.match(SLUG_REGEX)?.[1] ?? fallback) as string;
-}
+import { parseLang, parseSlug } from '$lib/utils/slug';
 
 export interface PostEntry {
 	slug: string;
 	metadata: PostMeta;
 }
 
+/**
+ * Loads metadata-only for all articles (highly token-efficient and lightweight for list pages)
+ */
 export function loadPosts(): PostEntry[] {
-	const modules = import.meta.glob<{ metadata: PostMeta }>('/src/content/articles/*.md', {
+	const modules = import.meta.glob<PostMeta>('/src/content/articles/*.md', {
 		eager: true,
+		import: 'metadata',
+		query: '?metadata',
 	});
-	return Object.entries(modules).map(([path, mod]) => {
+	return Object.entries(modules).map(([path, metadata]) => {
 		const fileName = path.split('/').pop()!;
-		return { slug: parseSlug(fileName), metadata: mod.metadata };
+		return { slug: parseSlug(fileName), metadata };
 	});
 }
 
@@ -32,17 +29,20 @@ export interface PageEntry {
 	metadata: PostMeta;
 }
 
-export function loadPageEntries(slug: string): PageEntry[] {
+/**
+ * Lazily loads compiled Svelte markdown components for the matching slug asynchronously (enables true code-splitting)
+ */
+export async function loadPageEntriesAsync(slug: string): Promise<PageEntry[]> {
 	const modules = import.meta.glob<{ default: Component; metadata: PostMeta }>(
 		'/src/content/articles/*.md',
-		{ eager: true },
 	);
-	return Object.entries(modules)
-		.filter(([path]) => {
-			const fileName = path.split('/').pop()!;
-			return parseSlug(fileName) === slug;
-		})
-		.map(([path, mod]) => {
+	const matches = Object.entries(modules).filter(([path]) => {
+		const fileName = path.split('/').pop()!;
+		return parseSlug(fileName) === slug;
+	});
+	return await Promise.all(
+		matches.map(async ([path, importFn]) => {
+			const mod = await importFn();
 			const fileName = path.split('/').pop()!;
 			return {
 				slug,
@@ -50,17 +50,6 @@ export function loadPageEntries(slug: string): PageEntry[] {
 				component: mod.default,
 				metadata: mod.metadata,
 			};
-		});
-}
-
-export function loadContentPages(): PageEntry[] {
-	const modules = import.meta.glob<{ default: Component; metadata: PostMeta }>(
-		'/src/content/pages/*.md',
-		{ eager: true },
+		}),
 	);
-	return Object.entries(modules).map(([path, mod]) => {
-		const fileName = path.split('/').pop()!;
-		const slug = parseSlug(fileName);
-		return { slug, lang: parseLang(fileName), component: mod.default, metadata: mod.metadata };
-	});
 }

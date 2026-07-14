@@ -2,7 +2,8 @@
 import cfg from '$lib/config';
 import { loadPosts } from '$lib/data/server';
 import { useTranslations } from '$lib/i18n';
-import { getSortedPosts, groupPostsBySlug } from '$lib/utils';
+import { locale } from '$lib/i18n-state.svelte';
+import { getSortedPosts, groupPostsBySlug, groupPostsByYearAndMonth } from '$lib/utils';
 import styles from './+page.module.scss';
 
 const t = useTranslations();
@@ -11,22 +12,8 @@ const groups = groupPostsBySlug(allPosts);
 const displayPosts = groups.map((g) => g.defaultEntry);
 const sorted = getSortedPosts(displayPosts);
 
-const years: Record<string, { month: number; posts: typeof sorted }[]> = {};
-for (const post of sorted) {
-	const d = new Date(post.metadata.pubDatetime);
-	const y = String(d.getFullYear());
-	const m = d.getMonth() + 1;
-	if (!years[y]) years[y] = [];
-	let mg = years[y].find((g) => g.month === m);
-	if (!mg) {
-		mg = { month: m, posts: [] };
-		years[y].push(mg);
-	}
-	mg.posts.push(post);
-}
-for (const y of Object.keys(years)) years[y].sort((a, b) => b.month - a.month);
-const sortedYears = Object.entries(years).sort(([a], [b]) => Number(b) - Number(a));
-const monthFormatter = new Intl.DateTimeFormat('en', { month: 'long' });
+const sortedYears = groupPostsByYearAndMonth(sorted);
+let monthFormatter = $derived(new Intl.DateTimeFormat(locale.value, { month: 'long' }));
 </script>
 
 <svelte:head><title>{t.pages.archivesTitle} | {cfg.site.title}</title><meta name="description" content={t.pages.archivesDesc} /></svelte:head>
@@ -34,7 +21,7 @@ const monthFormatter = new Intl.DateTimeFormat('en', { month: 'long' });
 <section>
   <h1 class={styles.h1}>{t.pages.archivesTitle}</h1>
   <p class={styles.desc}>{t.pages.archivesDesc}</p>
-  {#each sortedYears as [year, monthGroups]}
+  {#each sortedYears as { year, monthGroups }}
     <div class={styles.yearGroup}>
       <div class={styles.yearHeader}>
         <span class={styles.yearNum}>{year}</span>

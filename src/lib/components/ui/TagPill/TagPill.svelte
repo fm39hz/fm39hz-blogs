@@ -2,6 +2,7 @@
 import { browser } from '$app/env';
 import { prefersReducedMotion } from '$lib/animations/reduce';
 import { AnimDurationMs } from '$lib/constants';
+import { observeIntersection } from '$lib/utils/observer';
 import styles from './TagPill.module.scss';
 
 let {
@@ -34,19 +35,17 @@ function roughTagAction(node: HTMLElement) {
 			animationDuration: AnimDurationMs.scene,
 		});
 
-		const observer = new IntersectionObserver(
-			(entries) => {
-				for (const entry of entries) {
-					if (entry.isIntersecting) {
-						ann.show();
-						observer.unobserve(node);
-					}
+		let stop: () => void;
+		stop = observeIntersection(
+			node,
+			(entry) => {
+				if (entry.isIntersecting) {
+					ann.show();
+					stop();
 				}
 			},
 			{ threshold: 0.1 },
 		);
-
-		observer.observe(node);
 	})();
 }
 </script>

@@ -102,3 +102,187 @@
     color: var(--accent);
   }
 }
+
+// Hide mobile FAB and drawer by default on desktop
+.mobileBtn {
+  display: none;
+}
+.drawerOverlay,
+.drawerContent {
+  display: none;
+}
+
+// ── Mobile Responsive Styles ──────────────────────────────
+@media (width < 1200px) {
+  // Hide desktop sidebar links
+  .nav {
+    display: none;
+  }
+
+  // Show FAB as an inline toolbar button next to Datetime
+  .mobileBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 2.25rem; /* 36px */
+    height: 2.25rem; /* 36px */
+    border-radius: var(--br-full);
+    background: var(--bg);
+    border: var(--border-w) solid var(--border);
+    box-shadow: 2px 2px 0 var(--border);
+    cursor: pointer;
+    padding: 0;
+    outline: none;
+    transition: transform var(--d-fast) var(--ease-out), box-shadow var(--d-fast) var(--ease-out);
+
+    &:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0 var(--border);
+    }
+  }
+
+  .progressSvg {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 36px;
+    height: 36px;
+    transform: rotate(-90deg);
+    pointer-events: none;
+  }
+
+  .progressBg {
+    fill: none;
+    stroke: color-mix(in srgb, var(--border) 15%, transparent);
+    stroke-width: 2.5px;
+  }
+
+  .progressFill {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2.5px;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.1s ease;
+  }
+
+  .mobileBtnIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--fg);
+    z-index: 2;
+    pointer-events: none;
+
+    svg {
+      width: 14px;
+      height: 14px;
+      display: block;
+    }
+  }
+
+  // Mobile Bottom Sheet Drawer
+  .drawerOverlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    z-index: var(--z-modal);
+    animation: fade-in 0.2s var(--ease-out);
+  }
+
+  .drawerContent {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    border-top: var(--border-w) solid var(--border);
+    border-radius: var(--br) var(--br) 0 0;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+    padding: var(--space-md);
+    max-height: 60vh;
+    z-index: calc(var(--z-modal) + 1);
+    animation: slide-up 0.25s var(--ease-bounce);
+  }
+
+  .drawerHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: var(--border-w) dashed var(--border);
+    padding-bottom: var(--space-xs);
+    margin-bottom: var(--space-sm);
+  }
+
+  .drawerTitle {
+    font-family: var(--font-body);
+    font-size: var(--fs-md);
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .drawerClose {
+    background: transparent;
+    border: none;
+    padding: var(--space-3xs);
+    cursor: pointer;
+    color: var(--muted-fg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: var(--icon-md);
+      height: var(--icon-md);
+    }
+  }
+
+  .drawerList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding-bottom: var(--space-lg);
+  }
+
+  .drawerItem {
+    padding: 0;
+    margin: 0;
+
+    &.drawerLevel-3 {
+      padding-left: var(--space-md);
+    }
+  }
+
+  .drawerLink {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: var(--fs-base);
+    color: var(--fg);
+    text-decoration: none;
+    padding: var(--space-3xs) 0;
+    border-bottom: 1px dashed transparent;
+
+    &.drawerActive {
+      color: var(--accent);
+      font-weight: 700;
+    }
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}

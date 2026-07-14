@@ -1,13 +1,14 @@
 import { annotate } from 'rough-notation';
 import { prefersReducedMotion } from '$lib/animations/reduce';
 import { AnimDurationMs } from '$lib/constants';
+import { observeIntersection } from '$lib/utils/observer';
 
 /**
  * Applies rough-notation hand-drawn annotations to markdown prose elements.
  *
  * - mark: highlight brushstroke (suited for inline emphasis, supports multiline)
  *
- * Annotations are triggered lazily via IntersectionObserver so they draw
+ * Annotations are triggered lazily via a shared IntersectionObserver so they draw
  * as the user scrolls to them, not all at once on load.
  */
 export function roughNotation(node: HTMLElement) {
@@ -18,7 +19,7 @@ export function roughNotation(node: HTMLElement) {
 		return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 	}
 
-	const observers: IntersectionObserver[] = [];
+	const unobserves: (() => void)[] = [];
 	const annotations: ReturnType<typeof annotate>[] = [];
 
 	// --- mark: highlight brushstroke ---
@@ -36,24 +37,23 @@ export function roughNotation(node: HTMLElement) {
 		});
 		annotations.push(ann);
 
-		const observer = new IntersectionObserver(
-			(entries) => {
-				for (const entry of entries) {
-					if (entry.isIntersecting) {
-						ann.show();
-						observer.unobserve(mark);
-					}
+		let stop: () => void;
+		stop = observeIntersection(
+			mark,
+			(entry) => {
+				if (entry.isIntersecting) {
+					ann.show();
+					stop();
 				}
 			},
 			{ threshold: 0.1 },
 		);
-		observer.observe(mark);
-		observers.push(observer);
+		unobserves.push(stop);
 	});
 
 	return {
 		destroy() {
-			for (const obs of observers) obs.disconnect();
+			for (const stop of unobserves) stop();
 			for (const ann of annotations) ann.remove();
 		},
 	};
