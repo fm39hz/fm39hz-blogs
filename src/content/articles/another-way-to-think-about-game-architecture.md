@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-07-07
-modDatetime: 2026-07-13
+modDatetime: 2026-07-14
 title: Another way to think about game architecture
 featured: false
 draft: false
@@ -20,26 +20,21 @@ I already argued elsewhere that a game, at minimum, is about rule and potential 
 
 ## Misconceptions
 
-When people say they "use game architecture," they often think about SOLID, about performance, folder organization.
-And under that sits a deeper mess: we start treating the game as if it were the tool we used to implement it.
-But, why? Why it is need to be like that?
+When discussions drift toward game architecture, minds often gravitate toward rigid principles, performance metrics, and the neat arrangement of folders. Beneath this surface lies a more profound entanglement where we begin to treat the creation as indistinguishable from the very tools wielded to forge it. One must wonder why such a paradigm has taken root.
 
-Because if the game is imagined as a database, you protect rows before you protect what a hit means. If it is imagined as a pile of scripts, every content problem becomes another labeled graph, and designers stop authoring possibility, events get ordered and agency thins out.
-Infrastructure can host a game, but they are not the game, and the same goes for engine, patterns, folder trees, and pretty diagrams: useful, replaceable, and still not the thing.
+If a game is envisioned merely as a rigid database, the instinct is to guard data structures long before defining the true resonance of a physical strike. If it is perceived as a mere collection of scripts, every creative hurdle devolves into a rigid graph. The creators lose their grasp on weaving possibilities, events fall into forced sequences, and the fundamental sense of agency fades away. Infrastructure is capable of hosting a world, yet it remains distinct from the world itself. The engines, the design patterns, the hierarchical trees, and the elegant diagrams are undoubtedly valuable and entirely replaceable. They are simply not the essence of the game.
 
-So, what is actually an architecture for game?
+So, what is actually an architecture for game should look like?
 
 ## The line I keep coming back to
 
-Game architecture, is nothing too special, it could be flatten in to 1 line:
+The essence of game architecture bears no arcane mystery and can be distilled into a single guiding thought.
 
-> **Designers parameterize the game. Programmers write rules. The boundary between those jobs is enforced by architecture and compiler, not by code review and convention.**
+> **Designers parameterize the game. Programmers write rules. The boundary between those jobs is enforced by compiler, not by code review and convention, that is architecture.**
 
-Content identity, numbers, legal trajectories, and grants are parameterization. Generic reading of roles and aspects, mutation of life, and ordering of conflicts are rules. Measuring space, devices, and pixels is infrastructure. When a programmer hardcodes _what_ as a proper noun in code, they have taken parameterization away from design.
+Content, numbers, trajectories,... are parameterization. Generic reading of concepts and aspects, mutation of lifes, ordering of conflicts,... are rules. Measuring space, devices, pixels, I/O or even physics boxing, is all infrastructure. When a programmer hardcodes _what_ as a proper noun in code, they have taken parameterization away from design.
 
-If something does not serve that line, cut it. I will keep a top-down 2D action game in mind (move, strike, take hits, AI that chases, grass that breaks, sprites that face the right way) so the constraints stay testable, and the ideas are not limited to that genre. When code shows up below, it is only shape: permission at a call site, not an API you must adopt.
-
-A few consequences fall out right away. If swapping the machine rewrites the rule, the boundary was never real. If new content needs proper-noun branches inside rule code, parameterization already failed. If packages, names, and schedule disagree with the separations you claim, the diagram was decoration.
+If an element fails to uphold this fragile equilibrium, it is best to let it fall away. These thoughts transcend any particular genre. Whenever structural code appears in this discourse, it serves only as a silhouette of permissions rather than a rigid framework demanding adherence.
 
 ## Game & Infrastructure
 
@@ -280,7 +275,7 @@ Clockwork, injection, decision, and resolution can share a scheduler without sha
 
 Behavior over life has to be small, accountable in reads and writes, and free of content proper nouns. Otherwise parameterization dies in the programmer's calendar, and order dies in hope.
 
-## Actually, why does we need to know about decision type anyway?
+## Actually, why did we need to knew about decision type anyway?
 
 Games need trajectories, for both player and AI, that designers can extend without a new type per label. The move is not "pick FSM or utility AI as the identity of intelligence." It is small composable data, one pure evaluator, and side effects elsewhere. From a hard graph until you truly need heavier scoring or planning, you should not rewrite the evaluator twice.
 
@@ -346,20 +341,18 @@ Agency enters, rules advance possibility under order that follows honest reads a
 
 ## When the separations are real
 
-Dependencies are architecture. If rule can reach a renderer through packages, the boundary is already fiction. Authoring shapes and markers hold no behavior and no I/O; game rule holds rules and sensors over game fields with no engine packages, no draw, and no device poll; infrastructure holds bindings, measurement, bridges, and presentation, and does not exclusively own damage tables or AI policy. Edges point inward.
+Dependencies are the lifeblood of architecture. If a gameplay rule can effortlessly reach out to a rendering package, the boundary is already a compelling fiction. Authoring shapes hold no behavior and no external communication. Game rules hold sovereignty over gameplay fields, wielding pure logic and sensors, completely devoid of engine packages, rendering calls, or device polling. Infrastructure embraces bindings, physical measurements, bridges, and presentation, but absolutely refuses to own the mechanics of damage or artificial intent. The arrows of dependency must forever point inward.
 
-None of that matters if rule still hardcodes content. The only leverage I trust is the share of decisions that live in Knowledge. Numbers, distances, and forces belong in authoring. A new state for an existing role belongs in authoring, maybe with one new sensor. A new effect being belongs in authoring, with materialize already generic. Swapping a spatial backend or renderer belongs in infrastructure only. Headless tests omit presentational walls.
+None of this profound separation matters if the rules continue to hardcode the content. The only leverage worthy of trust is the sheer volume of decisions entrusted to Knowledge. Distances, physical forces, and numerical weights belong to the authors. Introducing a new state for a familiar role is an act of authoring. Materializing a novel effect is an act of authoring, handled by a system already blind to specifics. Swapping the renderer or the spatial engine is an act of infrastructure.
 
-Feature pressure always revives weak paths that look reasonable in the moment. Camera becomes a global singleton, roll invulnerability becomes a bespoke rule flipping hurt flags, attack volumes are hand-spawned inside the attack rule, breakable death effects fall back to a hardcoded name, knockback feel is a magic constant, and effect spawn is an ad-hoc constructor. The strong path stays the same: rules know how to look life and grant generically, and how to read Knowledge without treating it as mutable conflict, while Knowledge remains the sole source of _what_.
-
-One swing makes the layers honest. Strike numbers and range intent live in Knowledge. Pressing attack is infrastructure writing an input snapshot or command. Entering attack state is decision plus state Knowledge. Arming measurement or spawning a volume is state grants, or infrastructure armed by intent. Overlap true is infrastructure publishing hit, which is a write of a signal. HP and knockback are rule: read the hit, write health and knockback. The sprite facing the swing is presentational, either in its own wall if you split or in the same store carefully if you did not. If one function owns two of those rows from different layers, the separation was already gone. A schedule that cannot see those writes is not a schedule; it is hope.
+The relentless pressure of new features will perpetually tempt you with fragile paths that seem reasonable in the heat of the moment. The camera degrades into a global singularity. A dodge mechanic spawns a bespoke rule frantically flipping vulnerability flags. Damage volumes are manually birthed deep within attack logic. The majestic flow of destruction devolves into calling a hardcoded name. These are the symptoms of decay. The resilient path remains unyielding. Rules retain their generic capacity to observe and grant life, reading Knowledge without ever triggering a mutable conflict, while Knowledge reigns supreme as the singular source of absolute truth.
 
 ## Well, it is about game itself
 
-Is your game is running inside an engine, or above it? If one day technology fallback, what did you do? What if your game grow faster than the engine capable itself, than the way you initialy thought it could be?
+If your underlying engine technology suddenly fell behind, changed its licensing, or failed to scale with your design ambitions, what would happen to your project? Would you lose years of work, or would you simply write new infrastructure bindings for your core rules?
 
-I do not reject the engine usage idea, but personally, there is not a real issue if you think above of an engine.
+There is nothing wrong with using commercial game engines. The problem arises when we allow the engine's internal structure to dictate the boundaries of our design space.
 
-> After all, as indie developer, we're creating games, not a parasite whose run inside some kind of blackbox
+> After all, as indie developer, our goals is creating games, not a parasite whose run inside some kind of blackbox
 
 This, is not an architecture overview. It is a **viewpoint** to saw through your hardcoded behavior.
