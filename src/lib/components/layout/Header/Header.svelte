@@ -33,7 +33,7 @@ const header = new SiteHeader();
       />
     </div>
 
-    <nav class={styles.panel} aria-label="Primary">
+    <nav class={styles.panel} aria-label={t.a11y.navPrimary}>
       <ul {...header.nav.menu.content} class={styles.list}>
         <li>
           <NavLink href="/articles" onclick={header.close}>{t.nav.posts}</NavLink>

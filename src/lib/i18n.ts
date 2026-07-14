@@ -1,3 +1,5 @@
+import * as m from '$lib/paraglide/messages';
+
 export interface UIStrings {
 	nav: {
 		home: string;
@@ -11,7 +13,7 @@ export interface UIStrings {
 		publishedAt: string;
 		updatedAt: string;
 		sharePostIntro: string;
-		sharePostOn: string;
+		sharePostOn: (platform: string) => string;
 		sharePostViaEmail: string;
 		tagLabel: string;
 		backToTop: string;
@@ -20,9 +22,20 @@ export interface UIStrings {
 		editPage: string;
 		previousPost: string;
 		nextPost: string;
+		logsCount: (count: number) => string;
+		tableOfContents: string;
+		tableOfContentsMenu: string;
+		closeMenu: string;
 	};
 	pagination: { prev: string; next: string; page: string };
-	home: { socialLinks: string; featured: string; recentPosts: string; allPosts: string };
+	home: {
+		socialLinks: string;
+		featured: string;
+		recentPosts: string;
+		allPosts: string;
+		heroTitle: string;
+		heroTagline: string;
+	};
 	footer: { copyright: string; allRightsReserved: string };
 	pages: {
 		tagTitle: string;
@@ -35,6 +48,8 @@ export interface UIStrings {
 		archivesDesc: string;
 		searchTitle: string;
 		searchDesc: string;
+		siteDescription: string;
+		searchComingSoon: string;
 	};
 	a11y: {
 		skipToContent: string;
@@ -52,144 +67,104 @@ export interface UIStrings {
 		noResults: string;
 		goToPreviousPage: string;
 		goToNextPage: string;
+		navPrimary: string;
+	};
+	theme: {
+		dark: string;
+		light: string;
 	};
 	notFound: { title: string; message: string; goHome: string };
 }
 
-const en: UIStrings = {
-	nav: {
-		home: 'Home',
-		posts: 'Articles',
-		tags: 'Topics',
-		about: 'Author',
-		archives: 'Archives',
-		search: 'Find',
-	},
-	post: {
-		publishedAt: 'Published at',
-		updatedAt: 'Updated',
-		sharePostIntro: 'Share this post:',
-		sharePostOn: 'Share this post on {{platform}}',
-		sharePostViaEmail: 'Share this post via email',
-		tagLabel: 'Tags',
-		backToTop: 'Back to top',
-		goBack: 'Go back',
-		onThisPage: 'On this page',
-		editPage: 'Edit page',
-		previousPost: 'Previous Post',
-		nextPost: 'Next Post',
-	},
-	pagination: { prev: 'Prev', next: 'Next', page: 'Page' },
-	home: {
-		socialLinks: 'Social Links',
-		featured: 'Highlights',
-		recentPosts: 'Recent Entries',
-		allPosts: 'View all notes →',
-	},
-	footer: { copyright: 'Copyright', allRightsReserved: 'All rights reserved.' },
-	pages: {
-		tagTitle: 'Index',
-		tagDesc: 'All the articles with the index card',
-		tagsTitle: 'Index',
-		tagsDesc: 'All the index cards used in posts.',
-		postsTitle: 'Articles',
-		postsDesc: "All the articles I've logged.",
-		archivesTitle: 'Archives',
-		archivesDesc: "All the entries I've archived.",
-		searchTitle: 'Find',
-		searchDesc: 'Find any articles ...',
-	},
-	a11y: {
-		skipToContent: 'Skip to content',
-		openMenu: 'Open menu',
-		closeMenu: 'Close menu',
-		toggleTheme: 'Toggle theme',
-		toggleLanguage: 'Switch language',
-		copyCode: 'Copy code block',
-		rssFeed: 'RSS Feed',
-		rssLinkTitle: 'RSS',
-		paginationNav: 'Pagination Navigation',
-		archiveLink: 'Binder',
-		searchLink: 'Find',
-		searchPlaceholder: 'Search notes...',
-		noResults: 'No results found',
-		goToPreviousPage: 'Go to previous page',
-		goToNextPage: 'Go to next page',
-	},
-	notFound: { title: '404 Not Found', message: 'Page Not Found', goHome: 'Go back home' },
-};
-
-const vi: UIStrings = {
-	nav: {
-		home: 'Trang chủ',
-		posts: 'Bài viết',
-		tags: 'Chủ đề',
-		about: 'Tác giả',
-		archives: 'Lưu trữ',
-		search: 'Tìm kiếm',
-	},
-	post: {
-		publishedAt: 'Đăng vào',
-		updatedAt: 'Cập nhật',
-		sharePostIntro: 'Chia sẻ bài viết:',
-		sharePostOn: 'Chia sẻ lên {{platform}}',
-		sharePostViaEmail: 'Chia sẻ qua email',
-		tagLabel: 'Thẻ',
-		backToTop: 'Lên đầu',
-		goBack: 'Quay lại',
-		onThisPage: 'Trên trang này',
-		editPage: 'Sửa trang',
-		previousPost: 'Bài trước',
-		nextPost: 'Bài sau',
-	},
-	pagination: { prev: 'Trước', next: 'Sau', page: 'Trang' },
-	home: {
-		socialLinks: 'Liên kết',
-		featured: 'Đánh dấu',
-		recentPosts: 'Bài viết gần đây',
-		allPosts: 'Xem toàn bộ bài viết →',
-	},
-	footer: { copyright: 'Bản quyền', allRightsReserved: 'Đã được bảo lưu.' },
-	pages: {
-		tagTitle: 'Chủ đề',
-		tagDesc: 'Tất cả bài viết theo thẻ',
-		tagsTitle: 'Chủ đề',
-		tagsDesc: 'Tất cả thẻ phân loại bài viết.',
-		postsTitle: 'Bài viết',
-		postsDesc: 'Tất cả bài viết đã đăng.',
-		archivesTitle: 'Lưu trữ',
-		archivesDesc: 'Tất cả bài viết đã lưu trữ.',
-		searchTitle: 'Tìm kiếm',
-		searchDesc: 'Tìm kiếm bài viết ...',
-	},
-	a11y: {
-		skipToContent: 'Bỏ qua nội dung',
-		openMenu: 'Mở menu',
-		closeMenu: 'Đóng menu',
-		toggleTheme: 'Chuyển giao diện',
-		toggleLanguage: 'Chuyển ngôn ngữ',
-		copyCode: 'Sao chép code',
-		rssFeed: 'RSS',
-		rssLinkTitle: 'RSS',
-		paginationNav: 'Phân trang',
-		archiveLink: 'Lưu trữ',
-		searchLink: 'Tìm kiếm',
-		searchPlaceholder: 'Tìm bài viết...',
-		noResults: 'Không tìm thấy kết quả',
-		goToPreviousPage: 'Đến trang trước',
-		goToNextPage: 'Đến trang sau',
-	},
-	notFound: {
-		title: '404 Không tìm thấy',
-		message: 'Trang không tồn tại',
-		goHome: 'Về trang chủ',
-	},
-};
-
-const translations: Record<string, UIStrings> = { en, vi };
-
 export function useTranslations(locale?: string): UIStrings {
-	return translations[locale ?? 'en'] ?? en;
+	const opt = locale ? { locale: locale as 'en' | 'vi' } : undefined;
+
+	return {
+		nav: {
+			home: m.nav_home(undefined, opt),
+			posts: m.nav_posts(undefined, opt),
+			tags: m.nav_tags(undefined, opt),
+			about: m.nav_about(undefined, opt),
+			archives: m.nav_archives(undefined, opt),
+			search: m.nav_search(undefined, opt),
+		},
+		post: {
+			publishedAt: m.post_published_at(undefined, opt),
+			updatedAt: m.post_updated_at(undefined, opt),
+			sharePostIntro: m.post_share_post_intro(undefined, opt),
+			sharePostOn: (platform: string) => m.post_share_post_on({ platform }, opt),
+			sharePostViaEmail: m.post_share_post_via_email(undefined, opt),
+			tagLabel: m.post_tag_label(undefined, opt),
+			backToTop: m.post_back_to_top(undefined, opt),
+			goBack: m.post_go_back(undefined, opt),
+			onThisPage: m.post_on_this_page(undefined, opt),
+			editPage: m.post_edit_page(undefined, opt),
+			previousPost: m.post_previous_post(undefined, opt),
+			nextPost: m.post_next_post(undefined, opt),
+			logsCount: (count: number) => m.post_logs_count({ count }, opt),
+			tableOfContents: m.post_table_of_contents(undefined, opt),
+			tableOfContentsMenu: m.post_table_of_contents_menu(undefined, opt),
+			closeMenu: m.post_close_menu(undefined, opt),
+		},
+		pagination: {
+			prev: m.pagination_prev(undefined, opt),
+			next: m.pagination_next(undefined, opt),
+			page: m.pagination_page(undefined, opt),
+		},
+		home: {
+			socialLinks: m.home_social_links(undefined, opt),
+			featured: m.home_featured(undefined, opt),
+			recentPosts: m.home_recent_posts(undefined, opt),
+			allPosts: m.home_all_posts(undefined, opt),
+			heroTitle: m.home_hero_title(undefined, opt),
+			heroTagline: m.home_hero_tagline(undefined, opt),
+		},
+		footer: {
+			copyright: m.footer_copyright(undefined, opt),
+			allRightsReserved: m.footer_all_rights_reserved(undefined, opt),
+		},
+		pages: {
+			tagTitle: m.pages_tag_title(undefined, opt),
+			tagDesc: m.pages_tag_desc(undefined, opt),
+			tagsTitle: m.pages_tags_title(undefined, opt),
+			tagsDesc: m.pages_tags_desc(undefined, opt),
+			postsTitle: m.pages_posts_title(undefined, opt),
+			postsDesc: m.pages_posts_desc(undefined, opt),
+			archivesTitle: m.pages_archives_title(undefined, opt),
+			archivesDesc: m.pages_archives_desc(undefined, opt),
+			searchTitle: m.pages_search_title(undefined, opt),
+			searchDesc: m.pages_search_desc(undefined, opt),
+			siteDescription: m.site_description(undefined, opt),
+			searchComingSoon: m.search_coming_soon(undefined, opt),
+		},
+		a11y: {
+			skipToContent: m.a11y_skip_to_content(undefined, opt),
+			openMenu: m.a11y_open_menu(undefined, opt),
+			closeMenu: m.a11y_close_menu(undefined, opt),
+			toggleTheme: m.a11y_toggle_theme(undefined, opt),
+			toggleLanguage: m.a11y_toggle_language(undefined, opt),
+			copyCode: m.a11y_copy_code(undefined, opt),
+			rssFeed: m.a11y_rss_feed(undefined, opt),
+			rssLinkTitle: m.a11y_rss_link_title(undefined, opt),
+			paginationNav: m.a11y_pagination_nav(undefined, opt),
+			archiveLink: m.a11y_archive_link(undefined, opt),
+			searchLink: m.a11y_search_link(undefined, opt),
+			searchPlaceholder: m.a11y_search_placeholder(undefined, opt),
+			noResults: m.a11y_no_results(undefined, opt),
+			goToPreviousPage: m.a11y_go_to_previous_page(undefined, opt),
+			goToNextPage: m.a11y_go_to_next_page(undefined, opt),
+			navPrimary: m.a11y_nav_primary(undefined, opt),
+		},
+		theme: {
+			dark: m.theme_dark(undefined, opt),
+			light: m.theme_light(undefined, opt),
+		},
+		notFound: {
+			title: m.not_found_title(undefined, opt),
+			message: m.not_found_message(undefined, opt),
+			goHome: m.not_found_go_home(undefined, opt),
+		},
+	};
 }
 
 export function tplStr(template: string, vars: Record<string, string | number>): string {

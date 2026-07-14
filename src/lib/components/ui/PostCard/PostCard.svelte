@@ -1,4 +1,6 @@
 <script lang="ts">
+import cfg from '$lib/config';
+import { locale } from '$lib/i18n-state.svelte';
 import { slugifyStr } from '$lib/tags';
 import { formatDate } from '$lib/utils/date';
 import ButtonLink from '../ButtonLink/ButtonLink.svelte';
@@ -23,7 +25,7 @@ let {
   </h2>
   <p>{post.metadata.description}</p>
   <div class={styles.meta}>
-    <time datetime={post.metadata.pubDatetime}>{formatDate(post.metadata.pubDatetime)}</time>
+    <time datetime={post.metadata.pubDatetime}>{formatDate(post.metadata.pubDatetime, cfg.site.timezone, locale.value)}</time>
     {#if post.metadata.tags}
       <ul class={styles.tags}>
         {#each post.metadata.tags as tag}

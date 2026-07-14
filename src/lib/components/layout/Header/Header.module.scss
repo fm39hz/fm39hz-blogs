@@ -27,7 +27,7 @@
 .skipLink {
   position: absolute;
   inset-inline-start: 4rem;
-  top: -100%;
+  top: -10rem;
   z-index: var(--z-sticky);
   background: var(--bg);
   color: var(--accent);
@@ -36,6 +36,7 @@
   text-decoration: none;
   font-size: var(--fs-sm);
   border-radius: var(--br);
+  white-space: nowrap;
 
   &:focus {
     top: var(--space-sm);

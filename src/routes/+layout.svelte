@@ -11,6 +11,7 @@ import cfg from '$lib/config';
 import '../styles/global.scss';
 import '$lib/design-system/foundations/prose.scss';
 import '$lib/design-system/foundations/code.scss';
+import { locale } from '$lib/i18n-state.svelte';
 import { viewTransition } from './viewTransition';
 
 let { children } = $props();
@@ -38,9 +39,9 @@ onNavigate(viewTransition);
   />
 </svelte:head>
 
-<Header />
+<Header locale={locale.value} />
 <main id="main-content">{@render children()}</main>
-<Footer />
+<Footer locale={locale.value} />
 
 <!--
   Pencil wiggle: animated turbulence seed.

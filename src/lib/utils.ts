@@ -1,4 +1,5 @@
 import cfg from '$lib/config';
+import { loadPosts, type PostEntry } from '$lib/data/server';
 import type { PostMeta } from '$lib/types';
 
 export function postFilter({ metadata }: { metadata: PostMeta }): boolean {
@@ -67,4 +68,11 @@ export function groupPostsByYearAndMonth(
 	return Object.entries(years)
 		.sort(([a], [b]) => Number(b) - Number(a))
 		.map(([year, monthGroups]) => ({ year, monthGroups }));
+}
+
+export function getDisplaySortedPosts(): PostEntry[] {
+	const allPosts = loadPosts();
+	const groups = groupPostsBySlug(allPosts);
+	const displayPosts = groups.map((g) => g.defaultEntry);
+	return getSortedPosts(displayPosts);
 }

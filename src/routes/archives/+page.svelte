@@ -1,16 +1,12 @@
 <script lang="ts">
 import cfg from '$lib/config';
-import { loadPosts } from '$lib/data/server';
 import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
-import { getSortedPosts, groupPostsBySlug, groupPostsByYearAndMonth } from '$lib/utils';
+import { getDisplaySortedPosts, groupPostsByYearAndMonth } from '$lib/utils';
 import styles from './+page.module.scss';
 
-const t = useTranslations();
-const allPosts = loadPosts();
-const groups = groupPostsBySlug(allPosts);
-const displayPosts = groups.map((g) => g.defaultEntry);
-const sorted = getSortedPosts(displayPosts);
+let t = $derived(useTranslations(locale.value));
+const sorted = getDisplaySortedPosts();
 
 const sortedYears = groupPostsByYearAndMonth(sorted);
 let monthFormatter = $derived(new Intl.DateTimeFormat(locale.value, { month: 'long' }));
@@ -25,7 +21,7 @@ let monthFormatter = $derived(new Intl.DateTimeFormat(locale.value, { month: 'lo
     <div class={styles.yearGroup}>
       <div class={styles.yearHeader}>
         <span class={styles.yearNum}>{year}</span>
-        <span class={styles.yearCount}>{monthGroups.reduce((s, g) => s + g.posts.length, 0)} logs</span>
+        <span class={styles.yearCount}>{t.post.logsCount(monthGroups.reduce((s, g) => s + g.posts.length, 0))}</span>
       </div>
       {#each monthGroups as { month, posts }}
         <div class={styles.monthGroup}>

@@ -1,19 +1,25 @@
-import { Lang } from '$lib/constants';
+import { goto } from '$app/navigation';
+import { page } from '$app/state';
+import { getLocale } from '$lib/paraglide/runtime';
 
-function load(): string {
-	if (typeof localStorage === 'undefined') return Lang.EN;
-	return localStorage.getItem('locale') ?? Lang.EN;
+export const locale = {
+	get value(): string {
+		// Accessing page.url reactively binds this getter to page navigation
+		return page.url ? getLocale() : 'en';
+	},
+};
+
+export function getLocalizedPath(path: string, targetLocale: string): string {
+	const isVi = path === '/vi' || path.startsWith('/vi/');
+	const cleanPath = isVi ? path.substring(3) || '/' : path;
+	if (targetLocale === 'vi') {
+		return cleanPath === '/' ? '/vi' : `/vi${cleanPath}`;
+	}
+	return cleanPath;
 }
-
-function save(v: string): void {
-	if (typeof localStorage === 'undefined') return;
-	localStorage.setItem('locale', v);
-	document.documentElement.lang = v;
-}
-
-export const locale = $state({ value: load() });
 
 export function setLocale(v: string): void {
-	locale.value = v;
-	save(v);
+	if (typeof window === 'undefined') return;
+	const targetPath = getLocalizedPath(window.location.pathname, v);
+	goto(targetPath);
 }

@@ -51,7 +51,7 @@ function toggleLang() {
     <div {...panel.menu.content} class={styles.dropdown} role="menu">
       <button class={styles.item} onclick={toggleTheme} role="menuitem">
         <Icon icon={currentTheme === 'dark' ? 'ph:moon' : 'ph:sun'} class={styles.itemIcon} />
-        <span>{currentTheme === 'dark' ? 'Dark' : 'Light'}</span>
+        <span>{currentTheme === 'dark' ? i18n.theme.dark : i18n.theme.light}</span>
       </button>
 
       <button class={styles.item} onclick={toggleLang} role="menuitem">

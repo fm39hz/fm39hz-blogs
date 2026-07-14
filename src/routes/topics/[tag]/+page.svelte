@@ -2,19 +2,17 @@
 import { page } from '$app/state';
 import ContentEntry from '$lib/components/ui/ContentEntry/ContentEntry.svelte';
 import cfg from '$lib/config';
-import { loadPosts } from '$lib/data/server';
 import { useTranslations } from '$lib/i18n';
+import { locale } from '$lib/i18n-state.svelte';
 import { slugifyAll } from '$lib/tags';
-import { getSortedPosts, groupPostsBySlug } from '$lib/utils';
+import { getDisplaySortedPosts } from '$lib/utils';
 import styles from './+page.module.scss';
 
-const t = useTranslations();
-const allPosts = loadPosts();
-const groups = groupPostsBySlug(allPosts);
-const displayPosts = groups.map((g) => g.defaultEntry);
+let t = $derived(useTranslations(locale.value));
+const displayPosts = getDisplaySortedPosts();
 const tagParam = $derived(decodeURIComponent(page.params.tag ?? ''));
 const tagPosts = $derived(
-	getSortedPosts(displayPosts.filter((p) => slugifyAll(p.metadata.tags).includes(tagParam))),
+	displayPosts.filter((p) => slugifyAll(p.metadata.tags).includes(tagParam)),
 );
 </script>
 

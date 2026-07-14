@@ -1,14 +1,19 @@
 <script lang="ts">
 import { onMount } from 'svelte';
 import { browser } from '$app/env';
+import { useTranslations } from '$lib/i18n';
+import { locale } from '$lib/i18n-state.svelte';
 import { lockPageScroll, type ScrollLockHandle } from '$lib/utils/scrollLock';
 import styles from './TableOfContents.module.scss';
+
 import {
 	centerActiveInList,
 	collectHeadings,
 	observeActiveHeading,
 	type TocHeading,
 } from './toc.svelte';
+
+let t = $derived(useTranslations(locale.value));
 
 let {
 	mode = 'desktop',
@@ -100,7 +105,7 @@ onMount(() => {
 {#if browser && headings.length > 0}
   {#if mode === 'desktop'}
     <!-- Desktop Table of Contents Sidebar -->
-    <nav class={styles.nav} aria-label="Table of contents">
+    <nav class={styles.nav} aria-label={t.post.tableOfContents}>
       <ul bind:this={listEl} class={styles.list}>
         {#each headings as { id, text, level } (id)}
           <li class={`${styles.item} ${styles[`level-${level}`]}`} data-toc-id={id}>
@@ -124,7 +129,7 @@ onMount(() => {
     <!-- Mobile Inline Toolbar Button with Reading Progress -->
     <button
       class={styles.mobileBtn}
-      aria-label="Table of contents"
+      aria-label={t.post.tableOfContents}
       onclick={() => drawerOpen = true}
     >
       <svg class={styles.progressSvg} width="36" height="36" viewBox="0 0 36 36">
@@ -160,13 +165,13 @@ onMount(() => {
         role="presentation"
       ></div>
 
-      <div class={styles.drawerContent} role="dialog" aria-modal="true" aria-label="Table of contents menu">
+      <div class={styles.drawerContent} role="dialog" aria-modal="true" aria-label={t.post.tableOfContentsMenu}>
         <div class={styles.drawerHeader}>
-          <span class={styles.drawerTitle}>Mục lục</span>
+          <span class={styles.drawerTitle}>{t.post.tableOfContents}</span>
           <button
             class={styles.drawerClose}
             onclick={() => drawerOpen = false}
-            aria-label="Close menu"
+            aria-label={t.post.closeMenu}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
               <line x1="18" y1="6" x2="6" y2="18"></line>

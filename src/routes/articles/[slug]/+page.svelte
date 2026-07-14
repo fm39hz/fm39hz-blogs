@@ -58,7 +58,7 @@ let tocReady = $state(false);
         <ButtonLink href="/articles">&larr; {t.post.goBack}</ButtonLink>
       </nav>
       <div class={styles.toolbarRight}>
-        <Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" />
+        <Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" locale={locale.value} />
         <TableOfContents mode="mobile" />
       </div>
     </div>
