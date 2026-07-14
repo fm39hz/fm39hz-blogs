@@ -200,6 +200,64 @@
     :global(svg.pencil-edge) {
       display: block;
       max-width: 100%;
+
+      /* Flowchart & Sequence Node Containers */
+      :global(.node rect),
+      :global(.node polygon),
+      :global(.node circle),
+      :global(.node ellipse),
+      :global(.node path),
+      :global(.label-container) {
+        fill: var(--muted) !important;
+        stroke: var(--accent) !important;
+      }
+
+      /* Edge path lines & arrows */
+      :global(.edgePath .path) {
+        stroke: var(--fg) !important;
+        stroke-width: 2px !important;
+      }
+      :global(.markerPath) {
+        fill: var(--fg) !important;
+        stroke: var(--fg) !important;
+      }
+
+      /* Node text elements */
+      :global(text),
+      :global(tspan),
+      :global(.label) {
+        fill: var(--fg) !important;
+        color: var(--fg) !important;
+        font-family: var(--font-body) !important;
+      }
+
+      /* Edge labels (text on lines) */
+      :global(.edgeLabel rect),
+      :global(.edgeLabel .label-container) {
+        fill: var(--bg) !important;
+        stroke: var(--border) !important;
+      }
+      :global(.edgeLabel text),
+      :global(.edgeLabel tspan) {
+        fill: var(--fg) !important;
+        color: var(--fg) !important;
+      }
+
+      /* Sequence diagram actors */
+      :global(.actor) {
+        fill: var(--muted) !important;
+        stroke: var(--accent) !important;
+      }
+      :global(.messageLine0),
+      :global(.messageLine1) {
+        stroke: var(--fg) !important;
+      }
+
+      /* Sequence diagram notes */
+      :global(.note) {
+        fill: var(--muted) !important;
+        stroke: var(--accent) !important;
+      }
     }
   }
 

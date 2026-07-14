@@ -6,16 +6,15 @@ export function renderMermaid(container: HTMLElement) {
 	const blocks = [...container.querySelectorAll<HTMLPreElement>('pre.mermaid')];
 	if (!blocks.length) return { destroy() {} };
 
-	for (const pre of blocks) {
-		pre.setAttribute('data-code', pre.textContent || '');
-	}
-
 	if (browser && mermaidPromise) {
 		(async () => {
 			const mermaid = await mermaidPromise;
 			const s = getComputedStyle(document.documentElement);
-			const accent = s.getPropertyValue('--accent').trim();
+			const bg = s.getPropertyValue('--bg').trim();
 			const fg = s.getPropertyValue('--fg').trim();
+			const accent = s.getPropertyValue('--accent').trim();
+			const muted = s.getPropertyValue('--muted').trim();
+
 			mermaid.initialize({
 				startOnLoad: false,
 				fontFamily: s.getPropertyValue('--font-body').trim() || 'sans-serif',
@@ -25,18 +24,33 @@ export function renderMermaid(container: HTMLElement) {
 					htmlLabels: false,
 				},
 				themeVariables: {
+					primaryColor: muted || bg,
 					primaryBorderColor: accent,
 					primaryTextColor: fg,
 					lineColor: fg,
-					lineWidth: '2',
-					borderRadius: '4px',
+					textColor: fg,
+					mainBkg: 'transparent',
+					actorBkg: muted || bg,
+					actorBorder: accent,
+					actorTextColor: fg,
+					signalColor: fg,
+					signalTextColor: fg,
+					labelBoxBkgColor: muted || bg,
+					labelBoxBorderColor: accent,
+					labelTextColor: fg,
+					loopBkgColor: muted || bg,
+					loopBorderColor: accent,
+					noteBkgColor: muted || bg,
+					noteBorderColor: accent,
+					noteTextColor: fg,
+					edgeLabelBackground: bg,
 				},
 			});
+
 			try {
 				await mermaid.run({ nodes: blocks });
 				for (const pre of blocks) {
 					const svg = pre.querySelector('svg');
-					// animated pencil wiggle — own layer via .pencil-edge
 					if (svg) svg.classList.add('pencil-edge');
 					pre.style.opacity = '1';
 				}
@@ -49,5 +63,7 @@ export function renderMermaid(container: HTMLElement) {
 		})();
 	}
 
-	return { destroy() {} };
+	return {
+		destroy() {},
+	};
 }
