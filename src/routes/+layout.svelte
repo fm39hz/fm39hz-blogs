@@ -1,7 +1,7 @@
 <script lang="ts">
 import { injectAnalytics } from '@vercel/analytics/sveltekit';
 import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
-import { dev } from '$app/environment';
+import { dev } from '$app/env';
 import { onNavigate } from '$app/navigation';
 import Footer from '$lib/components/layout/Footer/Footer.svelte';
 import Header from '$lib/components/layout/Header/Header.svelte';

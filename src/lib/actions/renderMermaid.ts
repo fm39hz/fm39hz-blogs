@@ -1,4 +1,4 @@
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 
 const mermaidPromise = browser ? import('mermaid').then((m) => m.default) : null;
 

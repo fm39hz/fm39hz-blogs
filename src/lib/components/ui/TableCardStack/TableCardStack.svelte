@@ -1,7 +1,6 @@
 <script lang="ts">
 import Icon from '@iconify/svelte';
-import { spring } from 'svelte/motion';
-import { browser } from '$app/environment';
+import { Spring } from 'svelte/motion';
 import { AnimDurationMs } from '$lib/constants';
 import styles from './TableCardStack.module.scss';
 
@@ -22,7 +21,7 @@ let animatingCardIdx = $state<number | null>(null);
 let animationDirection = $state<'next' | 'prev' | null>(null);
 
 // Svelte spring motion store for smooth card drag & snap physics
-const coords = spring(
+const coords = new Spring(
 	{ x: 0, y: 0 },
 	{
 		stiffness: 0.15,

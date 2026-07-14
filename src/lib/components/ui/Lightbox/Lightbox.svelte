@@ -1,6 +1,6 @@
 <script lang="ts">
 import Icon from '@iconify/svelte';
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 import { lightbox } from '$lib/state/lightbox.svelte';
 import styles from './Lightbox.module.scss';
 

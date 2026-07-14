@@ -1,5 +1,5 @@
 <script lang="ts">
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 import { prefersReducedMotion } from '$lib/animations/reduce';
 import { AnimDurationMs } from '$lib/constants';
 import styles from './TagPill.module.scss';
