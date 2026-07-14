@@ -1,5 +1,6 @@
 <script lang="ts">
 import { injectAnalytics } from '@vercel/analytics/sveltekit';
+import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
 import { dev } from '$app/environment';
 import { onNavigate } from '$app/navigation';
 import Footer from '$lib/components/layout/Footer/Footer.svelte';
@@ -15,6 +16,7 @@ import { viewTransition } from './viewTransition';
 let { children } = $props();
 
 injectAnalytics({ mode: dev ? 'development' : 'production' });
+injectSpeedInsights();
 onNavigate(viewTransition);
 </script>
 
