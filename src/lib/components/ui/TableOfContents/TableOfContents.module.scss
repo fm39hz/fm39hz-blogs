@@ -119,26 +119,29 @@
     display: none;
   }
 
-  // Show FAB as an inline toolbar button next to Datetime
+  // Show FAB as a floating button in the bottom-right corner
   .mobileBtn {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    width: 2.25rem; /* 36px */
-    height: 2.25rem; /* 36px */
+    position: fixed;
+    bottom: 2rem;
+    inset-inline-end: 2rem;
+    width: 3rem; /* 48px */
+    height: 3rem; /* 48px */
     border-radius: var(--br-full);
     background: var(--bg);
     border: var(--border-w) solid var(--border);
-    box-shadow: 2px 2px 0 var(--border);
+    box-shadow: 3px 3px 0 var(--border);
     cursor: pointer;
     padding: 0;
     outline: none;
+    z-index: var(--z-sticky);
     transition: transform var(--d-fast) var(--ease-out), box-shadow var(--d-fast) var(--ease-out);
 
     &:active {
       transform: translate(1px, 1px);
-      box-shadow: 1px 1px 0 var(--border);
+      box-shadow: 2px 2px 0 var(--border);
     }
   }
 
@@ -146,8 +149,8 @@
     position: absolute;
     top: -2px;
     left: -2px;
-    width: 36px;
-    height: 36px;
+    width: 48px;
+    height: 48px;
     transform: rotate(-90deg);
     pointer-events: none;
   }
@@ -175,8 +178,8 @@
     pointer-events: none;
 
     svg {
-      width: 14px;
-      height: 14px;
+      width: 18px;
+      height: 18px;
       display: block;
     }
   }

@@ -59,7 +59,6 @@ let tocReady = $state(false);
       </nav>
       <div class={styles.toolbarRight}>
         <Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" locale={locale.value} />
-        <TableOfContents mode="mobile" />
       </div>
     </div>
 
@@ -93,4 +92,9 @@ let tocReady = $state(false);
     <p class={styles.tocLabel}>{t.post.onThisPage}</p>
     <TableOfContents mode="desktop" onReady={(has) => (tocReady = has)} />
   </aside>
+
+  <!-- Mobile Floating Action Button (FAB) and Drawer -->
+  {#if tocReady}
+    <TableOfContents mode="mobile" />
+  {/if}
 {/if}

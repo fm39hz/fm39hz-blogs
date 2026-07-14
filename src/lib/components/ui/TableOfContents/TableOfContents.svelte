@@ -44,14 +44,15 @@ $effect(() => {
 });
 
 // Prevent body scroll when mobile drawer is open using lockPageScroll helper
+let lock: ScrollLockHandle | null = null;
 $effect(() => {
 	if (!browser) return;
-	let lock: ScrollLockHandle | null = null;
 	if (drawerOpen) {
 		lock = lockPageScroll();
 	}
 	return () => {
 		lock?.release();
+		lock = null;
 	};
 });
 
@@ -126,25 +127,25 @@ onMount(() => {
       </ul>
     </nav>
   {:else if mode === 'mobile'}
-    <!-- Mobile Inline Toolbar Button with Reading Progress -->
+    <!-- Mobile Floating Action Button with Reading Progress -->
     <button
       class={styles.mobileBtn}
       aria-label={t.post.tableOfContents}
       onclick={() => drawerOpen = true}
     >
-      <svg class={styles.progressSvg} width="36" height="36" viewBox="0 0 36 36">
-        <circle class={styles.progressBg} cx="18" cy="18" r="15" />
+      <svg class={styles.progressSvg} width="48" height="48" viewBox="0 0 48 48">
+        <circle class={styles.progressBg} cx="24" cy="24" r="21" />
         <circle
           class={styles.progressFill}
-          cx="18"
-          cy="18"
-          r="15"
-          stroke-dasharray="94.24"
-          stroke-dashoffset={94.24 - (scrollProgress * 94.24)}
+          cx="24"
+          cy="24"
+          r="21"
+          stroke-dasharray="131.95"
+          stroke-dashoffset={131.95 - (scrollProgress * 131.95)}
         />
       </svg>
       <div class={styles.mobileBtnIcon}>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
           <line x1="8" y1="6" x2="21" y2="6"></line>
           <line x1="8" y1="12" x2="21" y2="12"></line>
           <line x1="8" y1="18" x2="21" y2="18"></line>
@@ -189,7 +190,17 @@ onMount(() => {
                 onclick={(e) => {
                   e.preventDefault();
                   drawerOpen = false;
-                  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+                  
+                  // Release scroll lock synchronously so scrollIntoView is not blocked
+                  if (lock) {
+                    lock.release();
+                    lock = null;
+                  }
+
+                  setTimeout(() => {
+                    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+                  }, 0);
+                  
                   history.pushState(null, '', `#${id}`);
                   activeId = id;
                 }}
