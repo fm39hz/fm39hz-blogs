@@ -1,19 +1,52 @@
-import Panzoom, { type PanzoomObject } from '@panzoom/panzoom';
+type PanzoomObject = {
+	destroy: () => void;
+	reset: (opts?: { animate?: boolean }) => void;
+	zoomWithWheel: (e: WheelEvent) => void;
+};
+
+type PanzoomFn = (
+	elem: HTMLElement | SVGElement,
+	options?: Record<string, unknown>,
+) => PanzoomObject;
 
 const instances = new WeakMap<HTMLElement, PanzoomObject>();
 const cleanups = new WeakMap<HTMLElement, () => void>();
 
+let panzoomPromise: Promise<PanzoomFn> | null = null;
+
+function loadPanzoom(): Promise<PanzoomFn> {
+	if (!panzoomPromise) {
+		// dynamic import only — static default export breaks Vite SSR runner
+		panzoomPromise = import('@panzoom/panzoom').then((m) => {
+			const mod = m as { default?: PanzoomFn; Panzoom?: PanzoomFn };
+			const fn = mod.default ?? mod.Panzoom;
+			if (!fn) throw new Error('@panzoom/panzoom: no callable export');
+			return fn;
+		});
+	}
+	return panzoomPromise;
+}
+
 /**
  * Pan + wheel zoom around a diagram SVG.
  * CSS transform only — SVG theme / pencil-edge stay intact.
+ * Client-only (lazy import).
  */
-export function attachDiagramPanzoom(svg: SVGElement, scrap: HTMLElement) {
-	// already wrapped?
+export async function attachDiagramPanzoom(svg: SVGElement, _scrap: HTMLElement) {
+	if (typeof window === 'undefined') return;
+
 	const prevViewport = svg.closest<HTMLElement>('.diagram-viewport');
 	if (prevViewport && instances.has(prevViewport)) return;
 
 	const parent = svg.parentElement;
 	if (!parent) return;
+
+	const Panzoom = await loadPanzoom();
+
+	// re-check after await
+	if (svg.closest('.diagram-viewport') && instances.has(svg.closest('.diagram-viewport')!)) {
+		return;
+	}
 
 	const viewport = document.createElement('div');
 	viewport.className = 'diagram-viewport';
@@ -68,9 +101,6 @@ export function attachDiagramPanzoom(svg: SVGElement, scrap: HTMLElement) {
 		}
 		instances.delete(viewport);
 	});
-
-	// silence unused scrap param intent: reserved for future toolbar
-	void scrap;
 }
 
 export function destroyDiagramPanzoom(root: ParentNode) {

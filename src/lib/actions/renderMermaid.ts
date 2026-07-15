@@ -55,7 +55,7 @@ export function renderMermaid(container: HTMLElement) {
 					const svg = pre.querySelector('svg');
 					if (svg) {
 						svg.classList.add('pencil-edge');
-						attachDiagramPanzoom(svg, pre);
+						void attachDiagramPanzoom(svg, pre);
 						observePencilEdges(pre);
 					}
 					pre.style.opacity = '1';

@@ -131,7 +131,7 @@ async function paint(pre: HTMLPreElement, embed: EmbedFn) {
 			svg.classList.add('pencil-edge');
 			svg.style.maxWidth = '100%';
 			svg.style.height = 'auto';
-			attachDiagramPanzoom(svg, pre);
+			void attachDiagramPanzoom(svg, pre);
 			observePencilEdges(pre);
 		}
 
