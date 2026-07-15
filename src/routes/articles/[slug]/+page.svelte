@@ -5,6 +5,7 @@ import { copyCode } from '$lib/actions/copyCode';
 import { lightboxAction } from '$lib/actions/lightbox';
 import { pencilEdge } from '$lib/actions/pencilEdge';
 import { renderMermaid } from '$lib/actions/renderMermaid';
+import { renderVegaLite } from '$lib/actions/renderVegaLite';
 import { responsiveTables } from '$lib/actions/responsiveTables';
 import { roughNotation } from '$lib/actions/roughNotation';
 import ButtonLink from '$lib/components/ui/ButtonLink/ButtonLink.svelte';
@@ -68,6 +69,7 @@ let tocReady = $state(false);
       use:copyCode
       use:styleCheckboxes
       use:renderMermaid
+      use:renderVegaLite
       use:roughNotation
       use:lightboxAction
       use:responsiveTables

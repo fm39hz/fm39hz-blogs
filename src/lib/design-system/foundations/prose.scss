@@ -185,8 +185,9 @@
     vertical-align: baseline;
   }
 
-  /* Mermaid loading container — SVG gets .pencil-edge after render */
-  pre.mermaid {
+  /* Diagram scrap — mermaid + vega-lite share notebook surface */
+  pre.mermaid,
+  pre.vega-lite {
     opacity: 0;
     color: transparent;
     transition: opacity var(--d-normal) var(--ease-out);
@@ -196,7 +197,48 @@
     background: color-mix(in srgb, var(--bg) 97%, var(--fg));
     padding: var(--space-md);
     margin: var(--space-md) 0;
+  }
 
+  pre.vega-lite {
+    opacity: 1;
+    color: var(--fg);
+    overflow: visible;
+    min-height: 12rem;
+
+    :global(.vega-host) {
+      width: 100%;
+      min-height: 12rem;
+      display: block;
+    }
+
+    :global(.vega-embed),
+    :global(.vega-embed > div) {
+      width: 100% !important;
+      display: block;
+    }
+
+    :global(.vega-embed summary),
+    :global(.vega-actions) {
+      display: none !important;
+    }
+
+    :global(svg) {
+      display: block !important;
+      max-width: 100%;
+      height: auto !important;
+      margin-inline: auto;
+      overflow: visible;
+    }
+
+    &[data-error] {
+      color: var(--fg);
+      white-space: pre-wrap;
+      font-size: var(--fs-sm);
+    }
+  }
+
+  /* Mermaid loading container — SVG gets .pencil-edge after render */
+  pre.mermaid {
     :global(svg.pencil-edge) {
       display: block;
       max-width: 100%;

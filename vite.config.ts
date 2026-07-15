@@ -37,6 +37,11 @@ export default defineConfig({
 								const safe = code.replace(/`/g, '\\`');
 								return `{@html \`<pre class="mermaid">${safe}</pre>\`}`;
 							}
+							if (lang === 'vega-lite' || lang === 'vegalite' || lang === 'vega') {
+								// Same hazard set as mermaid fence: keep JSON intact for JSON.parse
+								const safe = code.replace(/`/g, '\\`').replace(/\$\{/g, '\\${');
+								return `{@html \`<pre class="vega-lite">${safe}</pre>\`}`;
+							}
 							if (!highlighter) {
 								highlighter = await createHighlighter({
 									themes: ['everforest-light', 'everforest-dark'],
