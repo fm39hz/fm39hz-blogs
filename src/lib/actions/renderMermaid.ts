@@ -1,4 +1,6 @@
 import { browser } from '$app/env';
+import { attachDiagramPanzoom } from '$lib/actions/diagramPanzoom';
+import { observePencilEdges } from '$lib/actions/pencilEdge';
 
 const mermaidPromise = browser ? import('mermaid').then((m) => m.default) : null;
 
@@ -51,7 +53,11 @@ export function renderMermaid(container: HTMLElement) {
 				await mermaid.run({ nodes: blocks });
 				for (const pre of blocks) {
 					const svg = pre.querySelector('svg');
-					if (svg) svg.classList.add('pencil-edge');
+					if (svg) {
+						svg.classList.add('pencil-edge');
+						attachDiagramPanzoom(svg, pre);
+						observePencilEdges(pre);
+					}
 					pre.style.opacity = '1';
 				}
 			} catch (e) {

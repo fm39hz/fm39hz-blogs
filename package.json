@@ -45,6 +45,7 @@
 		"*.{js,ts,svelte,css,json}": "bunx --bun @biomejs/biome check --max-diagnostics 100 --write --unsafe"
 	},
 	"dependencies": {
+		"@panzoom/panzoom": "^4.6.2",
 		"@vercel/analytics": "^2.0.1",
 		"@vercel/speed-insights": "^2.0.0",
 		"melt": "^0.44.0",

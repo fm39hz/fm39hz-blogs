@@ -199,10 +199,40 @@
     margin: var(--space-md) 0;
   }
 
+  /* panzoom viewport — clip inside scrap, keep pencil-edge on SVG */
+  pre.mermaid,
+  pre.vega-lite {
+    :global(.diagram-viewport) {
+      width: 100%;
+      min-height: 12rem;
+      max-height: min(70vh, 36rem);
+      overflow: hidden;
+      touch-action: none;
+      cursor: grab;
+      border-radius: calc(var(--br) - 2px);
+    }
+
+    :global(.diagram-panzoom-target) {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-origin: center center;
+    }
+
+    :global(.diagram-panzoom-target svg) {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      overflow: visible;
+      /* theme vars still apply — no filter/color override here */
+    }
+  }
+
   pre.vega-lite {
     opacity: 1;
     color: var(--fg);
-    overflow: visible;
     min-height: 12rem;
 
     :global(.vega-host) {
@@ -220,14 +250,6 @@
     :global(.vega-embed summary),
     :global(.vega-actions) {
       display: none !important;
-    }
-
-    :global(svg) {
-      display: block !important;
-      max-width: 100%;
-      height: auto !important;
-      margin-inline: auto;
-      overflow: visible;
     }
 
     &[data-error] {

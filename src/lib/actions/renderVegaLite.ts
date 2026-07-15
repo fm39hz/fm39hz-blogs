@@ -1,4 +1,5 @@
 import { browser } from '$app/env';
+import { attachDiagramPanzoom, destroyDiagramPanzoom } from '$lib/actions/diagramPanzoom';
 import { observePencilEdges } from '$lib/actions/pencilEdge';
 
 type EmbedResult = { finalize: () => void };
@@ -130,6 +131,7 @@ async function paint(pre: HTMLPreElement, embed: EmbedFn) {
 			svg.classList.add('pencil-edge');
 			svg.style.maxWidth = '100%';
 			svg.style.height = 'auto';
+			attachDiagramPanzoom(svg, pre);
 			observePencilEdges(pre);
 		}
 
@@ -192,6 +194,7 @@ export function renderVegaLite(container: HTMLElement) {
 			dead = true;
 			mo?.disconnect();
 			themeMo?.disconnect();
+			destroyDiagramPanzoom(container);
 			for (const host of container.querySelectorAll<HTMLElement>('.vega-host')) {
 				teardown(host);
 			}
