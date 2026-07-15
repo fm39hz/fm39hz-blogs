@@ -207,8 +207,7 @@
       min-height: 12rem;
       max-height: min(70vh, 36rem);
       overflow: hidden;
-      touch-action: none;
-      cursor: grab;
+      cursor: default;
       border-radius: calc(var(--br) - 2px);
     }
 
@@ -218,7 +217,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transform-origin: center center;
     }
 
     :global(.diagram-panzoom-target svg) {
@@ -226,7 +224,6 @@
       max-width: 100%;
       height: auto;
       overflow: visible;
-      /* theme vars still apply — no filter/color override here */
     }
   }
 
