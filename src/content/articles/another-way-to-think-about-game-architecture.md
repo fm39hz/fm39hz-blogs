@@ -94,9 +94,9 @@ Fast or fun, doesn't matter, it has to be a game first. So instead of leaning on
 
 Rule and design still need a shared vocabulary for what exists as design. `HpComponent` and `MoveComp` are storage slang, not that vocabulary. I don't want a second entity model, and I'm not claiming the game _is_ a database of objects, I just need coordinates for design truth. Three primitives have covered every case I've hit so far:
 
-- **Aspect**, a glance. A minimal, pure structure you can see through. Zero behavior.
-- **Being**, a thing. A state, a character definition, an effect, doesn't matter which. It is what it is: a named coordinate in design space.
-- **Concept**, a pure viewpoint. A lens for looking across many different beings without caring what they individually are, revealing exactly the aspect that concept cares about.
+- **Aspect** is a glance. A minimal, pure structure you can see through. Zero behavior.
+- **Being** is... a thing. That's it. A state, a character definition, an effect, doesn't matter which. It is what it is: a named coordinate in design space.
+- **Concept**, is a pure conceptual viewpoint. A lens for looking across many different beings without caring what they individually are, revealing exactly the aspect that concept cares about.
 
 ```mermaid
 graph TB
@@ -115,6 +115,165 @@ Two rules keep this from decaying into a taxonomy tree:
 
 - **Reveals is total.** Claim `Mobile`, and you get _every_ aspect `Mobile` reveals, no cherry-picking. Partial claims produce "almost Mobile" rows that break queries and quietly train designers to distrust the system.
 - **Aspects aren't exclusive property of one concept.** A concept only opens a window; the same data can free-float when no viewpoint wrapper actually earns its keep, a single loyalty scalar doesn't need a concept standing guard over it.
+
+### Plotting it, so it stops being just prose
+
+$B_i$ is tidy on paper, but it hides two properties worth pulling out and actually looking at:
+
+- **How tightly an aspect is bound.** $\kappa(a)$, the number of distinct concepts that reveal $a$ across the whole Knowledge base. Zero is the one absolute floor here: an aspect no concept touches is free-floating by definition, so it earns its own fixed pole rather than sitting at some arbitrary zero.
+- **How heavy a concept is.** $\omega(c)$, the number of aspects $c$ reveals. Unlike $\kappa$, this has no natural floor: a concept always reveals at least one aspect, or it has no reason to exist. "Heavy" and "light" are relative terms, so the baseline has to be relative too, the median $\omega$ across your own Knowledge base, not some constant pulled out of thin air.
+
+$$x(a) = \begin{cases} -\kappa(a) & \kappa(a) \geq 1 \\ x_{free} & \kappa(a) = 0 \end{cases} \qquad y(a \text{ via } c) = \operatorname{median}(\omega) - \omega(c)$$
+
+Put a being's claimed concepts and revealed aspects on that plane, and each one traces out a small shape, a signature, not a metaphor:
+
+- **Bottom-left (coupled aspect, heavy concept):** the expensive corner. An aspect shared by half the Knowledge base, reached through a concept that already reveals a dozen others, the visual tell for a god-concept quietly accreting responsibility.
+- **Top-left (coupled aspect, light concept):** still shared, but the access path stays precise. Coupling isn't free, but at least nobody's hiding it behind a fat lens.
+- **Bottom-right (rare):** a nearly exclusive aspect reached through a heavy concept, usually a sign that a concept was reused out of laziness rather than genuine shared meaning.
+- **Right, sitting on the axis:** true free-floats. Minimal, orthogonal, nothing to untangle.
+
+A being whose shape balloons toward the bottom-left is a being carrying real structural debt. A being that hugs the right edge is about as clean as this system lets you get.
+
+```vega-lite
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "κ–ω plane: aspect coupling vs. concept weight, with drop lines and rank-staggered axis labels",
+  "width": 520,
+  "height": 360,
+  "padding": 36,
+  "datasets": {
+    "points": [
+      { "x": -4, "y": -2, "label": "silhouette", "being": "Player" },
+      { "x": -2, "y": -1, "label": "inventory", "being": "Player" },
+      { "x": -1, "y": 0, "label": "combat", "being": "Player" },
+      { "x": 2, "y": 0, "label": "loyalty", "being": "Player" },
+      { "x": -2, "y": 1, "label": "potA", "being": "Pot" },
+      { "x": -1, "y": 1, "label": "potB", "being": "Pot" }
+    ],
+    "hulls": [
+      { "being": "Player", "order": 0, "x": -4, "y": -2 },
+      { "being": "Player", "order": 1, "x": -2, "y": -1 },
+      { "being": "Player", "order": 2, "x": -1, "y": 0 },
+      { "being": "Player", "order": 3, "x": 2, "y": 0 },
+      { "being": "Player", "order": 4, "x": -4, "y": -2 },
+      { "being": "Pot", "order": 0, "x": -2, "y": 1 },
+      { "being": "Pot", "order": 1, "x": -1, "y": 1 },
+      { "being": "Pot", "order": 2, "x": -2, "y": 1 }
+    ]
+  },
+  "layer": [
+    {
+      "data": { "values": [{ "x": 0 }] },
+      "mark": { "type": "rule", "strokeWidth": 2.2 },
+      "encoding": {
+        "x": {
+          "field": "x", "type": "quantitative",
+          "scale": { "domain": [-5, 3], "nice": false, "zero": false },
+          "axis": { "title": "x = −κ  (right = free)", "grid": false, "ticks": false, "labels": false, "domain": false }
+        }
+      }
+    },
+    {
+      "data": { "values": [{ "y": 0 }] },
+      "mark": { "type": "rule", "strokeWidth": 2.2 },
+      "encoding": {
+        "y": {
+          "field": "y", "type": "quantitative",
+          "scale": { "domain": [-3, 2], "nice": false, "zero": false },
+          "axis": { "title": "y = med(ω) − ω  (up = light)", "grid": false, "ticks": false, "labels": false, "domain": false }
+        }
+      }
+    },
+    {
+      "data": { "name": "points" },
+      "mark": { "type": "rule", "strokeWidth": 1, "strokeDash": [4, 3], "opacity": 0.5 },
+      "encoding": {
+        "x": { "field": "x", "type": "quantitative", "scale": { "domain": [-5, 3], "nice": false, "zero": false }, "axis": null },
+        "y": { "field": "y", "type": "quantitative", "scale": { "domain": [-3, 2], "nice": false, "zero": false }, "axis": null },
+        "y2": { "datum": 0 },
+        "color": { "field": "being", "type": "nominal", "legend": null }
+      }
+    },
+    {
+      "data": { "name": "points" },
+      "mark": { "type": "rule", "strokeWidth": 1, "strokeDash": [4, 3], "opacity": 0.5 },
+      "encoding": {
+        "x": { "field": "x", "type": "quantitative", "scale": { "domain": [-5, 3], "nice": false, "zero": false }, "axis": null },
+        "x2": { "datum": 0 },
+        "y": { "field": "y", "type": "quantitative", "scale": { "domain": [-3, 2], "nice": false, "zero": false }, "axis": null },
+        "color": { "field": "being", "type": "nominal", "legend": null }
+      }
+    },
+    {
+      "data": { "name": "hulls" },
+      "mark": { "type": "line", "strokeWidth": 2, "interpolate": "linear" },
+      "encoding": {
+        "x": { "field": "x", "type": "quantitative", "scale": { "domain": [-5, 3], "nice": false, "zero": false }, "axis": null },
+        "y": { "field": "y", "type": "quantitative", "scale": { "domain": [-3, 2], "nice": false, "zero": false }, "axis": null },
+        "color": { "field": "being", "type": "nominal", "legend": { "title": "Being" } },
+        "strokeDash": {
+          "field": "being", "type": "nominal",
+          "scale": { "domain": ["Player", "Pot"], "range": [[0], [6, 4]] },
+          "legend": null
+        },
+        "order": { "field": "order" },
+        "detail": { "field": "being" }
+      }
+    },
+    {
+      "data": { "name": "points" },
+      "mark": { "type": "circle", "size": 80 },
+      "encoding": {
+        "x": { "field": "x", "type": "quantitative", "scale": { "domain": [-5, 3], "nice": false, "zero": false }, "axis": null },
+        "y": { "field": "y", "type": "quantitative", "scale": { "domain": [-3, 2], "nice": false, "zero": false }, "axis": null },
+        "color": { "field": "being", "type": "nominal", "legend": null }
+      }
+    },
+    {
+      "data": { "name": "points" },
+      "transform": [
+        { "window": [{ "op": "rank", "as": "xrank" }], "groupby": ["x"], "sort": [{ "field": "being" }] }
+      ],
+      "mark": {
+        "type": "text",
+        "dy": { "expr": "14 + (datum.xrank - 1) * 13" },
+        "align": "center", "baseline": "top", "fontSize": 11, "angle": -30
+      },
+      "encoding": {
+        "x": { "field": "x", "type": "quantitative", "scale": { "domain": [-5, 3], "nice": false, "zero": false }, "axis": null },
+        "y": { "datum": 0, "type": "quantitative", "scale": { "domain": [-3, 2], "nice": false, "zero": false }, "axis": null },
+        "text": { "field": "label", "type": "nominal" },
+        "color": { "field": "being", "type": "nominal", "legend": null }
+      }
+    },
+    {
+      "data": { "name": "points" },
+      "transform": [
+        { "window": [{ "op": "rank", "as": "yrank" }], "groupby": ["y"], "sort": [{ "field": "being" }] }
+      ],
+      "mark": {
+        "type": "text",
+        "dx": -10,
+        "dy": { "expr": "(datum.yrank - 1) * 13" },
+        "align": "right", "baseline": "middle", "fontSize": 11
+      },
+      "encoding": {
+        "x": { "datum": 0, "type": "quantitative", "scale": { "domain": [-5, 3], "nice": false, "zero": false }, "axis": null },
+        "y": { "field": "y", "type": "quantitative", "scale": { "domain": [-3, 2], "nice": false, "zero": false }, "axis": null },
+        "text": { "field": "label", "type": "nominal" },
+        "color": { "field": "being", "type": "nominal", "legend": null }
+      }
+    }
+  ]
+}
+```
+
+Two things worth flagging about this spec, since both would otherwise look like undocumented magic:
+
+- The two axis layers deliberately skip top-level shared `x`/`y` encoding. If they inherited it, a rule meant to span the full height on `x` alone would also inherit `y` from the parent, and either break or collapse into a single anchored point. Every layer restates its own scale domain instead; more typing, no hidden behavior.
+- `combat`/`potB` share $x=-1$, and `inventory`/`potA` share $x=-2$, in a real Knowledge base $\kappa=1$ is the _modal_ value, so this collision is the common case, not an edge case. The `window` transform ranks same-position labels and feeds that rank into `dy`/`dx` through `{"expr": ...}`, the documented way to make a mark property data-dependent, so duplicates stack instead of overlapping. Point position stays exactly true to the data; only the label's little leader offset moves.
+
+Player's hull reaches into the heavy-and-coupled corner through `silhouette`, and clear out to the free pole through `loyalty`, a being doing a lot of structural work. Pot barely leaves the top-left. That gap _is_ the point of drawing this at all.
 
 ```mermaid
 graph LR
@@ -223,7 +382,7 @@ sequenceDiagram
 
 Why fight this hard for the Knowledge/life split? Because the moment you can no longer tell "design fact" from "this-instance-right-now," you've already lost the distinction between rule and possibility space, and once that's gone, the blackbox owns you again.
 
-## Rules, and the quiet virtue of honest reads and writes
+## Rules, and the greatness of honest reads and writes
 
 Rules need mutable fields to work with. That home is usually an ECS, or an SoA table with equivalent permissions, the vendor doesn't matter to me. What matters is that a rule can touch life without importing a single word from the engine's own vocabulary, and that every mutable touch stays visible to scheduling, because "ordering" without visible dependence is just theater.
 
@@ -301,7 +460,7 @@ Clockwork, injection, decision, and resolution can all share one scheduler witho
 
 Behavior over life has to stay small, accountable in its reads and writes, and free of content proper nouns. Break that discipline and parameterization quietly dies in the programmer's calendar, while ordering dies in hope.
 
-## Wait, why do we even need a "decision type"?
+## Actually, why do we even need a "decision type" anyway?
 
 Games need trajectories, for the player and for AI, that a designer can extend without a brand-new type for every new label. The move here isn't "pick FSM or utility AI as the One True identity of intelligence." It's a small composable set of aspects, one pure evaluator, and side effects living somewhere else entirely. Whether you're starting from a hard graph or eventually need heavier scoring or planning, the evaluator shouldn't need to be rewritten from scratch to get there. I call these three aspects `gate`, `desirability`, and `link`, three small pieces, and they've been enough for every kind of decision I've needed. (And no, I don't want to hear about your behavior-tree soup.)
 
@@ -327,7 +486,7 @@ Decisions want scalars; the world is not made of scalars, so sensors do the extr
 
 If any of this starts to feel like "the game is a graph of states", stop right there. The graph is one authoring shape for legal trajectories. The game itself remains the possibility space those trajectories move through, governed by rules, advancing at $\Delta t$, with agents able to force a change of course.
 
-## What actually _is_ a "frame"?
+## What is a 'frame' in game, in general?
 
 A frame is a traceable $\Delta t$ snapshot. That's the entire contract the outer loop needs, and it's also the exact point where "rule + possibility space + agents" stops being a philosophy and starts being software.
 
@@ -380,7 +539,7 @@ None of this separation matters if rules keep hardcoding content anyway. The onl
 
 Feature pressure will keep tempting you toward paths that feel reasonable in the moment and corrode everything six months later. The camera quietly becomes a global singleton. A dodge mechanic spawns a bespoke rule frantically flipping vulnerability flags by hand. Damage volumes get manually birthed deep inside attack logic. The elegant flow of destruction devolves into a hardcoded name being called from somewhere it has no business being called from. These are the symptoms of decay, and the resilient path doesn't bend for them: rules keep their generic capacity to observe and grant life, reading Knowledge without ever triggering a mutable conflict, while Knowledge remains the one and only source of truth.
 
-## It really is about the game itself
+## Well, it really is about the game itself
 
 If the engine you're standing on suddenly fell behind, changed its license terms, or simply stopped scaling with your ambitions, what happens to your project? Do you lose years of work, or do you just write a new set of infrastructure bindings for the rules you already have?
 
