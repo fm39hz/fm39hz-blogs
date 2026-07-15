@@ -25,7 +25,7 @@ type PanzoomObject = {
 };
 
 type PanzoomFn = (
-	elem: HTMLElement | SVGElement,
+	elem: HTMLElement | SVGElement | HTMLImageElement,
 	options?: {
 		maxScale?: number;
 		minScale?: number;
@@ -63,19 +63,23 @@ function shouldZoomWithWheel(event: WheelEvent): boolean {
 	return event.shiftKey || event.ctrlKey || event.metaKey;
 }
 
-export async function attachDiagramPanzoom(svg: SVGElement, _scrap: HTMLElement) {
+/** Media node: SVG diagram or raster image. */
+export async function attachDiagramPanzoom(
+	media: SVGElement | HTMLImageElement,
+	_scrap: HTMLElement,
+) {
 	if (typeof window === 'undefined') return;
 
-	const existing = svg.closest<HTMLElement>('.diagram-viewport');
+	const existing = media.closest<HTMLElement>('.diagram-viewport');
 	if (existing && instances.has(existing)) return;
 
-	const parent = svg.parentElement;
+	const parent = media.parentElement;
 	if (!parent) return;
 
 	const Panzoom = await loadPanzoom();
 
 	// Re-check after await (another attach may have finished)
-	const raced = svg.closest<HTMLElement>('.diagram-viewport');
+	const raced = media.closest<HTMLElement>('.diagram-viewport');
 	if (raced && instances.has(raced)) return;
 
 	const viewport = document.createElement('div');
@@ -85,8 +89,8 @@ export async function attachDiagramPanzoom(svg: SVGElement, _scrap: HTMLElement)
 	const target = document.createElement('div');
 	target.className = 'diagram-panzoom-target';
 
-	parent.insertBefore(viewport, svg);
-	target.appendChild(svg);
+	parent.insertBefore(viewport, media);
+	target.appendChild(media);
 	viewport.appendChild(target);
 
 	// Official: noBind skips default listeners; we bind per README examples.

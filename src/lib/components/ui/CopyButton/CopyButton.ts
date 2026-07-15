@@ -1,27 +1,7 @@
 export async function copyCode(codeBlock: HTMLPreElement): Promise<boolean> {
-	if (codeBlock.classList.contains('mermaid')) {
-		const rawCode = codeBlock.getAttribute('data-code') || '';
-		const svg = codeBlock.querySelector('svg');
-		if (!svg) {
-			await navigator.clipboard.writeText(rawCode);
-			return true;
-		}
-
-		try {
-			const pngBlob = await svgToPng(svg);
-
-			// Copy both PNG image and raw Mermaid code text
-			const item = new ClipboardItem({
-				'text/plain': new Blob([rawCode], { type: 'text/plain' }),
-				'image/png': pngBlob,
-			});
-			await navigator.clipboard.write([item]);
-			return true;
-		} catch (err) {
-			console.error('Failed to copy diagram as image, falling back to text:', err);
-			await navigator.clipboard.writeText(rawCode);
-			return true;
-		}
+	// Shared figure surface (mermaid, vega-lite, future diagrams)
+	if (codeBlock.classList.contains('figure-surface') || codeBlock.dataset.source != null) {
+		return copyFigureSurface(codeBlock);
 	}
 
 	const code = codeBlock.querySelector('code');
@@ -30,16 +10,79 @@ export async function copyCode(codeBlock: HTMLPreElement): Promise<boolean> {
 	return true;
 }
 
+async function copyFigureSurface(surface: HTMLElement): Promise<boolean> {
+	const raw = surface.dataset.source ?? '';
+	const svg = surface.querySelector('svg');
+	const img = surface.querySelector('img');
+
+	if (svg) {
+		try {
+			const pngBlob = await svgToPng(svg);
+			const parts: Record<string, Blob> = {
+				'image/png': pngBlob,
+			};
+			if (raw) parts['text/plain'] = new Blob([raw], { type: 'text/plain' });
+			await navigator.clipboard.write([new ClipboardItem(parts)]);
+			return true;
+		} catch (err) {
+			console.error('Figure SVG→PNG copy failed, text fallback:', err);
+			if (raw) {
+				await navigator.clipboard.writeText(raw);
+				return true;
+			}
+			return false;
+		}
+	}
+
+	if (img?.src) {
+		try {
+			const pngBlob = await imgToPng(img);
+			const parts: Record<string, Blob> = { 'image/png': pngBlob };
+			if (raw || img.alt) {
+				parts['text/plain'] = new Blob([raw || img.alt], { type: 'text/plain' });
+			}
+			await navigator.clipboard.write([new ClipboardItem(parts)]);
+			return true;
+		} catch {
+			await navigator.clipboard.writeText(raw || img.src);
+			return true;
+		}
+	}
+
+	if (raw) {
+		await navigator.clipboard.writeText(raw);
+		return true;
+	}
+	return false;
+}
+
+function imgToPng(img: HTMLImageElement): Promise<Blob> {
+	return new Promise((resolve, reject) => {
+		const canvas = document.createElement('canvas');
+		const w = img.naturalWidth || img.width || 800;
+		const h = img.naturalHeight || img.height || 600;
+		canvas.width = w;
+		canvas.height = h;
+		const ctx = canvas.getContext('2d');
+		if (!ctx) {
+			reject(new Error('no 2d context'));
+			return;
+		}
+		ctx.drawImage(img, 0, 0, w, h);
+		canvas.toBlob((blob) => {
+			if (blob) resolve(blob);
+			else reject(new Error('toBlob null'));
+		}, 'image/png');
+	});
+}
+
 function svgToPng(svg: SVGSVGElement): Promise<Blob> {
 	return new Promise((resolve, reject) => {
-		// 1. Clone the SVG to manipulate it safely
 		const clone = svg.cloneNode(true) as SVGSVGElement;
 		if (!clone.getAttribute('xmlns')) {
 			clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
 		}
 
-		// 2. Replace all <foreignObject> elements with standard SVG <text> elements
-		// to prevent canvas tainting security blocks in WebKit/Blink browsers
 		const foreignObjects = Array.from(clone.querySelectorAll('foreignObject'));
 		for (const fo of foreignObjects) {
 			const textContent = fo.textContent?.trim() || '';
@@ -50,21 +93,17 @@ function svgToPng(svg: SVGSVGElement): Promise<Blob> {
 
 			const textNode = document.createElementNS('http://www.w3.org/2000/svg', 'text');
 			textNode.textContent = textContent;
-			// Center the text inside the original foreignObject container
 			textNode.setAttribute('x', String(x + width / 2));
-			textNode.setAttribute('y', String(y + height / 2 + 4)); // Adjust vertical baseline shift
+			textNode.setAttribute('y', String(y + height / 2 + 4));
 			textNode.setAttribute('dominant-baseline', 'central');
 			textNode.setAttribute('text-anchor', 'middle');
 			textNode.setAttribute('font-family', 'sans-serif');
 			textNode.setAttribute('font-size', '13px');
 			textNode.setAttribute('font-weight', '600');
 			textNode.setAttribute('fill', 'var(--fg)');
-
 			fo.parentNode?.replaceChild(textNode, fo);
 		}
 
-		// 3. Resolve CSS theme variables to absolute hex/rgb colors since SVG drawn
-		// on canvas in <img> context has no access to parent document custom styles
 		const s = getComputedStyle(document.documentElement);
 		const accentColor = s.getPropertyValue('--accent').trim() || '#6f884c';
 		const fgColor = s.getPropertyValue('--fg').trim() || '#2d3129';
@@ -95,23 +134,18 @@ function svgToPng(svg: SVGSVGElement): Promise<Blob> {
 				return;
 			}
 
-			// Fill canvas background matching theme
 			const style = getComputedStyle(
-				svg.closest('.shiki') || svg.closest('pre') || document.body,
+				svg.closest('.figure-surface') || svg.closest('pre') || document.body,
 			);
 			ctx.fillStyle = style.backgroundColor || bgColor;
 			ctx.fillRect(0, 0, width, height);
-
 			ctx.drawImage(img, 0, 0, width, height);
 
 			try {
 				canvas.toBlob((blob) => {
 					URL.revokeObjectURL(url);
-					if (blob) {
-						resolve(blob);
-					} else {
-						reject(new Error('Canvas toBlob returned null'));
-					}
+					if (blob) resolve(blob);
+					else reject(new Error('Canvas toBlob returned null'));
 				}, 'image/png');
 			} catch (err) {
 				URL.revokeObjectURL(url);

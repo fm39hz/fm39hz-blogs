@@ -2,6 +2,7 @@
 import { page } from '$app/state';
 import { styleCheckboxes } from '$lib/actions/checkboxes';
 import { copyCode } from '$lib/actions/copyCode';
+import { figureSurfaces } from '$lib/actions/figureSurface';
 import { lightboxAction } from '$lib/actions/lightbox';
 import { pencilEdge } from '$lib/actions/pencilEdge';
 import { renderMermaid } from '$lib/actions/renderMermaid';
@@ -70,6 +71,7 @@ let tocReady = $state(false);
       use:styleCheckboxes
       use:renderMermaid
       use:renderVegaLite
+      use:figureSurfaces
       use:roughNotation
       use:lightboxAction
       use:responsiveTables

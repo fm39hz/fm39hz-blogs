@@ -1,6 +1,5 @@
 import { browser } from '$app/env';
-import { attachDiagramPanzoom, destroyDiagramPanzoom } from '$lib/actions/diagramPanzoom';
-import { observePencilEdges } from '$lib/actions/pencilEdge';
+import { enhanceFigure } from '$lib/actions/figureSurface';
 
 type EmbedResult = { finalize: () => void };
 type EmbedFn = (
@@ -16,7 +15,6 @@ let embedPromise: Promise<EmbedFn> | null = null;
 
 function loadEmbed(): Promise<EmbedFn> {
 	if (!embedPromise) {
-		// https://github.com/vega/vega-embed — default export is embed(el, spec, opt)
 		embedPromise = import('vega-embed').then((m) => {
 			const mod = m as { default?: EmbedFn };
 			return mod.default ?? (m as unknown as EmbedFn);
@@ -29,6 +27,7 @@ function cssVar(name: string, fallback = '') {
 	return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
 }
 
+/** Shared CSS-var theme → Vega config (same tokens as mermaid themeVariables). */
 function siteConfig() {
 	const fg = cssVar('--fg', '#d3c6aa');
 	const accent = cssVar('--accent', '#a7c080');
@@ -60,7 +59,6 @@ function siteConfig() {
 		},
 		view: { stroke: null },
 		range: { category: [accent, mutedFg, muted, fg] },
-		// default mark stroke/fill — rule/axis overlays pick this up
 		mark: { color: fg, fill: accent, stroke: fg },
 		rule: { color: fg, stroke: fg, strokeWidth: 2 },
 		text: { color: fg, font, fontSize: 12 },
@@ -91,6 +89,7 @@ async function paint(pre: HTMLPreElement, embed: EmbedFn) {
 		const src = (pre.dataset.source ?? pre.textContent ?? '').trim();
 		if (!src) return;
 		pre.dataset.source = src;
+		pre.classList.add('figure-surface');
 
 		let spec: unknown;
 		try {
@@ -114,7 +113,6 @@ async function paint(pre: HTMLPreElement, embed: EmbedFn) {
 		host.style.minHeight = '240px';
 		pre.replaceChildren(host);
 
-		// docs: embed(el, spec, opt) → { view, spec, vgSpec, finalize }
 		const result = await embed(host, spec, {
 			mode: 'vega-lite',
 			renderer: 'svg',
@@ -128,16 +126,18 @@ async function paint(pre: HTMLPreElement, embed: EmbedFn) {
 
 		const svg = host.querySelector('svg');
 		if (svg) {
-			svg.classList.add('pencil-edge');
 			svg.style.maxWidth = '100%';
 			svg.style.height = 'auto';
-			void attachDiagramPanzoom(svg, pre);
-			observePencilEdges(pre);
+			await enhanceFigure(pre, svg, {
+				source: src,
+				panzoom: true,
+				pencil: true,
+			});
+		} else {
+			pre.style.opacity = '1';
 		}
 
-		pre.classList.add('is-ready');
 		pre.removeAttribute('data-error');
-		pre.style.opacity = '1';
 	} catch (e) {
 		console.error('Vega-Lite render error:', e);
 		done.add(pre);
@@ -169,7 +169,6 @@ export function renderVegaLite(container: HTMLElement) {
 
 		await paintMissing(container, embed);
 
-		// Svelte may mount <entry.component /> after action runs
 		mo = new MutationObserver(() => {
 			if (dead) return;
 			void paintMissing(container, embed);
@@ -194,7 +193,6 @@ export function renderVegaLite(container: HTMLElement) {
 			dead = true;
 			mo?.disconnect();
 			themeMo?.disconnect();
-			destroyDiagramPanzoom(container);
 			for (const host of container.querySelectorAll<HTMLElement>('.vega-host')) {
 				teardown(host);
 			}

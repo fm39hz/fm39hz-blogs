@@ -185,7 +185,12 @@
     vertical-align: baseline;
   }
 
-  /* Diagram scrap — mermaid + vega-lite share notebook surface */
+  /*
+   * Figure surface — shared notebook scrap for any producer
+   * (mermaid, vega-lite, manual markup, img wrapper…)
+   * Options via data-*: data-panzoom, data-pencil, data-source
+   */
+  :global(.figure-surface),
   pre.mermaid,
   pre.vega-lite {
     opacity: 0;
@@ -199,7 +204,14 @@
     margin: var(--space-md) 0;
   }
 
-  /* panzoom viewport — clip inside scrap, keep pencil-edge on SVG */
+  :global(.figure-surface),
+  pre.mermaid.is-ready,
+  pre.vega-lite {
+    opacity: 1;
+    color: var(--fg);
+  }
+
+  :global(.figure-surface),
   pre.mermaid,
   pre.vega-lite {
     :global(.diagram-viewport) {
@@ -219,7 +231,8 @@
       justify-content: center;
     }
 
-    :global(.diagram-panzoom-target svg) {
+    :global(.diagram-panzoom-target svg),
+    :global(.diagram-panzoom-target img) {
       display: block;
       max-width: 100%;
       height: auto;
@@ -228,8 +241,6 @@
   }
 
   pre.vega-lite {
-    opacity: 1;
-    color: var(--fg);
     min-height: 12rem;
 
     :global(.vega-host) {
@@ -256,7 +267,7 @@
     }
   }
 
-  /* Mermaid loading container — SVG gets .pencil-edge after render */
+  /* Mermaid node chrome after pencil-edge SVG render */
   pre.mermaid {
     :global(svg.pencil-edge) {
       display: block;
