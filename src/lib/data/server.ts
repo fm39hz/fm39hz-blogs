@@ -27,6 +27,8 @@ export interface PageEntry {
 	lang: string;
 	component: Component;
 	metadata: PostMeta;
+	/** Source markdown body with frontmatter (for copy/export). */
+	raw: string;
 }
 
 /**
@@ -36,19 +38,27 @@ export async function loadPageEntriesAsync(slug: string): Promise<PageEntry[]> {
 	const modules = import.meta.glob<{ default: Component; metadata: PostMeta }>(
 		'/src/content/articles/*.md',
 	);
+	const rawModules = import.meta.glob<string>('/src/content/articles/*.md', {
+		query: '?raw',
+		import: 'default',
+	});
 	const matches = Object.entries(modules).filter(([path]) => {
 		const fileName = path.split('/').pop()!;
 		return parseSlug(fileName) === slug;
 	});
 	return await Promise.all(
 		matches.map(async ([path, importFn]) => {
-			const mod = await importFn();
+			const [mod, raw] = await Promise.all([
+				importFn(),
+				rawModules[path]?.() ?? Promise.resolve(''),
+			]);
 			const fileName = path.split('/').pop()!;
 			return {
 				slug,
 				lang: parseLang(fileName),
 				component: mod.default,
 				metadata: mod.metadata,
+				raw: typeof raw === 'string' ? raw : '',
 			};
 		}),
 	);

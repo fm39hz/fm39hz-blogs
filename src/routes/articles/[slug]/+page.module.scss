@@ -36,6 +36,13 @@
   flex-shrink: 0;
 }
 
+.toolbarRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
 .article {
   position: relative;
   min-width: 0;

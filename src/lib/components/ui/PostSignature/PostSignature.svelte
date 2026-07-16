@@ -2,9 +2,11 @@
 import cfg from '$lib/config';
 
 let {
+	author: authorProp,
 	location,
 	pubDatetime,
 }: {
+	author?: string | null;
 	location?: string | null;
 	pubDatetime: string;
 } = $props();
@@ -17,7 +19,7 @@ let dateStr = $derived.by(() => {
 	return `${day}/${month}/${year}`;
 });
 
-let author = $derived(cfg.site.author);
+let author = $derived(authorProp || cfg.site.author);
 </script>
 
 <p class="sig">{author}{location ? `, ${location}` : ''}, {dateStr}</p>
