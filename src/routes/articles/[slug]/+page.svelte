@@ -1,7 +1,6 @@
 <script lang="ts">
 import { page } from '$app/state';
 import { styleCheckboxes } from '$lib/actions/checkboxes';
-import { copyCode } from '$lib/actions/copyCode';
 import { figureSurfaces } from '$lib/actions/figureSurface';
 import { lightboxAction } from '$lib/actions/lightbox';
 import { pencilEdge } from '$lib/actions/pencilEdge';
@@ -13,6 +12,7 @@ import ButtonLink from '$lib/components/ui/ButtonLink/ButtonLink.svelte';
 import Datetime from '$lib/components/ui/Datetime/Datetime.svelte';
 import IconButton from '$lib/components/ui/IconButton/IconButton.svelte';
 import PostSignature from '$lib/components/ui/PostSignature/PostSignature.svelte';
+import ScrapCopies from '$lib/components/ui/ScrapCopies/ScrapCopies.svelte';
 import TableOfContents from '$lib/components/ui/TableOfContents/TableOfContents.svelte';
 import TagLine from '$lib/components/ui/TagLine/TagLine.svelte';
 import cfg from '$lib/config';
@@ -37,6 +37,7 @@ let seo = $derived(meta.title ? buildPostSeo(meta, slug) : null);
 
 let tocReady = $state(false);
 let copiedMd = $state(false);
+let proseEl = $state<HTMLElement | null>(null);
 
 async function onCopyMarkdown() {
 	if (!entry?.raw) return;
@@ -99,7 +100,6 @@ async function onCopyMarkdown() {
     <article
       class={styles.article}
       use:pencilEdge
-      use:copyCode
       use:styleCheckboxes
       use:renderMermaid
       use:renderVegaLite
@@ -108,7 +108,11 @@ async function onCopyMarkdown() {
       use:lightboxAction
       use:responsiveTables
     >
-      <div class="prose"><entry.component /></div>
+      <!-- relative host for ScrapCopies overlay (declarative; no mount/wrap) -->
+      <div class={styles.proseHost} bind:this={proseEl}>
+        <div class="prose"><entry.component /></div>
+        <ScrapCopies root={proseEl} />
+      </div>
       <hr class={styles.hr} />
       <PostSignature author={seo.author} location={meta.location} pubDatetime={meta.pubDatetime} />
       <ul class={styles.tags}>

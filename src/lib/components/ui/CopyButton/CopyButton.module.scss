@@ -1,13 +1,28 @@
 .btn {
-  position: absolute; inset-inline-end: 0; top: -0.75rem; z-index: 2;
-  transform: rotate(-20deg); display: flex; align-items: center; justify-content: center;
-  background: none; color: var(--fg); border: none; padding: 0; cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-20deg);
+  background: none;
+  color: var(--fg);
+  border: none;
+  padding: 0.25rem;
+  cursor: pointer;
   transition: transform var(--d-fast) var(--ease-out);
 }
-.btn:hover { transform: rotate(-15deg) scale(var(--scale-hover)); color: var(--accent); }
+.btn:hover {
+  transform: rotate(-15deg) scale(var(--scale-hover));
+  color: var(--accent);
+}
 .btn:active {
   transform: rotate(-20deg) scale(var(--scale-active));
   transition-timing-function: var(--ease-bounce);
 }
-.btn.copied { transform: rotate(-10deg) scale(var(--scale-pop)); color: var(--accent); }
-.btn svg { width: var(--icon-lg); height: var(--icon-lg); }
+.btn.copied {
+  transform: rotate(-10deg) scale(var(--scale-pop));
+  color: var(--accent);
+}
+.btn svg {
+  width: var(--icon-lg);
+  height: var(--icon-lg);
+}

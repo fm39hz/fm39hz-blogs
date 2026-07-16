@@ -45,6 +45,7 @@
 	"a11y_toggle_language": "Chuyển ngôn ngữ",
 	"a11y_copy_code": "Sao chép code",
 	"a11y_copy_markdown": "Sao chép Markdown",
+	"a11y_copy_figure": "Sao chép hình",
 	"post_copied": "Đã chép!",
 	"post_copied_markdown": "Đã chép Markdown",
 	"a11y_rss_feed": "RSS",

@@ -61,6 +61,7 @@ export interface UIStrings {
 		toggleLanguage: string;
 		copyCode: string;
 		copyMarkdown: string;
+		copyFigure: string;
 		rssFeed: string;
 		rssLinkTitle: string;
 		paginationNav: string;
@@ -150,6 +151,7 @@ export function useTranslations(locale?: string): UIStrings {
 			toggleLanguage: m.a11y_toggle_language(undefined, opt),
 			copyCode: m.a11y_copy_code(undefined, opt),
 			copyMarkdown: m.a11y_copy_markdown(undefined, opt),
+			copyFigure: m.a11y_copy_figure(undefined, opt),
 			rssFeed: m.a11y_rss_feed(undefined, opt),
 			rssLinkTitle: m.a11y_rss_link_title(undefined, opt),
 			paginationNav: m.a11y_pagination_nav(undefined, opt),

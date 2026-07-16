@@ -2,7 +2,6 @@ import { paraglideVitePlugin } from '@inlang/paraglide-js';
 import adapter from '@sveltejs/adapter-vercel';
 import { sveltekit } from '@sveltejs/kit/vite';
 import headingRange from 'mdast-util-heading-range';
-import mdastToString from 'mdast-util-to-string';
 // @ts-ignore
 import { escapeSvelte, mdsvex } from 'mdsvex';
 import rehypeKatexSvelte from 'rehype-katex-svelte';
@@ -12,6 +11,7 @@ import remarkMath from 'remark-math';
 import remarkToc from 'remark-toc';
 import { createHighlighter } from 'shiki';
 import { defineConfig } from 'vite';
+import { rehypeTableLabels } from './src/lib/markdown/rehypeTableLabels';
 
 let highlighter: Awaited<ReturnType<typeof createHighlighter>> | null = null;
 
@@ -33,14 +33,15 @@ export default defineConfig({
 					extensions: ['.svx', '.md'],
 					highlight: {
 						highlighter: async (code: string, lang: string | null | undefined) => {
+							// Client-rendered media: source only on data-source (URI-encoded).
+							// Empty <figure> — no DSL/JSON text nodes for reader modes. Paint SVG in browser.
 							if (lang === 'mermaid') {
-								const safe = code.replace(/`/g, '\\`');
-								return `{@html \`<pre class="mermaid">${safe}</pre>\`}`;
+								const enc = encodeURIComponent(code);
+								return `{@html \`<figure class="diagram mermaid" data-kind="mermaid" data-source="${enc}" aria-label="Diagram"></figure>\`}`;
 							}
 							if (lang === 'vega-lite' || lang === 'vegalite' || lang === 'vega') {
-								// Same hazard set as mermaid fence: keep JSON intact for JSON.parse
-								const safe = code.replace(/`/g, '\\`').replace(/\$\{/g, '\\${');
-								return `{@html \`<pre class="vega-lite">${safe}</pre>\`}`;
+								const enc = encodeURIComponent(code);
+								return `{@html \`<figure class="diagram vega-lite" data-kind="vega-lite" data-source="${enc}" aria-label="Chart"></figure>\`}`;
 							}
 							if (!highlighter) {
 								highlighter = await createHighlighter({
@@ -77,6 +78,8 @@ export default defineConfig({
 						[remarkToc, tocOptions],
 						[
 							function () {
+								// Wrap in-page TOC as <nav> — no closed <details>, no duplicate title.
+								// Reader modes (Brave/Zen) + SEO get a real heading + list.
 								// biome-ignore lint/suspicious/noExplicitAny: mdast types unavailable
 								return function (tree: any) {
 									headingRange(
@@ -84,13 +87,13 @@ export default defineConfig({
 										'Table of contents',
 										// biome-ignore lint/suspicious/noExplicitAny: heading-range types unavailable
 										(start: any, nodes: any[], end: any) => [
+											{
+												type: 'html',
+												value: '<nav class="prose-toc" aria-label="Table of contents">',
+											},
 											start,
-											{ type: 'html', value: '<details>' },
-											{ type: 'html', value: '<summary>' },
-											{ type: 'text', value: mdastToString(start) },
-											{ type: 'html', value: '</summary>' },
 											...nodes,
-											{ type: 'html', value: '</details>' },
+											{ type: 'html', value: '</nav>' },
 											end,
 										],
 									);
@@ -98,7 +101,7 @@ export default defineConfig({
 							},
 						],
 					],
-					rehypePlugins: [rehypeSlug, rehypeKatexSvelte],
+					rehypePlugins: [rehypeSlug, rehypeKatexSvelte, rehypeTableLabels],
 				}),
 			],
 			extensions: ['.svelte', '.svx', '.md'],

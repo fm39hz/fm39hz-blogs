@@ -1,5 +1,5 @@
 import { browser } from '$app/env';
-import { enhanceFigure } from '$lib/actions/figureSurface';
+import { enhanceFigure, readFigureSource } from '$lib/actions/figureSurface';
 
 type EmbedResult = { finalize: () => void };
 type EmbedFn = (
@@ -9,8 +9,8 @@ type EmbedFn = (
 ) => Promise<EmbedResult>;
 
 const results = new WeakMap<HTMLElement, EmbedResult>();
-const done = new WeakSet<HTMLPreElement>();
-const inflight = new WeakSet<HTMLPreElement>();
+const done = new WeakSet<HTMLElement>();
+const inflight = new WeakSet<HTMLElement>();
 let embedPromise: Promise<EmbedFn> | null = null;
 
 function loadEmbed(): Promise<EmbedFn> {
@@ -75,43 +75,46 @@ function teardown(host: HTMLElement | null) {
 	if (!prev) return;
 	try {
 		prev.finalize();
-	} catch {
-		/* */
+	} catch (err) {
+		console.warn('vega finalize:', err);
 	}
 	results.delete(host);
 }
 
-async function paint(pre: HTMLPreElement, embed: EmbedFn) {
-	if (inflight.has(pre)) return;
-	inflight.add(pre);
+const DIAGRAM_SEL = 'figure.vega-lite, pre.vega-lite';
+
+async function paint(el: HTMLElement, embed: EmbedFn) {
+	if (inflight.has(el)) return;
+	inflight.add(el);
 
 	try {
-		const src = (pre.dataset.source ?? pre.textContent ?? '').trim();
+		// data-source first; never leave JSON as text nodes for readers
+		let src = readFigureSource(el);
+		if (!src) src = (el.textContent ?? '').trim();
 		if (!src) return;
-		pre.dataset.source = src;
-		pre.classList.add('figure-surface');
+		el.dataset.source = src;
+		el.classList.add('figure-surface');
 
 		let spec: unknown;
 		try {
 			spec = JSON.parse(src);
 		} catch (e) {
-			done.add(pre);
-			pre.dataset.error = '1';
-			pre.replaceChildren(
-				document.createTextNode(e instanceof Error ? e.message : 'Invalid JSON'),
+			done.add(el);
+			el.dataset.error = '1';
+			el.replaceChildren(
+				document.createTextNode(e instanceof Error ? e.message : 'Invalid chart data'),
 			);
-			pre.style.opacity = '1';
 			return;
 		}
 
-		const old = pre.querySelector<HTMLElement>('.vega-host');
+		const old = el.querySelector<HTMLElement>('.vega-host');
 		teardown(old);
 
 		const host = document.createElement('div');
 		host.className = 'vega-host';
 		host.style.width = '100%';
 		host.style.minHeight = '240px';
-		pre.replaceChildren(host);
+		el.replaceChildren(host);
 
 		const result = await embed(host, spec, {
 			mode: 'vega-lite',
@@ -122,37 +125,42 @@ async function paint(pre: HTMLPreElement, embed: EmbedFn) {
 			config: siteConfig(),
 		});
 		results.set(host, result);
-		done.add(pre);
+		done.add(el);
 
 		const svg = host.querySelector('svg');
+		const desc =
+			(spec && typeof spec === 'object' && 'description' in spec
+				? String((spec as { description?: string }).description ?? '')
+				: '') ||
+			el.getAttribute('aria-label') ||
+			'Chart';
 		if (svg) {
 			svg.style.maxWidth = '100%';
 			svg.style.height = 'auto';
-			await enhanceFigure(pre, svg, {
+			await enhanceFigure(el, svg, {
 				source: src,
 				panzoom: true,
 				pencil: true,
+				label: desc,
 			});
-		} else {
-			pre.style.opacity = '1';
+			el.classList.add('is-ready');
 		}
 
-		pre.removeAttribute('data-error');
+		el.removeAttribute('data-error');
 	} catch (e) {
 		console.error('Vega-Lite render error:', e);
-		done.add(pre);
-		pre.dataset.error = '1';
-		pre.replaceChildren(document.createTextNode(e instanceof Error ? e.message : String(e)));
-		pre.style.opacity = '1';
+		done.add(el);
+		el.dataset.error = '1';
+		el.replaceChildren(document.createTextNode('Chart failed to render.'));
 	} finally {
-		inflight.delete(pre);
+		inflight.delete(el);
 	}
 }
 
 async function paintMissing(root: HTMLElement, embed: EmbedFn) {
-	for (const pre of root.querySelectorAll<HTMLPreElement>('pre.vega-lite')) {
-		if (done.has(pre) || inflight.has(pre)) continue;
-		await paint(pre, embed);
+	for (const el of root.querySelectorAll<HTMLElement>(DIAGRAM_SEL)) {
+		if (done.has(el) || inflight.has(el)) continue;
+		await paint(el, embed);
 	}
 }
 
@@ -177,9 +185,9 @@ export function renderVegaLite(container: HTMLElement) {
 
 		themeMo = new MutationObserver(() => {
 			if (dead) return;
-			for (const pre of container.querySelectorAll<HTMLPreElement>('pre.vega-lite')) {
-				done.delete(pre);
-				void paint(pre, embed);
+			for (const el of container.querySelectorAll<HTMLElement>(DIAGRAM_SEL)) {
+				done.delete(el);
+				void paint(el, embed);
 			}
 		});
 		themeMo.observe(document.documentElement, {

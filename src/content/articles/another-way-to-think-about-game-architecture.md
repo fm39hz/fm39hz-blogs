@@ -81,7 +81,7 @@ sequenceDiagram
     Design->>Infra: measure space against range intent
     Infra->>Rule: publish hit when measurement says so
 
-    Note over Rule,Infra: Rule never chooses the intersection algorithm<br/>Infra never chooses how much damage means
+    Note over Rule,Infra: Rule never chooses the intersection algorithm Infra never chooses how much damage means
 ```
 
 Architecture, in this narrow sense, is just the refusal to let one function do both jobs forever. Measurement can sit right next to gameplay in the schedule and still be infrastructure, it publishes a fact, it doesn't own the damage table. One function holding both isn't pragmatism, it's debt with a grace period.
@@ -100,9 +100,9 @@ Rule and design still need a shared vocabulary for what exists as design. `HpCom
 
 ```mermaid
 graph TB
-    B["Being<br/>named coordinate in design space"]
-    C["Concept<br/>orthogonal viewpoint"]
-    A["Aspect<br/>pure data · zero behavior"]
+    B["Being named coordinate in design space"]
+    C["Concept orthogonal viewpoint"]
+    A["Aspect pure data · zero behavior"]
 
     B -->|"claims"| C
     C -->|"reveals"| A
@@ -360,8 +360,8 @@ flowchart LR
     end
 
     subgraph Runtime
-        K["Knowledge<br/>immutable"]
-        W["World stores<br/>mutable"]
+        K["Knowledge immutable"]
+        W["World stores mutable"]
     end
 
     C --> I
