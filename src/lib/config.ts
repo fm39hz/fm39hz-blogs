@@ -24,7 +24,7 @@ const cfg: BlogConfig = {
 	},
 	features: {
 		lightAndDarkMode: true,
-		dynamicOgImage: true,
+		dynamicOgImage: false,
 		showArchives: true,
 		showBackButton: true,
 		editPost: { enabled: false },
@@ -35,12 +35,6 @@ const cfg: BlogConfig = {
 		{ name: 'x', url: 'https://x.com/fm39hz' },
 		{ name: 'linkedin', url: 'https://www.linkedin.com/in/fm39hz' },
 		{ name: 'mail', url: 'mailto:fm39hz@gmail.com' },
-	],
-	shareLinks: [
-		{ name: 'facebook', url: 'https://www.facebook.com/sharer.php?u=' },
-		{ name: 'x', url: 'https://x.com/intent/post?url=' },
-		{ name: 'telegram', url: 'https://t.me/share/url?url=' },
-		{ name: 'mail', url: 'mailto:?subject=See%20this%20post&body=' },
 	],
 };
 

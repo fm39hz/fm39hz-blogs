@@ -26,6 +26,7 @@ export interface UIStrings {
 		tableOfContents: string;
 		tableOfContentsMenu: string;
 		closeMenu: string;
+		copied: string;
 		copiedMarkdown: string;
 	};
 	pagination: { prev: string; next: string; page: string };
@@ -107,6 +108,7 @@ export function useTranslations(locale?: string): UIStrings {
 			tableOfContents: m.post_table_of_contents(undefined, opt),
 			tableOfContentsMenu: m.post_table_of_contents_menu(undefined, opt),
 			closeMenu: m.post_close_menu(undefined, opt),
+			copied: m.post_copied(undefined, opt),
 			copiedMarkdown: m.post_copied_markdown(undefined, opt),
 		},
 		pagination: {

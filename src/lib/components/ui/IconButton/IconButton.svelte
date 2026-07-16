@@ -9,6 +9,7 @@ let {
 	id,
 	style,
 	class: className = '',
+	ok = false,
 	...rest
 }: {
 	icon: string;
@@ -17,16 +18,18 @@ let {
 	id?: string;
 	style?: string;
 	class?: string;
+	/** Success flash (copy grammar). */
+	ok?: boolean;
 	[key: string]: unknown;
 } = $props();
 </script>
 
 {#if href}
-  <a {href} {onclick} {id} {style} class={`${styles.btn} ${className}`} {...rest}>
-    <Icon {icon} />
+  <a {href} {onclick} {id} {style} class={`${styles.btn} ${ok ? styles.ok : ''} ${className}`} data-ok={ok ? 'true' : undefined} {...rest}>
+    <Icon icon={ok ? 'ph:check' : icon} />
   </a>
 {:else}
-  <button type="button" {onclick} {id} {style} class={`${styles.btn} ${className}`} {...rest}>
-    <Icon {icon} />
+  <button type="button" {onclick} {id} {style} class={`${styles.btn} ${ok ? styles.ok : ''} ${className}`} data-ok={ok ? 'true' : undefined} {...rest}>
+    <Icon icon={ok ? 'ph:check' : icon} />
   </button>
 {/if}

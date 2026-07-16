@@ -1,8 +1,7 @@
 <script lang="ts">
 import Icon from '@iconify/svelte';
-import { COPY_FEEDBACK_MS } from '$lib/constants';
 import { useTranslations } from '$lib/i18n';
-import { globalToaster } from '$lib/state/toast.svelte';
+import { flashCopySuccess } from '$lib/utils/clipboard';
 import { copyCode } from './CopyButton';
 import styles from './CopyButton.module.scss';
 
@@ -13,9 +12,12 @@ let copied = $state(false);
 async function handleCopy() {
 	const ok = await copyCode(codeBlock);
 	if (!ok) return;
-	copied = true;
-	globalToaster.addToast({ data: 'Copied!' });
-	setTimeout(() => (copied = false), COPY_FEEDBACK_MS);
+	flashCopySuccess({
+		toast: i18n.post.copied,
+		setCopied: (v) => {
+			copied = v;
+		},
+	});
 }
 </script>
 

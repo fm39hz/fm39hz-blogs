@@ -8,11 +8,3 @@ export function stripFrontmatter(md: string): string {
 	else if (body.startsWith('\n')) body = body.slice(1);
 	return body;
 }
-
-/** Site-relative or bare path → absolute URL for OG/canonical. */
-export function absoluteUrl(siteUrl: string, pathOrUrl: string): string {
-	if (/^https?:\/\//i.test(pathOrUrl)) return pathOrUrl;
-	const base = siteUrl.replace(/\/$/, '');
-	const path = pathOrUrl.startsWith('/') ? pathOrUrl : `/${pathOrUrl}`;
-	return `${base}${path}`;
-}

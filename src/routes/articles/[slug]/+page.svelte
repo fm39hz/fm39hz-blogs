@@ -19,9 +19,10 @@ import cfg from '$lib/config';
 import type { PageEntry } from '$lib/data/server';
 import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
-import { globalToaster } from '$lib/state/toast.svelte';
 import { slugifyStr } from '$lib/tags';
-import { absoluteUrl, stripFrontmatter } from '$lib/utils/markdown';
+import { copyWithFeedback } from '$lib/utils/clipboard';
+import { stripFrontmatter } from '$lib/utils/markdown';
+import { buildPostSeo } from '$lib/utils/seo';
 import styles from './+page.module.scss';
 
 let { data }: { data: { posts: PageEntry[] } } = $props();
@@ -32,77 +33,51 @@ let defaultEntry = $derived(matching.find((e) => e.lang === 'en') ?? matching[0]
 let entry = $derived(matching.find((e) => (e.lang ?? 'en') === locale.value) ?? defaultEntry);
 let meta = $derived(entry?.metadata ?? { title: '', description: '', pubDatetime: '', tags: [] });
 let t = $derived(useTranslations(locale.value));
-
-let author = $derived(meta.author || cfg.site.author);
-let canonical = $derived(
-	meta.canonicalURL
-		? absoluteUrl(cfg.site.url, meta.canonicalURL)
-		: `${cfg.site.url}/articles/${slug}`,
-);
-let ogImage = $derived(
-	absoluteUrl(cfg.site.url, meta.ogImage || cfg.site.ogImage || '/favicon.png'),
-);
-let jsonLd = $derived(
-	JSON.stringify({
-		'@context': 'https://schema.org',
-		'@type': 'BlogPosting',
-		headline: meta.title,
-		description: meta.description,
-		datePublished: meta.pubDatetime,
-		...(meta.modDatetime ? { dateModified: meta.modDatetime } : {}),
-		author: {
-			'@type': 'Person',
-			name: author,
-			...(cfg.site.profile ? { url: cfg.site.profile } : {}),
-		},
-		image: [ogImage],
-		mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
-		url: canonical,
-	}),
-);
+let seo = $derived(meta.title ? buildPostSeo(meta, slug) : null);
 
 let tocReady = $state(false);
+let copiedMd = $state(false);
 
-async function copyMarkdown() {
+async function onCopyMarkdown() {
 	if (!entry?.raw) return;
-	try {
-		await navigator.clipboard.writeText(stripFrontmatter(entry.raw));
-		globalToaster.addToast({ data: t.post.copiedMarkdown });
-	} catch {
-		/* clipboard denied — silent */
-	}
+	await copyWithFeedback(stripFrontmatter(entry.raw), {
+		toast: t.post.copiedMarkdown,
+		setCopied: (v) => {
+			copiedMd = v;
+		},
+	});
 }
 </script>
 
 <svelte:head>
-  {#if meta.title}
-    <title>{meta.title} | {cfg.site.title}</title>
-    <meta name="description" content={meta.description} />
-    <meta name="author" content={author} />
-    <link rel="canonical" href={canonical} />
+  {#if seo}
+    <title>{seo.title} | {cfg.site.title}</title>
+    <meta name="description" content={seo.description} />
+    <meta name="author" content={seo.author} />
+    <link rel="canonical" href={seo.canonical} />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content={meta.title} />
-    <meta property="og:description" content={meta.description} />
-    <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={ogImage} />
-    <meta property="article:author" content={author} />
-    <meta property="article:published_time" content={meta.pubDatetime} />
-    {#if meta.modDatetime}<meta property="article:modified_time" content={meta.modDatetime} />{/if}
-    {#each meta.tags ?? [] as tag}
+    <meta property="og:title" content={seo.title} />
+    <meta property="og:description" content={seo.description} />
+    <meta property="og:url" content={seo.canonical} />
+    <meta property="og:image" content={seo.ogImage} />
+    <meta property="article:author" content={seo.author} />
+    <meta property="article:published_time" content={seo.pubDatetime} />
+    {#if seo.modDatetime}<meta property="article:modified_time" content={seo.modDatetime} />{/if}
+    {#each seo.tags as tag}
       <meta property="article:tag" content={tag} />
     {/each}
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content={meta.title} />
-    <meta property="twitter:description" content={meta.description} />
-    <meta property="twitter:image" content={ogImage} />
-    {@html `<script type="application/ld+json">${jsonLd}</script>`}
+    <meta property="twitter:title" content={seo.title} />
+    <meta property="twitter:description" content={seo.description} />
+    <meta property="twitter:image" content={seo.ogImage} />
+    {@html `<script type="application/ld+json">${seo.jsonLd}</script>`}
   {/if}
 </svelte:head>
 
-{#if entry}
+{#if entry && seo}
   <div class={styles.page}>
     <header class={styles.contentHeader}>
-      <h1 class={styles.title}>{meta.title}</h1>
+      <h1 class={styles.title}>{seo.title}</h1>
     </header>
 
     <div class={styles.toolbar}>
@@ -113,7 +88,8 @@ async function copyMarkdown() {
         <Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" locale={locale.value} />
         <IconButton
           icon="ph:markdown-logo"
-          onclick={copyMarkdown}
+          onclick={onCopyMarkdown}
+          ok={copiedMd}
           title={t.a11y.copyMarkdown}
           aria-label={t.a11y.copyMarkdown}
         />
@@ -134,7 +110,7 @@ async function copyMarkdown() {
     >
       <div class="prose"><entry.component /></div>
       <hr class={styles.hr} />
-      <PostSignature author={author} location={meta.location} pubDatetime={meta.pubDatetime} />
+      <PostSignature author={seo.author} location={meta.location} pubDatetime={meta.pubDatetime} />
       <ul class={styles.tags}>
         {#each meta.tags ?? [] as tag}
           <TagLine tag={slugifyStr(tag)} tagName={tag} size="sm" />

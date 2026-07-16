@@ -1,6 +1,6 @@
 import { loadPosts } from '$lib/data/server';
-import type { PostMeta } from '$lib/types';
 import { getSortedPosts, groupPostsBySlug } from '$lib/utils';
+import { articleUrl } from '$lib/utils/site';
 import { rssXml } from '$lib/utils/xml';
 
 export const prerender = true;
@@ -15,7 +15,7 @@ export const GET = () => {
 		sorted.map((p) => ({
 			title: p.metadata.title,
 			description: p.metadata.description,
-			url: `${import.meta.env.BASE_URL ?? ''}/articles/${p.slug}`,
+			url: articleUrl(p.slug),
 			date: p.metadata.modDatetime ?? p.metadata.pubDatetime,
 		})),
 	);

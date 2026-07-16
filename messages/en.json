@@ -45,6 +45,7 @@
 	"a11y_toggle_language": "Switch language",
 	"a11y_copy_code": "Copy code block",
 	"a11y_copy_markdown": "Copy as Markdown",
+	"post_copied": "Copied!",
 	"post_copied_markdown": "Markdown copied",
 	"a11y_rss_feed": "RSS Feed",
 	"a11y_rss_link_title": "RSS",

@@ -54,18 +54,11 @@ export interface SocialLink {
 	icon?: string;
 }
 
-export interface ShareLink {
-	name: string;
-	url: string;
-	linkTitle?: string;
-}
-
 export interface BlogConfig {
 	site: SiteConfig;
 	posts: PostsConfig;
 	features: FeaturesConfig;
 	socials: SocialLink[];
-	shareLinks: ShareLink[];
 }
 
 export interface PostMeta {

@@ -1,3 +1,5 @@
+import { copyText } from '$lib/utils/clipboard';
+
 export async function copyCode(codeBlock: HTMLPreElement): Promise<boolean> {
 	// Shared figure surface (mermaid, vega-lite, future diagrams)
 	if (codeBlock.classList.contains('figure-surface') || codeBlock.dataset.source != null) {
@@ -6,8 +8,7 @@ export async function copyCode(codeBlock: HTMLPreElement): Promise<boolean> {
 
 	const code = codeBlock.querySelector('code');
 	if (!code) return false;
-	await navigator.clipboard.writeText(code.innerText);
-	return true;
+	return await copyText(code.innerText);
 }
 
 async function copyFigureSurface(surface: HTMLElement): Promise<boolean> {
@@ -26,10 +27,7 @@ async function copyFigureSurface(surface: HTMLElement): Promise<boolean> {
 			return true;
 		} catch (err) {
 			console.error('Figure SVG→PNG copy failed, text fallback:', err);
-			if (raw) {
-				await navigator.clipboard.writeText(raw);
-				return true;
-			}
+			if (raw) return await copyText(raw);
 			return false;
 		}
 	}
@@ -44,15 +42,11 @@ async function copyFigureSurface(surface: HTMLElement): Promise<boolean> {
 			await navigator.clipboard.write([new ClipboardItem(parts)]);
 			return true;
 		} catch {
-			await navigator.clipboard.writeText(raw || img.src);
-			return true;
+			return await copyText(raw || img.src);
 		}
 	}
 
-	if (raw) {
-		await navigator.clipboard.writeText(raw);
-		return true;
-	}
+	if (raw) return await copyText(raw);
 	return false;
 }
 

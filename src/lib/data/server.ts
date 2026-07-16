@@ -7,19 +7,38 @@ export interface PostEntry {
 	metadata: PostMeta;
 }
 
+const metaModules = import.meta.glob<PostMeta>('/src/content/articles/*.md', {
+	eager: true,
+	import: 'metadata',
+	query: '?metadata',
+});
+
+const pageModules = import.meta.glob<{ default: Component; metadata: PostMeta }>(
+	'/src/content/articles/*.md',
+);
+
+const rawModules = import.meta.glob<string>('/src/content/articles/*.md', {
+	query: '?raw',
+	import: 'default',
+});
+
+function fileNameOf(path: string): string {
+	return path.split('/').pop()!;
+}
+
+/** Unique article slugs (prerender entries). */
+export function listArticleSlugs(): string[] {
+	return [...new Set(Object.keys(metaModules).map((path) => parseSlug(fileNameOf(path))))];
+}
+
 /**
- * Loads metadata-only for all articles (highly token-efficient and lightweight for list pages)
+ * Loads metadata-only for all articles (lightweight list pages).
  */
 export function loadPosts(): PostEntry[] {
-	const modules = import.meta.glob<PostMeta>('/src/content/articles/*.md', {
-		eager: true,
-		import: 'metadata',
-		query: '?metadata',
-	});
-	return Object.entries(modules).map(([path, metadata]) => {
-		const fileName = path.split('/').pop()!;
-		return { slug: parseSlug(fileName), metadata };
-	});
+	return Object.entries(metaModules).map(([path, metadata]) => ({
+		slug: parseSlug(fileNameOf(path)),
+		metadata,
+	}));
 }
 
 export interface PageEntry {
@@ -27,32 +46,24 @@ export interface PageEntry {
 	lang: string;
 	component: Component;
 	metadata: PostMeta;
-	/** Source markdown body with frontmatter (for copy/export). */
+	/** Source markdown with frontmatter (copy/export). */
 	raw: string;
 }
 
 /**
- * Lazily loads compiled Svelte markdown components for the matching slug asynchronously (enables true code-splitting)
+ * Lazy load compiled markdown + raw source for one slug (code-split).
  */
 export async function loadPageEntriesAsync(slug: string): Promise<PageEntry[]> {
-	const modules = import.meta.glob<{ default: Component; metadata: PostMeta }>(
-		'/src/content/articles/*.md',
+	const matches = Object.entries(pageModules).filter(
+		([path]) => parseSlug(fileNameOf(path)) === slug,
 	);
-	const rawModules = import.meta.glob<string>('/src/content/articles/*.md', {
-		query: '?raw',
-		import: 'default',
-	});
-	const matches = Object.entries(modules).filter(([path]) => {
-		const fileName = path.split('/').pop()!;
-		return parseSlug(fileName) === slug;
-	});
 	return await Promise.all(
 		matches.map(async ([path, importFn]) => {
 			const [mod, raw] = await Promise.all([
 				importFn(),
 				rawModules[path]?.() ?? Promise.resolve(''),
 			]);
-			const fileName = path.split('/').pop()!;
+			const fileName = fileNameOf(path);
 			return {
 				slug,
 				lang: parseLang(fileName),

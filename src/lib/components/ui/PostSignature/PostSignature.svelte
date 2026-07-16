@@ -1,5 +1,5 @@
 <script lang="ts">
-import cfg from '$lib/config';
+import { resolveAuthor } from '$lib/utils/author';
 
 let {
 	author: authorProp,
@@ -19,7 +19,7 @@ let dateStr = $derived.by(() => {
 	return `${day}/${month}/${year}`;
 });
 
-let author = $derived(authorProp || cfg.site.author);
+let author = $derived(resolveAuthor({ author: authorProp ?? undefined }));
 </script>
 
 <p class="sig">{author}{location ? `, ${location}` : ''}, {dateStr}</p>

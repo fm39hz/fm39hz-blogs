@@ -16,6 +16,12 @@
     color: var(--accent);
   }
 
+  &.ok {
+    color: var(--accent);
+    transform: scale(var(--scale-pop));
+    transition: transform var(--d-fast) var(--ease-bounce), color var(--d-fast);
+  }
+
   :global(svg) {
     width: var(--icon-lg);
     height: var(--icon-lg);
