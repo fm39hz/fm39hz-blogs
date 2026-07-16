@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-07-07
-modDatetime: 2026-07-15
+modDatetime: 2026-07-16
 title: Another way to think about Game Architecture
 featured: false
 draft: false
@@ -96,7 +96,7 @@ Rule and design still need a shared vocabulary for what exists as design. `HpCom
 
 - **Aspect** is a glance. A minimal, pure structure you can see through. Zero behavior.
 - **Being** is... a thing. That's it. A state, a character definition, an effect, doesn't matter which. It is what it is: a named coordinate in design space.
-- **Concept**, is a pure conceptual viewpoint. A lens for looking across many different beings without caring what they individually are, revealing exactly the aspect that concept cares about.
+- **Concept**, a pure conceptual viewpoint. A lens for looking across many different beings without caring what they individually are, revealing exactly the aspect that concept cares about.
 
 ```mermaid
 graph TB
@@ -120,40 +120,66 @@ Two rules keep this from decaying into a taxonomy tree:
 
 $B_i$ is tidy on paper, but it hides two properties worth pulling out and actually looking at:
 
-- **How tightly an aspect is bound.** $\kappa(a)$, the number of distinct concepts that reveal $a$ across the whole Knowledge base. Zero is the one absolute floor here: an aspect no concept touches is free-floating by definition, so it earns its own fixed pole rather than sitting at some arbitrary zero.
+- **How tightly an aspect is bound.** $\kappa(a)$, the number of distinct concepts that reveal $a$ across the whole Knowledge base. Zero is the one absolute floor here: an aspect no concept touches sits at its own fixed pole rather than some arbitrary zero, simply because "no concept" is a real, distinct state, not because that state is automatically the good one.
 - **How heavy a concept is.** $\omega(c)$, the number of aspects $c$ reveals. Unlike $\kappa$, this has no natural floor: a concept always reveals at least one aspect, or it has no reason to exist. "Heavy" and "light" are relative terms, so the baseline has to be relative too, the median $\omega$ across your own Knowledge base, not some constant pulled out of thin air.
 
 $$x(a) = \begin{cases} -\kappa(a) & \kappa(a) \geq 1 \\ x_{free} & \kappa(a) = 0 \end{cases} \qquad y(a \text{ via } c) = \operatorname{median}(\omega) - \omega(c)$$
+
+There's a trap hiding in that $x_{free}$ pole, and it took a rendering bug to surface it. Every free-floating aspect, by definition, since none of them go through a concept, collapses onto the _exact same point_: $(x_{free}, 0)$. Two completely unrelated free-floats become geometrically indistinguishable. Worse, that pole quietly reads as "the clean corner" if you're not paying attention, and free-floating was never the goal, it's just the $\kappa=0$ pole. An aspect can sit right there and still be reused by a dozen different beings; nobody declared that sharing through a concept, so nobody's tracking it, but it's still coupling. Skipping the concept doesn't remove the coupling, it just removes the paper trail.
+
+So the plane needs a third quantity, one that doesn't care whether an aspect got there through a concept or directly:
+
+- **How far an aspect actually reaches.** $\rho(a)$, the number of distinct beings that end up possessing $a$, through any path at all. This is what separates two free-floats that happen to share a pole: a `loyalty` scalar reused across a dozen beings and a `debugTag` nobody else touches look identical on $x$/$y$ alone, and only differ once you ask how far each one actually spread.
+
+$\rho$ doesn't move a point's position, it sizes it. Position stays about _how_ an aspect is accessed; size is about _how much it matters that it's accessed that way at all_.
 
 Put a being's claimed concepts and revealed aspects on that plane, and each one traces out a small shape, a signature, not a metaphor:
 
 - **Bottom-left (coupled aspect, heavy concept):** the expensive corner. An aspect shared by half the Knowledge base, reached through a concept that already reveals a dozen others, the visual tell for a god-concept quietly accreting responsibility.
 - **Top-left (coupled aspect, light concept):** still shared, but the access path stays precise. Coupling isn't free, but at least nobody's hiding it behind a fat lens.
 - **Bottom-right (rare):** a nearly exclusive aspect reached through a heavy concept, usually a sign that a concept was reused out of laziness rather than genuine shared meaning.
-- **Right, sitting on the axis:** true free-floats. Minimal, orthogonal, nothing to untangle.
+- **Right, sitting on the axis:** no concept at all. That's neutral, not virtuous, a small dot here is a genuinely local piece of data; a large dot here is coupling that never got a name.
 
-A being whose shape balloons toward the bottom-left is a being carrying real structural debt. A being that hugs the right edge is about as clean as this system lets you get.
+A being whose shape balloons toward the bottom-left is carrying structural debt out in the open. A being with a big dot sitting on the free-float pole is carrying the same debt quietly.
+
+### Keeping the vocabulary honest: the A ~ B ~ C balance
+
+The plane above diagnoses one aspect or one being at a time. It says nothing about the Knowledge base as a whole, and the whole is exactly where "granularity is basically over-abstraction" shows up first. Wrapping every scalar in its own concept is expensive in one direction; free-floating everything is expensive in the other, quieter direction: every free-float still has to be named, baked, validated, and carried as its own coordinate in design space, without ever buying back the reuse a concept would have organized. Same tax, different receipt.
+
+The corpus-level check is simple to state and cheap to run at every bake:
+
+$$|A| \approx |B| \approx |C|, \qquad |B| = (1+\delta) \cdot \operatorname{mean}(|A|, |C|), \qquad \delta \in [0.01,\ 0.015]$$
+
+$|A|$, $|B|$, $|C|$ are the total counts of distinct aspects, beings, and concepts in the Knowledge base. $B$ gets to run slightly ahead, content naturally outpaces vocabulary a little, but $\delta$ is pinned to 1–1.5%, so content isn't allowed to outrun vocabulary by more than a couple of percent before the fix is to grow $A$ or $C$, not to keep adding beings.
+
+The genuinely useful part is what $|A|$ vs. $|C|$ tells you on its own, since a free-floating aspect adds to $|A|$ and contributes nothing to $|C|$ (no concept reveals it, by definition):
+
+- $|A| \gg |C|$, free-floats are piling up: ungoverned granularity, exactly the failure mode in question.
+- $|C| \gg |A|$, concepts are being minted faster than there's distinct data to justify: redundant, overlapping viewpoints.
+
+And here's where the two tools connect, and where a high-$\rho$ free-float becomes worth worrying about twice over: if $E$ is the total number of Reveals edges, then $\operatorname{mean}(\kappa) = E/|A|$ and $\operatorname{mean}(\omega) = E/|C|$. A free-float never contributes an edge to $E$ at all, so a wide-reaching, high-$\rho$ free-float doesn't just hide from the $\kappa$–$\omega$ plane's "coupled" corner, it's invisible to this corpus-level average too. It can sit at a perfectly healthy-looking $|A| \approx |C|$ balance while quietly being some of the most reused, least-declared data in the whole project. $\rho$ is the only one of the three measures that catches it.
 
 ```vega-lite
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "description": "κ–ω plane: aspect coupling vs. concept weight, with drop lines and rank-staggered axis labels",
+  "description": "κ–ω plane: aspect coupling vs. concept weight, dot size = reach ρ(a), single leader-offset label per point",
   "width": 520,
   "height": 360,
   "padding": 36,
   "datasets": {
     "points": [
-      { "x": -4, "y": -2, "label": "silhouette", "being": "Player" },
-      { "x": -2, "y": -1, "label": "inventory", "being": "Player" },
-      { "x": -1, "y": 0, "label": "combat", "being": "Player" },
-      { "x": 2, "y": 0, "label": "loyalty", "being": "Player" },
-      { "x": -2, "y": 1, "label": "potA", "being": "Pot" },
-      { "x": -1, "y": 1, "label": "potB", "being": "Pot" }
+      { "x": -4, "y": -2, "label": "silhouette", "being": "Player", "reach": 6 },
+      { "x": -2, "y": -1, "label": "inventory", "being": "Player", "reach": 2 },
+      { "x": -1, "y": 0.5, "label": "combat", "being": "Player", "reach": 4 },
+      { "x": 2, "y": 0, "label": "loyalty", "being": "Player", "reach": 3 },
+      { "x": 2, "y": 0, "label": "reputation", "being": "Player", "reach": 1 },
+      { "x": -2, "y": 1, "label": "potA", "being": "Pot", "reach": 2 },
+      { "x": -1, "y": 1, "label": "potB", "being": "Pot", "reach": 1 }
     ],
     "hulls": [
       { "being": "Player", "order": 0, "x": -4, "y": -2 },
       { "being": "Player", "order": 1, "x": -2, "y": -1 },
-      { "being": "Player", "order": 2, "x": -1, "y": 0 },
+      { "being": "Player", "order": 2, "x": -1, "y": 0.5 },
       { "being": "Player", "order": 3, "x": 2, "y": 0 },
       { "being": "Player", "order": 4, "x": -4, "y": -2 },
       { "being": "Pot", "order": 0, "x": -2, "y": 1 },
@@ -169,7 +195,7 @@ A being whose shape balloons toward the bottom-left is a being carrying real str
         "x": {
           "field": "x", "type": "quantitative",
           "scale": { "domain": [-5, 3], "nice": false, "zero": false },
-          "axis": { "title": "x = −κ  (right = free)", "grid": false, "ticks": false, "labels": false, "domain": false }
+          "axis": { "title": "x = −κ  (right = unmediated)", "grid": false, "ticks": false, "labels": false, "domain": false }
         }
       }
     },
@@ -222,43 +248,27 @@ A being whose shape balloons toward the bottom-left is a being carrying real str
     },
     {
       "data": { "name": "points" },
-      "mark": { "type": "circle", "size": 80 },
+      "mark": { "type": "circle" },
       "encoding": {
         "x": { "field": "x", "type": "quantitative", "scale": { "domain": [-5, 3], "nice": false, "zero": false }, "axis": null },
         "y": { "field": "y", "type": "quantitative", "scale": { "domain": [-3, 2], "nice": false, "zero": false }, "axis": null },
+        "size": { "field": "reach", "type": "quantitative", "scale": { "range": [50, 260] }, "legend": { "title": "reach ρ(a)" } },
         "color": { "field": "being", "type": "nominal", "legend": null }
       }
     },
     {
       "data": { "name": "points" },
       "transform": [
-        { "window": [{ "op": "rank", "as": "xrank" }], "groupby": ["x"], "sort": [{ "field": "being" }] }
+        { "window": [{ "op": "rank", "as": "rank" }], "groupby": ["x", "y"], "sort": [{ "field": "reach", "order": "descending" }] }
       ],
       "mark": {
         "type": "text",
-        "dy": { "expr": "14 + (datum.xrank - 1) * 13" },
-        "align": "center", "baseline": "top", "fontSize": 11, "angle": -30
+        "dx": 10,
+        "dy": { "expr": "(datum.rank - 1) * 13" },
+        "align": "left", "baseline": "middle", "fontSize": 11
       },
       "encoding": {
         "x": { "field": "x", "type": "quantitative", "scale": { "domain": [-5, 3], "nice": false, "zero": false }, "axis": null },
-        "y": { "datum": 0, "type": "quantitative", "scale": { "domain": [-3, 2], "nice": false, "zero": false }, "axis": null },
-        "text": { "field": "label", "type": "nominal" },
-        "color": { "field": "being", "type": "nominal", "legend": null }
-      }
-    },
-    {
-      "data": { "name": "points" },
-      "transform": [
-        { "window": [{ "op": "rank", "as": "yrank" }], "groupby": ["y"], "sort": [{ "field": "being" }] }
-      ],
-      "mark": {
-        "type": "text",
-        "dx": -10,
-        "dy": { "expr": "(datum.yrank - 1) * 13" },
-        "align": "right", "baseline": "middle", "fontSize": 11
-      },
-      "encoding": {
-        "x": { "datum": 0, "type": "quantitative", "scale": { "domain": [-5, 3], "nice": false, "zero": false }, "axis": null },
         "y": { "field": "y", "type": "quantitative", "scale": { "domain": [-3, 2], "nice": false, "zero": false }, "axis": null },
         "text": { "field": "label", "type": "nominal" },
         "color": { "field": "being", "type": "nominal", "legend": null }
@@ -268,12 +278,27 @@ A being whose shape balloons toward the bottom-left is a being carrying real str
 }
 ```
 
-Two things worth flagging about this spec, since both would otherwise look like undocumented magic:
+The earlier draft of this plot labeled every point twice, once projected onto the x-axis, once onto the y-axis. That's harmless when a point sits away from both axes, and broken exactly when it doesn't: a point already living on an axis has a zero-length projection onto that same axis, so its "projected" label just redraws the point a second time, at a slightly different offset, next to whatever else happens to share that axis value. `loyalty` sits at $y=0$ by construction, every free-float does, so it got a real label at its true position and a phantom one stacked at the origin. `combat` used to sit at $y=0$ too, but only by coincidence of the illustrative numbers, not because anything required it, nudging it to $y=0.5$ keeps that line honest: everything actually touching it is there because no concept touches it, not because a concept happened to land on the median. The fix collapses both projections into one: a single label per point, anchored to the point itself, staggered only when two points genuinely share the same $(x,y)$, which, now that `reputation` is on the board next to `loyalty`, actually happens, and the `window` transform grouping on both `x` and `y` together (not just one axis) is what keeps them from stacking on top of each other. Dot size carries $\rho$ on top of that, so `loyalty` (reach 3) and `reputation` (reach 1) stay visually distinct even while sharing a coordinate, the thing plain position could never do for two free-floats.
 
-- The two axis layers deliberately skip top-level shared `x`/`y` encoding. If they inherited it, a rule meant to span the full height on `x` alone would also inherit `y` from the parent, and either break or collapse into a single anchored point. Every layer restates its own scale domain instead; more typing, no hidden behavior.
-- `combat`/`potB` share $x=-1$, and `inventory`/`potA` share $x=-2$, in a real Knowledge base $\kappa=1$ is the _modal_ value, so this collision is the common case, not an edge case. The `window` transform ranks same-position labels and feeds that rank into `dy`/`dx` through `{"expr": ...}`, the documented way to make a mark property data-dependent, so duplicates stack instead of overlapping. Point position stays exactly true to the data; only the label's little leader offset moves.
+Player's hull still reaches into the heavy-and-coupled corner through `silhouette`, and still touches the free pole through `loyalty` and `reputation`, but now the pole isn't drawn as the finish line. It's just one more edge of the shape, and a big dot sitting there is exactly as worth a second look as a big dot in the bottom-left.
 
-Player's hull reaches into the heavy-and-coupled corner through `silhouette`, and clear out to the free pole through `loyalty`, a being doing a lot of structural work. Pot barely leaves the top-left. That gap _is_ the point of drawing this at all.
+### Utilization: the flow that balance can't see
+
+$|A|\approx|B|\approx|C|$ is a necessary condition on the Knowledge base, not a sufficient one, and it's worth being blunt about the gap, because it's easy to slide from "balanced" to "correct" without noticing the jump. Ten `Flavor` concepts (`MinorGrumpy`, `ModerateGrumpy`, `MajorGrumpy`, ...), each revealing three near-identical aspects, land at a pristine $|A|=|B|=|C|=30$. The balance formula applauds it. If not one single rule ever `Look`s into any of those thirty aspects, the whole cluster is dead weight that happens to count correctly. ABC is supposed to be how a designer _parameterizes the game_, a value that actually reaches into a rule and bends a trajectory. A concept nobody reads from isn't parameterization; it's a number sitting in a drawer, indistinguishable by count alone from one doing real work.
+
+Balance only ever looks _within_ Knowledge, $\kappa$, $\omega$, and $\rho$ are all computable from authoring data alone, before a single rule is compiled. What's missing is a measure of the _read-flow crossing into_ Knowledge from the Rule layer, so:
+
+$$U(a) = \bigl|\{\,r \in R : a \in \operatorname{Look}(r)\,\}\bigr| \qquad U(c) = \bigl|\{\,r \in R : \exists\, a \in \operatorname{Reveals}(c),\ r \text{ reads } a \text{ via } \operatorname{Of}(c,a,\cdot)\,\}\bigr|$$
+
+$U(a)$ counts distinct rules that actually `Look` at aspect $a$. $U(c)$ counts distinct rules that read through _that specific concept's lens_, deliberately narrower than "any rule touching an aspect $c$ reveals," because an aspect revealed by two concepts might only ever be accessed through one of them in practice, which means the other concept is contributing a name and nothing else. Being utilization falls out for free as the union over what a being actually exposes: $U(b) = \bigl|\bigcup_{a \in A_b} \{r \in R : a \in \operatorname{Look}(r)\}\bigr|$, every rule whose query a materialized entity of $b$ could ever satisfy, since dispatch runs on aspect and role, never on being name.
+
+The corpus-level check mirrors the earlier one, but the tolerance means something different this time:
+
+$$\eta_A = \frac{|\{a \in A : U(a) \geq 1\}|}{|A|} \qquad \eta_C = \frac{|\{c \in C : U(c) \geq 1\}|}{|C|} \qquad \eta_A,\ \eta_C \geq 1-\varepsilon,\ \ \varepsilon \in [0.01,\ 0.02]$$
+
+$\delta$ in the balance formula was slack granted on purpose, content is allowed to run a little ahead of vocabulary. $\varepsilon$ here isn't the same kind of allowance; it's just enough room for aspects mid-authoring, wired into Knowledge a bake or two before the rule that will finally consume them lands. Past that window, a zero-utilization entry isn't in-flight work anymore, it's confirmed dead.
+
+None of $\kappa$, $\omega$, or $\rho$ needs the compiler, they're arithmetic over authoring data. $U$ can't be computed without one, because `Look`/`Grant` call sites live in compiled rule code, not in Knowledge. That's not new machinery, though: it's the same closed-generic call-site scan that builds the R/W wave graph, just aggregated by aspect instead of by rule. The scheduler already has to visit every `Look<T>` in the codebase to know what runs in parallel; tallying which $T$s never show up in that walk at all is the same pass, read a different way.
 
 ```mermaid
 graph LR
