@@ -450,12 +450,8 @@
     }
   }
 
-  /* In-page TOC from remark — semantic nav for readers/SEO */
-  :global(.prose-toc) {
+  :global(details.prose-toc) {
     margin-block: var(--space-md);
-  }
-  :global(.prose-toc) > :where(h2) {
-    margin-block-end: var(--space-sm);
   }
 
   /* ── Lists ───────────────────────────────────────────────── */

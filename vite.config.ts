@@ -2,6 +2,7 @@ import { paraglideVitePlugin } from '@inlang/paraglide-js';
 import adapter from '@sveltejs/adapter-vercel';
 import { sveltekit } from '@sveltejs/kit/vite';
 import headingRange from 'mdast-util-heading-range';
+import mdastToString from 'mdast-util-to-string';
 // @ts-ignore
 import { escapeSvelte, mdsvex } from 'mdsvex';
 import rehypeKatexSvelte from 'rehype-katex-svelte';
@@ -78,24 +79,30 @@ export default defineConfig({
 						[remarkToc, tocOptions],
 						[
 							function () {
-								// Wrap in-page TOC as <nav> — no closed <details>, no duplicate title.
-								// Reader modes (Brave/Zen) + SEO get a real heading + list.
+								// heading-range: start=TOC heading, nodes=list, end=next same-rank heading.
+								// Must re-emit end or that h2 is deleted from the tree.
+								// summary may only hold phrasing — put heading *text*, not the h2 node
+								// (block h2 inside summary breaks HTML and swallows following content).
 								// biome-ignore lint/suspicious/noExplicitAny: mdast types unavailable
 								return function (tree: any) {
 									headingRange(
 										tree,
 										'Table of contents',
 										// biome-ignore lint/suspicious/noExplicitAny: heading-range types unavailable
-										(start: any, nodes: any[], end: any) => [
-											{
-												type: 'html',
-												value: '<nav class="prose-toc" aria-label="Table of contents">',
-											},
-											start,
-											...nodes,
-											{ type: 'html', value: '</nav>' },
-											end,
-										],
+										(start: any, nodes: any[], end: any) => {
+											const label = mdastToString(start);
+											// biome-ignore lint/suspicious/noExplicitAny: mdast node bag
+											const out: any[] = [
+												{
+													type: 'html',
+													value: `<details class="prose-toc"><summary>${label}</summary>`,
+												},
+												...nodes,
+												{ type: 'html', value: '</details>' },
+											];
+											if (end) out.push(end);
+											return out;
+										},
 									);
 								};
 							},
