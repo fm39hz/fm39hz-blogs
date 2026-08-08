@@ -30,7 +30,8 @@
   flex-direction: column;
   box-sizing: border-box;
   overflow-y: auto;
-  
+  transition: transform var(--d-scene) var(--ease-out), opacity var(--d-scene) var(--ease-out);
+
   &::-webkit-scrollbar {
     width: 4px;
   }
@@ -41,6 +42,16 @@
     background-color: color-mix(in srgb, var(--border) 40%, transparent);
     border-radius: var(--br-full);
   }
+}
+
+.exitRight {
+  transform: translateX(200px) rotate(6deg) !important;
+  opacity: 0 !important;
+}
+
+.exitLeft {
+  transform: translateX(-200px) rotate(-6deg) !important;
+  opacity: 0 !important;
 }
 
 .dummyCard2 {
@@ -62,7 +73,7 @@
   cursor: grab;
   user-select: none;
   touch-action: pan-y;
-  
+
   &:active {
     cursor: grabbing;
   }
@@ -71,8 +82,6 @@
 .hiddenCard {
   display: none !important;
 }
-
-// ── Title & Text Structure ───────────────────────────────
 
 .cardTitle {
   font-family: var(--font-header);
@@ -93,8 +102,6 @@
   color: var(--fg);
   line-height: var(--lh-md);
 }
-
-// ── Pattern A: Horizontal Badges (Comparison) ─────────────
 
 .badgeRow {
   display: flex;
@@ -155,8 +162,6 @@
   stroke-width: 3px;
 }
 
-// ── Pattern B: Vertical Stacked Fields (Descriptive) ─────
-
 .fieldList {
   display: flex;
   flex-direction: column;
@@ -170,7 +175,7 @@
   border-bottom: 1px dashed color-mix(in srgb, var(--border) 30%, transparent);
   padding-bottom: var(--space-3xs);
   transition: opacity var(--d-fast);
-  
+
   &:last-child {
     border-bottom: none;
     padding-bottom: 0;
@@ -205,58 +210,6 @@
     white-space: nowrap;
   }
 }
-
-// ── Shuffling Animations ──────────────────────────────────
-
-.slideDown {
-  animation: slide-down-next var(--d-scene) var(--ease-out) forwards;
-  pointer-events: none;
-}
-
-.slideUp {
-  animation: slide-up-prev var(--d-scene) var(--ease-out) forwards;
-  pointer-events: none;
-}
-
-@keyframes slide-down-next {
-  0% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-    z-index: 4;
-  }
-  45% {
-    transform: translate3d(150px, -12px, 0) rotate(8deg);
-    z-index: 4;
-  }
-  55% {
-    transform: translate3d(150px, -12px, 0) rotate(8deg);
-    z-index: 1;
-  }
-  100% {
-    transform: translate3d(8px, 8px, 0) rotate(-1.2deg);
-    z-index: 1;
-  }
-}
-
-@keyframes slide-up-prev {
-  0% {
-    transform: translate3d(8px, 8px, 0) rotate(-1.2deg);
-    z-index: 1;
-  }
-  45% {
-    transform: translate3d(-150px, -12px, 0) rotate(-8deg);
-    z-index: 1;
-  }
-  55% {
-    transform: translate3d(-150px, -12px, 0) rotate(-8deg);
-    z-index: 4;
-  }
-  100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-    z-index: 4;
-  }
-}
-
-// ── Navigation Buttons ────────────────────────────────────
 
 .navigation {
   display: flex;

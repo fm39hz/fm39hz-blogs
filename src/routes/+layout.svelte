@@ -1,8 +1,8 @@
 <script lang="ts">
-import { injectAnalytics } from '@vercel/analytics/sveltekit';
-import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
-import { dev } from '$app/env';
-import { onNavigate } from '$app/navigation';
+import { inject as injectAnalytics, pageview } from '@vercel/analytics';
+import { injectSpeedInsights } from '@vercel/speed-insights';
+import { browser, dev } from '$app/env';
+import { afterNavigate, onNavigate } from '$app/navigation';
 import Footer from '$lib/components/layout/Footer/Footer.svelte';
 import Header from '$lib/components/layout/Header/Header.svelte';
 import Lightbox from '$lib/components/ui/Lightbox/Lightbox.svelte';
@@ -16,8 +16,29 @@ import { viewTransition } from './viewTransition';
 
 let { children } = $props();
 
-injectAnalytics({ mode: dev ? 'development' : 'production' });
-injectSpeedInsights();
+if (browser) {
+	const basePath = import.meta.env.VITE_VERCEL_OBSERVABILITY_BASEPATH;
+	injectAnalytics(
+		{
+			mode: dev ? 'development' : 'production',
+			basePath,
+			disableAutoTrack: true,
+			framework: 'sveltekit',
+		},
+		import.meta.env.VITE_VERCEL_OBSERVABILITY_CLIENT_CONFIG,
+	);
+	const speedInsights = injectSpeedInsights({
+		basePath,
+		framework: 'sveltekit',
+	});
+
+	afterNavigate(({ to }) => {
+		const route = to?.route.id;
+		if (!route) return;
+		pageview({ route, path: to.url.pathname });
+		speedInsights?.setRoute(route);
+	});
+}
 onNavigate(viewTransition);
 </script>
 

@@ -1,5 +1,7 @@
 /** bun src/lib/actions/pencilEdge.selfcheck.ts */
 
+export {};
+
 function assert(c: unknown, m: string): asserts c {
 	if (!c) throw new Error(m);
 }

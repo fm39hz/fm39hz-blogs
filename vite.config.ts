@@ -1,6 +1,7 @@
 import { paraglideVitePlugin } from '@inlang/paraglide-js';
 import adapter from '@sveltejs/adapter-vercel';
 import { sveltekit } from '@sveltejs/kit/vite';
+import type { Heading, Root, RootContent } from 'mdast';
 import headingRange from 'mdast-util-heading-range';
 import mdastToString from 'mdast-util-to-string';
 // @ts-ignore
@@ -12,9 +13,10 @@ import remarkMath from 'remark-math';
 import remarkToc from 'remark-toc';
 import { createHighlighter } from 'shiki';
 import { defineConfig } from 'vite';
+import { rehypeTableCellCheckboxes } from './src/lib/markdown/rehypeTableCellCheckboxes';
 import { rehypeTableLabels } from './src/lib/markdown/rehypeTableLabels';
 
-let highlighter: Awaited<ReturnType<typeof createHighlighter>> | null = null;
+let highlighterPromise: ReturnType<typeof createHighlighter> | null = null;
 
 const tocOptions: Parameters<typeof remarkToc>[0] = { tight: true };
 
@@ -44,8 +46,8 @@ export default defineConfig({
 								const enc = encodeURIComponent(code);
 								return `{@html \`<figure class="diagram vega-lite" data-kind="vega-lite" data-source="${enc}" aria-label="Chart"></figure>\`}`;
 							}
-							if (!highlighter) {
-								highlighter = await createHighlighter({
+							if (!highlighterPromise) {
+								highlighterPromise = createHighlighter({
 									themes: ['everforest-light', 'everforest-dark'],
 									langs: [
 										'javascript',
@@ -65,6 +67,7 @@ export default defineConfig({
 									],
 								});
 							}
+							const highlighter = await highlighterPromise;
 							const html = highlighter.codeToHtml(code, {
 								lang: lang ?? '',
 								themes: { light: 'everforest-light', dark: 'everforest-dark' },
@@ -83,16 +86,13 @@ export default defineConfig({
 								// Must re-emit end or that h2 is deleted from the tree.
 								// summary may only hold phrasing — put heading *text*, not the h2 node
 								// (block h2 inside summary breaks HTML and swallows following content).
-								// biome-ignore lint/suspicious/noExplicitAny: mdast types unavailable
-								return function (tree: any) {
+								return function (tree: Root) {
 									headingRange(
 										tree,
 										'Table of contents',
-										// biome-ignore lint/suspicious/noExplicitAny: heading-range types unavailable
-										(start: any, nodes: any[], end: any) => {
+										(start: Heading, nodes: RootContent[], end?: Heading) => {
 											const label = mdastToString(start);
-											// biome-ignore lint/suspicious/noExplicitAny: mdast node bag
-											const out: any[] = [
+											const out: RootContent[] = [
 												{
 													type: 'html',
 													value: `<details class="prose-toc"><summary>${label}</summary>`,
@@ -108,7 +108,12 @@ export default defineConfig({
 							},
 						],
 					],
-					rehypePlugins: [rehypeSlug, rehypeKatexSvelte, rehypeTableLabels],
+					rehypePlugins: [
+						rehypeSlug,
+						rehypeKatexSvelte,
+						rehypeTableLabels,
+						rehypeTableCellCheckboxes,
+					],
 				}),
 			],
 			extensions: ['.svelte', '.svx', '.md'],

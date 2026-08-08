@@ -319,6 +319,21 @@ blockquote[data-pencil='static'] {
 }
 
 /* Visually hidden but kept for AT / reader-mode extractors */
+.responsive-card-stack {
+  display: none;
+}
+@media (max-width: 768px) {
+  .responsive-card-stack {
+    display: block;
+    width: 100%;
+  }
+}
+@media (width > 768px) {
+  .responsive-card-stack {
+    display: none !important;
+  }
+}
+
 .visually-hidden {
   position: absolute !important;
   width: 1px !important;

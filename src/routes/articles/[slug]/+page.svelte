@@ -1,6 +1,6 @@
 <script lang="ts">
 import { page } from '$app/state';
-import { styleCheckboxes } from '$lib/actions/checkboxes';
+// checkboxes replaced by build-time rehype plugin
 import { figureSurfaces } from '$lib/actions/figureSurface';
 import { lightboxAction } from '$lib/actions/lightbox';
 import { pencilEdge } from '$lib/actions/pencilEdge';
@@ -100,7 +100,6 @@ async function onCopyMarkdown() {
     <article
       class={styles.article}
       use:pencilEdge
-      use:styleCheckboxes
       use:renderMermaid
       use:renderVegaLite
       use:figureSurfaces

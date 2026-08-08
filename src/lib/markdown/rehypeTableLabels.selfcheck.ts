@@ -1,7 +1,7 @@
+import type { Properties, Root } from 'hast';
 import { rehypeTableLabels } from './rehypeTableLabels';
 
-// biome-ignore lint/suspicious/noExplicitAny: selfcheck fixture
-const tree: any = {
+const tree = {
 	type: 'root',
 	children: [
 		{
@@ -12,19 +12,23 @@ const tree: any = {
 				{
 					type: 'element',
 					tagName: 'thead',
+					properties: {},
 					children: [
 						{
 							type: 'element',
 							tagName: 'tr',
+							properties: {},
 							children: [
 								{
 									type: 'element',
 									tagName: 'th',
+									properties: {},
 									children: [{ type: 'text', value: 'A' }],
 								},
 								{
 									type: 'element',
 									tagName: 'th',
+									properties: {},
 									children: [{ type: 'text', value: 'B' }],
 								},
 							],
@@ -34,10 +38,12 @@ const tree: any = {
 				{
 					type: 'element',
 					tagName: 'tbody',
+					properties: {},
 					children: [
 						{
 							type: 'element',
 							tagName: 'tr',
+							properties: {},
 							children: [
 								{
 									type: 'element',
@@ -58,15 +64,17 @@ const tree: any = {
 			],
 		},
 	],
-};
+} satisfies Root;
 
 rehypeTableLabels()(tree);
 const tds = tree.children[0].children[1].children[0].children;
-console.assert(tds[0].properties.dataLabel === 'A', 'first cell label A');
-console.assert(tds[1].properties.dataLabel === 'B', 'second cell label B');
+const firstCellProperties: Properties = tds[0].properties;
+const secondCellProperties: Properties = tds[1].properties;
+const tableProperties: Properties = tree.children[0].properties;
+console.assert(firstCellProperties.dataLabel === 'A', 'first cell label A');
+console.assert(secondCellProperties.dataLabel === 'B', 'second cell label B');
 console.assert(
-	Array.isArray(tree.children[0].properties.className) &&
-		tree.children[0].properties.className.includes('prose-table'),
+	Array.isArray(tableProperties.className) && tableProperties.className.includes('prose-table'),
 	'prose-table class',
 );
 console.log('rehypeTableLabels.selfcheck: ok');

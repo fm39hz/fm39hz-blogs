@@ -195,8 +195,8 @@
     position: relative;
   }
 
-  :global(.figure-surface),
-  :global(figure.diagram),
+  .figure-surface,
+  figure.diagram,
   pre.mermaid,
   pre.vega-lite {
     position: relative;
@@ -211,36 +211,36 @@
     margin: var(--space-md) 0;
   }
 
-  :global(figure.diagram:not(.is-ready)),
+  figure.diagram:not(.is-ready),
   pre.mermaid:not(.is-ready),
   pre.vega-lite:not(.is-ready) {
     min-height: 4rem;
   }
-  :global(figure.diagram:not(.is-ready) > *),
+  figure.diagram:not(.is-ready) > *,
   pre.mermaid:not(.is-ready) > *,
   pre.vega-lite:not(.is-ready) > * {
     opacity: 0;
   }
 
-  :global(.figure-surface.is-ready),
-  :global(figure.diagram.is-ready),
+  .figure-surface.is-ready,
+  figure.diagram.is-ready,
   pre.mermaid.is-ready,
   pre.vega-lite.is-ready {
     opacity: 1;
     color: var(--fg);
   }
 
-  :global(.figure-surface) :global(.diagram-viewport),
-  :global(figure.diagram) :global(.diagram-viewport) {
+  .figure-surface .diagram-viewport,
+  figure.diagram .diagram-viewport {
     overflow: hidden;
     border-radius: calc(var(--br) - 2px);
   }
 
-  :global(.figure-surface),
-  :global(figure.diagram),
+  .figure-surface,
+  figure.diagram,
   pre.mermaid,
   pre.vega-lite {
-    :global(.diagram-viewport) {
+    .diagram-viewport {
       width: 100%;
       min-height: 12rem;
       max-height: min(70vh, 36rem);
@@ -249,7 +249,7 @@
       border-radius: calc(var(--br) - 2px);
     }
 
-    :global(.diagram-panzoom-target) {
+    .diagram-panzoom-target {
       width: 100%;
       height: 100%;
       display: flex;
@@ -257,8 +257,8 @@
       justify-content: center;
     }
 
-    :global(.diagram-panzoom-target svg),
-    :global(.diagram-panzoom-target img) {
+    .diagram-panzoom-target svg,
+    .diagram-panzoom-target img {
       display: block;
       max-width: 100%;
       height: auto;
@@ -269,20 +269,20 @@
   pre.vega-lite {
     min-height: 12rem;
 
-    :global(.vega-host) {
+    .vega-host {
       width: 100%;
       min-height: 12rem;
       display: block;
     }
 
-    :global(.vega-embed),
-    :global(.vega-embed > div) {
+    .vega-embed,
+    .vega-embed > div {
       width: 100% !important;
       display: block;
     }
 
-    :global(.vega-embed summary),
-    :global(.vega-actions) {
+    .vega-embed summary,
+    .vega-actions {
       display: none !important;
     }
 
@@ -295,64 +295,64 @@
 
   /* Mermaid node chrome after pencil-edge SVG render */
   pre.mermaid {
-    :global(svg.pencil-edge) {
+    svg.pencil-edge {
       display: block;
       max-width: 100%;
 
       /* Flowchart & Sequence Node Containers */
-      :global(.node rect),
-      :global(.node polygon),
-      :global(.node circle),
-      :global(.node ellipse),
-      :global(.node path),
-      :global(.label-container) {
+      .node rect,
+      .node polygon,
+      .node circle,
+      .node ellipse,
+      .node path,
+      .label-container {
         fill: var(--muted) !important;
         stroke: var(--accent) !important;
       }
 
       /* Edge path lines & arrows */
-      :global(.edgePath .path) {
+      .edgePath .path {
         stroke: var(--fg) !important;
         stroke-width: 2px !important;
       }
-      :global(.markerPath) {
+      .markerPath {
         fill: var(--fg) !important;
         stroke: var(--fg) !important;
       }
 
       /* Node text elements */
-      :global(text),
-      :global(tspan),
-      :global(.label) {
+      text,
+      tspan,
+      .label {
         fill: var(--fg) !important;
         color: var(--fg) !important;
         font-family: var(--font-body) !important;
       }
 
       /* Edge labels (text on lines) */
-      :global(.edgeLabel rect),
-      :global(.edgeLabel .label-container) {
+      .edgeLabel rect,
+      .edgeLabel .label-container {
         fill: var(--bg) !important;
         stroke: var(--border) !important;
       }
-      :global(.edgeLabel text),
-      :global(.edgeLabel tspan) {
+      .edgeLabel text,
+      .edgeLabel tspan {
         fill: var(--fg) !important;
         color: var(--fg) !important;
       }
 
       /* Sequence diagram actors */
-      :global(.actor) {
+      .actor {
         fill: var(--muted) !important;
         stroke: var(--accent) !important;
       }
-      :global(.messageLine0),
-      :global(.messageLine1) {
+      .messageLine0,
+      .messageLine1 {
         stroke: var(--fg) !important;
       }
 
       /* Sequence diagram notes */
-      :global(.note) {
+      .note {
         fill: var(--muted) !important;
         stroke: var(--accent) !important;
       }
@@ -394,63 +394,20 @@
    */
   @media (max-width: 768px) {
     :where(table.prose-table) {
-      border: none;
-      background: transparent;
-    }
-    :where(table.prose-table) thead {
-      /* visually hide header row; still in a11y tree via td labels + original th */
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip-path: inset(50%);
-      white-space: nowrap;
-      border: 0;
-    }
-    :where(table.prose-table) tbody tr {
-      display: block;
-      margin-block: var(--space-sm);
-      padding: var(--space-sm);
-      background: color-mix(in srgb, var(--bg) 97%, var(--fg));
-      border: var(--border-w) dashed var(--border);
-      border-radius: var(--br);
-    }
-    :where(table.prose-table) tbody td {
-      display: grid;
-      grid-template-columns: minmax(6rem, 35%) 1fr;
-      gap: var(--space-sm);
-      border: none;
-      border-bottom: 1px dashed color-mix(in srgb, var(--border) 60%, transparent);
-      padding-block: var(--space-xs);
-    }
-    :where(table.prose-table) tbody td:last-child {
-      border-bottom: none;
-    }
-    :where(table.prose-table) tbody td::before {
-      content: attr(data-label);
-      font-weight: 600;
-      font-size: var(--fs-xs);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--muted-fg);
-    }
-    /* first column = row title */
-    :where(table.prose-table) tbody td:first-child {
-      display: block;
-      font-weight: 700;
-      font-size: var(--fs-sm);
-      border-bottom: 2px dashed color-mix(in srgb, var(--border) 60%, transparent);
-      margin-bottom: var(--space-2xs);
-      padding-bottom: var(--space-xs);
-    }
-    :where(table.prose-table) tbody td:first-child::before {
-      content: none;
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      clip-path: inset(50%) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
     }
   }
 
-  :global(details.prose-toc) {
+  details.prose-toc {
     margin-block: var(--space-md);
   }
 

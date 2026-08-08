@@ -2,6 +2,9 @@ import { AnimDuration, AnimDurationMs, AnimEasing, Theme } from '$lib/constants'
 import type { ThemeMode } from '$lib/types';
 import { prefersReducedMotion } from './reduce';
 
+const VT_ID = 'fm-vt-stylesheet';
+const CURVE = `cubic-bezier(${AnimEasing.out.join(', ')})`;
+
 export function getStoredTheme(): ThemeMode {
 	if (typeof localStorage === 'undefined') return Theme.DARK;
 	const stored = localStorage.getItem('theme');
@@ -16,21 +19,8 @@ export function applyTheme(mode: ThemeMode): void {
 	localStorage.setItem('theme', mode);
 }
 
-const VT_ID = 'fm-vt';
-const CURVE = `cubic-bezier(${AnimEasing.out.join(', ')})`;
-
 function injectVT(darkToLight: boolean): void {
-	const old = document.getElementById(VT_ID);
-	if (old) old.remove();
-
-	const s = document.createElement('style');
-	s.id = VT_ID;
-
-	// Override UA defaults: disable crossfade, set mix-blend-mode to normal
-	// so old snapshot fully blocks new where it's visible.
-	// The clip-path on old determines the reveal: where old is clipped,
-	// new shows through underneath.
-	const base = `
+	const css = `
 		::view-transition-old(root), ::view-transition-new(root) {
 			mix-blend-mode: normal !important;
 		}
@@ -39,32 +29,28 @@ function injectVT(darkToLight: boolean): void {
 			animation-timing-function: ${CURVE} !important;
 			animation-fill-mode: forwards !important;
 		}
+		::view-transition-old(root) {
+			animation-name: ${darkToLight ? 'vt-open' : 'vt-close'} !important;
+		}
+		@keyframes vt-open {
+			from { clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); }
+			to   { clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%); }
+		}
+		@keyframes vt-close {
+			from { clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); }
+			to   { clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%); }
+		}
 	`;
 
-	if (darkToLight) {
-		s.textContent = `
-			${base}
-			::view-transition-old(root) {
-				animation-name: vt-open !important;
-			}
-			@keyframes vt-open {
-				from { clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); }
-				to   { clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%); }
-			}
-		`;
-	} else {
-		s.textContent = `
-			${base}
-			::view-transition-old(root) {
-				animation-name: vt-close !important;
-			}
-			@keyframes vt-close {
-				from { clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); }
-				to   { clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%); }
-			}
-		`;
-	}
-	document.head.appendChild(s);
+	const sheet = new CSSStyleSheet();
+	sheet.replaceSync(css);
+	(sheet as { id?: string }).id = VT_ID;
+
+	// Remove previous dynamic stylesheet; adopt new one.
+	document.adoptedStyleSheets = [
+		...document.adoptedStyleSheets.filter((s) => (s as { id?: string }).id !== VT_ID),
+		sheet,
+	];
 }
 
 export function animateThemeToggle(_button: HTMLElement, callback: () => void): void {
@@ -77,9 +63,20 @@ export function animateThemeToggle(_button: HTMLElement, callback: () => void): 
 		return;
 	}
 	const isDark = document.firstElementChild?.getAttribute('data-theme') === 'dark';
-	injectVT(isDark);
+	try {
+		injectVT(isDark);
+	} catch {
+		// Older browsers may not support adoptedStyleSheets
+		callback();
+		return;
+	}
+
 	void document.startViewTransition(() => {
 		callback();
-		setTimeout(() => document.getElementById(VT_ID)?.remove(), AnimDurationMs.theme);
+		setTimeout(() => {
+			document.adoptedStyleSheets = document.adoptedStyleSheets.filter(
+				(s) => (s as { id?: string }).id !== VT_ID,
+			);
+		}, AnimDurationMs.theme);
 	});
 }

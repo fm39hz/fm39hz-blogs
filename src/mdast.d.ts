@@ -1,9 +1,9 @@
 declare module 'mdast-util-heading-range' {
-	import type { Node } from 'unist';
+	import type { Heading, Root, RootContent } from 'mdast';
 	export default function headingRange(
-		tree: Node,
+		tree: Root,
 		heading: string,
-		callback: (start: Node, nodes: Node[], end: Node) => Node[],
+		callback: (start: Heading, nodes: RootContent[], end?: Heading) => RootContent[],
 	): void;
 }
 
