@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-07-07
-modDatetime: 2026-08-08
+modDatetime: 2026-08-13
 title: Another way to think about Game Architecture
 featured: false
 draft: false
@@ -34,13 +34,13 @@ Calling a game a simulation tends to summon weather systems, rigid bodies, and p
 
 That does not make every simulation a game. A weather model may evolve under laws and parameters without providing any Agent the capacity to alter its operating trajectory. Simulation is the operational form being discussed here; Agency is the additional relation that matters to gamehood. Architecture has to preserve both without confusing one for the other.
 
-Let $S_t$ be everything about the game that may affect what happens after moment $t$. Let $K$ be the design that stays fixed while this instance runs: movement limits, strike power, state links, material properties, whatever the authors supplied. Let $I_t$ be an intervention the possibility space permits an Agent to make. Then the operation of the game has this shape:
+Let $S_n$ be the instance-relative truth sufficient to determine what may happen after transition boundary $n$. Let $K$ be the accepted design that stays fixed while this configured instance runs: movement limits, strike power, mode links, material properties, whatever the authors supplied. Let $I_n$ be an intervention the possibility space permits an Agent to make, and $M_n$ the complete observations an apparatus admits under the game's measurement contracts. Then the operation of the game has this shape:
 
 $$
-S_{t+\Delta t} = \Phi_R(S_t, I_t; K, \Delta t)
+S_{n+1} = \Phi_R(S_n, I_n, M_n; K)
 $$
 
-$R$ is the set of laws constituting the transition, and $\Phi_R$ is those laws being applied at one traceable moment. Repeated application from an initial state gives the trajectories the game may actualize. The possibility space is therefore not a bag the engine stores somewhere. It is what these laws, parameters, initial conditions, and permitted interventions make reachable.
+$R$ is the set of laws constituting the transition, and $\Phi_R$ is those laws being applied at one traceable boundary. Repeated application from an admitted initial condition gives the trajectories the game may actualize. The possibility space is therefore not a bag the engine stores somewhere. It is what these laws, parameters, initial conditions, permitted interventions, and measurement contracts make reachable. Call that configured game-form $G$ and the space $\Omega_G$; $R$ constitutes the law, but $R$ alone does not name which concrete game has been configured.
 
 This is the same separation any useful scientific model begins with. A law is not the current value of its variables. $F=ma$ does not change when the mass changes. A chemical relation does not become a new law for every concentration placed in the vessel. Even a probabilistic theory produces a definite distribution under its stated conditions; uncertainty in an outcome is not an absent law.
 
@@ -52,7 +52,7 @@ Now the line I keep taping back onto the wall is no longer a slogan. It falls st
 
 > **Designers parameterize the game. Programmers write rules. The boundary between those jobs is enforced by construction, not by code review and good intentions, that is architecture.**
 
-These are logical roles, not necessarily two job titles. Parameterization supplies $K$, initial conditions, and authored possibilities. Rules supply the generic relations in $R$. Infrastructure stores $S$, measures what a rule needs measured, executes $\Phi_R$, and presents the result on a machine.
+These are logical roles, not necessarily two job titles. Parameterization supplies $K$, initial conditions, and authored possibilities. Rules supply the generic relations in $R$. Agents supply permitted $I$. Infrastructure stores $S$, supplies contract-bound $M$, executes $\Phi_R$, and presents the result on a machine.
 
 The moment a programmer hardcodes a _proper noun_ into a rule, `if (isPlayer)`, `if (enemyType == "Bat")`, one parameter value has been promoted into a new law. The reverse mistake is just as bad: asking authored data to contain procedures turns parameters into scripts. If some piece of the codebase cannot preserve that separation, let it fall. C# appears below only because it can draw a few directions compactly; another language or a node graph still has to express the same model.
 
@@ -60,18 +60,18 @@ The moment a programmer hardcodes a _proper noun_ into a rule, `if (isPlayer)`, 
 
 A design document doesn't talk about GPU types or engine internals. It says _hit lands_, _knockback_, _opening_, _the bat is chasing_. Infrastructure talks about overlaps, atlases, device polls, solver steps. The instant those two vocabularies share a function body, changing the machine changes the game, and that's the first failure mode worth guarding against.
 
-A theory is not the apparatus used to measure it. In the same way, a game rule is not the collider used to discover contact or the sprite used to show position. Infrastructure may measure some relation $M_t=\mu(S_t)$ and may present some observation $P_t=\pi(S_t)$, but neither $\mu$ nor $\pi$ gets to redefine what the relation means inside $\Phi_R$.
+A theory is not the apparatus used to measure it. In the same way, a game rule is not the collider used to discover contact or the sprite used to show position. Infrastructure may measure some relation $M_n=\mu(S_n,X_n)$ and may present some observation $P_n=\pi(S_n)$, but neither $\mu$ nor $\pi$ gets to redefine what the relation means inside $\Phi_R$. Here $X_n$ is the apparatus-visible condition outside the game truth already represented by $S_n$. Measurement is still causal: a different observed contact may actualize a different trajectory. Replaceability means satisfying the same contract, not being irrelevant.
 
 | Design says             | Game rule                                     | Infrastructure                          |
 | ----------------------- | --------------------------------------------- | --------------------------------------- |
 | Hit lands               | strike definition, hit relation, health write | overlap / distance / contact generation |
 | Push apart              | space claim, separation policy                | circle-push or physics penetration math |
-| Opening                 | vulnerability window                          | ,                                       |
-| Knockback               | knockback, stagger timers                     | ,                                       |
+| Opening                 | vulnerability condition                       | measured timing or contact, if required |
+| Knockback               | impulse and stagger law                       | body integration, if delegated          |
 | Movement                | velocity, movement profile, world position    | optional character-controller solver    |
 | Appearance              | silhouette intent (kind, palette...)          | sprite atlas, draw calls, shaders       |
 | Button                  | input snapshot / commands                     | hardware polling, focus, rebinding UI   |
-| Terrain                 | walkability as game facts, if rules need it   | tile collision, nav-mesh build          |
+| Terrain                 | authored walkability quantities               | tile collision, nav-mesh build          |
 | Camera / render / audio | follow intent, if authored                    | matrices, viewports, mixers, voices     |
 
 Rules never name colliders, hitboxes, sprites, textures, draw calls, shader channels, or audio graphs, infrastructure owns that vocabulary. Rules only own what a hit _means_, once a hit is already known to have happened.
@@ -151,10 +151,10 @@ The only useful test is operational. Change one authored value while holding the
 For a parameter $k_i$, the question has this shape:
 
 $$
-\exists\ S,I,k_i' :
-\Phi_R(S,I;K,\Delta t)
+\exists\ S,I,M,k_i' :
+\Phi_R(S,I,M;K)
 \neq
-\Phi_R(S,I;K[k_i \leftarrow k_i'],\Delta t)
+\Phi_R(S,I,M;K[k_i \leftarrow k_i'])
 $$
 
 That equation writes the gameplay case. For an authored presentational value, apply the same counterfactual to $\pi$ instead. The point is not that every parameter must change simulation; it is that the parameter must change the operation it claims to parameterize.
@@ -186,11 +186,11 @@ graph LR
     Visual --> Silhouette
 ```
 
-Not every being claims every concept, an enemy might skip `Striker`, a pot might only have `Breakable` and `Visual`, `BatIdle` might claim only `State`, `SDistance` might claim only `Sensor`. One Knowledge base, many roles. Generic rules key off roles and aspects, never marketing names.
+Not every Being is viewable through every Concept: an enemy might skip `Striker`, a pot might only have `Breakable` and `Visual`, and an authored mode or probe might expose only the lens that gives it meaning. One Knowledge base, many viewpoints. Generic rules key off lawful meanings, never marketing names.
 
-In an action game specifically, the split might look like: `Mobile` opens position, velocity, movement profile, orientation, depth, space claim; `Combatant` opens health; `Striker` opens strike definition; `Vulnerable`/`Knockable` open vulnerability and knockback; `Visual` opens silhouette intent; `Breakable` opens durability and authored aftermath; `State` opens links, desirability, and groups; `Sensor` is often identity-only, because the Being _is_ the probe. Your own set will differ, the demand behind it won't: viewpoints stay explicit, data stays pure, composition stays orthogonal.
+In an action game specifically, the split might look like: `Mobile` opens movement profile; `Combatant` opens health design; `Striker` opens strike definition; `Vulnerable` and `Knockable` open vulnerability and knockback; `Visual` opens silhouette intent; `Breakable` opens durability and authored aftermath. A project may also author modes, probes, links, or groups as Beings. Your own set will differ; the demand behind it will not: viewpoints stay explicit, data stays pure, composition stays orthogonal.
 
-One more authoring rule worth keeping: a number without a quantity is not yet a parameter. The vocabulary declares whether a value means distance, duration, damage, probability, direction, or something else, including its unit where a conversion is meaningful. Designers supply values in that language; they do not choose `Single` versus `Double`. The bake step maps the declared quantity to concrete storage and rejects inconsistent values. No `any`, no `unknown`, no untyped bag sitting at the authoring boundary, because runtime guessing is exactly how design truth stops being _Knowledge_.
+One more authoring rule worth keeping: a number without a quantity is not yet a parameter. The vocabulary declares whether a value means distance, duration, damage, probability, direction, or something else, including its unit where a conversion is meaningful. Designers supply values in that language; they do not choose `Single` versus `Double`. Catalyst maps the declared quantity to concrete storage and rejects inconsistent claims. No `any`, no `unknown`, no untyped bag sitting at the authoring boundary, because runtime guessing is exactly how design truth stops being _Knowledge_.
 
 Also worth being pedantic about: **a being is not an entity.**
 
@@ -206,22 +206,22 @@ To be clear, none of this means "the game is a schema." It's just how design and
 
 ## Knowledge, and... life?
 
-"Player max HP is 4" is design. "Entity 17 currently has 2 HP" is life. Two different kinds of truth. Cram them into the same address space and you get one of two failure modes: live buffs quietly rewriting the blueprint every future spawn reads from, or endless reparsing because nothing was ever actually frozen.
+"Player max HP is 4" is design. "Subject 17 currently has 2 HP" is life. Two different kinds of truth. Cram them into the same address space and you get one of two failure modes: live changes quietly rewriting the design every future instance reads from, or endless reparsing because authored claims never became accepted truth.
 
-The distinction is not merely “read-only versus writable.” $K$ selects the system being simulated; $S_t$ tells us where one instance of that system currently is. Hold $K$ and all future interventions fixed, and two instances with the same $S_t$ must admit the same future evolution. If an extra stored flag cannot change that prediction except through some framework side door, it is not an independent part of game state. It is a cache, a projection, or bookkeeping pretending to be ontology.
+The distinction is not merely “read-only versus writable.” $K$ helps select the configured game-form; $S_n$ tells us where one instance of that form currently is. Hold $K$, the rest of the form, and future inputs fixed, and two instances with the same sufficient $S_n$ must admit the same future evolution. If an extra stored flag cannot change that prediction except through some framework side door, it is not an independent part of game state. It is a cache, a projection, or bookkeeping pretending to be ontology.
 
-Designers write structured data, JSON, tables, graphs, whatever format is convenient, the format is a mechanism, not the point. What matters is that the authored rows do not quietly move into gameplay code the first time the data becomes inconvenient. Before any of it hits the hot loop, it becomes typed, indexed, immutable memory of design intent. I call that **Knowledge**: not config, not a prefab, not "mutable by accident", design fact, frozen for the session, or until an explicit reload that you treat as a fresh freeze.
+Designers write structured data, JSON, tables, graphs, whatever format is convenient; the format is a mechanism, not the point. Those rows are claims. Catalyst resolves, validates, types, indexes, and closes them. Only then do they become **Knowledge**: not config, not a prefab, not memory of intent, but accepted operative design truth for one configured game-form. Changing that truth changes the configuration; it is not an ordinary mutation smuggled into the same trajectory under the polite name “reload.”
 
 ```mermaid
 flowchart LR
-    subgraph Authoring
+    subgraph Authoring claims
         C["concepts · aspects"]
-        B["beings · states · sensors"]
+        B["beings · references · quantities"]
     end
 
-    subgraph Bake
-        I["infer · validate · resolve prototypes"]
-        E["emit pools · ids"]
+    subgraph Catalyst
+        I["resolve · validate · type"]
+        E["index · close"]
     end
 
     subgraph Runtime
@@ -236,7 +236,7 @@ flowchart LR
     K -.->|"copy at materialize"| W
 ```
 
-The bake stages are logical steps, not mandated class names: merge sources under an explicit policy, resolve prototypes so runtime never has to walk a parent chain, cross-reference every pointer so it lands on a being that actually claims the required role, flatten for the chosen runtime, then freeze. After freeze, Knowledge does not mutate, full stop. Static checking, generated tables, startup validation, or an authoring tool are different ways to fail early; none of them is the idea itself. Frozen Knowledge and accountable rules are the point.
+Catalysis is a logical boundary, not a mandated list of class names: merge sources under an explicit policy, resolve prototypes so runtime never walks a parent chain, cross-reference every pointer so it lands on a Being viewable through the promised Concept, select a layout, then close. Knowledge does not mutate, full stop. Static checking, generated tables, startup validation, or an authoring tool are mechanisms for failing early; none is the idea itself. Total Knowledge and accountable Rules are the point.
 
 Through a conceptual lens, you always ask for the aspect that concept actually reveals, `Mobile` plus movement profile is valid, `Combatant` plus world position is not, because `Combatant` never claimed that window. Direct aspect access stays available for free-floating aspects, since a concept is a viewpoint, not a taxonomy, a unique loyalty scalar doesn't need to borrow someone else's lens. An invalid lens or an ambiguous reference should fail before play, whenever the toolchain allows it; resist the temptation to invent a third path that quietly returns null and hopes for the best. In one possible C# notation:
 
@@ -247,20 +247,22 @@ var movement = knowledge.Of<Mobile, MovementProfile>(player);
 var health   = knowledge.Of<Combatant, HealthPool>(player);
 var loyalty  = knowledge.About<Loyalty>(player);
 
-var links = knowledge.Of<State, Links>(current.State);
+var links = knowledge.Of<Mode, Links>(current.Mode);
 ```
 
 The spelling isn't important. Read it as: choose a thing, look through one Concept, receive the Aspect that Concept promised. The compiler may enforce that promise, an authoring tool may enforce it, or the game may validate it before play. What matters is that `Combatant` cannot suddenly become a back door to position merely because both values happen to live on the same entity.
 
 Collections have the same obligation. A mutable array hidden behind a read-only property is still a mutable array wearing a hat. Knowledge must not hand its authoring buffer back to a rule and hope nobody notices.
 
-Here's the part people trip over most often: **reading Knowledge is not a mutable read/write conflict against other rules**, because Knowledge is immutable by construction. Treat `Of`/`About` as scheduling noise and you'll invent false dependencies, and quietly train everyone to stop trusting the real dependency graph, the one that actually lives over mutable life. No locks needed for Knowledge reads. No mystery about who last wrote `MaxSpeed`, because design does not change mid-frame.
+Here's the part people trip over most often: **reading Knowledge is not a mutable read/write conflict against other rules**, because Knowledge is immutable by construction. Treat `Of`/`About` as scheduling noise and you'll invent false dependencies, and quietly train everyone to stop trusting the real dependency graph, the one that actually lives over mutable life. No locks are needed for Knowledge reads. No mystery about who last wrote `MaxSpeed`, because design does not change during the transition.
 
-Design and life also need different kinds of references. Authoring sometimes means this exact Player definition or this exact Bat definition. Life usually means the current State, the equipped Effect, or the active Sensor, whatever proper noun currently fills that role. A state reference may reveal only what `State` promises. Otherwise the proper noun slips back into the rule through a more respectable-looking door.
+Design and life also need different kinds of references. Authoring sometimes means this exact Player definition or this exact Bat definition. Life may point to the current authored Mode, equipped Effect, or another design coordinate through the Concept that gives that reference meaning. The Ref may reveal only what its Concept promises. Otherwise the proper noun slips back into the Rule through a more respectable-looking door.
 
-Knowledge holds design; fields hold life. Some design values may be copied into life when a Being is represented in a World; timers, input samples, and other runtime values simply begin there. The same Aspect shape can therefore be frozen design in one place and mutable life in another. Immutability is a property of _where_ the value lives, not of its type name. References such as current `State` are how life points back at Knowledge without pretending to become a Being itself.
+And even that is not the identity of a living participant. Two bats materialized from the same Being read the same design and remain two different bats. A relation such as Hit therefore needs an opaque, World-local subject, enough to say which life participates and nothing more. It is not a Knowledge reference and it is not permission to query an ECS handle. Confuse those three identities and either every bat becomes the same bat, or the storage engine quietly becomes the ontology again.
 
-A Being is a blueprint. An entity is one possible runtime representation of it. Materialization is a one-way mapping from Knowledge and an initial condition into life:
+Knowledge holds design; fields hold life. Some design values may be copied into life when a Being participates in initial composition; timers, input samples, and other instance values simply begin there. The same value shape can therefore be immutable design in one place and mutable life in another. Authority is a property of _where_ the value lives, not of its type name. References such as a current Mode are how life points back at Knowledge without pretending to become a Being itself.
+
+A Being is an authored thing, not necessarily a blueprint. An entity is one possible storage representation of a running Subject. For the Beings that participate in initial composition, materialization is a one-way mapping from Knowledge and an initial condition into life:
 
 $$
 S_0 = \operatorname{Materialize}(K, C_0)
@@ -268,14 +270,14 @@ $$
 
 Copy the design values life needs, apply its initial values, and never write back. After that point the instance is independent; changing this entity's `MaxSpeed` cannot touch Knowledge, and another instance still reads the authored value. The important part here is the direction of the mapping, not an API for rules to create and destroy things.
 
-Materializers themselves are deliberately boring, pure mappings from design truth to initial life. C# might write one like this:
+That initial mapping is deliberately boring and pure. C# might write one function like this:
 
 ```csharp
 static Health MaterializeHealth(in HealthPool design)
     => new(design.Maximum, design.Maximum);
 ```
 
-Do not stretch that mapping into state management. Changing `CurrentState` changes one reference. Rules that care about the state read the appropriate design through that reference. Copying state Aspects onto the entity and later revoking them only invents a second lifecycle for data that already has a perfectly good home in Knowledge.
+Do not stretch that mapping into mode or lifecycle management. Changing a current Mode changes one reference. Rules that care about it read the appropriate design through that reference. Copying authored Aspects onto the entity and later revoking them only invents a second lifecycle for data that already has a perfectly good home in Knowledge.
 
 Why fight this hard for the Knowledge/life split? Because the moment you can no longer tell "design fact" from "this-instance-right-now," you've already lost the distinction between rule and possibility space, and once that's gone, the blackbox owns you again.
 
@@ -288,15 +290,15 @@ Before it is a method, a rule is a relation over a declared domain:
 $$
 r : \mathcal D_r \longrightarrow \mathcal Y_r,
 \qquad
-\mathcal D_r \subseteq K \times S \times I \times \Delta t
+\mathcal D_r \subseteq K \times S \times I \times M \times Q
 $$
 
-$\mathcal D_r$ is not an `if` ladder inside the rule. It is the set of complete tuples for which the law has meaning, the Concepts and relations that supply every quantity it requires. $\mathcal Y_r$ is the definite change or result established for each of those tuples.
+$\mathcal D_r$ is not an `if` ladder inside the rule. It is the set of complete tuples for which the law has meaning, the Concepts and relations that supply every quantity it requires. $Q$ stands only for exact additional quantities, such as Duration, that this Rule actually needs. $\mathcal Y_r$ is the definite change or result established for each tuple.
 
 Movement can be written without knowing whether the moving thing is a player or a falling stone:
 
 $$
-Position_{t+\Delta t} = Position_t + Velocity_t\,\Delta t
+Position_{n+1} = Position_n + Velocity_n\,Duration_n
 $$
 
 A strike can be resolved without knowing the name of either participant:
@@ -330,7 +332,7 @@ There is nothing C#-specific about the idea. The notation only has to make three
 - `in` reads an input without changing it.
 - `ref` reads and replaces life already owned by the World.
 - `out` writes the result of every valid application of the rule.
-- Knowledge is frozen context, so reading it creates no mutable conflict.
+- Knowledge is immutable context, so reading it creates no mutable conflict.
 - Time is an input only to laws that genuinely depend on time.
 
 `out` does not mean “add a component,” “publish when convenient,” or “return maybe.” It is a definite value that any downstream rule may read. If there is no hit, `ResolveStrike` is not applied. If there is a hit and a strike, `Damage` is certain. Absence belongs outside the value, in whether a complete input tuple exists at all. Once the tuple exists, the rule is total over it.
@@ -344,9 +346,9 @@ Limiting a rule to one lasting change is useful pressure, not a theorem about re
 Chemistry describes a change in composition; it does not ask a storage engine to allocate a water object. A block game can say
 
 $$
-BlockAt_{t+\Delta t}(p) = Air,
+BlockAt_{n+1}(p) = Air,
 \qquad
-Drops = Loot(BlockAt_t(p), Tool)
+Drops = Loot(BlockAt_n(p), Tool)
 $$
 
 without a `DestroyEntity(block)` law. `Drops` may be an empty collection, which is still a definite value. How a backend represents air, compacts a table, or recycles a handle is machinery reacting to the modeled state, not a new rule of the game.
@@ -366,16 +368,16 @@ A useful gut check: **if you can't state a rule in one short sentence, split it.
 
 Multi-sentence rules hide extra writes and slowly turn into dumping grounds.
 
-A rule belongs to one mutable store, which I'll call a World below. Because its reads and writes are visible, the scheduler can compare it with every other rule in that World. A helper must not be able to hide a write. Knowledge is frozen, so reading it adds no conflict; only life can be changed underneath another rule.
+A Rule belongs to one mutable owner, which I'll call a World below. Because its reads and writes are visible, the scheduler can compare it with every other Rule in that World. A helper must not be able to hide a write. Knowledge is immutable, so reading it adds no conflict; only life can be changed underneath another Rule.
 
 > Remember to focus on where fact and rule intersect, that's where the architecture actually lives.
 > At that intersection, the signature states a complete relation: what the rule accepts, what it changes, and what it necessarily produces. It is not an imperative script driving other rules, hiding order inside a call stack, or manufacturing temporary states so a later step can “notice” them. Procedure _inside_ one transformation, clamp, integrate, is fine. Orchestration between transformations belongs to their shared data and the schedule.
 
-A `Hit` can be a legitimate input because it describes a measured relation: this strike reached this target with this exposure. `Death()` is something else entirely. It is usually a control message disguised as game state, invented so some later system can destroy an entity. Zero health is already visible in health. If a particular game defines dying as a real authored trajectory, that trajectory belongs in its design. The architecture has no right to fabricate a universal death object, nor to give it a one-frame lifecycle.
+A `Hit` can be a legitimate input because it describes a measured relation: this strike reached this target with this exposure. `Death()` is something else entirely. It is usually a control message disguised as game state, invented so some later system can destroy an entity. Zero health is already visible in health. If a particular game defines dying as a real authored trajectory, that trajectory belongs in its design. The architecture has no right to fabricate a universal death object, nor to give it a one-transition lifecycle.
 
 Several hits do not require an event cardinality taxonomy either. They are several matching input tuples, so the same total rule is applied several times. If several results must become one, reduction is another explicit rule over those results. Nothing becomes nullable, and no gameplay rule has to create, retain, or sweep a temporary object.
 
-The visible directions tell us which rules cannot run together. They do not always tell us which one should go first. That question belongs to the frame, after the other relations are visible too.
+The visible directions tell us which Rules cannot run together. They do not always tell us which one should go first. That question belongs to the complete transition relation, after routing, ownership, Phases, reductions, and Bridges are visible too.
 
 Clockwork, intervention, decision, and resolution can all participate in the same flow without sharing meaning. Friction, decay, integration, no choice involved, purely mechanical. Input is agency entering from outside as an intervention, not an agent receiving unrestricted access to the World. Decision chooses among legal edges. Strike and health are consequences of complete inputs. Measurement that provides `Hit` rows is infrastructure even when it sits right next to gameplay, because it measures space and never owns the damage table.
 
@@ -383,52 +385,35 @@ Behavior over life has to stay small, accountable in its reads and writes, and f
 
 ## Actually, why isolate decision at all?
 
-$I_t$ is not permission for an Agent to write arbitrary state. It is a permitted intervention presented to $\Phi_R$. The rules still decide what that intervention means and which next states it can reach. A button, an AI choice, and a referee ruling may arrive through different machinery, but none stands above the transition law.
+$I_n$ is not permission for an Agent to write arbitrary state. It is a permitted intervention presented to $\Phi_R$. The Rules still decide what that intervention means and which continuations it can reach. A button, an AI policy, and a referee ruling may arrive through different apparatus, but none stands above the transition law.
 
-That is why decision deserves isolation. It selects one permitted continuation; it does not perform all of that continuation's consequences while nobody is looking. Games need trajectories, for the player and for AI, that a designer can extend without a brand-new type for every new label. The move here isn't "pick FSM or utility AI as the One True identity of intelligence." It's a small composable set of Aspects, one pure evaluator, and separate rules for the consequences of its answer. Whether you're starting from a hard graph or eventually need heavier scoring or planning, the evaluator shouldn't need to be rewritten from scratch to get there. I call these three Aspects `gate`, `desirability`, and `link`, three small pieces, and they've been enough for every kind of decision I've needed. (And no, I don't want to hear about your behavior-tree soup.)
+That is why decision deserves isolation from consequence. It selects one permitted continuation; it does not perform all of that continuation's effects while nobody is looking. But isolation does not earn a privileged framework subsystem. A project may author hard edges, scores, gates, priorities, candidate sets, or something else entirely. Those are one game's Knowledge and Rules, not the universal identity of intelligence.
 
-This isn't "the game is a state machine." It's that trajectories through possibility space can be parameterized, and parameterization is the entire point.
+A graph is one authoring shape for legal trajectories. A scorer is one total relation over candidates and complete readings. The current authored Mode may be one Ref into Knowledge. Replacing that Ref is an ordinary Rule result; consequences such as damage acceptance remain separate Rules reading the chosen Mode's Aspects. No overlay needs to be copied onto life, no entry hook needs to add a tag, and no exit hook needs to remember to remove it.
 
-Authors choose the pattern through data alone: hard edges only, scores only, or gates that filter combined with scores that rank. Hybrids are common, and one evaluator covers every case. State links are directed edges guarded by gates; gates compare sensor scalars, using different entry and exit thresholds when hysteresis is desired; desirability turns priority plus weighted sensors into a score; state groups hold candidate sets, tiers, and defaults.
+Readings deserve the same restraint. If health ratio follows from Health, then
 
-```mermaid
-flowchart TB
-    Cur[Current state] --> Edges[Links from Knowledge]
-    Edges --> Gate{Gate over sensor scalars}
-    Gate -->|fail| Next[Next link]
-    Gate -->|pass| Score[Priority + weighted features]
-    Score --> Best[Keep best]
-    Best --> Diff{Changed?}
-    Diff -->|yes| Apply[Replace CurrentState]
-    Diff -->|no| Stay[Keep]
-```
+$$
+HealthRatio=f(Health)
+$$
 
-The evaluator stays pure: Knowledge, current state, state group, and sensed features go in; the next state, or the same one, comes out.
+is just another Rule with an ordinary `in` and definite `out`. If proximity requires a native acceleration structure, it enters through Measurement. Neither case requires a provider registry, a mutable bag of senses, or a special execution path. The abstraction gets smaller precisely because the existing law and boundary already say enough.
 
-$$\operatorname{next} = \operatorname{Evaluate}(K,\ current,\ group,\ senses)$$
+There is still a totality trap. If a `Mode` Concept reveals `DamageAcceptance`, every Being viewed as `Mode` supplies that Aspect, including a neutral value where damage is unchanged. `Maybe<DamageAcceptance>` would only move a bad Concept boundary into the value. If only some modes carry that meaning, the Concept boundary is wrong.
 
-Invulnerability windows and other consequences do not belong inside the scorer. Permitted interventions and ordinary clockwork may contribute candidates; the evaluator still returns one definite next state. Applying it changes `CurrentState`, not the entity's shape. A damage rule may read the current state's authored damage acceptance through Knowledge, which is how “rolling has i-frames” remains an authoring decision without copying an `Invulnerable` tag onto life and remembering to remove it later.
+If any of this starts to feel like “the game is a graph of states,” stop right there. The graph is one parameterized model inside the game. The game remains the possibility space constituted by all its Rules, Knowledge, admitted inputs, and initial conditions.
 
-There is an important totality trap here. If `State` reveals `Links`, every state has links, even when the frozen slice is empty. If it reveals `DamageAcceptance`, every state has a value, including the neutral value where damage is unchanged. `Maybe<DamageAcceptance>` would only move a bad Concept boundary into the value. A Concept should reveal only what is meaningful for every Being claiming it, with a lawful neutral value where the law has no effect; do not weaken total `Reveals` because one row was inconvenient.
+## Transition, Phase, World
 
-Decisions want comparable features; the world is not made of comparable features, so sensors do the extraction. A sensor definition is design, while a provider is a closed measurement from available life to a value:
+A transition is one traceable application from $S_n$ to $S_{n+1}$. It may be advanced by a fixed tick, a turn, an action resolution, a referee ruling, or another boundary. The host mechanism does not qualify the Rule, and it does not force every transition to carry `(index, time, duration)` as one bundle.
 
-$$\operatorname{distanceSense} = f(\operatorname{proximity})$$
+Duration is a quantity. Boundary identity is another fact. A Rule asks for whichever quantity changes its relation. Phase names belong to the project, and the host advances the declared temporal policy; it does not call individual Rules.
 
-Providers over pure gameplay fields live alongside rules; providers that need spatial acceleration live with infrastructure. The evaluator consumes sensed values, never query internals. Measurement remains accountable for what it reads, while the scoring law remains ignorant of how the measurement was obtained.
+Three things get conflated constantly, so it is worth separating them cleanly:
 
-If any of this starts to feel like "the game is a graph of states", stop right there. The graph is one authoring shape for legal trajectories. The game itself remains the possibility space those trajectories move through, governed by rules, advancing at $\Delta t$, with Agents able to intervene through the capacity that space provides.
-
-## What is a 'frame' in game, in general?
-
-A frame is one traceable evaluation of $\Phi_R$, identified by $(index, time, \Delta t)$. It may coincide with a rendered image, a fixed tick, a turn, or none of those. Its architectural meaning is only that there is a known $S_t$, a permitted intervention, and one resulting $S_{t+\Delta t}$.
-
-Phase names belong to the game. Fixed-step is a policy on a phase, Worlds live within phases, and the host merely advances the moment. The architecture decides which orders are legal. It does not decide what actually happens; rules and agents do that while the game runs.
-
-Two things get conflated constantly, so it's worth separating them cleanly:
-
-- An **execution phase** (or group) is order and tick policy within the frame.
-- A **World** is one closed, owned part of mutable $S$ and the rules allowed to transform it.
+- A **Phase** expresses temporal meaning or advancement policy.
+- A **World** is one closed owner of mutable authority and identity.
+- A **Binding** realizes a World using one storage and execution backend.
 
 If a simulation uses several Worlds, its mutable state is partitioned rather than shared:
 
@@ -438,13 +423,13 @@ $$
 
 The symbol matters less than the wall: no mutable quantity belongs to two terms. A bridge may derive a value from one settled World and provide it to another at a known boundary, but that is a directional mapping, not shared life.
 
-There is no sacred lineup of `RenderWorld` and `AudioWorld` waiting to be declared. Walls go up when ownership, tick policy, replaceability, or layout actually diverge, not because a diagram somewhere shows three boxes. Headless work might need exactly one sim world; a fat client might add presentational walls later; stable physics might sit pinned to a fixed phase. Architecture constrains isolation and scheduling. It is not a product diagram of fashionable names.
+There is no sacred lineup of `RenderWorld` and `AudioWorld` waiting to be declared. Walls go up when mutable authority actually divides, not merely because cadence, layout, backend, or failure policy differs. Those are Phase, Binding, and apparatus concerns until another owner truly exists. Ordinary presentation is a Projection, not a World drawn so a diagram can have another box.
 
 We don't chase a global service locator, we chase visible flow. Outputs already connect producers to consumers; a second, invisible broadcast network would only give the same information another route through the program.
 
-Entity 42 in World A is not entity 42 in World B. A rule in A can never receive a field from B, and cross-wall data moves only through bridges, at defined barriers. A single-World project simply has no bridges, that's honesty, not a missing pillar. Split when authority or tick policy genuinely diverges; don't split because a blog post once showed three boxes and it looked tidy.
+Subject 42 in World A is not Subject 42 in World B. A Rule in A can never receive mutable truth from B, and cross-wall data moves only through Bridges at declared boundaries. A single-World project simply has no Bridges; that is honesty, not a missing pillar. Split when authority divides, not because a blog post once showed three boxes and it looked tidy.
 
-Capture is usually where input lands. Fixed holds anything needing a stable $dt$, if there is any. Gameplay holds the main rule Worlds. Late holds readers of snapshots, if there are any. These names are examples. A phase may contain zero or more Worlds, and the waves inside it should come from the rules, not from a table somebody keeps rearranging by hand.
+Capture may be where external input is admitted. Fixed may hold Rules needing stable Duration. Later Phases may project settled truth. These names are examples. World and Phase remain orthogonal: Rules over one World may participate in several Phases, and the waves inside each boundary come from the Rules rather than a table somebody keeps rearranging by hand.
 
 ### When reads and writes aren't enough
 
@@ -456,7 +441,7 @@ But the scheduler isn't looking at those three rules in a vacuum. If the game sa
 
 Worlds remove another pile of false questions. Ordinary rules in two different Worlds do not share mutable data at all. If something crosses between them, a bridge says which World is the source and which is the destination, so the direction is not ambiguous there either.
 
-Only after all of that should `run before` or `run after` appear: for a real game relation that no signature, phase, or bridge can imply. What remains is a partial order, although the name matters less than the consequence: state a few meaningful relations, let the scheduler infer the rest, and reject the frame if two observable answers are still possible or the relations form a cycle. File order and alphabetical order do not become game design merely because they are deterministic.
+Only after all of that should `run before` or `run after` appear: for a real game relation that no signature, Phase, or Bridge can imply. What remains is a partial order, although the name matters less than the consequence: state a few meaningful relations, let the scheduler infer the rest, and reject the transition model if two observable answers are still possible or the relations form a cycle. File order and alphabetical order do not become game design merely because they are deterministic.
 
 ```mermaid
 flowchart LR
@@ -498,10 +483,10 @@ sequenceDiagram
     participant Br as Bridges if any
     participant L as Later phase if any
 
-    Platform->>Host: Tick(dt)
+    Platform->>Host: advance boundary
     Host->>Host: capture injection
     opt fixed step
-        Host->>Host: stable-dt work
+        Host->>Host: stable-Duration work
     end
     Host->>G: rules in R/W waves
     opt multi-world
@@ -510,17 +495,17 @@ sequenceDiagram
     end
 ```
 
-Bridges only earn their keep when two Worlds need to exchange a snapshot without sharing a store. They run after the source has settled, copy only what the destination needs, and finish before the destination starts reading. A presentation World might receive position and silhouette, not the entire gameplay entity. Game rules never reference the bridge itself, and a game with one World needs no bridge at all.
+Bridges only earn their keep when two genuine Worlds need to exchange values without sharing a store. They run after the source has settled, copy only what the destination needs, and finish before the destination starts reading. Ordinary presentation receives a Projection instead; it does not become a World merely because data crosses a boundary. Game Rules never reference the Bridge itself, and a game with one World needs no Bridge at all.
 
 The concrete storage binding belongs in infrastructure and nowhere else. Native handles, queries, pools, and bridge maps may all exist behind it; they simply aren't words a gameplay law needs to know. How a project wires those mechanisms is secondary to keeping their vocabulary on the correct side of the wall.
 
-Worlds, rules, bridges, and measurements already contain the dependence truth needed to derive a schedule. The host advancing $\Delta t$ stays deliberately thin. The moment someone hand-edits that schedule to slot in one extra rule without updating the underlying truth, the whole model becomes theater. The platform is not the game, and it shouldn't get to pretend otherwise.
+Worlds, Rules, Bridges, Phases, reductions, and result routing already contain the dependence truth needed to derive a schedule. The host advancing boundaries and supplying exact temporal quantities stays deliberately thin. The moment someone hand-edits that schedule to slot in one extra Rule without updating the underlying truth, the whole model becomes theater. The platform is not the game, and it shouldn't get to pretend otherwise.
 
 Agency enters, rules advance the possibility space under an order that follows honest reads and writes, machinery measures what needs measuring, and presentation is free to watch, without ever rewriting the law. That's the exact opposite of living as a parasite inside a blackbox: the host can change out from under you, and the rule still stands.
 
 ## When the separations are real
 
-At this point the architecture can be tested without naming a package. Take any gameplay rule. It should be possible to write its domain and relation using only game quantities, parameters, interventions, and $\Delta t$. Every result is definite. No proper noun, engine handle, hidden service, nullable escape, or storage-lifecycle command is required to finish the statement.
+At this point the architecture can be tested without naming a package. Take any gameplay Rule. It should be possible to write its domain and relation using only game quantities, Knowledge, intervention, measurement, and the exact temporal quantities it requires. Every result is definite. No proper noun, engine handle, hidden service, nullable escape, or storage-lifecycle command is required to finish the statement.
 
 Now change one authored Being without adding a new meaning. $K$ changes and the reachable trajectories may change; $R$ does not. Add a genuinely new law and $R$ changes; the old Beings do not need to be rewritten merely to survive it. Replace the collider, renderer, store, or input library and $\mu$, $\pi$, or the execution mechanism changes; the law does not. Those are not aspirations. They are direct tests of whether the terms in the model have actually remained separate.
 

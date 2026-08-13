@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2025-07-07
-modDatetime: 2026-08-08
+modDatetime: 2026-08-17
 title: My thoughts about Games
 featured: false
 draft: false
@@ -12,178 +12,305 @@ tags:
 description: Just some scattered thoughts, from my own biased perspective.
 ---
 
-This piece isn’t a guide on how to make a _better_ game, nor a manifesto on what counts as a _successful_, _fun_, or _great_ one. Those are different questions, belonging to different layers.
+This piece isn’t a guide on how to make a *better* game, nor a manifesto on what counts as a *successful*, *fun*, or *great* one. Those are different questions, belonging to different layers.
 
-Its only purpose is to think about the thing itself. Before we judge a game, improve it, decorate it, sell it, or explain how it makes us feel, perhaps we should first ask what makes a game become itself.
+Its only purpose is to stimulate thought and help game developers understand the thing they are creating before they decide what else they want it to become.
 
 ## Table of contents
 
 ## Misconceptions and Associations
 
-Sometimes, while developing games on my own, I catch myself returning to the same irritating question: what actually makes a game... a game?
+Sometimes, while developing games on my own, I catch myself returning to the same irritating question. There are plenty of things people call games, and yet something in my intuition keeps insisting that a few of them are less... game than they appear to be. So what actually makes a game become itself?
 
-- **Graphics, story, world-building?** Painting, literature, comics, and film can all do those, often better.
-- **Flow, pacing, music?** A concert, a film, or a stage performance can carry all three.
-- **Progression, competition, goals?** Too generic. Careers, arguments, education, and exercise can contain them.
-- **Interaction?** A light switch is interactive. A DVD menu is interactive. Replacing a play button with forward input still does not tell us what makes a game itself.
-- **Mechanics?** We first have to distinguish mechanics from _rules_. A rule is a pure logical relation. A mechanic is one expression of that relation. One rule may be expressed through many mechanics, and two things that look nothing alike may still instantiate the same rule. A pawn moving one square and a cannon in Chinese Chess jumping over a piece to capture do not share an animation, theme, or physical motion, but both consume one turn.
+- **Graphics, story, world-building?** Painting, literature, comics, and film already know what to do with those.
+- **Flow, pacing, music?** A concert, a film, or a stage performance can be constituted through all three.
+- **Progression, competition, goals?** Too generic. Careers, arguments, education, sports, and exercise can organize themselves around them perfectly well.
+- **Interaction?** A light switch is interactive. A DVD menu is interactive. Replacing a play/pause button of a movie with the controller pushing upward did not make that into a game.
+- **Mechanics?** Closer, but not yet. We first have to distinguish mechanics from *Rules*. A Rule is a pure logical relation. A mechanic is one expression of that relation. One Rule may be expressed through many mechanics, and two things that look nothing alike may still instantiate the same Rule. In Xiangqi, a pawn advancing one square and a cannon moving in a straight line to leap over a piece and capture share no movement mechanic, yet both consume one turn. Notice that this last sentence only became true once I said *which comparison I was making*. Hold onto that. It turns out to be the whole problem, and it gets settled further down.
 
-None of those things are worthless. They simply cannot be the root, because the root must still be there when all replaceable expressions have been stripped away.
+None of these things is worthless. They may enter a game, dominate it, or become the entire reason anyone cares about it. But they can already constitute forms and activities whose identities do not depend on gameness. A story does not wait for a controller to become a story. Music does not need a skill tree before it becomes music.
+
+Strip those layers away and they may remain intact as themselves. They do not yet explain what gameness adds.
 
 So, what makes a game... a game?
 
 ## If it’s none of those, then what the heck is a game?
 
-To answer that, we have to stop asking what games commonly _contain_ and ask what makes a game stand as itself beneath everything attached to it.
+This is not an attempt to decide which products deserve that label. I am asking something smaller: **what must already be structurally present before anything else can be built upon the game?**
 
-This is not a taxonomy. I am not trying to build a border and sort products into “game” and “non-game.” I am asking only one question: **what makes a game become the game itself?**
+Perhaps the answer is not a “magic circle,” a “storytelling machine,” “interesting choices,” “meaningful interaction,” or any other phrase assembled from experience, value, or observation. Those may describe what someone does with a game, what someone receives from it, or what someone hopes it will become. They do not yet expose the relation underneath.
 
-Perhaps the answer is not a “magic circle,” a “storytelling machine,” “interesting choices,” “meaningful interaction,” or any other description built from experience, value, or observation. Those may describe what someone does with a game, what someone receives from it, or what someone hopes it will become. They do not yet describe the thing itself.
+### The Necessary Condition
 
-Whether we are talking about a modern digital game, a board game, a playground game, or something that existed before computers, I think we need to distinguish at least two questions: a **Necessary Condition** and a **Sufficient Condition**.
+We’ve already separated Mechanics from Rules. Once that distinction has been made, Rules offer a reasonable place to begin. They do not have to be the only possible starting point, they are where this argument first gains enough structure to speak about the others.
 
-### Necessary Condition
+A Rule distinguishes what may occur from what may not, what follows from what, and which difference can count as a difference inside the configured form.
 
-In my opinion, a game must at least satisfy this:
+So, from that point, we have States as something the Rules produce.
 
-> **A rule-constituted possibility space whose operating trajectory can be altered by one or more Agents at a traceable transition moment,** $\Delta t$**.**
-
-Every word there matters.
-
-A **possibility space** is the totality of what the system can become or perform under its rules. It is not a measure of size, depth, richness, freedom, meaning, or anything else. It is only that space.
-
-If $R$ is the structure of rules, then we may write:
+Let a configured form be a structure
 
 $$
-\Omega_R = \{\tau \mid \tau \text{ is a trajectory permitted by } R\}
+G=\langle X,\;A,\;R,\;\operatorname{auth},\;\operatorname{obs},\;\longrightarrow,\;X_0\rangle
 $$
 
-The rules do not arrive after some neutral infinity of possibilities and cut it down. Rules **constitute** the possibility space. Without rules, there is no game-state, no legal transition, no action, no before and after, and therefore no trajectory belonging to the game.
+where $X$ is a carrier of configurations, anything the form can be in, described as finely as you like, including detail that will turn out to be irrelevant; $A$ is a set of interventions, the contributions that may enter a transition; $R$ is a set of intervention roles, with $\operatorname{auth}(r)\subseteq A$ the interventions role $r$ is authorized to supply and $\operatorname{obs}(r)$ the readings of a configuration the Rules disclose to $r$; $\longrightarrow\;\subseteq\;X\times A\times X$ is the admitted transition relation, written $x\xrightarrow{a}x'$; and $X_0\subseteq X$ are the admitted initial configurations.
 
-A game-instance actualizes one trajectory inside that space:
+$X$ is not the State space. It is deliberately too rich.
+
+And since $\operatorname{obs}$ sits inside $G$, disclosure is a Rule like any other. Concealment is not something done to the Rules. It is one of them.
+
+So when are two configurations the same State?
+
+A form makes two things available. Read what the Rules disclose at a configuration, or make an admitted intervention and then do the same wherever it leads. Call either one an *inspection*. Every inspection is finite, since each is built by adding one intervention at a time.
+
+A form discloses to itself whatever it shows to any role, plus which interventions are admitted at a configuration, since a body of Rules that cannot tell what it permits next is not a body of Rules.
+
+Two configurations are then the same State when no inspection separates them, meaning no inspection can return a result at one that it could not return at the other. Write $\sim_G$ for that relation, and $S_G:=X/\sim_G$ for the State space.
+
+$\sim_G$ is the kernel of the inspections $G$ itself admits, so it exists for the same reason any map has a kernel, and it is the coarsest equivalence respecting all of them for the same reason. Put it another way. Each inspection cuts $X$ into the parts it can tell apart, and a State is one cell of the intersection of every such cut. Granularity is not chosen. It is read off what the form discloses and what it permits.
+
+Two properties fall out at once. Configurations of one State admit the same interventions, because what is admitted is itself a disclosed reading. And whatever can be inspected after an intervention was already inspectable before it, so an intervention cannot open a gap that was not there beforehand.
+
+So no inspection can depend on the history that produced a configuration, except through its State.
+
+Take that backwards. Suppose some fact about the past can still change what an inspection returns later. Then two configurations differing only in that fact are separated by that inspection, so they *already are different States*. The fact was never outside the State. It was one of the distinctions the Rules had been drawing all along.
+
+Any distinction finer than $\sim_G$ is infrastructure detail, and any distinction coarser than $\sim_G$ describes a different configured form, or nothing but presentation.
+
+Go finer and you separate configurations that no inspection can tell apart, so dropping the distinction changes nothing the form can do or show. Go coarser and you merge configurations that some inspection does tell apart, so after the merge that inspection both returns a result and does not, and what survives is a different form.
+
+That is the answer to "how granular should my model be?", a question that has wasted more design arguments than it deserves. You do not choose. The Rules choose. Whatever no admitted inspection can reach is not in the State, however loudly it is displayed. Display is infrastructure. Disclosure is a Rule. The reverse case is worse and far more common. A difference you think of as decoration, which some transition quietly reads, is in the State whether you intended it or not.
+
+The configurations reachable from $X_0$ through admitted transitions, read as States, form the Possibility Space $\mathcal P_G$, together with what is admitted at each of them.
+
+This Possibility Space is not freedom, depth, player expression, or a flattering review score. It is simply everything the configured Rules allow the game to become or perform. Rules do not arrive after a neutral infinity of game-states and cut it down; they constitute those States and transitions as possibilities of $G$.
+
+Everything that follows is relative to the $G$ actually declared, and the next two moves are about comparing one declared form with another.
+
+Comparative claims of the form *these two things share a Rule*, or *this system is the same game as that one*, are almost always made about a *part* of a form rather than the whole of it. Let $\pi$ be a projection: a map out of $X$ that keeps a chosen family of distinctions and discards the rest, carrying $\longrightarrow$ along with it to give a projected form $\pi(G)$.
+
+Two forms express the same Rule relative to $\pi$ when $\pi(G_1)$ and $\pi(G_2)$ admit the same inspections, up to a renaming of interventions.
+
+So they can come out the same under one projection and different under another, and both results hold, because each one is only ever talking about the distinctions its own projection kept. There is no sameness sitting outside every projection waiting to be got right. When one person says two things share a Rule and another says they do not, they are usually both correct, and neither has said which projection they meant. The apparent paradox of "same Rule, different mechanic" dissolves the moment $\pi$ is on the table.
+
+Hence the discipline, and I mean it as a rule for myself rather than as advice: never claim that two things share a Rule without naming the projection. An unnamed projection is how the describer settles the answer without having to say so.
+
+Scope settles what a comparison is about. The next question is what a form is running on.
+
+Let infrastructure mean the material, computational, or procedural arrangement through which $G$ can be represented or operated. An infrastructure carries a raw transition structure of its own.
+
+An infrastructure realizes $G$ when its configurations correspond to those of $G$ in a way that matches interventions one for one and preserves every inspection.
+
+Transitions alone would not be enough. A correspondence can leave every transition intact and still reassign who is authorized to act, or who is shown what, and that is not one form running on different material, it is a different form.
+
+So different infrastructures may realize the same $G$, and one infrastructure may support a different $G$ when its Rules or configuration change. Preserving inspections says nothing whatsoever about what the material is. Wood, silicon, paper, and human speech are all invisible to inspection, which can only reach what the Rules disclose and what they admit.
+
+An infrastructure is not yet an operating instance. When an admitted State is actualized through it, an operating instance begins. Let $I$ denote that instance; it commits one ordered Trajectory through $\mathcal P_G$.
+
+The Possibility Space may branch, loop, and admit many counterfactual continuations. The Trajectory already committed does not branch retroactively. Non-linearity belongs to the structure of possible continuations; actualization produces an ordered history.
+
+A Trajectory does not require a built-in ending. It remains an ordered history for as long as the instance continues to operate.
+
+The configured form, the infrastructure through which it is realized, an operating instance, and an observer encountering that instance are different relations. When no instance is operating, no Trajectory is being actualized, but $G$ and its Possibility Space may remain perfectly describable. Observation does not create any of them merely by arriving late to look at them.
+
+Once there is an operating Trajectory, we can ask where an alteration of that Trajectory actually occurs. But to speak of the moment a transition is committed, commits have to be ordered at all.
+
+So take it that $G$ exposes its operation as an ordered sequence of committed transitions. Let $\Delta t_n$ denote the transition window joining $s_n$ to $s_{n+1}$, a logical position in that order and not a measurable duration in physical time, and $\Delta t$ such a window in general.
+
+I cannot derive that, so I am assuming it, and everything below about $\Delta t$, latency, and Agency leans on it.
+
+What it does not mean is a clock, a frame, or a turn counter. A commit is whatever the form treats as settled.
+
+And settlement is the only thing there is to order. A prefix is just the part that is no longer in question, so with nothing settled there is no prefix, and nothing for a continuation to continue from. Measuring does not rescue it, since a form could measure perfectly, settle nothing, and still have no Trajectory to alter. Whatever is still in question is not yet in $\Delta t_{n+1}$. What is being ordered here was never time. It is acknowledgement, and acknowledgement is discrete wherever it happens, because a thing is either still in question or it is not.
+
+At $\Delta t_n$, an admitted intervention $\gamma$ may enter the transition:
 
 $$
-\tau^* \in \Omega_R
+s_n\xrightarrow[\Delta t_n]{\gamma}s_{n+1}
 $$
 
-An **Agent** is an autonomous entity to which the possibility space provides **Agency**: the permitted capacity to intervene in the system’s operation and thereby alter its trajectory. Agency is not an intrinsic power carried into the game by the Agent, and the Agent does not author the choices available to it. The rules constitute the possibility space; the possibility space provides Agency; the Agent acts through that Agency.
+To alter the Trajectory is to make a different admitted continuation become actual from the same prefix. It does not mean rewriting a past that has already occurred.
 
-It does not matter whether the Agent is a player, an adaptive AI, a referee, a DM, or a game manager. What matters is that the system provides it with an operational capacity to affect the trajectory, rather than merely using it as another expression of predetermined clockwork.
+Nothing above guarantees Agency. It gives us a Possibility Space, an operating Trajectory, and a traceable window at which Agency could be expressed. The Necessary Condition proposed here adds that such a relation must exist at least once.
 
-A trap swinging on a timer is not an Agent. An NPC walking a predefined loop is not an Agent. A random number generator is not automatically an Agent. Those are clockwork: rules expressing themselves through time. Randomness may change which transition occurs, but unpredictability alone is not agency.
+At such a window, $G$ may provide one or more intervention roles. A role specifies which contributions may become operative there and the authority with which they enter operation; it does not identify the concrete source that will supply them.
 
-A DM is not a “meta-agent” standing outside the game. A DM is an Agent with a particular mapping function: receiving a declaration or situation, applying the rules and the parameterized authority granted to that role, then publishing a ruling or fact that the system recognizes. The same applies to referees and game managers. Different Agents perform different operations, but none stands above the rules.
+The operating instance $I$ binds a source, $\alpha$, to such a role through its infrastructure and under whatever eligibility conditions $G$ imposes. A source may be an individual, a collective producing one joint output, or an autonomous process. A committed intervention is attributable to $\alpha$ when it enters through the role to which $\alpha$ is bound. Anything that merely carries or translates that output remains infrastructure in this relation. Where several outputs enter through separate bindings, each binding must be evaluated separately.
 
-If a DM is permitted to set a difficulty, interpret an action, resolve a consequence, materialize a Being, or map an unresolved situation into an operational fact, then each of those capacities is Agency provided by the possibility space. The DM does not invent the available operations. The rules constitute the mapping role, what it may receive, what it may produce, and where its intervention may alter the trajectory.
+Two constraints determine what $\alpha$ can actually reach.
 
-No Agent stands above the rules. Not the player. Not the AI. Not the designer after play has begun. Not the DM.
+The first is authority: nothing outside $\operatorname{auth}(r)$ for the roles currently bound to $\alpha$.
 
-The traceable $\Delta t$ does not mean that every game must run continuously in “real time.” It means there is an identifiable boundary at which an action is accepted and the trajectory changes. It may be a frame, a fixed tick, a turn, an action resolution, or a referee’s ruling. There must be a before, an intervention, and an after that can in principle be traced.
+The second is information. A State is the complete condition of the form. It is not what any one role is shown, and in every form that conceals anything those two come apart.
 
-Agency is therefore not “the Agent’s collection of choices.” It is a relation between an Agent and the possibility space that provides the Agent with a permitted capacity of intervention. For an Agent $\alpha$ at state $s_t$, we may write that provided capacity as:
+For a role $r$, let $\approx_r$ be indistinguishability by inspections built from $\operatorname{obs}(r)$ alone. It is coarser than $\sim_G$ exactly when the Rules withhold something from $r$. An intervention available to a source bound to $r$ has to be constant on $\approx_r$-classes, because what cannot be distinguished cannot be conditioned upon.
 
-$$
-\Gamma_{\Omega_R}(\alpha,s_t)
-$$
+$\approx_r$ is fixed by $G$ and not by the instance, because concealment is a Rule. Two setups that differ in what a role is shown differ in $\operatorname{obs}$, and $\operatorname{obs}$ is part of $G$. So they are not one form on different hardware. They are two forms. That settles something people usually argue about as taste. Leaking what the Rules withhold is not a presentation bug, it is realizing another form.
 
-For the necessary condition to be satisfied, there must exist an intervention $\gamma$ provided through that relation whose application can alter the operating trajectory at a traceable boundary:
+Then $\Gamma_{G,I}(\alpha,s_n;\Delta t_n)$ denotes the interventions available to $\alpha$, meaning those authorized by its bound roles, admitted at $s_n$, and constant on the $\approx_r$-classes of those roles.
 
-$$
-\exists\;\alpha,s_t,\gamma\in\Gamma_{\Omega_R}(\alpha,s_t):
-\operatorname{Continue}_R(s_t,\gamma)\neq\operatorname{Continue}_R(s_t)
-$$
+Without $\approx_r$ there is no way to state the difference between a decision and a guess, and no way to say what hidden information *is*.
 
-The Agent does not decide what the available choices are. The rules constitute them as possibilities, and the possibility space provides the corresponding Agency. The Agent only acts through what has been provided. Whether the resulting difference is exciting, visible, valuable, strategic, or emotionally important is irrelevant here. Those are later questions.
+Let $\operatorname{Continue}_G(s_n,\gamma;\Delta t_n)$ denote the continuation recognized by $G$ after admitting $\gamma$ there.
 
-From this condition, we can derive a few consequences.
+When do two continuations count as different? Say they differ when the next State differs, and something breaks immediately, because two interventions can lead to different next States which then fold back together and leave nothing behind. That is not an edge case. It is the most common way a form presents a choice while withholding one.
 
-#### Consequence 1: no structurally “wrong” play remains inside the rules
+So stratify by how deep an inspection has to go. Let $\sim^k_G$ be indistinguishability by inspections spending at most $k$ interventions. Going deeper only adds inspections, so each level refines the one before it, $\sim^{k+1}_G\subseteq\sim^k_G$, and since every inspection is finite, $\bigcap_k\sim^k_G=\sim_G$ with nothing further assumed.
 
-> **If an action lies within the possibility space constituted by the rules, it cannot be wrong in the sense of being outside the game.**
+Say two continuations differ at depth $k$ when they are not $\sim^k_G$-related, meaning the difference is already detectable within $k$ committed transitions.
 
-It may be strategically poor. It may annoy the other players. It may violate an agreement that is not part of the game being examined. It may expose a design mistake. But if the system recognizes the action as valid, then “the designer did not expect that” does not retroactively make it illegal.
+If two continuations differ at depth $k$, they differ at every depth beyond $k$, since $\sim^{k+1}_G\subseteq\sim^k_G$. So a least such depth exists whenever any does. Without that, *how deep* a difference goes would not be a well defined quantity, and any number put on it later would be a number I made up.
 
-If you do not want an action to belong to the game, the answer is not to accuse the Agent of actualizing the wrong possibility. The answer is to examine the rules that constituted that possibility in the first place.
-
-#### Consequence 2: gamehood is neutral
-
-> **A game, considered only as a game, has no inherent moral attribute, experience, message, or social meaning.**
-
-This does not mean a product cannot communicate, that rules cannot encode assumptions, or that a player cannot experience something powerful. It means none of those observations determines whether the underlying system is a game.
-
-Meaning belongs to a relation between rules, presentation, context, and an observer. What a game is cannot depend on a property that changes whenever the observer changes. The possibility space does not care what anyone thinks of it. It contains every trajectory the rules constitute.
-
-#### Consequence 3: the destination of a trajectory is not the trajectory itself
-
-> **A game requires neither an open-ended structure nor multiple story endings. An ending is only a state reached by operation; it is not the operation itself.**
-
-Two trajectories may arrive at the same state without becoming the same trajectory:
+Agency is established through a binding when the same source has at least two distinct available interventions at one transition window and those interventions do not preserve the same continuation:
 
 $$
-\operatorname{End}(\tau_i)=\operatorname{End}(\tau_j)
-\;\not\Rightarrow\;
-\tau_i=\tau_j
+\exists\,\alpha,n,\gamma_1,\gamma_2,k:
+\quad
+\gamma_1,\gamma_2\in\Gamma_{G,I}(\alpha,s_n;\Delta t_n)
+\;\land\;
+\gamma_1\neq\gamma_2
+\;\land\;
+\operatorname{Continue}_G(s_n,\gamma_1;\Delta t_n)
+\;\not\sim^k_G\;
+\operatorname{Continue}_G(s_n,\gamma_2;\Delta t_n)
 $$
 
-The story may have one ending. A fact may remain fixed. An event may always occur. None of this prevents the possibility space from providing Agents with Agency to alter the operating trajectory through which those states are reached.
+The two interventions are counterfactual alternatives available at one $\Delta t_n$; the operating instance actualizes only one. The source bound to the role bears Agency at that window. The existential quantifier claims nothing about anywhere else.
 
-Story endings have no privileged place in this condition. They are states like any other. Agency does not require authority over the ending, authorship of the plot, or ownership of the destination. It requires only the capacity provided by the possibility space to alter operation at a traceable $\Delta t$.
+Call $\lambda(\alpha,s_n)$ the latency, the least $k$ satisfying the condition above, and $\infty$ when no such $k$ exists.
 
-For the same reason, an open-ended structure does not provide anything special here, and a branching story does not answer what makes a game itself. The totality of possibility is not the number of endings, just as a trajectory is not the point at which it stops.
+And now three things turn out to be one thing. Latency $\infty$ at that window. Every continuation available to $\alpha$ there being one and the same State. And $\alpha$ bearing no Agency there, however many buttons, branches, or dialogue wheels the infrastructure puts on the screen.
 
-Story does not conflict with this. Plot, dialogue, authored events, and fixed outcomes may participate directly in the game when they are expressed through rules, states, facts, and consequences. They may also remain presentation. Their importance is not in question; only their relation to operation is.
+Latency $\infty$ means no inspection at any finite depth separates the continuations. Every inspection is finite, so no inspection separates them at all. They are one State, and one State cannot differ from itself in what it admits or discloses.
 
-A marked ledge, a corridor, a compulsory gesture, or any similar device should therefore be examined in the same way as everything else. If the possibility space provides Agency through it, then it participates in the operating trajectory. If the input merely permits an already determined operation to continue, then it is only carrying that operation forward. The distinction has nothing to do with how open the structure appears or how many endings wait beyond it.
+So an input may still be ceremonial, decorative, or useful for keeping someone awake, but whether it establishes Agency is now a question with an answer, and wherever the States and interventions can be enumerated it is a question a machine can settle. A branch is not Agency merely because someone drew two boxes and connected them with arrows. That is not a jab. There is a proof of it above.
 
-A fixed destination can receive altered trajectories. A variable destination can be reached through predetermined operation. Neither linearity nor branching determines the relation. Only Rules, Possibility Space, Agency, and the traceable alteration of trajectory do.
+Two further distinctions fall out of the same relation.
 
-### Sufficient Condition
+Randomness internal to a transition may change which continuation occurs without any source bearing Agency. The branching is there, but it is attributable to no binding. A random source *bound* to a role is a different case, and its output is evaluated through the same relation as any other bound source.
 
-> **This falls outside the scope of this article, because it belongs to a different question.**
+And because $\Gamma$ is constant on $\approx_r$-classes, informed Agency separates from blind Agency. In the informed case, the difference between available continuations is detectable by the source that has to choose. In the blind case, two interventions really do lead to different continuations, but $\alpha$ cannot tell which State it is intervening in, so the difference it makes is not a difference it can aim. Both satisfy the existential condition, and they are not the same design object. Any account that cannot separate them is not finished.
 
-A sufficient condition would be useful if the goal were to construct a complete definition, draw a boundary, or classify everything that may or may not be called a game. That is not what I am doing here. I do not need a taxonomy to ask what makes a game itself.
+Agency does not have to appear as a tidy menu of prewritten choices. An intervention role may authorize its occupant to receive a declaration, observation, or unresolved situation and map it into an operational result. Likewise, $G$ may permit an intervention to alter a parameter or a Rule. In that case the mutable configuration is part of $X$, so it shows up in the State, and the permission is a higher-order relation already inside $\longrightarrow$. Otherwise, continuing under the altered relation means continuing under another configured form, $G'$.
 
-“All rules must be parameterizable” does not answer that question either. It is an architectural demand, something to discuss when we ask how the game should be expressed and preserved in software. It is not the root being examined here.
+Only after Agency has been established do we need the word Agent. The source bound to the relevant intervention role is an Agent in that relation. Agenthood is not an intrinsic property of the source, and the source does not determine its own authority: $G$ defines and limits the role, $I$ establishes the current binding, and the transition record attributes the committed intervention to the bound source.
 
-Many confuse the noun _game_ with the act of _playing_: the moment we feel animated, absorbed, challenged, moved, or conscious of our own action. That is the experience of playing. It may surround the game, arise through it, or become the entire reason someone cares about it, but it still does not tell us what the game itself is.
+Agency remains local to $\Gamma_{G,I}(\alpha,s_n;\Delta t_n)$. What kind of thing the source is matters only where $G$ uses identity or role as an eligibility condition. The same source may be an Agent through one binding and an observer, part of the infrastructure, or part of a transition under another. Even when $G$ permits an Agent to alter a Rule, that permission is itself constituted by $G$. No Agent stands above the Rules.
 
-The same is true of plot, dialogue, authored sequences, cinematic presentation, shooting segments, axe-throwing, yellow-painted ledges, or a giant pipe-shaped hallway hiding a loading screen. I am not interested in using those things to decide which shelf a product belongs on. I am saying only that none of them, by itself, answers the question.
+Write $\operatorname{Ag}(G)$ for the set of reachable States and admissible bindings where this relation holds. The null case is now sharp. $\operatorname{Ag}(G)=\varnothing$ when no reachable State brings together a role, an admissible binding, two available interventions, and continuations that differ at some finite depth. Such a form may still contain Rules, States, transitions, randomness, presentation, and an ordered Trajectory. What it does not contain is a single point at which a bound source could make another continuation actual. Whatever else remains, the relation this essay identifies as gameness does not.
 
-To make the root easier to grasp, let us return to a few thought experiments.
+With those relations in place, the Necessary Condition can finally be stated:
+
+**A rule-constituted possibility space whose operating trajectory can be altered by one or more Agents at a traceable transition window,** $\Delta t$**.**
+
+Here, “can be altered” is existential: it asserts that the relation holds for at least one binding and one $\Delta t_n$. It does not assert uniform Agency across the rest of the form.
+
+And it is a *necessary* condition, not a definition. Satisfying it does not make something a game.
+
+The usual move at this point is to hand over some object that satisfies the condition and does not feel like a game, then wait for me to patch the condition until it excludes that object. I am not going to do that, and it is not stubbornness. Two things are wrong with the move.
+
+First, the object always arrives with no declared form and no declared projection. Whoever hands it over has skipped the entire discipline built up above and is holding a feeling next to a structure, which is not a comparison.
+
+Second, and worse, the move assumes we already possess a reliable line between game and not-game, and that the counterexample happens to be standing on the correct side of it. We possess no such line. The clearest evidence is that we cannot settle the one case we are standing inside: nobody has shown that this universe is not itself running as somebody’s game. That question sounds unserious, which is a fact about our habits and not about the question, and while it stays open, no one is in a position to certify that anything at all is definitely not a game.
+
+So the condition stays pointed one way, and I mean that as a discipline rather than as modesty. Whatever fails it cannot be a game, no matter what it is sold as. What passes it, I am not ranking. Patching in the other direction is exactly where every earlier attempt turned into a taste ranking wearing a lab coat, because the only material available for the patch is whatever the patcher already finds game-like.
+
+### Consequences
+
+From the relations assembled above, three consequences follow.
+
+#### Consequence 1: No structurally “wrong” play remains inside the Rules
+
+**If an action lies within the Possibility Space constituted by the Rules, it cannot be wrong in the sense of being outside the game.**
+
+It may be strategically awful. It may annoy the other players. It may break an agreement that was never part of the rules. It may expose a design mistake. None of those judgments reaches back and removes the action from the Possibility Space.
+
+The reason is almost embarrassingly short. The Possibility Space just is everything the Rules let you reach from where the thing is allowed to start. So if the Rules admitted the move, the result is in there. There is nowhere else for it to be. Saying the move was outside the game amounts to saying the Rules both allowed it and did not, which is not a criticism of the player, it is two sentences that cannot both be true.
+
+That shortness is the point. This is not me being generous to players who ruin things. I am stuck with it either way, and it would hold even if I hated every case it covered.
+
+“The designer did not expect that” is not a Rule. What anyone hoped would happen never went into the thing, so it cannot be read back out of it. If an action is not meant to belong to the game, the answer is not to accuse the player of picking the wrong possibility. The answer is to look at the Rules that made it a possibility in the first place.
+
+#### Consequence 2: A Trajectory is not its endpoint
+
+**The endpoint of a bounded Trajectory is merely its last committed State. It need not be a dead end under the Rules, correspond to a game ending, or display the credits.**
+
+A Trajectory may remain ongoing. An endpoint appears only after some interval of its operation has been bounded.
+
+A Session names an interval opened and closed at the level of infrastructure. A Run is different: it is a rule-recognized cycle or bounded unit of operation. One Session may contain multiple Runs, while one Run may continue across multiple Sessions.
+
+Session boundaries are conditions of running the thing, not Rules that constitute it. Where the Rules do govern initialization, reset, persistence, or what carries over from one Run to the next, those are Rules like any other.
+
+A terminal State is different from any such boundary. It is a State the Rules admit no move out of at all.
+
+That two Trajectories can end at the same State without being the same Trajectory is true, and on its own it buys nothing. The interesting object is the whole pile of Trajectories that arrive at one and the same State.
+
+Everything in that pile has exactly the same future available to it. Not by coincidence, and not as a design choice. We established earlier that the Rules only ever read the current State, so how you got here is simply not something a later move can consult. And if the Rules did keep a record of how you got here, that record is part of the State, which means those Trajectories were never arriving at the same State to begin with. There is no third option.
+
+That is the whole content of the complaint that my choices did not matter, and it is worth getting precise, because the complaint is sometimes wrong and sometimes exactly right. Wrong when the difference was there and the player could not see it. Right when the choice really did fork the world for a while, and then everything folded back into one State, and from there on nothing could tell which way you came in. The choice was real when you made it. Consequences have a shelf life, and it is the Rules that set that shelf life, not the writing.
+
+A shared *destination* is weaker still than a shared endpoint, since it may name one selected property of the endpoint rather than the whole State. The endpoint of one bounded interval may become the starting State of another, may be transformed through relations constituted by $G$, or may never be actualized again.
+
+Agency concerns the alteration of continuation, not ownership of an endpoint. A fixed destination may receive different Trajectories. A variable destination may still be reached through predetermined operation. Neither linearity nor branching settles it. What settles it is how deep a difference goes, and whether it ever folds back.
+
+Story endings and credits therefore have no privileged place in this condition. Plot, dialogue, authored events, and fixed outcomes may participate directly in the game when they become States, facts, transitions, and consequences constituted by $G$. They may also remain presentation. Neither position makes them inferior. It only tells us what they are doing.
+
+#### Consequence 3: Agency is distributed, not uniform
+
+**The existence of Agency at one transition window says nothing about its presence, density, or reach elsewhere.**
+
+The condition only ever claimed *somewhere*. It establishes Agency where the relation actually shows up, and it does not spread that across every State, every stretch of the Trajectory, or every subsystem just because they shipped in the same box.
+
+A game may therefore contain long stretches where nothing anyone does changes anything, one subsystem thick with real interventions, and another where a single rare intervention reorganizes everything after it. Two different questions live here, and they are easy to confuse. How much of a subsystem actually carries Agency at all. And how far a difference travels before it folds back, if it ever does. A thousand inputs that all return to the same corridor lose to one input that does not.
+
+So every State a game can reach falls on one side or the other. Either somebody bound to a role there has two moves that genuinely lead somewhere different, or nobody does. That much is just cutting a room in half, and cutting a room in half proves nothing. The part with content in it is what happens when you change the machine. Change it and the two sides do not move, not one State crosses over, because the line was drawn using only the Rules, who is permitted to act, what they are shown, and where those actions lead. Nothing else was ever let into it, so a new machine has nothing to take hold of. A remake cannot bring a dead stretch to life and it cannot kill a live one, unless it changed the Rules, in which case it is not a remake of the same thing.
+
+Which means the line between game and not-game does not run between products. It runs *inside* one, which you could picture as a line chart, and it is a fact about that product rather than a tribal taxonomy. It also means “less game” stops being an insult. It is a ratio, plus how far the live parts reach. Whether a thing ought to have more or less of it is a completely different question on a completely different layer, and I am not answering it here.
+
+A game is not one solid block of equal Agency. Agency may be dense here, absent there, trivial in one subsystem, and capable of reorganizing everything in another.
 
 ## Some Thought Experiments
 
-- Think about **chess**. If humanity went extinct and only the rulebook remained, would chess still exist? The structure of rules and its possibility space would remain describable, even though no match—no actualized trajectory—would be taking place. If aliens found the wooden pieces and invented different rules, they would have created another game-form using the same infrastructure. If they found the rules and carved the pieces out of granite, the material would change while the game-form remained.
-- A **piece of music** by Beethoven is discovered after sitting unheard in a drawer for hundreds of years. Was it not music until someone heard it? Beethoven’s deafness does not change whether the composition is music. Observation and experience are not identical to the existence of the form being observed.
-- A fish swims in a tank while sensors translate its position into inputs for **Pokémon Fire Red**. Does _Pokémon_ cease to be a game because the Agent is a fish? If the fish’s movement is mapped into actions capable of altering the trajectory, the identity of the Agent does not revoke the structure of the game.
-- The ball enters the net, no player is offside, but the linesman raises the flag and the referee denies the goal. The referee is a mapping Agent whose ruling becomes an operational fact only through the authority constituted by the rules. The interesting question is not whether the referee stands above football—no one does—but whether that ruling belongs to the mapping authority of the game-form being played, or whether the actualized trajectory has departed from it.
-- In a **D&D** session, a DM grants player A two turns to compensate for falling behind. The DM does not become a meta-agent by doing so. Either that mapping lies within the authority and rules of the game-instance, or the session has begun operating under a different rule configuration. “The DM decided it” does not place that decision above the rules.
-- Six children play under self-made rules. Child A scores through a valid action. When child B attempts the same action, the group changes the rules to prevent it. If rule mutation is itself governed by an existing procedure, then the change is a valid transition of the system. If not, they have stopped actualizing the original game-form and begun another. At no point does anyone need to stand above rules; there is only the question of which rules constitute the current possibility space.
+I will leave the answers unwritten. Not because I do not have them, but because, if everything above is clear, I should not have to provide them.
+
+- Suppose humanity goes extinct, leaving behind only a complete rulebook for **chess**. Does chess still exist when nobody is there to play it? If aliens find only a wooden chess set and invent a completely different way to use it, are they playing chess? If they instead find the rulebook and make their own pieces from granite, has the game changed, or only what it is played with?
+- Suppose a **composition by Beethoven** remains unheard in a drawer for centuries before being discovered. Was it not music during that time? Beethoven was deaf when he wrote late in his life. Does that put what he wrote outside of music?
+- Four fish swim in a tank while sensors turn their movements into controls for **Pokémon Sapphire**, and eventually the game is beaten. Does *Pokémon* stop being a game because the inputs came from a fish? Does the fish have to know it is playing, or intend to play at all?
+- The ball enters the net. No player is offside, yet the assistant referee raises the flag, the referee disallows the goal, and VAR is not consulted. At that moment, is this still the same game of **football**? Do the rules give the referee the power only to judge what happened, or to make a ruling that counts even when the judgment is wrong? If referees could apply the rules perfectly, why was VAR introduced in the first place? Does VAR change the rules of football, or only how decisions are checked and made final?
+- In a **D&D** session, the DM gives one player two turns to compensate for falling behind the rest of the table. Is this still the same game? Was the DM allowed to make that ruling under the rules the table was already using, or did the table just add a house rule?
+- Six children play by rules they made together. Child A scores with a move that is allowed at the time. Before child B can repeat it, the group changes the rule to forbid it. Does the new rule erase A’s earlier score, or does it apply only from that moment onward? If B performs the move anyway, is it valid now? What changed between the two attempts? What game are they playing now?
 
 ## On the Player Side
 
-Once the game itself has been separated from the experience of playing it, we can finally discuss the player without forcing the player’s feelings to define the object.
+**An observer’s response does not determine the structure of the game or rewrite the Trajectory that occurred.**
 
-A player may find a trajectory heroic, offensive, boring, sacred, cruel, hilarious, or meaningless. Another player may experience the same sequence differently. Neither response reaches backward through time and rewrites whether the system was a game.
+Rules and presentation may communicate, encode assumptions, and produce powerful experiences. Those relations may matter enormously. But swapping the observer does not swap the Rules, rebuild the Possibility Space, or alter the Trajectory that already happened.
 
-Suppose a designer wants to discourage eating dog meat and constructs the product around that message, while allowing pork because it is treated as “normal.” A Muslim player may encounter the same rules from an entirely different moral and cultural position. The rule structure is the same; the relation to it is not.
+The same person may be both observer and Agent, but these are different relations. Interpretation in the role of observer does not alter the Trajectory; an intervention admitted through Agency may.
 
-This is why design intent cannot own the final experience. The designer may parameterize rules, presentation, information, rewards, and consequences, but cannot parameterize the observer into having one mandatory interpretation.
+The player’s experience therefore does not reach backward and redefine the game. It is still real, still important, and often the entire reason anyone cares about the thing in the first place.
 
-And no, plot, messaging, and story do not clash with games. They simply cannot replace the root. If they participate in changing the possibility space, they must become operational through rules. If they remain presentation, then they remain presentation. Neither position makes them inferior; it only tells us what they are doing.
+One thing I should be straight about. Everything above was built out of Rules, the moves they admit, who is allowed to make them, and where the thing may start. Nothing else went in. So of course no observer comes out. Me saying observers do not constitute the game is not a discovery, it is a receipt for what I put in.
+
+I am fine with that, because it puts the work in the right place. If you want the observer inside the object, you have to say which part of it they are, and which move in the game reads them. Both questions have perfectly possible answers. I have just never seen anyone give one. Until somebody does, the observer stays outside the structure and keeps everything that actually matters to them.
+
+At the level of experience, I treat meaning as arising through the relation between Rules, presentation, context, and the observer. A player may find a Trajectory heroic, offensive, boring, sacred, cruel, hilarious, or meaningless. Another player may experience the same sequence differently. Neither response rewrites the Rules, the Possibility Space they constituted, or the Trajectory that occurred. In this structural sense, gameness is neutral.
+
+A designer may construct the conditions of an experience through Rules, presentation, information, rewards, punishments, and consequences. The designer cannot complete that experience on the player’s behalf. There is no checkbox for mandatory interpretation, however convenient it would be.
+
+And no, plot, messaging, and story do not clash with games. If they are to participate in the operating Trajectory, they must become operational through Rules, States, and consequences. If they remain presentation, then they remain presentation. Neither is an insult. It is only a distinction.
+
+Adapting a film or novel into a game is therefore not merely a matter of distributing the play button across a shooting gallery, an axe-throwing segment, three yellow-painted ledges, and a giant pipe-shaped hallway hiding a loading screen. The material must be reconstructed through the relations that make it operate as a game. That could be a good artistic product, but maybe, it has less game than you think.
 
 > Just respect the intelligence and stature of the player, just as I respect you, and you respect me, alright?
 
 ## Conclusion
 
-In reality, perhaps we do not yet need an absolutely complete definition. We need to stop confusing incompleteness with permission to mix every layer together.
+In reality, we do not need to settle every possible definition before taking one step closer to the thing itself. We only need to stop mixing every layer together.
 
-Before trying to make a game fun, moving, groundbreaking, marketable, artistic, addictive, competitive, or profound, begin from the thing that makes it itself: rules constituting a possibility space, that possibility space providing Agents with Agency to alter its operating trajectory, and a traceable $\Delta t$ at which that alteration occurs.
+As Indie game dev, I think that before we trying to make a game fun, moving, groundbreaking, artistic, addictive, etc..., well, try to make the part that has to be a game work as a game first. Then build everything else upon it.
 
-Then build everything else upon it.
+Recreating your imagination is not a simple matter of draw a map, throw your story and your massive contents into it then add some button prompts. If it has to become a game, then it has to be reconstructed through Rules, Trajectory, Agency,... you know, all the bullshit I have been rambling about above.
 
-Adapting a film or novel into a game is not merely a matter of replacing scene transitions with corridors and button prompts. The material must be reconstructed as possibility, rule, Agency, and trajectory, because those are the terms through which a game becomes itself.
-
-I am not constructing a taxonomy, nor claiming the final definition of game. I am trying to move one step closer to the root without borrowing “fun,” “meaning,” or “experience” to cover the gaps.
-
-If you make games to tell a deep story, become a millionaire, prove a technical point, or show off, perhaps this article is not what you are looking for. But if you want to understand the thing you are passionate about before deciding what to do with it, I hope this gives you a perspective worth arguing with.
+I am not trying to provide every answer. I am trying to make the question precise enough that the next answer has somewhere solid to stand. Every symbol up there is doing a job, and the only reason any of them exists is that without it a sentence I needed could not be said at all. If I ever catch one just standing around looking clever, it goes. If you want to understand the thing you are passionate about before deciding what else to do with it, I hope this gives you a perspective worth pondering.
