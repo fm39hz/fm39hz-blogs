@@ -21,7 +21,7 @@ import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
 import { slugifyStr } from '$lib/tags';
 import { copyWithFeedback } from '$lib/utils/clipboard';
-import { stripFrontmatter } from '$lib/utils/markdown';
+import { buildCopyMarkdown } from '$lib/utils/markdown';
 import { buildPostSeo } from '$lib/utils/seo';
 import styles from './+page.module.scss';
 
@@ -40,8 +40,19 @@ let copiedMd = $state(false);
 let proseEl = $state<HTMLElement | null>(null);
 
 async function onCopyMarkdown() {
-	if (!entry?.raw) return;
-	await copyWithFeedback(stripFrontmatter(entry.raw), {
+	if (!entry?.raw || !meta) return;
+	const text = buildCopyMarkdown(
+		{
+			title: meta.title,
+			description: meta.description,
+			author: meta.author,
+			pubDatetime: meta.pubDatetime,
+			tags: meta.tags,
+			sourceUrl: seo?.canonical,
+		},
+		entry.raw,
+	);
+	await copyWithFeedback(text, {
 		toast: t.post.copiedMarkdown,
 		setCopied: (v) => {
 			copiedMd = v;
