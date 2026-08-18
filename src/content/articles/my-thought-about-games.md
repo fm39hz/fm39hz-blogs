@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2025-07-07
-modDatetime: 2026-08-18
+modDatetime: 2026-08-20
 title: My thoughts about Games
 featured: false
 draft: false
@@ -46,9 +46,9 @@ We’ve already separated Mechanics from Rules. Once that distinction has been m
 
 A Rule distinguishes what may occur from what may not, what follows from what, and which difference can count as a difference inside the configured form.
 
-What follows is a signature, seven axioms, definitions, and what can be derived from them. Nothing else belongs in this section. The axioms are not claims I argue for; they are the choices I am making, put somewhere they can be seen and refused. Glosses, worked cases, and the argument for why the last axiom points one way have their own sections afterward.
+What follows is a signature, seven axioms, definitions, and what can be derived from them. Nothing else belongs in this section. Glosses, worked cases, and the argument for why the last axiom points one way have their own sections afterward.
 
-Setting it out this way has a known price, and the price is the reason to pay it. A system precise enough to have a proof relation is precise enough to be incomplete, and incompleteness is a cost with a name and an address. Prose cannot be incomplete. It can only be vague, and vagueness has neither. I would rather hold something that can be shown to fall short in a specific place than something that can never be shown to fall short at all.
+Setting it out this way has a known price, and the price is the reason to pay it. A system precise enough to have a proof relation is precise enough to be incomplete. Prose cannot be incomplete; it can only be vague, and an incompleteness has an address where a vagueness does not.
 
 So, from that point, we have States as something the Rules produce. Getting there takes longer than that sentence makes it sound, and the first thing it takes is writing down what a Rule is made of.
 
@@ -68,13 +68,13 @@ $$
 
 be the intervention profiles, where every $\operatorname{auth}(r)$ contains a null contribution so that a role with nothing to supply supplies that, and take $\longrightarrow\;\subseteq\;X\times\operatorname{Prof}\times X$, written $x\xrightarrow{p}x'$. Sequential forms are exactly the forms whose admitted profiles at each configuration differ in one component only.
 
-Last, somewhere the thing may begin: $X_0\subseteq X$. Nothing else in that sentence has an unmet requirement, which gives
+Last, somewhere the thing may begin: $\varnothing\neq X_0\subseteq X$. Non-emptiness is required so that the form has at least one initial configuration and its reachable set is defined from an actual starting point. Nothing else in that sentence has an unmet requirement, which gives
 
 $$
 G=\langle X,\;A,\;R,\;\operatorname{auth},\;\operatorname{obs},\;\longrightarrow,\;X_0\rangle
 $$
 
-Arriving at it this way was the point, but it is worth naming what was arrived at. This is a concurrent game structure with imperfect information: a carrier of configurations, roles acting at once, an authority function, an indistinguishability apparatus, and a transition relation consuming one contribution from every role simultaneously. It is a standard object with a standard name, and I would rather use the name than let a derivation pass for an invention. What the derivation buys is that every slot is here because the sentence about Rules required it, rather than because some definition elsewhere happened to carry it.
+Arriving at it this way was the point, but it is worth naming what was arrived at. This is a concurrent game structure with imperfect information: a carrier of configurations, roles acting at once, an authority function, an indistinguishability apparatus, and a transition relation consuming one contribution from every role simultaneously. It is a standard object with a standard name. What the derivation buys is that every slot is here because the sentence about Rules required it, rather than because some definition elsewhere happened to carry it.
 
 Four remarks before the first axiom, all of which are load-bearing later.
 
@@ -90,7 +90,7 @@ A signature cannot be false. What can be false is the claim that seven slots are
 
 **Axiom 1. Constitution.** Gameness is a property of structures of this signature and of no further data.
 
-All of it can be refused, and refusing it is the cleanest way to disagree with this essay. It is what makes material, authorship, intent, and reception inadmissible later, and it does that once, here, rather than four separate times further down.
+All of it can be refused. It is what makes material, authorship, intent, and reception inadmissible later, and it does that once, here, rather than four separate times further down.
 
 So there is a structure, and by Axiom 1 nothing outside it counts. What can a structure like that tell about itself?
 
@@ -102,23 +102,27 @@ And when a profile can go several ways, is looking a matter of following one of 
 
 **Axiom 3. Observation is branching.** An inspection may follow every admitted outcome of an intervention and compare the outcomes side by side.
 
-This is the one genuine choice in the section, so it goes in the open rather than in a footnote. Where an intervention has a single outcome the question does not arise. Where it has several, there are two readings and they are not the same relation. Read an inspection as a run, and two configurations are separated when some result is obtainable at one and not at the other. Read it as a probe following every admitted outcome, and they are separated whenever their branching differs, even where every obtainable result agrees. This is the linear and branching distinction, and the gap between the two readings is not hypothetical. Take a form where one intervention $a$ leads to a single configuration admitting both $b$ and $c$. Take another where $a$ may lead to either of two configurations, one admitting only $b$ and the other only $c$. The obtainable sequences are $ab$ and $ac$ in both, so the run reading cannot separate them. A probe that makes $a$ and inspects every outcome separates them at once: in the first form every outcome of $a$ admits $b$, and in the other one of them does not. That pair is the proof that the probe reading is strictly finer, and it is short enough that there is no reason to assert the fact instead of showing it.
+This is the one genuine choice in the section. Where an intervention has a single outcome the question does not arise. Where it has several, there are two readings and they are not the same relation. Read an inspection as a run, and two configurations are separated when some result is obtainable at one and not at the other. Read it as a probe following every admitted outcome, and they are separated whenever their branching differs, even where every obtainable result agrees. This is the linear and branching distinction, and the gap between the two readings is not hypothetical. Take a form where one intervention $a$ leads to a single configuration admitting both $b$ and $c$. Take another where $a$ may lead to either of two configurations, one admitting only $b$ and the other only $c$. The obtainable sequences are $ab$ and $ac$ in both, so the run reading cannot separate them. A probe that makes $a$ and inspects every outcome separates them at once: in the first form every outcome of $a$ admits $b$, and in the other one of them does not. That pair is the proof that the probe reading is strictly finer, and it is short enough that there is no reason to assert the fact instead of showing it.
 
 Axiom 3 takes the probe reading, because the run reading identifies a form that keeps two continuations open with a form that has already settled which one you get and has not disclosed it yet, and the commit apparatus below exists to keep exactly that difference visible.
 
-**Definition 1. Inspection.** The inspections of $G$ are generated by two clauses. At each configuration, every reading available to $G$ under Axiom 2 is an inspection. And making one admitted profile and inspecting every outcome under Axiom 3 is an inspection.
+**Definition 1. Inspection.** The inspections of $G$ are generated by three clauses. At each configuration, every reading available to $G$ under Axiom 2 is an inspection. Any finite tuple of inspections is an inspection, returning the tuple of their results. And making one admitted profile and inspecting every outcome under Axiom 3 is an inspection, returning the set of results those outcomes give.
 
-There is no third generator, because only $\operatorname{obs}$ shows anything and only $\longrightarrow$ goes anywhere, while the rest of the tuple is inventory, permission, and where the thing may start.
+The middle clause is the one easy to leave out, and Axiom 3 does not work without it. Axiom 3 says an inspection may compare the outcomes side by side, and comparing means holding two results together at once. Inspect two continuations separately and both result sets survive, while which pair of results came from the same outcome does not. The tuple keeps that, and nothing else here does.
+
+Depth counts the profiles a look spends. A reading has depth zero, a tuple has the greatest depth among its components, and prefixing a profile adds one. Tupling raises nothing, so a look may hold arbitrarily many results at once and stay shallow.
+
+There is no fourth generator, because only $\operatorname{obs}$ and admissibility show anything, only tupling holds results together, and only $\longrightarrow$ goes anywhere, while the rest of the signature is inventory, permission, and where the thing may start.
 
 That says how a look is put together. It does not say how far one can go. So how far can a single look go?
 
-**Axiom 4. Induction.** Nothing is an inspection except by the two clauses of Definition 1.
+**Axiom 4. Induction.** Nothing is an inspection except by the three clauses of Definition 1.
 
-**Corollary 4.1.** Every inspection is finite.
+**Corollary 4.1.** Every inspection has finite depth.
 
-By induction on the generation. The first clause yields inspections of one step, the second extends an inspection already yielded by one intervention, and by Axiom 4 there is no third way for anything to arrive. An infinite inspection would have to arrive by a route that does not exist.
+By induction on the generation. Readings begin at zero, a tuple takes the greatest of finitely many already finite depths and so stays finite, prefixing adds one to something finite, and by Axiom 4 there is no fourth way for anything to arrive. An inspection of infinite depth would have to arrive by a route that does not exist.
 
-This is the axiom I would most like to state fully and cannot. A closure clause is easy to write; a *nothing else* clause is not. In a first-order setting the second cannot be enforced at all, and the axioms would admit models carrying inspections that no finite generation reaches. I have no way around it. It is worth saying plainly where that leaves things: this is the one place the price named at the top of this section is actually charged, and it is charged here rather than in any of the places the charge is usually expected.
+This is the axiom I would most like to state fully and cannot. A closure clause is easy to write; a *nothing else* clause is not. In a first-order setting the second cannot be enforced at all, and the axioms would admit models carrying inspections that no finite generation reaches. I have no way around it, and this is the one place the price named at the top of this section is actually charged, rather than in any of the places the charge is usually expected.
 
 Which brings back the thing promised a few paragraphs up. What is a State?
 
@@ -140,17 +144,19 @@ By Definition 1, an inspection following that transition is itself an inspection
 
 An inspection is defined at a configuration, so it cannot read a history the configuration does not carry, and that is a fact about the type of Definition 1 rather than a discovery. What makes it worth stating is the contrapositive. Suppose some fact about the past can change what an inspection returns later. Then two configurations differing only in that fact are separated by that inspection, so they already are different States. The fact was never outside the State. It was one of the distinctions the Rules had been drawing all along.
 
-**Proposition 5.** Coarsening $\sim_G$ is inconsistent. Refining it is idle. The two halves are not equally strong and running them together would overstate the result.
+**Proposition 5.** Coarsening $\sim_G$ cannot preserve the inspections. Refining it is idle. The two halves are not equally strong and running them together would overstate the result.
 
-Coarsen it and you merge configurations some inspection does tell apart, so after the merge that inspection both returns a result and does not. That is a contradiction, and what survives is a different form. Refine it and nothing goes wrong. You have separated configurations no inspection can reach, and the added distinction is invisible to everything definable in this section, so no proposition below can so much as mention it. Granularity is therefore barred in one direction and useless in the other. It is fixed by Axioms 2 and 3, and Axiom 3 is the only place a choice entered.
+Coarsen it and you merge configurations some inspection does tell apart, so that inspection no longer factors through the quotient. That is not a contradiction, and calling it one overstates a result the weaker sentence already delivers in full. The coarser quotient is a perfectly consistent object; what it cannot be is the State relation of *this* form, since the form was declared with those inspections in it. Refine it and nothing goes wrong. You have separated configurations no inspection can reach, and the added distinction is invisible to everything definable in this section, so no proposition below can so much as mention it. Granularity is therefore barred in one direction and useless in the other. It is fixed by Axioms 2 and 3, and Axiom 3 is the only place a choice entered.
 
 That is one State. What about all of them, meaning the whole of what a form can reach?
 
-**Definition 3. Possibility Space.** The configurations reachable from $X_0$ through admitted transitions, read as States, together with what is admitted at each of them. Write $\mathcal P_G$.
+**Definition 3. Possibility Space.** The configurations reachable from $X_0$ through admitted transitions, each carrying its State as a label, together with what is admitted at each of them. Write $\mathcal P_G$. Its paths are paths through configurations, and the labels do not license swapping one representative of a State for another halfway along.
+
+That restriction is not fussiness, and leaving it out is how a real mistake gets in. Nothing above gives $S_G$ a transition relation of its own. Configurations of one State admit the same profiles by Proposition 2, and that is all Proposition 2 gives; it does not say their successors match up State for State. Whether they do is exactly what Axiom 6 is for. So anything below that walks transitions walks them on configurations and reads States only where it stops.
 
 Everything below is relative to the $G$ actually declared.
 
-Now the debt from the Xiangqi sentence, which has been sitting there since the opening list. A pawn and a cannon share no movement mechanic and both consume one turn, and I said that only became true once I named the comparison I was making. So when do two forms express the same Rule?
+Now the debt from the Xiangqi sentence, which has been sitting there since the opening list. That sentence only became true once I named the comparison I was making. So when do two forms express the same Rule?
 
 **Definition 4. Projection.** A map $\pi$ out of $X$ keeping a chosen family of distinctions and discarding the rest, carrying $\longrightarrow$ along with it to give a projected form $\pi(G)$.
 
@@ -158,7 +164,7 @@ Now the debt from the Xiangqi sentence, which has been sitting there since the o
 
 **Remark 6.** Sameness relative to $\pi$ is not identity relative to $\pi$.
 
-What follows states what Definition 5 is doing, and it earns its place because the two are confused constantly. Inside a declared $G$, identity is settled and relative to nothing: two configurations are one State or they are not, and Definition 2 says which. What Definition 5 produces is a comparison between forms, and a comparison is entitled to name which distinctions it holds up. Nothing here asks identity itself to come in flavours. Two forms may therefore come out the same under one projection and different under another with both results standing, since each is only ever about the distinctions its own projection kept, and there is no sameness sitting outside every projection waiting to be got right.
+The two are confused constantly. Inside a declared $G$, identity is settled and relative to nothing: two configurations are one State or they are not, and Definition 2 says which. What Definition 5 produces is a comparison between forms, and a comparison is entitled to name which distinctions it holds up. Nothing here asks identity itself to come in flavours. Two forms may therefore come out the same under one projection and different under another with both results standing, since each is only ever about the distinctions its own projection kept, and there is no sameness sitting outside every projection waiting to be got right.
 
 That settles what a comparison is about. Now a question that is smaller and much older than it looks. Does any of this care what the thing is made of?
 
@@ -170,11 +176,11 @@ Preserving transitions alone would not be enough, and neither would preserving i
 
 **Proposition 7. Realization-invariance.** Anything defined from inspections alone takes the same value on every realization of $G$.
 
-Immediate from Definition 7. Everything constructed in this section is defined from inspections alone, so $\sim_G$, $S_G$, $\mathcal P_G$, and every relation built from them below inherit invariance without further argument. Nothing later has to earn it separately. It is earned here, once.
+Immediate from Definition 7. Everything constructed in this section is defined from inspections alone, so $\sim_G$, $S_G$, $\mathcal P_G$, and every relation built from them below inherit invariance without further argument.
 
 Nothing so far has been running. What changes when somebody actually runs it?
 
-**Definition 8. Operating instance.** An infrastructure is not yet an operating instance. When an admitted State is actualized through it, an operating instance begins. Write $I$. It commits one ordered Trajectory through $\mathcal P_G$.
+**Definition 8. Operating instance.** An infrastructure is not yet an operating instance. When a reachable configuration is actualized through it, an operating instance begins. Write $I$. It commits one ordered Trajectory through $\mathcal P_G$.
 
 The Possibility Space may branch, loop, and admit many counterfactual continuations. The Trajectory already committed does not branch retroactively. Non-linearity belongs to the structure of possible continuations; actualization produces an ordered history. A Trajectory does not require a built-in ending, and remains an ordered history for as long as the instance continues to operate.
 
@@ -189,8 +195,12 @@ This does not follow from anything above, which is why it is an axiom and not a 
 At $\Delta t_n$, an admitted profile $p$ enters the transition:
 
 $$
-s_n\xrightarrow[\Delta t_n]{p}s_{n+1}
+x_n\xrightarrow[\Delta t_n]{p}x_{n+1},
+\qquad
+s_i=[x_i]_{\sim_G}
 $$
+
+The transition is written on configurations for the reason just given under Definition 3. States are what the window is indexed by; configurations are what it moves between.
 
 To alter the Trajectory is to make a different admitted continuation become actual from the same prefix. It does not mean rewriting a past that has already occurred.
 
@@ -201,6 +211,8 @@ So who is it that makes something happen there, and how much of the form can the
 **Definition 10. Role and binding.** At a window, $G$ may provide one or more intervention roles. A role specifies which contributions may become operative there and the authority with which they enter operation; it does not identify the concrete source that will supply them. The operating instance $I$ binds a source $\alpha$ to such a role through its infrastructure and under whatever eligibility conditions $G$ imposes. A committed intervention is attributable to $\alpha$ when it enters through the role to which $\alpha$ is bound. Anything merely carrying or translating that output remains infrastructure in this relation. Where several outputs enter through separate bindings, each may be evaluated on its own or jointly with others, and Definition 18 keeps those cases apart.
 
 A source may be an individual, a collective producing one joint output, or an autonomous process. By Axiom 1, nothing further about it is admissible here.
+
+Binding attributes a contribution to a source. It does not attribute the outcome to the contribution. No relation of actual causation is defined anywhere in this essay, and Definition 15 does not quietly supply one: it compares what other contributions would have made available, and reads nothing whatever off the one actually supplied.
 
 Two constraints determine what $\alpha$ can reach. The first is authority: nothing outside $\operatorname{auth}(r)$ for the roles currently bound to $\alpha$. The second is information. A State is the complete condition of the form, not what any one role is shown, and in every form that conceals anything the two come apart.
 
@@ -214,23 +226,29 @@ By Axiom 2, $\operatorname{obs}(r)$ is one member of the family generating $\sim
 
 $\operatorname{obs}$ is a component of $G$. Two arrangements differing in what a role is shown differ in $\operatorname{obs}$, hence by Definition 7 are two forms rather than one form on different hardware.
 
-**Definition 12. Available contributions.** $\Gamma_{G,I}(\alpha,s_n;\Delta t_n)$ is the set of contributions $\gamma$ that $\alpha$ can supply through the roles bound to it, where $\alpha$ is either one source or a set of sources supplying jointly. Each such $\gamma$ is authorized by those roles, occurs as their component in some profile admitted at $s_n$, and is constant on the $\approx_r$-classes of those roles.
+**Definition 12. Available contributions.** $\Gamma_{G,I}(\alpha,s_n;\Delta t_n)$ is the set of contributions $\gamma$ that $\alpha$ can supply through the roles bound to it, where $\alpha$ is either one source or a set of sources supplying jointly. Each such $\gamma$ is authorized by those roles and occurs as their component in some profile admitted at $s_n$. Nothing further is required of it.
 
-The constancy requirement is forced rather than added: what cannot be distinguished cannot be conditioned upon. It is the uniform strategy condition, under its usual name. Where $\alpha$ is a set, it applies to each component separately, so members may settle in advance what each will supply and still cannot pool what the Rules show them one by one.
+$\approx_r$ is deliberately absent, and anyone who knows the literature will expect it here. The thought was that a contribution ought to be constant across whatever the role cannot tell apart, which is the uniform strategy condition under its usual name. The condition is a good one and it was attached to the wrong object. Constancy is a property of a policy, an assignment of contributions to everything the role cannot rule out. $\Gamma$ is not a policy. It is the local list of what can be supplied at the State the form is in, and asking one entry of that list to be constant across a class of States is asking a question its type cannot answer. Putting them together produced a definition read from two viewpoints at once, and that is the defect, not the permissiveness it is easily mistaken for.
 
-One thing about this definition has to be declared rather than left to be found. Constancy is a condition from the role's side, while admissibility is checked at $s_n$, the configuration the form is actually in. Those are two viewpoints, and wherever $\approx_r$ relates configurations admitting different profiles they come apart: a contribution constant across the class may be admitted here and refused there. The standard treatment forbids the situation outright, by requiring indistinguishable configurations to offer a role the same options. I am not requiring it, because forms whose admitted moves depend on what is concealed are ordinary rather than exotic. The price is that $\Gamma$ is read from outside, at the configuration the form is in, which makes it wider than a reading demanding that every contribution be playable everywhere the role cannot rule out. Agency is correspondingly easier to establish, and that belongs on the same list as the generosity noted under *Where purpose goes*.
+So the guess stays unresolved here, and that is a limit worth stating rather than a tidy result. An occupant may supply an admitted contribution without knowing which configuration of its class the form is in, and Definition 15 will not tell that apart from aiming. Telling them apart means evaluating one policy across an entire $\approx_r$-class, which is a different construction and not this one. $\approx_r$ still does everything it was introduced for, since Proposition 8 and Proposition 9 never needed $\Gamma$ to carry it.
 
 What the other roles supply is no part of $\gamma$. Write $\delta$ for a completion, an assignment to every role not bound to $\alpha$ such that $\gamma\oplus\delta$ is a profile admitted at $s_n$, and write $\Delta_{G,I}(\gamma,s_n)$ for the completions of $\gamma$.
 
-**Definition 13. Continuation.** $\operatorname{Continue}_G(s_n,p;\Delta t_n)$ is the continuation recognized by $G$ after admitting the profile $p$ there.
+**Definition 13. Continuation.** For a configuration $x$ and a profile $p$ admitted there, the continuation opened by $p$ is the branching unfolding rooted at $x$: every outcome $\longrightarrow$ admits for $p$, and everything admitted after each of those. Write $\operatorname{Continue}_G(s_n,p;\Delta t_n)$ for it at a window.
 
-Requiring only that the next State differ will not do, since two interventions can lead to different next States which then fold back together and leave nothing behind. Difference has to be stratified by how deep an inspection must go to find it.
+One selected successor will not do, because $\longrightarrow$ may send a profile several ways and Axiom 3 already committed to looking at all of them. A residual inspection of a continuation returns the set of its results across those outcomes, and its depth does not count the profile already spent getting there.
 
-**Definition 14. Depth-**$k$ **indistinguishability.** $\sim^k_G$ is indistinguishability by inspections spending at most $k$ transitions. Two continuations differ at depth $k$ when they are not $\sim^k_G$-related, meaning the difference is detectable within $k$ committed transitions.
+**Lemma 13.1.** The continuation opened by $p$ is one and the same object at every configuration of one State.
+
+Suppose a residual inspection told the unfoldings at $x$ and $y$ apart, for $x\sim_G y$. Prefixing $p$ to it is an inspection by Definition 1, and that inspection separates $x$ from $y$, contradicting Definition 2. So a continuation may be written at a State rather than at a configuration, which is what the notation above helps itself to and what Definition 15 needs of it.
+
+Requiring only that the next State differ will not do either, since two interventions can lead to different next States which then fold back together and leave nothing behind. Difference has to be stratified by how deep an inspection must go to find it.
+
+**Definition 14. Depth-**$k$ **indistinguishability.** $\sim^k_G$ is indistinguishability by inspections of depth at most $k$. Two continuations differ at depth $k$ when some residual inspection of depth at most $k$ returns different sets of results across their outcomes, meaning the difference is detectable within $k$ committed transitions.
 
 **Proposition 10.** $\sim^{k+1}_G\subseteq\sim^k_G$, and $\bigcap_k\sim^k_G=\sim_G$.
 
-Going deeper only adds inspections, which gives the inclusion. Every inspection is finite by Corollary 4.1, so an inspection separating two configurations does so at some finite depth, which gives the intersection. Nothing further is assumed, and this holds under either reading of an inspection.
+Going deeper only adds inspections, which gives the inclusion. Every inspection has finite depth by Corollary 4.1, so an inspection separating two configurations does so at some finite depth, which gives the intersection. Nothing further is assumed, and this holds under either reading of an inspection.
 
 **Axiom 6. Finite branching.** Each configuration admits finitely many profiles, and each admitted profile has finitely many outcomes.
 
@@ -238,7 +256,9 @@ No proposition in this section uses Axiom 6, and it is worth being exact about w
 
 What Axiom 6 buys is the other statement: that this equivalence coincides with bisimilarity, the relation of the same shape used throughout the study of transition systems. That coincidence is the Hennessy-Milner theorem, finite branching is precisely its hypothesis, and without the hypothesis it is false. So the proposition needs nothing and the transfer needs everything, which is the whole reason they are separated here.
 
-Drop Axiom 6 and nothing above breaks: $\sim_G$ remains exactly the finite-depth relation defined above, and forms differing only in the limit go unseparated. It is stated as an axiom rather than proved because it is a restriction on which forms are under discussion, and it is stated at all because anyone importing an outside theorem needs it.
+One definition further down does use it. Definition 21 walks transitions instead of inspections, and walking a transition out of a State needs the configurations of that State to have successors matching State for State, which is exactly what this axiom buys and what Proposition 2 does not give. So the axiom is idle everywhere the essay stays inside the inspection language, and needed the moment something steps outside it, which is a better description of what it does here than *stated for import only*.
+
+Drop it and $\sim_G$ stays exactly the finite-depth relation defined above, so forms differing only in the limit go unseparated and Definition 21 drops to a quantity of the configuration an instance is in. It is stated as an axiom rather than proved because it is a restriction on which forms are under discussion, and it is stated at all because anyone importing an outside theorem needs it and because Definition 21 needs it.
 
 **Proposition 11.** If two continuations differ at some depth, a least such depth exists.
 
@@ -268,29 +288,37 @@ Holding the completion fixed across both branches is deliberate. Let it vary and
 
 Stripped of the apparatus, Definition 15 says that $\alpha$ is an essential coordinate of the transition at $s_n$: vary it alone, hold everything else where it was, and the form goes somewhere else. A source failing that at every window is a dummy, in the sense the word already carries wherever functions and their arguments are discussed. What the apparatus adds is a meaning for *somewhere else* when the difference may take several transitions to surface, and supplying that meaning is the entire job of $\sim^k_G$.
 
-The two contributions are counterfactual alternatives available at one $\Delta t_n$; the operating instance actualizes only one.
+The two contributions are counterfactual alternatives available at one $\Delta t_n$, and neither has to be the one the instance actually supplied. The window and the binding are actual; the pair is not. So Agency at a window is not a claim that what was committed there caused what came after it.
 
 **Definition 16. Latency.** $\lambda(\alpha,s_n)$ is the least $k$ satisfying Definition 15, which exists by Proposition 11, and $\infty$ when no such $k$ exists.
 
-**Proposition 12.** At a window and a binding, the following are equivalent: $\lambda=\infty$; against every completion, all of $\alpha$'s available contributions lead to one and the same State; $\alpha$ bears no Agency there.
+Two things about how that number may be read. Neither is a restriction I am adding; both are already true of what Definition 16 says, and both are easy to lose.
 
-The completion has to be held fixed inside the middle clause, for the same reason it is held fixed in Definition 15. Continuations reached against *different* completions may perfectly well be different States, and that difference belongs to whoever supplied the completion. What $\lambda=\infty$ says is that within each completion taken on its own, nothing $\alpha$ does moves anything.
+It is a position in a hierarchy of relations, not a distance. The refinement from $\sim^k_G$ to $\sim^{k+1}_G$ proceeds at whatever rate the branching sets, and nothing makes the step from two to three commensurable with the step from seven to eight. Latencies may therefore be ordered, compared, and summarized by rank. They may not be added, averaged, or divided, and no form is twice as slow as another because a number doubled.
 
-$\lambda=\infty$ means no inspection at any finite depth separates the continuations reached against a shared completion. Every inspection is finite by Corollary 4.1, so no inspection separates them at all, so they are one State by Definition 2. One State does not differ from itself in what it admits or discloses, by Proposition 2, so Definition 15 fails there. Each step reverses.
+And the depth being counted is depth in an inspection, which by Axiom 3 follows every admitted outcome at once. It is depth in a branching probe, not distance along the committed Trajectory. $\lambda=3$ says three transitions of inspection suffice to separate the continuations. It does not say the difference surfaces three commits later in whatever actually runs, and an instance may go its whole length down a branch where the difference never appears at all. That is not a defect in the measure. Definition 15 is about what the form admits, and it was never about what the form does.
+
+**Proposition 12.** At a window and a binding, the following are equivalent: $\lambda=\infty$; against every completion, all of $\alpha$'s available contributions open one and the same continuation; $\alpha$ bears no Agency there.
+
+The completion has to be held fixed inside the middle clause, for the same reason it is held fixed in Definition 15. Continuations reached against *different* completions may perfectly well differ, and that difference belongs to whoever supplied the completion. What $\lambda=\infty$ says is that within each completion taken on its own, nothing $\alpha$ does moves anything.
+
+$\lambda=\infty$ means no residual inspection at any finite depth separates the continuations reached against a shared completion. Every inspection has finite depth by Corollary 4.1, so none separates them at all, and by Definition 13 with Definition 14 that is precisely what it is for two continuations to be one continuation. Negating the display in Definition 15 gives that and nothing else, so Definition 15 fails there. Each step reverses. Concluding instead that the two are one *State* would reach for a stronger object than the argument delivers.
 
 **Proposition 13.** Agency at a window is sufficient for finite latency there.
 
-One direction of Proposition 12. This is a sufficient condition, it is proved, and it is internal to the structure. What is declined further below is a different thing entirely.
+One direction of Proposition 12. This is a sufficient condition, it is proved, and it is internal to the structure.
 
-**Proposition 14.** Randomness internal to a transition may change which continuation occurs without any binding bearing Agency.
+**Proposition 14.** Internal nondeterminism may change which outcome becomes actual without any binding bearing Agency.
 
-Definition 15 quantifies over contributions available to a bound source. Branching attributable to no binding does not satisfy it. A random source *bound* to a role is a different case, and its output is evaluated through Definition 15 like any other.
+Definition 15 compares two contributions available through bound roles. By Definition 13, several outcomes of one unchanged profile belong to one continuation, so whichever of them becomes actual supplies no second contribution for the comparison to be made against. A source *bound* to a role is a different case however it decides, and its output is evaluated through Definition 15 like any other.
+
+The word is nondeterminism and not randomness, and that is not fastidiousness. There is no probability in the signature, so calling the mechanism random would help itself to exactly what the declaration under the signature gave up.
 
 This is the distinction between a chance node and a decision node, reached from the other end. There it is drawn by stipulating which nodes belong to whom. Here it falls out of Definition 15 having a bound source written into it, so nothing had to be stipulated for it to hold.
 
-**Proposition 15.** Information asymmetry adds nothing to Definition 15 beyond $\approx_r$.
+**Proposition 15.** Concealment does not veto Agency at a window.
 
-Whether the Rules withhold is a fact about $\operatorname{obs}$, by Proposition 9. What constrains $\Gamma$ is what the Rules disclose to a role, never what the occupant of that role has worked out.
+By Definition 12, $\Gamma$ holds the contributions admitted at $s_n$ and imposes no condition at all on what any role can tell apart. So uncertainty may leave an intervention a guess without erasing the difference its alternatives expose. What the Rules withhold is a fact about $\operatorname{obs}$ and belongs to $G$, by Proposition 9, so it may well change which States and continuations there are to be separated in the first place. What it cannot do is add an epistemic success condition to Definition 15, because there is none there to add to.
 
 **Remark 16. Rule mutation.** If $G$ permits an intervention to alter a parameter or a Rule, the mutable component lies in $X$, hence in the State, and the permission is a higher-order relation already inside $\longrightarrow$. Otherwise, continuing under the altered relation is continuing under a different configured form $G'$.
 
@@ -304,15 +332,17 @@ Agency also does not require a prewritten set of alternatives. An intervention r
 
 $G$ defines and limits the role, $I$ establishes the binding, and the transition record attributes the committed intervention. What kind of thing the source is matters only where $G$ uses identity or role as an eligibility condition. The same source may be an Agent through one binding and an observer, part of the infrastructure, or part of a transition under another. Even where $G$ permits an Agent to alter a Rule, that permission is constituted by $G$ under Remark 16, so no Agent stands above the Rules.
 
-**Definition 18.** $\operatorname{Ag}_m(G)$ is the set of pairs of a reachable State and an admissible set of at most $m$ bindings at which Definition 15 holds, reading $\alpha$ there as the sources of that set taken together. Write $\operatorname{Ag}_1(G)$ for the individual case and $\operatorname{Ag}_*(G)=\bigcup_m\operatorname{Ag}_m(G)$.
+**Definition 18.** $\operatorname{Ag}_m(G)$ is the set of pairs of a reachable State and a non-empty set of at most $m$ intervention roles at which Definition 15 holds, reading $\alpha$ there as whatever occupies those roles. Write $\operatorname{Ag}_1(G)$ for the single-role case and $\operatorname{Ag}_*(G)=\bigcup_m\operatorname{Ag}_m(G)$.
 
-The family increases with $m$, since a set of at most $m$ bindings is also one of at most $m+1$. It is the influence hierarchy of a set of coordinates, read off the transition: $\operatorname{Ag}_1$ asks which single sources are essential, and $\operatorname{Ag}_m$ asks the same of every set of at most $m$. Everything proved above concerns $\operatorname{Ag}_1$ and is untouched by the grading. Below, $\operatorname{Ag}(G)$ without a subscript means $\operatorname{Ag}_*(G)$.
+It counts roles and not sources. The signature carries no component saying which source holds which role, or how many sources an infrastructure furnishes, so a count of bodies is not among the things available to be taken. One source holding three roles and three sources holding one each spend the same three coordinates here.
 
-$\operatorname{Ag}(G)=\varnothing$ when no reachable State brings together roles, an admissible set of bindings, two available joint contributions, a completion shared by both, and continuations that differ at some finite depth. Such a form may still carry Rules, States, transitions, randomness, presentation, and an ordered Trajectory. What it carries nowhere is a point at which bound sources could make another continuation actual.
+The family increases with $m$, and for a trivial reason: a set of at most $m$ roles is also one of at most $m+1$. Proposition 19 says something stronger and less obvious, that Agency itself is inherited upward by every set containing one that has it. It is the influence hierarchy of a set of coordinates, read off the transition: $\operatorname{Ag}_1$ asks which single roles are essential, and $\operatorname{Ag}_m$ asks the same of every set of at most $m$. Membership does not make every role in the set essential, since a supporting set stays supporting when idle roles are padded into it, and Definition 19 is what strips the padding back off. Everything proved above concerns $\operatorname{Ag}_1$ and is untouched by the grading. Below, $\operatorname{Ag}(G)$ without a subscript means $\operatorname{Ag}_*(G)$.
+
+$\operatorname{Ag}(G)=\varnothing$ when no reachable State brings together a set of roles, two available joint contributions, a completion shared by both, and continuations that differ at some finite depth. Such a form may still carry Rules, States, transitions, internal nondeterminism, presentation, and an ordered Trajectory. What it carries nowhere is a point at which what enters through some set of roles could make another continuation actual.
 
 **Proposition 18. Source-substitution invariance.** If $\operatorname{Ag}(G)=\varnothing$, then at every window the continuation is the same whoever is bound to the roles, holding fixed what the unbound roles supply.
 
-Take all the bindings at that window as one set. By hypothesis Definition 15 fails for it. The only roles that set leaves outside itself are the unbound ones, so a completion is an assignment to those, and the qualification in the statement is the requirement that one such assignment be shared. Given that, the condition applies to every pair of admitted joint contributions completed by it, so any two of them lead to continuations related at every depth, hence to one State by Proposition 10 and Definition 2. Substituting the sources changes which of those contributions is supplied and nothing else.
+Take all the bound roles at that window as one set. By hypothesis Definition 15 fails for it. The only roles that set leaves outside itself are the unbound ones, so a completion is an assignment to those, and the qualification in the statement is the requirement that one such assignment be shared. Given that, the condition applies to every pair of admitted joint contributions completed by it, so any two of them open continuations related at every depth, which by Definition 14 is to say one continuation. Substituting the sources changes which of those contributions is supplied and nothing else.
 
 Where every role at the window is bound there is nothing left to complete, the qualification is vacuous, and the conclusion is unconditional. Where some role is not, whatever it contributes is attributable to no source, so a difference it makes is the kind Proposition 14 already excludes from bearing Agency. Holding it fixed is the discipline Definition 15 applies to the completion, applied here for the same reason.
 
@@ -322,21 +352,169 @@ The grading is what removes the harder condition. Argued over $\operatorname{Ag}
 
 Two roles, each authorized to supply $0$ or $1$, with only $(0,0)$ and $(1,1)$ admitted at $x_0$, leading to $x_1$ and $x_2$ separated at depth one. For either role alone the completions of $0$ and of $1$ are disjoint, so no shared completion exists and Definition 15 fails: $\operatorname{Ag}_1(G)=\varnothing$. For the two together there is nothing left to complete, both joint contributions are available, and the continuations differ, so $\operatorname{Ag}_2(G)\neq\varnothing$.
 
-Nothing here is new except the vocabulary. A function whose domain is the full product of what each coordinate may take is constant as soon as no single coordinate is essential, and that is a theorem. The profiles admitted here are a proper subset of that product, which makes the transition a partially specified function, and for those the theorem is false. The particular subset, the two profiles on which the roles agree, is the standard witness to its failure. I am recording it because the essay needs the consequence, not because the phenomenon was waiting to be found.
+Nothing here is new except the vocabulary. A function whose domain is the full product of what each coordinate may take is constant as soon as no single coordinate is essential, and that is a theorem. The profiles admitted here are a proper subset of that product, which makes the transition a partially specified function, and for those the theorem is false. The particular subset, the two profiles on which the roles agree, is the standard witness to its failure.
+
+The picture behind that is worth keeping, because it says what Definition 19 below is actually measuring. Put the profiles admitted at a State in a graph, joining two whenever they differ at exactly one role, and colour each by the continuation it opens. A one-role witness is an edge between two colours. On the full product that graph is connected, so any non-constant colouring has such an edge somewhere. Here the admitted set is two isolated points with no edges at all, and the colouring is non-constant anyway. What produced the coupling was the admission constraint deleting the edges, not any strength in the pairing itself.
 
 This is why Axiom 7 is stated over $\operatorname{Ag}_*$. Read over $\operatorname{Ag}_1$ it would declare that form not a game, and that form is a coordination arrangement of the most ordinary kind. Agency is not always individual, and a relation looking at one source at a time misses it exactly where the Rules couple the roles together.
 
-One question is left, and nothing above can answer it, because everything above was about the structure and this one is about the word. Why should any of that be called gameness?
+Quantifying over every set of roles looks expensive, and it gets much cheaper once the test is written the other way up.
 
-**Axiom 7. Representation.** Gameness is borne by the relation in Definition 15: if $\operatorname{Ag}(G)=\varnothing$ then $G$ is not a game. Equivalently, every game has Agency somewhere. The converse is not asserted, here or anywhere below. Nothing in this essay claims that satisfying the condition makes something a game, ranks what passes it, or puts a threshold on any quantity built from it. That fence is stated once, here. Everything further down that looks like it is this axiom being applied rather than a second commitment.
+**Proposition 18.2. Difference sets.** Write $\operatorname{Diff}(p,q)$ for the set of roles at which two profiles disagree, and call a pair of profiles admitted at $s$ a witness there when the continuations they open differ at some finite depth. Then $(s,U)\in\operatorname{Ag}(G)$ exactly when some witness at $s$ has $\operatorname{Diff}(p,q)\subseteq U$.
 
-Three things it does not have to assume, because they are already paid for. That whatever bears gameness survives realization follows from Axiom 1 with Definition 7, and is argued again from the other side under *Where purpose goes*. That branching is not the bearer is Proposition 14. That concealment is not the bearer is Proposition 15. What is left to assume is narrower than the axiom looks: among the relations still standing, this is the one.
+One way: take a triple $\gamma_1,\gamma_2,\delta$ witnessing Definition 15 for $U$ and complete both, giving two admitted profiles that agree everywhere outside $U$. The other way: given a witness with $\operatorname{Diff}(p,q)\subseteq U$, restrict $p$ and $q$ to $U$ for the two contributions and take their common value outside $U$ as the shared completion. The two statements are one test with the fixed coordinates written on opposite sides of the page.
 
-Nor is it provable, and the reason is structural rather than a shortage of effort. *Game* occurs in no signature, no axiom, and no definition above. A derivation ending in it needs a premise containing it, and any system supplying one carries a formal definition of the word, at which point the same question has moved up a level and nothing is settled. The usual candidate premise, that a game is something that can be played, unpacks into Definition 15 almost word for word, so it relocates the axiom rather than discharging it. Relocation is still worth doing and I would take a premise commanding wider assent than this one. I do not have it. What could be proved and is not proved here is a minimality claim: that among the realization-invariant relations definable from $G$, this is the weakest holding of every form nobody disputes while not holding of everything whatsoever. That would not establish the axiom. It would show the axiom is not arbitrary, which is smaller and different.
+**Proposition 19. Coalition monotonicity.** If $U\subseteq V$ and Agency is established through $U$ at $s_n$, then it is established through $V$ there.
 
-Which locates the whole risk of this essay in one line. Every definition above is unfalsifiable by construction. Every proposition is answerable only by finding an error in its proof. Axioms 1 to 6 can be refused but not refuted. Axiom 7 is the only sentence here that the world can show to be wrong, and Definition 18 makes the check concrete: declare a form nobody disputes is a game, compute, find nothing. That is not a weakness being admitted. It is the only place this essay touches anything.
+By Proposition 18.2 some witness has its difference set inside $U$, and a set inside $U$ is inside $V$. The whole content of the longer proof this replaces was shifting fixed coordinates out of the completion and into the contributions, which Proposition 18.2 now does once so that nothing after it has to do it again.
 
-**Remark. The axioms have a model.** A set of axioms with no model proves everything, so one is owed before any of this is worth reading. Take $X=\{x_0,x_1,x_2\}$ and $A=\{a,b\}$, one role authorized for both contributions and shown everything, so that a profile here is just that role's contribution, $X_0=\{x_0\}$, with $x_0\xrightarrow{a}x_1$ and $x_0\xrightarrow{b}x_2$, where $a$ is admitted at $x_1$ and only the null contribution is admitted at $x_2$. Admissibility is a reading by Axiom 2, so it separates $x_1$ from $x_2$ at depth one; both interventions are available at $x_0$; every axiom holds. The seven are therefore consistent, and Axiom 7 is not resting on a condition that nothing could satisfy. That is a proof obligation being discharged, not an illustration of anything.
+**Corollary 19.1.** $\operatorname{Ag}(G)=\varnothing$ exactly when, at every reachable State, the set of all roles there bears no Agency.
+
+One direction is Definition 18. For the other, any set bearing Agency at a State is contained in the set of all roles at that State, which bears it too by Proposition 19.
+
+That turns the emptiness check from one test per subset of the roles into one test per State, which is the difference between something that can be run on a form of ordinary size and something that cannot. It also settles what the grading is for. It is not for deciding whether a form has Agency at all, since Corollary 19.1 shows the largest set answers that by itself. It is for the question underneath, which is how small a set the form will settle for.
+
+**Definition 19. Coupling.** $m^*(s)$ is the least $m$ such that some set of at most $m$ roles bears Agency at $s$, and $\infty$ where no set does. By Proposition 18.2 it is equally the least number of roles at which two admitted profiles can disagree and still open continuations that differ.
+
+By Proposition 19, $m^*(s)$ is finite exactly when the set of all roles bears Agency there, so Definition 19 and Corollary 19.1 read one test at two resolutions. $m^*(s)=1$ says one role is essential at that State. $m^*(s)=2$ says none is and some pair is.
+
+What I want to write next is *the Rules require coordination*, and that is more than has been shown. Two roles is two coordinates, and the signature does not say who holds them, so one source may hold both and coordinate with nobody. Remark 18.1 shows something narrower again: the coupling there came from the admitted set having no one-role step in it, which is a fact about which profiles the Rules refuse rather than about any strength in the pairing. So $m^*(s)=2$ says the nearest pair of admitted profiles with differing continuations is two roles apart, and stops. Not two people, not cooperation, and not how much the roles need each other. What it does say is invisible to Axiom 7, which asks only whether anything is live anywhere, and it is still most of what anyone would want to know about a form that passes.
+
+One quantity is still missing, and it is the other half of a sentence written much earlier. Latency says when a difference shows up. Nothing yet says how long it goes on being one.
+
+**Definition 20. Reach and joining.** For a configuration $x$, $\operatorname{Reach}_j(x)$ is the set of States labelling the ends of paths of at most $j$ admitted transitions from $x$. Two configurations join at depth $j$ when their reaches at $j$ have a State in common.
+
+Reach is taken from a configuration and not from a State, and the reason is easy to walk straight past. A path between States is not available here. $S_G$ has no transition relation of its own unless $\sim_G$ is a relation transitions transfer across, which is what Axiom 6 buys and is false without it, so a reach defined on States would have been importing that axiom while announcing it needed nothing. The walk stays on configurations and only its endpoints are read as States, exactly as Definition 3 set up.
+
+**Proposition 20.** If two configurations join at depth $j$ they join at every greater depth, so where they join at all a least such depth exists.
+
+At most $j$ transitions is at most $j+1$ of them, so $\operatorname{Reach}_j(x)\subseteq\operatorname{Reach}_{j+1}(x)$, and an intersection once non-empty stays non-empty. The depths at which two configurations join are therefore upward closed and have a least element. That is the argument of Proposition 11 run at a different layer, and the parallel is the reason the next definition needs nothing new.
+
+Joining is joinability, under the name it already carries wherever rewriting is studied, and a form in which every fork joins is called confluent. Nothing below needs that property of a whole form. What is wanted is the depth, one fork at a time.
+
+**Definition 21. Reconvergence.** Take a triple $\gamma_1,\gamma_2,\delta$ witnessing Definition 15 at a window, and let $x$ be the configuration the instance is in there. Its reconvergence depth is the least $j$ such that some one State lies in $\operatorname{Reach}_j(u)$ for every outcome $u$ that $\longrightarrow$ admits at $x$ for either of the two completed profiles, and $\infty$ where no such $j$ exists. $h(\alpha,x)$ is the supremum of the reconvergence depths of the witnesses there.
+
+Every outcome, not some outcome. The weaker reading asks only that one outcome of each profile be able to meet, and it says the wrong thing wherever a profile may go several ways: a fork that mostly lands somewhere unrecoverable would be reported as recoverable on the strength of the single branch that happens to come home. The number is for whether the form can take the fork back, and it can only be said to do that if it can do it however the branching falls out.
+
+The price is that $h$ is indexed by a configuration and not by a State, and it is the first quantity here that is. Reach runs along transitions, and Proposition 2 gives configurations of one State the same admitted profiles without giving them matching successors, so two representatives may report different depths. Under Axiom 6 they cannot, since that is where $\sim_G$ becomes a relation transitions transfer across, and $h$ is then a function of the State. Definition 13 with Lemma 13.1 does not rescue this on its own: it makes the continuation representative-independent as an inspectable object, and reach asks something inspections do not answer.
+
+That is the shelf life, made into a number. Consequences having one, and the Rules rather than the writing setting it, was asserted several sections ago and had nothing behind it until here.
+
+Nothing in it contradicts Proposition 10. The two continuations differ at some depth and go on differing at every greater one, and no definition here merges them. What Definition 21 measures is not those two becoming one. It is whether the form admits a route out of every outcome they open into some third State all of those routes share. The fork stays on the record and stops separating what is still available, and those are two facts about it rather than one.
+
+Asking instead that the two continuations come to have the *same* reach would be a different and far heavier demand, because a State belongs to its own reach. Equal reaches would require each continuation to be reachable from the other, and no form carrying a single irreversible transition ever satisfies that. Every fork in such a form would come out permanent, including the ones that visibly are not. What the relation has to be is a shared destination, not an agreement about destinations.
+
+The supremum is deliberate, for the reason Definition 15 is existential. Agency asks whether $\alpha$ can make a difference, not whether everything it holds makes one. Reconvergence asks how long the most durable difference it can make survives. Taking the least instead would let one throwaway option, erased immediately, deliver the verdict on a window where a permanent one was sitting right beside it.
+
+$h=\infty$ says the outcomes of that window share no reachable State at all, so what was done there can be neither undone nor gone around by any route the Rules admit. A small $h$ says the fork was real when it was made and gone shortly after, which is the corridor everything returns to, put in a form that can be checked rather than complained about.
+
+A State the Rules admit no move out of is a place branches may join like any other, so in a form that always arrives at one, $h=\infty$ requires that no ending at all be available to both. That makes the reading narrower than it first looks, and worth stating outright: $h$ reports recoverability, how quickly the form *permits* two branches to be brought back together, and never how likely anyone is to bring them. It is the declaration made alongside the signature arriving at the place where it costs the most.
+
+Reading reach instead of inspections may look like reopening the choice made in Axiom 3. It is not. Axiom 3 settles what counts as a difference between configurations, and Definition 21 leaves that exactly where Axiom 3 put it, then asks a further question about two continuations that relation has already separated. What is available from here is not the same question as whether these are the same, and answering the second with reach does not re-answer the first.
+
+Of the two cautions under Definition 16, one transfers and one does not, and it matters which. Latency is a position in a hierarchy of relations, so it may be ranked and not averaged. $h$ counts committed transitions, which is a count rather than a rank, so arithmetic on it means something that arithmetic on $\lambda$ does not. The other caution transfers untouched. What is counted is what the form admits, and an instance may run its whole length without going anywhere near the branch that does the rejoining.
+
+One question is left, and before attaching it to the word *game*, the mathematics can be made to say exactly what is present when Agency is non-empty and exactly what disappears when it is not.
+
+**Definition 22. Continuation equivalence and the continuation map.** Write $C\equiv_G D$ when no residual inspection separates the continuations $C$ and $D$. Equivalently,
+
+$$
+C\equiv_G D
+\quad\Longleftrightarrow\quad
+\forall k\in\mathbb N:\;C\sim_G^kD
+$$
+
+The reverse direction uses Corollary 4.1: if some residual inspection separates them, that inspection has finite depth, so it separates them at some $k$.
+
+For a reachable State $s$, define its admitted-profile set by
+
+$$
+P_s:=\{\,p\in\operatorname{Prof}\mid \exists x,x': [x]_{\sim_G}=s\land x\xrightarrow{p}x'\,\}.
+$$
+
+Proposition 2 makes $P_s$ independent of the representative configuration, and Lemma 13.1 does the same for the continuation opened by each $p\in P_s$. The map
+
+$$
+\kappa_s:P_s\longrightarrow\mathcal C_G,
+\qquad
+\kappa_s(p):=[\operatorname{Continue}_G(s,p)]_{\equiv_G}
+$$
+
+therefore sends each admitted profile to its continuation class, where $\mathcal C_G$ is the quotient of continuations by $\equiv_G$.
+
+**Proposition 21. Agency is non-constancy.** At a reachable State $s$, some non-empty set of roles bears Agency exactly when $\kappa_s$ is not constant.
+
+One way, take a witness $\gamma_1,\gamma_2,\delta,k$ for Definition 15 and complete it to
+
+$$
+p=\gamma_1\oplus\delta,
+\qquad
+q=\gamma_2\oplus\delta.
+$$
+
+The two continuations differ at depth $k$, so $\kappa_s(p)\neq\kappa_s(q)$ and the map is not constant.
+
+The other way, suppose $\kappa_s(p)\neq\kappa_s(q)$ for two admitted profiles. Since the continuation classes differ, Corollary 4.1 gives a finite $k$ at which their continuations differ. Let
+
+$$
+U:=\operatorname{Diff}(p,q).
+$$
+
+The set is non-empty. Restrict $p$ and $q$ to $U$ for the two joint contributions. Outside $U$ the profiles agree, so their common restriction there is one completion $\delta$ shared by both. These restrictions, that completion, and $k$ satisfy Definition 15 for $U$.
+
+Thus the profiles at $s$ may be numerous while contributing no Agency at all: that happens exactly when $\kappa_s$ collapses every one of them into a single continuation class. Internal nondeterminism may remain inside that class. What has disappeared is sensitivity of continuation to the admitted profile.
+
+**Definition 23. Continuation capacity.** Since Axiom 6 makes $P_s$ finite, define
+
+$$
+\nu_G(s):=|\operatorname{im}\kappa_s|,
+\qquad
+a_G(s):=\max\{\nu_G(s)-1,0\}.
+$$
+
+$\nu_G(s)$ counts the continuation classes distinguished by the inspection language among profiles admitted at $s$; $a_G(s)$ counts how many remain beyond the first. A terminal State may have $\nu_G(s)=0$, while a State with admitted profiles but no Agency has $\nu_G(s)=1$.
+
+Define the global continuation capacity by
+
+$$
+\operatorname{Cap}(G):=
+\sup_{s\in\operatorname{Reach}(G)}a_G(s)
+\in\mathbb N\cup\{\infty\}.
+$$
+
+The reachable set is non-empty because $X_0\neq\varnothing$. Each local value is finite, although the supremum over all reachable States may be infinite.
+
+**Corollary 21.1.** The following are equivalent:
+
+$$
+\operatorname{Cap}(G)>0,
+\qquad
+\operatorname{Ag}(G)\neq\varnothing,
+\qquad
+\exists s\in\operatorname{Reach}(G):\kappa_s\text{ is non-constant}.
+$$
+
+This follows immediately from Proposition 21 and the definition of $a_G(s)$.
+
+**Definition 24. Structural playability.** $G$ is structurally playable when $\operatorname{Cap}(G)>0$. Structural playability is therefore the positive support of continuation capacity. Density, coupling, latency, and reconvergence remain the separate quantities $\rho$, $m^*$, $\lambda$, and $h$.
+
+The remaining step is interpretive rather than derivational.
+
+**Axiom 7. Representation.** Every game is structurally playable:
+
+$$
+\operatorname{Game}(G)
+\;\Longrightarrow\;
+\operatorname{Cap}(G)>0.
+$$
+
+Equivalently, a form with constant continuation maps at every reachable State is not a game. No converse is asserted.
+
+$\operatorname{Game}$ occurs in no preceding signature or definition, so Axiom 7 cannot be derived from Axioms 1–6. The formal development instead fixes its exact content and the shape of a counterexample: a form certified as a game for which $\operatorname{Cap}(G)=0$. Definitions are assessed by their use, propositions by their proofs, and Axiom 7 by that world-facing counterexample.
+
+**Remark. The axioms have a model.** A set of axioms with no model proves everything, so one is owed before any of this is worth reading. Take $X=\{x_0,x_1,x_2\}$ and $A=\{0,a,b\}$ with $0$ the null contribution, one role authorized for all three and shown everything, so that a profile here is just that role's contribution, $X_0=\{x_0\}$, and exactly the transitions $x_0\xrightarrow{0}x_0$, $x_0\xrightarrow{a}x_1$, $x_0\xrightarrow{b}x_2$, $x_1\xrightarrow{a}x_1$, and $x_2\xrightarrow{0}x_2$. Admissibility is a reading by Axiom 2, so it separates $x_1$ from $x_2$ at depth one. At $x_0$ the contributions $a$ and $b$ are both available, the single role leaves nothing to complete, and the continuations they open differ, so $(x_0,\{r\})\in\operatorname{Ag}_1(G)$. Axioms 1 to 6 all hold.
+
+Axiom 7 needs a word of its own, because a conditional is satisfied too easily to be worth checking carelessly. Anything with non-empty Agency satisfies it whatever else is true, and this form has non-empty Agency. What the obligation actually needs is that the axiom leave room for a game: declare this form one, and nothing in Axiom 7 objects. Had every model of Axioms 1 to 6 come out with $\operatorname{Ag}(G)=\varnothing$, the set would still have been consistent and would also have said that nothing whatever is a game. So the seven are consistent together and the seventh is not resting on a condition nothing could satisfy.
 
 With that, the Necessary Condition can be stated:
 
@@ -346,27 +524,27 @@ Every word in that sentence now has a referent above, and one of them went unpai
 
 “Can be altered” is existential in the sense of Definition 18: the relation of Definition 15 holds at at least one binding and one $\Delta t_n$, and says nothing about the rest of the form.
 
-Everything from Definition 1 to Definition 18 is dependency. Agency cannot be spoken about without $\Gamma$, $\Gamma$ without $\approx_r$, $\approx_r$ without $\operatorname{obs}$, and none of it without $G$. Axiom 7 is not part of that chain. It is the single place where a formal relation is tied to an informal word, and it is the claim here worth attacking.
+Everything from Definition 1 to Definition 18 is dependency. Agency cannot be spoken about without $\Gamma$ and $\operatorname{Continue}$, those without $\longrightarrow$ and the profiles admitted at a State, a State without the inspections, the inspections without $\operatorname{obs}$, and none of it without $G$. Axiom 7 is not part of that chain. It is the single place where a formal relation is tied to an informal word.
 
-Seven axioms, then. It is worth being plain about what each one costs, so that anyone who wants to disagree can find the exact place to do it.
+Seven axioms, then. Each one settles something, is used somewhere, and can be refused.
 
-| Axiom | What it settles | Reject it and |
-| --- | --- | --- |
-| 1. Constitution | nothing outside the tuple bears on gameness | material, authorship, intent, and reception become admissible components |
-| 2. Self-disclosure | admissibility is inspectable; determined, not computable | Proposition 2 fails, and one State can differ from itself in what it admits |
-| 3. Observation is branching | which observation language is in force, linear or branching | the commit apparatus loses the distinction it exists to keep |
-| 4. Induction | that finite depth exhausts sameness | latency stops being well defined and Proposition 12 collapses |
-| 5. Discrete settlement | that there is a window to point at | Trajectory, latency, and Agency lose their index |
-| 6. Finite branching | that sameness here is bisimilarity, so standard results transfer | sameness stays the finite-depth relation; no proposition here moves |
-| 7. Representation | that Agency bears gameness | every proposition above still stands, about something other than games |
+| Axiom | What it settles | Where it is used | Reject it and |
+| --- | --- | --- | --- |
+| 1. Constitution | nothing outside the tuple bears on gameness | Definition 10, Proposition 17, Remark 16, and the second argument under Where purpose goes | Remark 16 loses its dichotomy, and three exclusions further down each need an argument of their own |
+| 2. Self-disclosure | admissibility is inspectable; determined, not computable | Definition 1, Proposition 2, Proposition 8 | Proposition 2 fails, and one State can differ from itself in what it admits |
+| 3. Observation is branching | which observation language is in force, linear or branching | Definition 1, Definition 13, Definition 16, Proposition 5 | the tuple clause of Definition 1 loses its purpose, and a form holding two continuations open becomes one that has already chosen and not said so |
+| 4. Induction | that finite depth exhausts sameness | Corollary 4.1, hence Proposition 10 and Proposition 12 | Proposition 10 loses its intersection, and an infinite latency stops meaning no Agency |
+| 5. Discrete settlement | that there is a window to point at | Definition 9, and every relation indexed by a window after it | Trajectory, latency, reconvergence, and Agency lose their index |
+| 6. Finite branching | that sameness here is bisimilarity, so standard results transfer and reach lifts to States | Definition 21, and the transfer to bisimilarity | no outside theorem transfers, and reconvergence drops to a quantity of a configuration |
+| 7. Representation | that positive continuation capacity, hence structural playability, is necessary for gameness | the Necessary Condition, and nothing above it | every proposition above still stands, about structurally playable forms rather than games |
 
-The last row is the one I want on the record. Reject Axiom 7 and not a single proposition above is touched. The structure was never resting on the identification; the identification was resting on the structure. That is the whole reason for setting it out this way instead of arguing it in prose, where the two could not have been pulled apart.
+The structure was never resting on the identification; the identification was resting on the structure, and arguing it in prose could not have pulled those apart.
 
 ### So what does all that settle?
 
 Several arguments that used to eat entire design discussions are now consequences rather than opinions, which means they can be settled by pointing at a numbered line instead of by talking longer.
 
-**Granularity.** "How granular should my model be?" is answered by Proposition 5, and the answer is that you do not choose. The Rules choose. Whatever no admitted inspection can reach is not in the State, however loudly it is displayed. Display is infrastructure; disclosure is a Rule. The reverse case is worse and far more common: a difference you think of as decoration, which some transition quietly reads, is in the State whether you intended it or not.
+**Granularity.** "How granular should my model be?" is answered by Proposition 5, and the answer is that you do not choose. The Rules choose. Whatever no admitted inspection can reach is not in the State, however loudly it is displayed. Display is infrastructure; disclosure is a Rule. The reverse case is worse and far more common: a difference you think of as decoration, which some transition quietly reads, is in the State whether you intended it or not. There is a number sitting in Definition 2 for anyone who wants it, since $S_G$ is $X$ collapsed by $\sim_G$, and how far it collapses is how much of your description the Rules never read. A model whose configurations barely collapse is one where nearly everything you wrote down is load-bearing, which is usually a surprise and rarely a pleasant one.
 
 **What a Possibility Space is not.** Not freedom, depth, player expression, or a flattering review score. By Definition 3 it is everything the configured Rules allow the thing to become or perform, and nothing else. Rules do not arrive after a neutral infinity of game-states and cut it down. They constitute those States and transitions as possibilities of $G$.
 
@@ -376,37 +554,23 @@ Several arguments that used to eat entire design discussions are now consequence
 
 **Leaking.** Proposition 9 settles something usually argued about as taste. Showing a role what the Rules withhold is not a presentation bug. It is realizing another form.
 
-**Choosing and guessing.** Without $\approx_r$ there is no way to state the difference between a decision and a guess, and no way to say what hidden information *is*.
+**Choosing and guessing.** Without $\approx_r$ there is no way to say what hidden information *is*, and no way even to pose the difference between a decision and a guess. Definition 12 does not settle that difference, and it says so; what it needed first was somewhere for the question to be asked, which is Definition 11.
 
 And the one that started all of this. An input may be ceremonial, decorative, or useful for keeping someone awake, and whether it establishes Agency is now a question with an answer. A branch is not Agency merely because someone drew two boxes and connected them with arrows, however many buttons, branches, or dialogue wheels the infrastructure puts on the screen. Proposition 12 is the proof of it.
 
 ### Why does the condition only point one way?
 
-Axiom 7 points one way, and the reason is not modesty.
+A necessary condition and a sufficient condition make different commitments. Axiom 7 asserts only
 
-The move that usually arrives against it is to hand over some object that satisfies the condition and does not feel like a game, then wait for me to patch the condition until it excludes that object. I am not going to do that. Two things are wrong with the move.
+$$
+\operatorname{Game}(G)\Longrightarrow\operatorname{Cap}(G)>0.
+$$
 
-First, the object always arrives with no declared form and no declared projection. Whoever hands it over has skipped the entire discipline built up above and is holding a feeling next to a structure, which is not a comparison.
+It is therefore refuted by a form that is a game while every reachable continuation map is constant. Testing such a case requires a declared form and projection; otherwise the structural calculation and the classification are not yet being made about the same object.
 
-Second, and worse, the move assumes we already possess a reliable line between game and not-game, and that the counterexample happens to be standing on the correct side of it. We possess no such line. The clearest evidence is that we cannot settle the one case we are standing inside: nobody has shown that this universe is not itself running as somebody’s game. That question sounds unserious, which is a fact about our habits and not about the question. And it is not one odd case sitting at the edge of the list, it is the case the whole list is inside. If this universe might be running as a game, then every candidate anyone hands me is a configuration within a possible game, and the verdict that it is definitely not one is being delivered from inside the very thing in question. So while that stays open, nobody gets to certify by feel that a thing is definitely not a game. The condition can rule something out, because it names what it is checking. A feeling cannot.
+A form with positive continuation capacity but disputed gameness does not address this implication. It would address the unasserted converse. The present argument leaves that converse open rather than adding further conditions to settle it.
 
-So the condition stays pointed one way. I presented that as a discipline rather than as modesty. It is neither; it is forced. Whatever fails it cannot be a game, no matter what it is sold as. Patching in the other direction is exactly where every earlier attempt turned into a taste ranking wearing a lab coat, because the only material available for the patch is whatever the patcher already finds game-like.
-
-Here is what forces it. A necessary condition and a sufficient one are not killed the same way.
-
-To kill this one, you exhibit something that is a game and whose $\operatorname{Ag}(G)$ is empty. That needs a positive certification, and positive certifications are cheap: nobody has to argue that chess is a game. Declare the form, name the projection, run the check. If it comes out empty the condition is dead and I have nowhere to stand. It is a real target.
-
-To kill a sufficient condition, you have to exhibit something that satisfies it and is not a game. That needs a negative certification, and a negative certification is exactly what I just spent a paragraph saying nobody has. I cannot spend that argument on the counterexamples coming at me and then quietly decline to spend it on myself. A sufficient condition offered by me, under my own argument, could not be shown wrong by anyone. That is not a strong claim. That is an unfalsifiable one, wearing the same lab coat as everything else I complained about.
-
-So the direction is not a preference. Keeping the universe case and asserting a sufficient condition as established are not two habits that merely happen not to co-occur. They cannot both stand. Anyone who wants sufficiency can have it, and the price is fixed: admit that we can certify non-games by feel after all. Pay that and the method reverts to fitting a list, which is where it started.
-
-Two things that argument does not do.
-
-It does not touch validity. A derivation is not made unsound by pointing somewhere unwelcome. Sufficiency inside the structure stays exactly what it always was: Agency at a window is sufficient for a finite latency there, and the universe case has no opinion on that whatsoever. Sufficiency relative to a declared boundary stays a conditional, and a conditional is true or false on its own terms no matter what anyone knows about the extension of its antecedent. What is barred is narrow: asserting that some list of features is enough for the undeclared word. That is one target, not a whole direction.
-
-And unfalsifiable here means unwarranted by me, not false and not empty. A sufficient condition may well exist, and somebody holding a line I do not hold may well be entitled to one. I am reporting what I can earn from where I am standing. That is not a discovery about games.
-
-Killable from one side is the most a structure can be while the case we are standing inside stays open. I will take killable from one side.
+Nothing here rules out the possibility that a sufficient condition exists. It establishes no such condition and needs none: all structural results above remain valid independently of how the converse is eventually treated.
 
 ### Where purpose goes
 
@@ -422,11 +586,7 @@ The third is purpose in the occupant: the source bound to a role wants to win, c
 
 So three collapse to two, and neither survives. One is redundant, one is inconsistent.
 
-Now the strongest thing on the other side, which does not get said honestly often enough. Without a valuation, $\operatorname{Ag}(G)$ is generous, and the grading in Definition 18 makes it more so. Pick a cosmetic option at the start that some later transition happens to read, and that is Agency, with a finite $\lambda$ and everything. Plenty of people would say that is obviously not a choice. What they are reaching for is a preference ordering, and they are reaching for it because a difference nobody prefers looks like branching rather than choosing.
-
-They are not wrong that the condition admits it. They are wrong that fixing it is free. Attach a goal and you buy that intuition and pay in two places. Realization-invariance goes, wherever the goal is anything other than rule-borne. And Consequence 3 goes, because a goal is a property of a whole form while Agency is a property of a window, and conjoining a global condition onto a local one makes the result global. The line that runs inside a product would go back to running between products, which is the part I actually want to keep.
-
-So it is a trade. I take it the other way, and I want it on record that this is a trade and not a proof.
+Without a valuation, $\operatorname{Ag}(G)$ is intentionally indifferent to preference. A cosmetic option that a later transition reads may therefore establish Agency even when no occupant values the difference. Adding a goal or preference ordering would define a stronger relation. A rule-borne valuation can be represented inside $G$; an external valuation would add data not preserved by realization. Neither is required by the structural condition developed here.
 
 Worth noting that attaching a goal is also the move made wherever these structures get treated formally. A set of states with roles, moves and transitions becomes a *game* in that setting precisely when a winning condition is fixed on it, and a payoff function is purpose written as arithmetic. Both are perfectly good, and both were adopted because someone needed to ask a question that requires them. Neither narrows the extension toward what people are pointing at when they use the word. They widen it toward markets, wars, and evolution.
 
@@ -472,7 +632,7 @@ That is the whole content of the complaint that my choices did not matter, and i
 
 A shared *destination* is weaker still than a shared endpoint, since it may name one selected property of the endpoint rather than the whole State. The endpoint of one bounded interval may become the starting State of another, may be transformed through relations constituted by $G$, or may never be actualized again.
 
-Agency concerns the alteration of continuation, not ownership of an endpoint. A fixed destination may receive different Trajectories. A variable destination may still be reached through predetermined operation. Neither linearity nor branching settles it. What settles it is how deep a difference goes, and whether it ever folds back.
+Agency concerns the alteration of continuation, not ownership of an endpoint. A fixed destination may receive different Trajectories. A variable destination may still be reached through predetermined operation. Neither linearity nor branching settles it. What settles it is how deep a difference goes, and whether it ever folds back. Those are two definitions and not one. Latency measures when a difference becomes visible, and by Proposition 10 a difference visible at one depth stays visible at every greater one, so latency cannot fall when two Trajectories arrive back at a common State. Reconvergence measures the other half, and it is Definition 21. The complaint that choices did not matter is almost always aimed at the second, and the two are independent: a difference may be immediate and permanent, immediate and erased, delayed and permanent, or delayed and erased.
 
 Story endings and credits therefore have no privileged place in this condition. Plot, dialogue, authored events, and fixed outcomes may participate directly in the game when they become States, facts, transitions, and consequences constituted by $G$. They may also remain presentation. Neither position makes them inferior. It only tells us what they are doing.
 
@@ -482,19 +642,27 @@ Story endings and credits therefore have no privileged place in this condition. 
 
 The condition only ever claimed *somewhere*. It establishes Agency where the relation actually shows up, and it does not spread that across every State, every stretch of the Trajectory, or every subsystem just because they shipped in the same box.
 
-A game may therefore contain long stretches where nothing anyone does changes anything, one subsystem thick with real interventions, and another where a single rare intervention reorganizes everything after it. Two different questions live here, and they are easy to confuse. How much of a subsystem actually carries Agency at all. And how far a difference travels before it folds back, if it ever does. A thousand inputs that all return to the same corridor answer the second question with a zero. One input that does not is the whole answer.
+A game may therefore contain long stretches where nothing anyone does changes anything, one subsystem thick with real interventions, and another where a single rare intervention reorganizes everything after it. Two different questions live here, and they are easy to confuse. How much of a subsystem actually carries Agency at all. And how far a difference travels before it folds back, if it ever does. A thousand inputs that all return to the same corridor answer the second question with a zero. One input that does not is the whole answer. Both are answered below, by different quantities, and the paragraph naming the measures says why they must not be run together.
 
-So every State a game can reach falls on one side or the other. Either somebody bound to a role there has two moves that genuinely lead somewhere different, or nobody does. That much is just cutting a room in half, and cutting a room in half proves nothing. The part with content in it is what happens when you change the machine. Change it and the two sides do not move, not one State crosses over, because the line was drawn using only the Rules, who is permitted to act, what they are shown, and where those actions lead. Nothing else was ever let into it, so a new machine has nothing to take hold of. A remake cannot bring a dead stretch to life and it cannot kill a live one, unless it changed the Rules, in which case it is not a remake of the same thing.
+So every State a game can reach falls on one side or the other. Either the sources bound there have two joint contributions leading somewhere genuinely different against one and the same completion, or they do not, and by Corollary 19.1 asking that of all of them at once asks it of every smaller set as well. That much is just cutting a room in half, and cutting a room in half proves nothing. The part with content in it is what happens when you change the machine. Change it and the two sides do not move, not one State crosses over, because the line was drawn using only the Rules, who is permitted to act, what they are shown, and where those actions lead. Nothing else was ever let into it, so a new machine has nothing to take hold of. A remake cannot bring a dead stretch to life and it cannot kill a live one, unless it changed the Rules, in which case it is not a remake of the same thing.
 
-Which means the line between game and not-game does not run between products. It runs *inside* one, which you could picture as a line chart, and it is a fact about that product rather than a tribal taxonomy. It also means “less game” stops being an insult. It is a proportion, how much of what a thing can reach has a live window in it, plus how far the live parts carry before they fold back. Both are well defined wherever the reachable States and the admissible bindings are finite, and being well defined is not the same as being calculable from a rulebook. A form whose Rules are expressive enough to encode arbitrary computation can be perfectly definite about both numbers while no procedure reads either of them off the Rules, and such forms are neither rare nor contrived. Whether a thing ought to have more or less of it belongs to a different layer.
+Which means the line between game and not-game does not run between products. It runs *inside* one, and it is a fact about that product rather than a tribal taxonomy. It also means “less game” stops being an insult. It is a proportion, how much of what a thing can reach has a live window in it, how few roles the form insists on before anything is live at all, and how hard it is to take back what happens at a live window. All of them are well defined wherever the reachable States and the roles are finite, and being well defined is not the same as being calculable from a rulebook. A form whose Rules are expressive enough to encode arbitrary computation can be perfectly definite about both numbers while no procedure reads either of them off the Rules, and such forms are neither rare nor contrived. Whether a thing ought to have more or less of it belongs to a different layer.
 
-Since they are well defined, they may as well be named. Write $\rho(G)$ for the share of $\operatorname{Ag}(G)$ against all reachable States paired with admissible sets of bindings, and $\bar\lambda(G)$ for the distribution of $\lambda$ across the windows where Agency does hold. Both are defined outright wherever the reachable States and the admissible bindings are finite, and need a declared measure otherwise. On a live window $\lambda$ is finite by construction, so the second quantity is about how far a difference travels, never about whether it travels at all.
+Since they are well defined, they may as well be named. Write $\rho(G)$ for the share of reachable States at which Agency is established, against all reachable States, which by Corollary 19.1 is the share at which the set of all roles bears it. Write $\bar\lambda(G)$ for the distribution of $\lambda$ across the windows where Agency does hold, $\bar h(G)$ for the distribution of $h$ across those same windows, and $\bar m(G)$ for the distribution of $m^*$ across the States where it is finite. All four are defined outright wherever the reachable States and the roles are finite, and need a declared measure otherwise.
 
-$\rho$ counts, and that follows from the signature rather than from a preference. The established way to measure how much a coordinate matters is its influence, and influence is an average taken against a distribution over the inputs. There is no distribution here, by the declaration made alongside the signature, so $\rho$ counts the windows where the relation holds and weights none of them. Everything established about influence is established about the weighted quantity and does not carry over. That is the second bill the no-probability decision has run up, and it is better to know which bill it is than to discover later that a result was assumed to apply.
+$\rho$ is a share of States and not of pairs, and the difference is not cosmetic. Counting pairs of a State and a set of roles puts a denominator on the page that grows like the subsets of the roles, while Proposition 19 guarantees that one live role drags every set containing it into the numerator. The ratio would then move with how many roles a form happens to have and say nothing about the form, which is fatal for a quantity whose only job is comparing forms. Counting States removes the combinatorics from both sides, and what the grading knows that a State count does not is recovered by $\bar m$, where it belongs.
 
-Both are built out of $\operatorname{Ag}(G)$ and nothing else, and $\operatorname{Ag}(G)$ is built out of $G$ and nothing else. Realization preserves every inspection, so it cannot move either number. That is the claim about remakes above, restated so it can be checked instead of asserted: a remake with the same Rules, the same authority, and the same disclosure has the same $\rho$ and the same $\bar\lambda$, whatever it did to the material.
+$\bar\lambda$ is a distribution of ranks in the finite-depth inspection hierarchy, not an arithmetic average or a distance along an actual Trajectory. $\bar h$ is separate: latency records the least depth at which a difference is inspectable, while reconvergence records how quickly the opened outcomes can reach a common State.
 
-A threshold on either would be a sufficient condition with a number in it, ruled out by Axiom 7 rather than by a new decision. These describe how much of a form is live and how far the live parts reach.
+All four combinations occur and none of them is a malfunction. Small $\lambda$ with infinite $h$ changes things at once and permanently. Small $\lambda$ with small $h$ is feedback without consequence, which is often exactly what a form should be doing at that moment. Large $\lambda$ with infinite $h$ is the consequence that surfaces much later and then stays. Large $\lambda$ with small $h$ is the one worth naming: subtle, delayed, and erased before it reaches anything. That is a thousand inputs returning to the same corridor, arriving by a more flattering route.
+
+And $\rho$ ranges over reachable States, not over the States an instance actually visits. A form may be live almost everywhere and still route every ordinary Trajectory through the dead part. $\rho$ is a property of $G$; what a player meets is a property of $I$ together with a distribution over play that this signature does not carry.
+
+$\rho$ counts, and that follows from the signature rather than from a preference. The established way to measure how much a coordinate matters is its influence, and influence is an average taken against a distribution over the inputs. There is no distribution here, by the declaration made alongside the signature, so $\rho$ counts the States where the relation holds and weights none of them. Everything established about influence is established about the weighted quantity and does not carry over. That is the second bill the no-probability decision has run up, and it is better to know which bill it is than to discover later that a result was assumed to apply.
+
+All four are built out of $\operatorname{Ag}(G)$, $\longrightarrow$, and $\sim_G$, and each of those comes from $G$ and nothing else. Realization preserves every inspection, so it cannot move any of them. That is the claim about remakes above, restated so it can be checked instead of asserted: a remake with the same Rules, the same authority, and the same disclosure has the same $\rho$, the same $\bar\lambda$, the same $\bar h$, and the same $\bar m$, whatever it did to the material.
+
+A threshold on any of them would be a sufficient condition with a number in it, ruled out by Axiom 7 rather than by a new decision. These describe how much of a form is live, how much of it has to act together before anything is, and how hard what it does is to take back.
 
 ## Some Thought Experiments
 
@@ -531,9 +699,7 @@ And it takes nothing away from that agent’s own Agency. Agency asks whether tw
 
 It can lapse, too. If an intervention alters a Rule, then what was known is a different form, and the map is incomplete again.
 
-One thing I should be straight about. Everything above was built out of Rules, the moves they admit, who is allowed to make them, and where the thing may start. Nothing else went in. So of course no observer comes out. Me saying observers do not constitute the game is not a discovery, it is a receipt for what I put in.
-
-I am fine with that, because it puts the work in the right place. If you want the observer inside the object, you have to say which part of it they are, and which move in the game reads them. Both questions have perfectly possible answers. I have just never seen anyone give one. Until somebody does, the observer stays outside the structure and keeps everything that actually matters to them.
+The exclusion of the observer is a scope consequence of the signature, not an independently derived fact. An observer-dependent feature enters the configured form only when it is represented in $G$ and some admitted relation reads it; otherwise it belongs to the relation between the form, its presentation, its context, and the observer.
 
 At the level of experience, I treat meaning as arising through the relation between Rules, presentation, context, and the observer. A player may find a Trajectory heroic, offensive, boring, sacred, cruel, hilarious, or meaningless. Another player may experience the same sequence differently. Neither response rewrites the Rules, the Possibility Space they constituted, or the Trajectory that occurred. In this structural sense, gameness is neutral.
 
