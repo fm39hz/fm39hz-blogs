@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2025-07-07
-modDatetime: 2026-08-17
+modDatetime: 2026-08-18
 title: My thoughts about Games
 featured: false
 draft: false
@@ -62,7 +62,7 @@ And since $\operatorname{obs}$ sits inside $G$, disclosure is a Rule like any ot
 
 So when are two configurations the same State?
 
-A form makes two things available. Read what the Rules disclose at a configuration, or make an admitted intervention and then do the same wherever it leads. Call either one an *inspection*. Every inspection is finite, since each is built by adding one intervention at a time.
+A form makes two things available. Read what the Rules disclose at a configuration, or make an admitted intervention and then do the same wherever it leads. There is no third way, because only $\operatorname{obs}$ shows anything and only $\longrightarrow$ goes anywhere, while the rest of the tuple is inventory, permission, and where the thing may start. Call either one an *inspection*. Every inspection is finite, since each is built by adding one intervention at a time.
 
 A form discloses to itself whatever it shows to any role, plus which interventions are admitted at a configuration, since a body of Rules that cannot tell what it permits next is not a body of Rules.
 
@@ -118,7 +118,7 @@ Once there is an operating Trajectory, we can ask where an alteration of that Tr
 
 So take it that $G$ exposes its operation as an ordered sequence of committed transitions. Let $\Delta t_n$ denote the transition window joining $s_n$ to $s_{n+1}$, a logical position in that order and not a measurable duration in physical time, and $\Delta t$ such a window in general.
 
-I cannot derive that, so I am assuming it, and everything below about $\Delta t$, latency, and Agency leans on it.
+What I cannot derive is that the commits line up in one discrete order at all. That much I am assuming, and everything below about $\Delta t$, latency, and Agency leans on it.
 
 What it does not mean is a clock, a frame, or a turn counter. A commit is whatever the form treats as settled.
 
@@ -186,11 +186,9 @@ Latency $\infty$ means no inspection at any finite depth separates the continuat
 
 So an input may still be ceremonial, decorative, or useful for keeping someone awake, but whether it establishes Agency is now a question with an answer, and wherever the States and interventions can be enumerated it is a question a machine can settle. A branch is not Agency merely because someone drew two boxes and connected them with arrows. That is not a jab. There is a proof of it above.
 
-Two further distinctions fall out of the same relation.
+One more distinction falls out of the same relation. Randomness internal to a transition may change which continuation occurs without any source bearing Agency. The branching is there, but it is attributable to no binding. A random source *bound* to a role is a different case, and its output is evaluated through the same relation as any other bound source.
 
-Randomness internal to a transition may change which continuation occurs without any source bearing Agency. The branching is there, but it is attributable to no binding. A random source *bound* to a role is a different case, and its output is evaluated through the same relation as any other bound source.
-
-And because $\Gamma$ is constant on $\approx_r$-classes, informed Agency separates from blind Agency. In the informed case, the difference between available continuations is detectable by the source that has to choose. In the blind case, two interventions really do lead to different continuations, but $\alpha$ cannot tell which State it is intervening in, so the difference it makes is not a difference it can aim. Both satisfy the existential condition, and they are not the same design object. Any account that cannot separate them is not finished.
+Information asymmetry needs nothing further here. $\approx_r$ already says the Rules may withhold, and whether they do is a fact about $\operatorname{obs}$, which is a component of $G$ like any other. What matters for Agency is that $\Gamma$ is constrained by what the Rules disclose to a role, never by what the occupant of that role has managed to work out.
 
 Agency does not have to appear as a tidy menu of prewritten choices. An intervention role may authorize its occupant to receive a declaration, observation, or unresolved situation and map it into an operational result. Likewise, $G$ may permit an intervention to alter a parameter or a Rule. In that case the mutable configuration is part of $X$, so it shows up in the State, and the permission is a higher-order relation already inside $\longrightarrow$. Otherwise, continuing under the altered relation means continuing under another configured form, $G'$.
 
@@ -208,11 +206,13 @@ Here, “can be altered” is existential: it asserts that the relation holds fo
 
 And it is a *necessary* condition, not a definition. Satisfying it does not make something a game.
 
-The usual move at this point is to hand over some object that satisfies the condition and does not feel like a game, then wait for me to patch the condition until it excludes that object. I am not going to do that, and it is not stubbornness. Two things are wrong with the move.
+Now the part that is not deduction. Everything above is dependency. Agency cannot be spoken about without $\Gamma$, $\Gamma$ without $\approx_r$, $\approx_r$ without $\operatorname{obs}$, and none of it without $G$. What does not follow from any of that is the last step, that a form with $\operatorname{Ag}(G)=\varnothing$ is not a game. There I am identifying gameness with this relation, and that is the one claim here worth attacking. 
+
+The move that usually arrives instead is to hand over some object that satisfies the condition and does not feel like a game, then wait for me to patch the condition until it excludes that object. I am not going to do that, and it is not stubbornness. Two things are wrong with the move.
 
 First, the object always arrives with no declared form and no declared projection. Whoever hands it over has skipped the entire discipline built up above and is holding a feeling next to a structure, which is not a comparison.
 
-Second, and worse, the move assumes we already possess a reliable line between game and not-game, and that the counterexample happens to be standing on the correct side of it. We possess no such line. The clearest evidence is that we cannot settle the one case we are standing inside: nobody has shown that this universe is not itself running as somebody’s game. That question sounds unserious, which is a fact about our habits and not about the question, and while it stays open, no one is in a position to certify that anything at all is definitely not a game.
+Second, and worse, the move assumes we already possess a reliable line between game and not-game, and that the counterexample happens to be standing on the correct side of it. We possess no such line. The clearest evidence is that we cannot settle the one case we are standing inside: nobody has shown that this universe is not itself running as somebody’s game. That question sounds unserious, which is a fact about our habits and not about the question. And it is not one odd case sitting at the edge of the list, it is the case the whole list is inside. If this universe might be running as a game, then every candidate anyone hands me is a configuration within a possible game, and the verdict that it is definitely not one is being delivered from inside the very thing in question. So while that stays open, nobody gets to certify by feel that a thing is definitely not a game. The condition can rule something out, because it names what it is checking. A feeling cannot.
 
 So the condition stays pointed one way, and I mean that as a discipline rather than as modesty. Whatever fails it cannot be a game, no matter what it is sold as. What passes it, I am not ranking. Patching in the other direction is exactly where every earlier attempt turned into a taste ranking wearing a lab coat, because the only material available for the patch is whatever the patcher already finds game-like.
 
@@ -220,7 +220,7 @@ So the condition stays pointed one way, and I mean that as a discipline rather t
 
 From the relations assembled above, three consequences follow.
 
-#### Consequence 1: No structurally “wrong” play remains inside the Rules
+#### Consequence 1: No structurally “wrong” play remains
 
 **If an action lies within the Possibility Space constituted by the Rules, it cannot be wrong in the sense of being outside the game.**
 
@@ -256,17 +256,17 @@ Agency concerns the alteration of continuation, not ownership of an endpoint. A 
 
 Story endings and credits therefore have no privileged place in this condition. Plot, dialogue, authored events, and fixed outcomes may participate directly in the game when they become States, facts, transitions, and consequences constituted by $G$. They may also remain presentation. Neither position makes them inferior. It only tells us what they are doing.
 
-#### Consequence 3: Agency is distributed, not uniform
+#### Consequence 3: Gameness is distributed
 
 **The existence of Agency at one transition window says nothing about its presence, density, or reach elsewhere.**
 
 The condition only ever claimed *somewhere*. It establishes Agency where the relation actually shows up, and it does not spread that across every State, every stretch of the Trajectory, or every subsystem just because they shipped in the same box.
 
-A game may therefore contain long stretches where nothing anyone does changes anything, one subsystem thick with real interventions, and another where a single rare intervention reorganizes everything after it. Two different questions live here, and they are easy to confuse. How much of a subsystem actually carries Agency at all. And how far a difference travels before it folds back, if it ever does. A thousand inputs that all return to the same corridor lose to one input that does not.
+A game may therefore contain long stretches where nothing anyone does changes anything, one subsystem thick with real interventions, and another where a single rare intervention reorganizes everything after it. Two different questions live here, and they are easy to confuse. How much of a subsystem actually carries Agency at all. And how far a difference travels before it folds back, if it ever does. A thousand inputs that all return to the same corridor answer the second question with a zero. One input that does not is the whole answer.
 
 So every State a game can reach falls on one side or the other. Either somebody bound to a role there has two moves that genuinely lead somewhere different, or nobody does. That much is just cutting a room in half, and cutting a room in half proves nothing. The part with content in it is what happens when you change the machine. Change it and the two sides do not move, not one State crosses over, because the line was drawn using only the Rules, who is permitted to act, what they are shown, and where those actions lead. Nothing else was ever let into it, so a new machine has nothing to take hold of. A remake cannot bring a dead stretch to life and it cannot kill a live one, unless it changed the Rules, in which case it is not a remake of the same thing.
 
-Which means the line between game and not-game does not run between products. It runs *inside* one, which you could picture as a line chart, and it is a fact about that product rather than a tribal taxonomy. It also means “less game” stops being an insult. It is a ratio, plus how far the live parts reach. Whether a thing ought to have more or less of it is a completely different question on a completely different layer, and I am not answering it here.
+Which means the line between game and not-game does not run between products. It runs *inside* one, which you could picture as a line chart, and it is a fact about that product rather than a tribal taxonomy. It also means “less game” stops being an insult. It is a proportion, how much of what a thing can reach has a live window in it, plus how far the live parts carry before they fold back. Both are countable wherever the States and the moves can be listed. Whether a thing ought to have more or less of it is a completely different question on a completely different layer, and I am not answering it here.
 
 A game is not one solid block of equal Agency. Agency may be dense here, absent there, trivial in one subsystem, and capable of reorganizing everything in another.
 
@@ -277,7 +277,7 @@ I will leave the answers unwritten. Not because I do not have them, but because,
 - Suppose humanity goes extinct, leaving behind only a complete rulebook for **chess**. Does chess still exist when nobody is there to play it? If aliens find only a wooden chess set and invent a completely different way to use it, are they playing chess? If they instead find the rulebook and make their own pieces from granite, has the game changed, or only what it is played with?
 - Suppose a **composition by Beethoven** remains unheard in a drawer for centuries before being discovered. Was it not music during that time? Beethoven was deaf when he wrote late in his life. Does that put what he wrote outside of music?
 - Four fish swim in a tank while sensors turn their movements into controls for **Pokémon Sapphire**, and eventually the game is beaten. Does *Pokémon* stop being a game because the inputs came from a fish? Does the fish have to know it is playing, or intend to play at all?
-- The ball enters the net. No player is offside, yet the assistant referee raises the flag, the referee disallows the goal, and VAR is not consulted. At that moment, is this still the same game of **football**? Do the rules give the referee the power only to judge what happened, or to make a ruling that counts even when the judgment is wrong? If referees could apply the rules perfectly, why was VAR introduced in the first place? Does VAR change the rules of football, or only how decisions are checked and made final?
+- The ball enters the net. No player is offside, yet the assistant referee raises the flag, the referee disallows the goal, and VAR is not consulted. At that moment, is this still the same game of **football**? Do the rules give the referee the power only to judge what happened, or to make a ruling that counts even when the judgment is wrong? Does VAR change the rules of football, or only how decisions are checked and made final?
 - In a **D&D** session, the DM gives one player two turns to compensate for falling behind the rest of the table. Is this still the same game? Was the DM allowed to make that ruling under the rules the table was already using, or did the table just add a house rule?
 - Six children play by rules they made together. Child A scores with a move that is allowed at the time. Before child B can repeat it, the group changes the rule to forbid it. Does the new rule erase A’s earlier score, or does it apply only from that moment onward? If B performs the move anyway, is it valid now? What changed between the two attempts? What game are they playing now?
 
@@ -290,6 +290,18 @@ Rules and presentation may communicate, encode assumptions, and produce powerful
 The same person may be both observer and Agent, but these are different relations. Interpretation in the role of observer does not alter the Trajectory; an intervention admitted through Agency may.
 
 The player’s experience therefore does not reach backward and redefine the game. It is still real, still important, and often the entire reason anyone cares about the thing in the first place.
+
+And even in the Agent relation, what a person knows is not part of the form. The Rules fix what a role is shown. They say nothing about what the occupant of that role has worked out from being shown it, and no move in the game reads that. Two things follow, and both of them get mistaken for properties of games.
+
+The first is the difference between choosing and guessing. Where the Rules hide something, an agent can hold two interventions that really do lead somewhere different and still not be able to tell which situation it is intervening in. The difference it makes is real, it is just not a difference it can aim. Choosing and guessing are not the same act, and any account that cannot separate them is not finished. But the thing being separated is what the agent is doing, not what the game is. A form that conceals is not a lesser or a better form, it is a form that conceals.
+
+The second is saturation. Suppose an agent keeps at a thing until it has come to know the whole Possibility Space, every State the thing can reach and everything admitted at each of them. For that agent the game is saturated. Nothing in it can arrive as new any more.
+
+Saturation is not a solved game. A solved game is a claim about the thing itself, that the outcome under some standard of play is settled. Saturation is a claim about one agent, so two people at the same table can differ on it while the Rules sit there unchanged. It is also not seeing through walls. What fills up is the map, not the readings the Rules disclose at a State, so a saturated agent in a form that conceals still cannot see what is concealed.
+
+And it takes nothing away from that agent’s own Agency. Agency asks whether two available interventions lead somewhere that differs, and neither half of that question mentions what the agent knows. Knowing both continuations are there does not merge them. So a saturated agent keeps every bit of Agency it had, and what it has run out of is discovery, which was never in the condition. Saturation for one agent also says nothing about anyone else at the table.
+
+It can lapse, too. If an intervention alters a Rule, then what was known is a different form, and the map is incomplete again.
 
 One thing I should be straight about. Everything above was built out of Rules, the moves they admit, who is allowed to make them, and where the thing may start. Nothing else went in. So of course no observer comes out. Me saying observers do not constitute the game is not a discovery, it is a receipt for what I put in.
 
@@ -309,7 +321,7 @@ Adapting a film or novel into a game is therefore not merely a matter of distrib
 
 In reality, we do not need to settle every possible definition before taking one step closer to the thing itself. We only need to stop mixing every layer together.
 
-As Indie game dev, I think that before we trying to make a game fun, moving, groundbreaking, artistic, addictive, etc..., well, try to make the part that has to be a game work as a game first. Then build everything else upon it.
+I think, as Indie game dev, we should just keep it simple: before trying to make a game fun, moving, groundbreaking, artistic, addictive, etc,..., well, try to make the part that has to be a game work as a game first. Then build everything else upon it.
 
 Recreating your imagination is not a simple matter of draw a map, throw your story and your massive contents into it then add some button prompts. If it has to become a game, then it has to be reconstructed through Rules, Trajectory, Agency,... you know, all the bullshit I have been rambling about above.
 
