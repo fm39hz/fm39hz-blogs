@@ -44,44 +44,96 @@ export function centerActiveInList(list: HTMLElement, active: HTMLElement, smoot
 	list.scrollTo({ top, behavior: smooth ? 'smooth' : 'auto' });
 }
 
+/**
+ * Scroll-based active heading tracker.
+ *
+ * Uses `scroll` events throttled by `requestAnimationFrame` instead of
+ * `IntersectionObserver`. On every frame we walk every heading and pick
+ * the last one whose top edge has crossed a threshold line near the top
+ * of the viewport. Two special cases keep things honest:
+ *
+ * 1. **Bottom-of-page**: when the user has scrolled to the very end,
+ *    the last heading wins regardless of its position — the old
+ *    IntersectionObserver approach missed this because the heading
+ *    could sit above the narrow observation band.
+ *
+ * 2. **Before any heading**: if no heading has crossed the threshold
+ *    yet, the first heading is selected so the TOC is never empty.
+ *
+ * `getBoundingClientRect()` gives the position relative to the
+ * viewport, which is immune to nested `position: relative` ancestors
+ * that made the old `offsetTop` fallback unreliable.
+ */
 export function observeActiveHeading(
 	items: TocHeading[],
 	onActive: (id: string) => void,
 ): () => void {
-	const headingStates = new Map<string, boolean>();
+	if (items.length === 0) return () => {};
 
-	const pick = () => {
-		for (const item of items) {
-			if (headingStates.get(item.id)) {
-				onActive(item.id);
-				return;
-			}
+	/** Fraction of viewport height used as the activation line. */
+	const THRESHOLD_RATIO = 0.2;
+
+	/**
+	 * Slack in pixels for the bottom-of-page check.
+	 * Accounts for sub-pixel rounding and fractional scroll values.
+	 */
+	const BOTTOM_SLACK = 2;
+
+	let ticking = false;
+	let lastActiveId = '';
+
+	const resolve = (id: string) => {
+		if (id && id !== lastActiveId) {
+			lastActiveId = id;
+			onActive(id);
 		}
-		const scrollY = window.scrollY;
-		let lastAboveId = items[0]?.id ?? '';
-		for (const item of items) {
-			const el = document.getElementById(item.id);
-			if (el && el.offsetTop - 120 < scrollY) lastAboveId = item.id;
-			else break;
-		}
-		if (lastAboveId) onActive(lastAboveId);
 	};
 
-	const observer = new IntersectionObserver(
-		(entries) => {
-			for (const entry of entries) {
-				headingStates.set(entry.target.id, entry.isIntersecting);
+	const update = () => {
+		ticking = false;
+
+		const doc = document.documentElement;
+		const atBottom = window.scrollY + window.innerHeight >= doc.scrollHeight - BOTTOM_SLACK;
+
+		// At the very bottom of the page the last heading always wins.
+		if (atBottom) {
+			resolve(items[items.length - 1].id);
+			return;
+		}
+
+		// Walk every heading. The last one whose top edge is at or above
+		// the threshold line is the active one.
+		const threshold = window.innerHeight * THRESHOLD_RATIO;
+		let activeId = items[0]?.id ?? '';
+
+		for (const item of items) {
+			const el = document.getElementById(item.id);
+			if (!el) continue;
+			if (el.getBoundingClientRect().top <= threshold) {
+				activeId = item.id;
 			}
-			pick();
-		},
-		{ rootMargin: '-45% 0px -45% 0px' },
-	);
+			// No break — always walk the full list so the *last* heading
+			// above the line wins, not the first.
+		}
 
-	for (const item of items) {
-		const el = document.getElementById(item.id);
-		if (el) observer.observe(el);
-	}
+		resolve(activeId);
+	};
 
-	pick();
-	return () => observer.disconnect();
+	const onScroll = () => {
+		if (!ticking) {
+			ticking = true;
+			requestAnimationFrame(update);
+		}
+	};
+
+	window.addEventListener('scroll', onScroll, { passive: true });
+	window.addEventListener('resize', onScroll, { passive: true });
+
+	// Initial pick so the TOC is correct on mount / navigation.
+	update();
+
+	return () => {
+		window.removeEventListener('scroll', onScroll);
+		window.removeEventListener('resize', onScroll);
+	};
 }
