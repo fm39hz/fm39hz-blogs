@@ -1,5 +1,6 @@
 import type { Component } from 'svelte';
 import type { PostMeta } from '$lib/types';
+import { postFilter } from '$lib/utils/post';
 import { parseLang, parseSlug } from '$lib/utils/slug';
 
 export interface PostEntry {
@@ -28,7 +29,13 @@ function fileNameOf(path: string): string {
 
 /** Unique article slugs (prerender entries). */
 export function listArticleSlugs(): string[] {
-	return [...new Set(Object.keys(metaModules).map((path) => parseSlug(fileNameOf(path))))];
+	return [
+		...new Set(
+			Object.entries(metaModules)
+				.filter(([_, metadata]) => postFilter({ metadata }))
+				.map(([path]) => parseSlug(fileNameOf(path))),
+		),
+	];
 }
 
 /**
@@ -57,7 +64,7 @@ export async function loadPageEntriesAsync(slug: string): Promise<PageEntry[]> {
 	const matches = Object.entries(pageModules).filter(
 		([path]) => parseSlug(fileNameOf(path)) === slug,
 	);
-	return await Promise.all(
+	const results = await Promise.all(
 		matches.map(async ([path, importFn]) => {
 			const [mod, raw] = await Promise.all([
 				importFn(),
@@ -73,4 +80,5 @@ export async function loadPageEntriesAsync(slug: string): Promise<PageEntry[]> {
 			};
 		}),
 	);
+	return results.filter(postFilter);
 }

@@ -1,12 +1,8 @@
-import cfg from '$lib/config';
 import { loadPosts, type PostEntry } from '$lib/data/server';
 import type { PostMeta } from '$lib/types';
+import { postFilter } from '$lib/utils/post';
 
-export function postFilter({ metadata }: { metadata: PostMeta }): boolean {
-	const margin = cfg.posts.scheduledPostMargin;
-	const isPublished = Date.now() > new Date(metadata.pubDatetime).getTime() - margin;
-	return !metadata.draft && (import.meta.env.DEV || isPublished);
-}
+export { postFilter } from '$lib/utils/post';
 
 export function getSortedPosts(posts: { slug: string; metadata: PostMeta }[]) {
 	return posts.filter(postFilter).sort((a, b) => {
@@ -71,7 +67,7 @@ export function groupPostsByYearAndMonth(
 }
 
 export function getDisplaySortedPosts(): PostEntry[] {
-	const allPosts = loadPosts();
+	const allPosts = loadPosts().filter(postFilter);
 	const groups = groupPostsBySlug(allPosts);
 	const displayPosts = groups.map((g) => g.defaultEntry);
 	return getSortedPosts(displayPosts);
