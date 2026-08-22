@@ -75,6 +75,17 @@ src/
 └── lib/paraglide/        # Generated i18n (gitignored)
 ```
 
+## Editorial Voice and Content Editing
+
+For any task that drafts, rewrites, proofreads, or reviews prose in `src/content/articles/` or
+`src/content/pages/`, use the project skill
+`fm39hz-editorial-voice`. Load it and every
+reference it routes to in full before editing.
+
+The skill is authoritative for voice anchors, claim discipline, sarcasm and examples, formal article
+boundaries, ASCII punctuation, and editorial verification. Explicit instructions in the current task
+override the skill.
+
 ## Content System
 
 ### Article Format
