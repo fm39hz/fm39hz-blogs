@@ -172,6 +172,16 @@ In other words, its Rule-constituted Possibility Space must contain somewhere tw
 
 This is the necessary structure I was looking for. It leaves the rest of the Game wonderfully unresolved. Nothing here says the supporting contribution is wise, satisfying, expressive, fair, difficult, informed, or even noticed. Those judgments require more relations. The one relation kept here is the one without which the Operating Instance can still run, but every admitted contribution remains ceremonial.
 
+### Why does the condition only point one way?
+
+Because every attempt to make it sufficient has to bring something else into the room.
+
+The usual answer is to find a form that satisfies the condition but does not feel like a game, then patch the definition until that form goes away. The patch is rarely free. It normally imports a goal, an intention, a preference, a cultural category, or an expected experience, then lets that imported relation quietly decide what the Game was supposed to mean all along.
+
+A goal can distinguish a contribution someone prefers from a fork nobody values. An intention can explain why a Rule was authored. A culture can decide which forms it recognizes and which ones it does not. An observer can find one Trajectory profound and another unbearable. All of that may matter more than anything in this article. None becomes part of the necessary relation merely by being important.
+
+So the bridge rules one direction out. It does not manufacture the entire other direction. A form with no Gameness Support fails the condition argued here. A form with Gameness Support has merely reached the point where the rest of the questions can begin.
+
 ### So what does all that settle?
 
 It settles where the argument must look.
@@ -179,6 +189,8 @@ It settles where the argument must look.
 Gameness is supported where Rules admit a contribution-sensitive difference in continuation. Mechanics express that relation. Presentation may disclose it, conceal it, delay it, exaggerate it, or make anyone care about it. Goals may evaluate it. None of those layers can substitute for the relation while leaving every Continuation constant.
 
 It also explains why a branch diagram alone proves so little. Branches may come from internal nondeterminism. Two drawn branches may remain inspectably identical. A hundred prompts may all open one Continuation. The relevant question is always which admitted contribution can carry the form into which distinguishable future.
+
+It makes several older arguments smaller too. Two mechanics express the same Rule only after the comparison says which distinctions it is discarding. Wood, silicon, paper, speech, and an engine may realize the same configured form when they preserve its operative structure. Showing a Role something the Rules previously withheld changes the disclosure relation, but disclosure alone does not create another contribution. And an input may remain perfectly ceremonial no matter how expensive its animation was.
 
 ### From Game inward
 
@@ -220,6 +232,10 @@ The Possibility Space is the reachable structure of the declared Rules. If those
 
 "The designer did not expect that" does not alter the form already in operation. Intent may explain or motivate a later revision; until the Rules change, the admitted possibility remains admitted.
 
+If stacking three Quartz lets a mage deal one million physical damage, the configured form admitted it. Calling the result an exploit does not reach backward and remove it from the Possibility Space. If it was never meant to belong there, the player did not select the wrong possibility. The Rules supplied the wrong one.
+
+The reverse is less flattering. Tuning three Quartz contributes system depth only where the arrangement changes what the form admits, discloses, or can later distinguish. If every arrangement returns to the same Continuation and changes only a number no Rule reads, the surrounding apparatus is presenting a distinction rather than constituting one. It may still be a very satisfying evening in the equipment menu. Perhaps the menu has been doing more work than the system underneath it.
+
 #### Consequence 2: A Trajectory is not its endpoint
 
 **The endpoint of a bounded Trajectory is merely its last committed State. It need not be a dead end under the Rules, correspond to a game ending, or display the credits.**
@@ -228,11 +244,17 @@ A Trajectory may remain ongoing. An endpoint appears only after some interval of
 
 Call an interval opened and closed by its surrounding operation a **Session**. Call a bounded cycle recognized by the configured form a **Run**. One Session may contain several Runs; one Run may continue across several Sessions. Neither boundary implies terminality.
 
+A terminal State is different from all three. It is a State from which the Rules admit no continuation. Closing a Session, completing a Run, displaying an ending, and reaching terminality are four relations that may coincide and often do not.
+
 Two Trajectories can end at the same State without being the same Trajectory. Their raw histories remain different. Their inspectable futures agree only to the extent that the present State has genuinely absorbed every operative distinction between them. If a later reading, admission, or consequence depends on the route taken, then a trace of that route remains in the current State.
 
 This captures the structural content of one complaint that choices did not matter. Two Contributions may open different Continuations while every immediate outcome still retains a route to one common later State under one finite bound. That was a real fork with possible Reconvergence. Whether the actual Trajectory follows one of those routes is another question.
 
 A shared destination is weaker still than a shared State. It may name only one property of an endpoint while everything else differs. Story endings and credits receive no privileged status here. They participate when their representation changes what can be read, admitted, or continued.
+
+Consequences also have a shelf life. Three Contributions may produce three inspectably different responses and then leave no distinction that any later Rule can consult. Agency existed at the earlier window. Its represented consequence ended there. A different ending may likewise be a genuinely different State even when nothing follows it; what it lacks is further reach, not reality at the endpoint.
+
+That shelf life is not Latency. Latency asks how deep one must inspect before a fork first becomes distinguishable. It is not Reconvergence either, which asks whether every immediate outcome still retains some route to one common State. Measuring persistence would require comparing later counterfactual paths and declaring how their outcomes are paired. The configured form supplies no canonical number merely because the question is worth asking.
 
 #### Consequence 3: Gameness is distributed
 
@@ -243,6 +265,10 @@ It may occupy only a small part of the reachable State space. Runtime, interface
 This is where ceremonial input becomes visible. A long interval may continue to accept commands while every admitted command opens the same Continuation. The Operating Instance is busy, the controller is busy, the animation department is certainly busy, and the Gameness Support is still absent from that interval.
 
 Another interval may offer only two plain contributions and split the continuation immediately. The number of gestures tells us less than what the Rules let those gestures change.
+
+A configuration surface may expose fifty adjustable values and carry no Agency if every admitted profile opens one Continuation. One plain contribution may change which actions remain admissible for the rest of a Run. The larger interface is not automatically the denser Game, and the longer consequence is not automatically the more enjoyable one. They are simply different structural facts.
+
+This leaves two questions I find more useful than counting prompts or systems: where in the reachable form does Agency exist at all, and after a witness occurs, where does its resulting distinction cease to remain operative? The first has Gameness Support. The second still needs a declared persistence relation rather than a confident adjective.
 
 Calling one Game less game than another therefore requires two prior choices: a common comparison granularity and a quantity taken from the resulting support. Structural gameness density is one such quantity. Agency arity, Latency, and Reconvergence describe other aspects. No arithmetic can choose their importance without importing a judgment from outside the structure.
 
@@ -273,6 +299,8 @@ Fix one granularity at which a Source is trying to understand the Possibility Sp
 Saturation collapses uncertainty about the form. It does not settle which hidden State is actual now, which goal the Source values, which Contribution is best, or whether the Source can execute it. It also leaves Agency where it was. The same Game can be fresh to one Source and Saturated for another without changing a single Rule.
 
 The Rules may participate in that learning by disclosing evidence through their scoped interfaces. If the form represents what has been learned and lets it affect later admissions or continuations, the learning state belongs to the Game. If it does not, the update remains with the Source.
+
+A Rule mutation already admitted by the configured form does not surprise a Saturated Source merely by occurring; its possible results were already among the structures being considered. Revising the form from outside those represented possibilities produces another configured form, and knowledge sufficient for the first need not Saturate the second.
 
 This gives one account of familiarity without pretending that the Possibility Space shrinks whenever somebody understands it. What changes is the set of models the Source still considers possible. The configured form remains where it was, quietly waiting for somebody else to discover the obvious all over again.
 

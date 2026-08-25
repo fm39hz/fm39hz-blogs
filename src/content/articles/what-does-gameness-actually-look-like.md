@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-08-18
-modDatetime: 2026-08-20
+modDatetime: 2026-08-25
 title: What does Gameness actually look like?
 featured: false
 draft: false
@@ -38,6 +38,7 @@ $$
 | --- | --- |
 | Rule presentation | $\mathfrak R$ |
 | Configured form | $G$ |
+| Candidate extraction | $\operatorname{str}:\mathfrak C\to\mathcal G$ |
 | State space | $S_G=X/{\sim_G}$ |
 | Possibility Space | $\mathcal P_G$ |
 | Trajectory | $\operatorname{trace}_G(I)$ |
@@ -509,6 +510,10 @@ Write $\mathfrak R\models G$ when Rule axioms R2, R3, and R5 hold over this conf
 $\mathfrak R$ retains scope, intersection, dependence, and declared disclosure structure. $G$ retains the configured transition behavior from which State, continuation, and structural Agency will be derived.
 
 The configured form is possibilistic: $\longrightarrow$ retains transition support. Every construction below that is derived from fixed $G$ alone is invariant under changes of outcome weights that preserve that support.
+
+**Axiom 0. Structural scope.** Structural Agency support is determined by $G$ and no further data. An instance-indexed Agency claim may additionally use an operating instance only to identify a reached State, a transition window, and the roles bound there.
+
+This scopes the calculus, not gamehood. Material, authorship, intent, reception, or another unrepresented fact does not enter $\operatorname{Ag}(G)$. The bridge to candidate games remains a separate assumption below.
 
 **Definition I1. Structural isomorphism.** Let
 
@@ -1497,52 +1502,169 @@ $$
 
 ## The Game bridge
 
-**Axiom 6. Constitution.** $\operatorname{Game}$ is a primitive predicate on the presented configured forms under discussion and is invariant under structural isomorphism:
+Let $\mathcal G$ be the class of configured forms admitted by the structural signature above, and let $\mathfrak C$ be a domain of candidate objects carrying whatever further data an account of gamehood may require.
+
+**Definition B1. Structural extraction.** A declared extraction is a total map
 
 $$
-G\cong H
+\operatorname{str}:\mathfrak C\to\mathcal G.
+$$
+
+The extraction is fixed before Agency is evaluated. Variation exposed by the candidate's Rules as a contribution port becomes a role coordinate. Variation remaining after every represented contribution has been fixed remains inside $\longrightarrow$. Recasting one internal branch as a fictitious role changes $\operatorname{str}(z)$; it does not discover Agency in the same configured form.
+
+No canonical extraction is asserted. Every bridge claim below is relative to the declared pair $(\mathfrak C,\operatorname{str})$. Let $\operatorname{Game}$ be a primitive predicate on $\mathfrak C$.
+
+For $z\in\mathfrak C$, write
+
+$$
+G_z:=\operatorname{str}(z),
+\qquad
+D_s^{G_z}:=\operatorname{Adm}_{G_z}(s),
+\qquad
+\kappa_s^{G_z}:D_s^{G_z}\to Q_s^{G_z}
+$$
+
+for the constructions above evaluated on its extraction.
+
+**Bridge axiom B2. Representation.** Every game has a structurally playable extraction:
+
+$$
+\operatorname{Game}(z)
 \Longrightarrow
-\bigl(
-\operatorname{Game}(G)
-\Longleftrightarrow
-\operatorname{Game}(H)
-\bigr).
-$$
-
-The bridge imported with the vocabulary has the following formal statement.
-
-**Axiom 7. Representation.** Every game is structurally playable:
-
-$$
-\operatorname{Game}(G)
-\Longrightarrow
-\operatorname{SPlay}(G).
+\operatorname{SPlay}(G_z).
 $$
 
 Equivalently,
 
 $$
 \left(
-\forall s\in S_G^{\mathrm{reach}}:
-|\operatorname{im}\kappa_s|\leq1
+\forall s\in S_{G_z}^{\mathrm{reach}}:
+|\operatorname{im}\kappa_s^{G_z}|\leq1
 \right)
 \Longrightarrow
-\neg\operatorname{Game}(G).
+\neg\operatorname{Game}(z).
 $$
 
-The bridge is evaluated on one fixed configured representation and on transition support. Under it,
+Under the bridge,
 
 $$
-\operatorname{Game}(G)
+\operatorname{Game}(z)
 \Longrightarrow
-\exists s\in S_G^{\mathrm{reach}}
-\ \exists p,q\in D_s:
+\exists s\in S_{G_z}^{\mathrm{reach}}
+\ \exists p,q\in D_s^{G_z}:
 \operatorname{Diff}(p,q)\neq\varnothing
 \land
-\kappa_s(p)\neq\kappa_s(q).
+\kappa_s^{G_z}(p)
+\neq
+\kappa_s^{G_z}(q).
 $$
 
-Since $R$ is finite, $\operatorname{Diff}(p,q)$ is a finite role block.
+Since the extracted role carrier is finite, $\operatorname{Diff}(p,q)$ is a finite role block.
+
+The converse is absent. The bridge is refuted by one accepted candidate $z$ for which
+
+$$
+\operatorname{Game}(z)
+\land
+\operatorname{Ag}\bigl(\operatorname{str}(z)\bigr)=\varnothing.
+$$
+
+Every structural result about Agency, latency, arity, and reconvergence survives that refutation. Only the bridge to the ordinary word *game* fails.
+
+The bridge is support-level because $\operatorname{str}(z)$ retains transition support rather than outcome weights. An accepted game whose only contribution-sensitive differences alter probability over identical supports refutes B2 under that extraction. A distribution-sensitive bridge requires a richer configured form; it is not obtained by reading weights into $G$ after the fact.
+
+<details>
+<summary>Assumption bill and a concrete model</summary>
+
+| Assumption | What it fixes | Remove it and |
+| --- | --- | --- |
+| Axiom 0 | structural Agency reads only $G$ | unrepresented material, intent, or reception may enter the Agency test |
+| Rule formation discipline | content identities remain carrier values | Rule, port, role, or disclosure labels may hardcode proper nouns |
+| R2 | Rule clauses respect the declared carrier symmetries | structurally interchangeable values may be treated differently |
+| R3 | active cells jointly determine one framed transition | the Rule presentation no longer determines $\longrightarrow$ |
+| R5 | every declared reading has a scoped Rule source | information may bypass Rule incidence |
+| Axiom 1 | admissibility and disclosures are atomic inspections | State-defined availability need not follow |
+| Axiom 2 | inspection constructors are free and unambiguous | inspection syntax may identify unrelated probes |
+| Axiom 3 | observation retains every admitted outcome and its correlation | a linear observation language induces another continuation relation |
+| Axiom 4 | every inspection is finitely generated | finite depth need not exhaust State sameness |
+| Axiom 5 | operation supplies traces, windows, and bindings | concrete Trajectory and Agenthood lose their instance index |
+| B2 | candidate gamehood requires non-empty structural support | the calculus no longer rules candidates out as games |
+
+The assumptions are jointly satisfiable. Take
+
+$$
+R=\{r\},
+\qquad
+A=\{0,a,b\},
+\qquad
+\operatorname{auth}(r)=A,
+$$
+
+$$
+X=\{x_0,x_1,x_2\},
+\qquad
+X_0=\{x_0\},
+$$
+
+and one configuration port $q$ with $V_q=\{0,1,2\}$ and $\pi_q(x_i)=i$. Choose the typed vocabulary so that its automorphism group is trivial, and take one cell $c$ with
+
+$$
+I_c=O_c=\{q\},
+\qquad
+U_c=\{r\},
+$$
+
+$$
+D_c
+=
+\{(0,0),(0,a),(0,b),(1,a),(2,0)\},
+$$
+
+$$
+L_c
+=
+\{
+((0,0),0),
+((0,a),1),
+((0,b),2),
+((1,a),1),
+((2,0),2)
+\}.
+$$
+
+Let
+
+$$
+\operatorname{read}_c(r)=\{\operatorname{id}_{V_q}\},
+\qquad
+\operatorname{obs}(r)=\{\pi_q\}.
+$$
+
+R2, R3, and R5 then hold, and the presentation admits exactly
+
+$$
+x_0\xrightarrow{0}x_0,
+\quad
+x_0\xrightarrow{a}x_1,
+\quad
+x_0\xrightarrow{b}x_2,
+\quad
+x_1\xrightarrow{a}x_1,
+\quad
+x_2\xrightarrow{0}x_2.
+$$
+
+Take the free inspection algebra of Axioms 1-4, let operating instances be admitted finite or countable paths with total bindings, set $\mathfrak C=\{z_*\}$, and declare
+
+$$
+\operatorname{Game}(z_*),
+\qquad
+\operatorname{str}(z_*)=G.
+$$
+
+The reading of $q$ separates $x_1$ from $x_2$, so $a$ and $b$ at $x_0$ open different continuation classes and $\operatorname{SPlay}(G)$ holds. This discharges joint satisfiability; it supplies no empirical evidence for B2.
+
+</details>
 
 ## Witness geometry
 
@@ -1608,6 +1730,8 @@ $$
 and set $j_G(s;p,q):=\infty$ when no finite bound exists.
 
 A finite value gives one uniform bound within which every immediate outcome retains a route to one common State. It asserts neither actual return nor control of that route. For a witness pair, $j_G(s;p,q)\neq0$.
+
+**Remark W4. Consequence persistence.** Reconvergence depth is not the lifetime of a distinction. A persistence quantity would have to rebase the comparison at later States and declare how counterfactual paths, and under nondeterminism their outcomes, are paired. The signature supplies no uniform canonical pairing across arbitrary nondeterministic forms, although a particular form may supply one. The present calculus therefore retains latency and possible reconvergence without assigning a general persistence number.
 
 ## Observable quotient and structural invariance
 
@@ -1902,9 +2026,11 @@ $$
 **Corollary G2.** Every game has positive structural gameness support:
 
 $$
-\operatorname{Game}(G)
+\operatorname{Game}(z)
 \Longrightarrow
-\operatorname{supp}(\chi_G)\neq\varnothing.
+\operatorname{supp}
+\bigl(\chi_{\operatorname{str}(z)}\bigr)
+\neq\varnothing.
 $$
 
 If $S_G^{\mathrm{reach}}$ is finite, define
@@ -1918,11 +2044,11 @@ $$
 Then
 
 $$
-\operatorname{Game}(G)
+\operatorname{Game}(z)
 \land
-|S_G^{\mathrm{reach}}|<\infty
+|S_{\operatorname{str}(z)}^{\mathrm{reach}}|<\infty
 \Longrightarrow
-0<\rho(G)\leq1.
+0<\rho\bigl(\operatorname{str}(z)\bigr)\leq1.
 $$
 
 Cross-form uses of $\rho$ use Definition C1.
@@ -1930,25 +2056,30 @@ Cross-form uses of $\rho$ use Definition C1.
 For one comparison scheme $(\Pi,q)$, take
 
 $$
-\mathcal G_{\Pi,\mathrm{fin}}
+\mathfrak C_{\Pi,\mathrm{fin}}
 :=
-\{\,G\in\mathcal D\mid
-\operatorname{Game}(G)
+\{\,z\in\mathfrak C\mid
+\operatorname{Game}(z)
 \land
-\operatorname{Game}(\Pi(G))
+\operatorname{str}(z)\in\mathcal D
 \land
-|S_{\Pi(G)}^{\mathrm{reach}}|<\infty\,\},
+\operatorname{SPlay}
+\bigl(\Pi(\operatorname{str}(z))\bigr)
+\land
+|S_{\Pi(\operatorname{str}(z))}^{\mathrm{reach}}|<\infty\,\},
 $$
 
-and define
+and, for $z,w\in\mathfrak C_{\Pi,\mathrm{fin}}$, define
 
 $$
-G\preceq_{\Pi,\rho}H
+z\preceq_{\Pi,\rho}w
 \Longleftrightarrow
-\rho(\Pi(G))\leq\rho(\Pi(H)).
+\rho\bigl(\Pi(\operatorname{str}(z))\bigr)
+\leq
+\rho\bigl(\Pi(\operatorname{str}(w))\bigr).
 $$
 
-Write $G\prec_{\Pi,\rho}H$ for strict inequality. This preorder compares the density of structural gameness support after one declared normalization.
+Write $z\prec_{\Pi,\rho}w$ for strict inequality. This preorder compares candidate games by the density of structural gameness support retained after one declared normalization.
 
 <details>
 <summary>Finite continuation capacity</summary>
@@ -2058,9 +2189,24 @@ Saturation collapses the configured hypothesis class to one structural isomorphi
 
 </details>
 
+The resulting objects answer different questions:
+
+| Question | Structural object | It does not encode |
+| --- | --- | --- |
+| Where can an admitted profile difference alter continuation? | $S_A(G)$ and $\mathcal W_G(s)$ | quality, importance, or visitation frequency |
+| How many role coordinates does the nearest witness change? | $m_G^*(s)$ | number of people or interaction strength |
+| How deep before one witness becomes distinguishable? | $\ell_G(s;p,q)$ | elapsed time or consequence magnitude |
+| How soon can every immediate outcome still reach one common State? | $j_G(s;p,q)$ | actual return, control, or persistence |
+| Has one source exhausted structural discovery at the selected granularity? | $\operatorname{Sat}_{\Pi,K}(\alpha,G)$ | solving, current-State knowledge, or loss of Agency |
+| How long does a distinction remain operative along paired later paths? | no canonical object in the present signature | Latency or Reconvergence by another name |
+
 $$
 \begin{aligned}
-(\mathfrak R,G;\ \mathfrak R\models G)
+(z,\operatorname{str})
+&\longmapsto
+G_z=\operatorname{str}(z),
+\\
+(\mathfrak R,G;\ \mathfrak R\models G;\ \mathrm{Axioms}\ 1\text{-}4)
 &\longmapsto
 (\mathfrak R,G,\mathsf{Insp}_G,S_G,\mathcal P_G),
 \\
@@ -2074,11 +2220,11 @@ G,\mathsf{Insp}_G,S_G,\mathcal P_G,
 \operatorname{SPlay}(G)
 \bigr),
 \\
-\operatorname{Game}(G)
-&\overset{\mathrm{Axiom\ 7}}{\Longrightarrow}
-\operatorname{SPlay}(G)
+\operatorname{Game}(z)
+&\overset{\mathrm{B2}}{\Longrightarrow}
+\operatorname{SPlay}(G_z)
 \Longleftrightarrow
-\operatorname{Ag}(G)\neq\varnothing,
+\operatorname{Ag}(G_z)\neq\varnothing,
 \\
 (G,S_G,\mathcal P_G,(\kappa_s)_s,(\mathcal W_G(s))_s,\ell_G,j_G)
 &\longmapsto
