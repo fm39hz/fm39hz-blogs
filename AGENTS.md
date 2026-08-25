@@ -86,6 +86,34 @@ The skill is authoritative for voice anchors, claim discipline, sarcasm and exam
 boundaries, ASCII punctuation, and editorial verification. Explicit instructions in the current task
 override the skill.
 
+## Subagent Budget
+
+Subagents are an exception for bounded, independent, read-heavy work. The primary agent owns edits,
+integration, tests, and the final judgment.
+
+- Use no subagent when direct inspection can settle the question without materially polluting the
+  primary context.
+- Use one subagent for a routine audit. Use two only when both tasks are independent and both results
+  are necessary. Never exceed the project limit in `.codex/config.toml`.
+- Never use `gpt-5.6-sol` for a subagent and never let a subagent inherit a Sol parent implicitly.
+- Default to `gpt-5.6-luna` with `low` or `medium` effort. Use `gpt-5.6-terra` with `medium` effort for
+  formal mathematics or cross-layer architecture. Use `high` only after a concrete unresolved
+  counterexample or contradiction exists. Do not use `xhigh`, `max`, or `ultra` for subagents.
+- Prefer the project agents in `.codex/agents/`: `prose_auditor`, `formal_auditor`,
+  `architecture_auditor`, and `trilogy_auditor`.
+- Do not spawn agents merely to run builds, formatting, mechanical scans, or a second generic review.
+  Run those checks directly in the primary thread.
+- Subagents are read-only and must not spawn further subagents.
+
+When spawning, pass `fork_turns = "none"` by default. Use only the smallest recent-turn fork needed
+when the task cannot be stated independently; do not pass full history. The task prompt should name
+the exact files or definitions, one objective, the relevant invariants, and the return schema. Point
+to local files instead of pasting their contents. Aim for a prompt under 180 words.
+
+Ask for `PASS` or at most five load-bearing findings with `severity`, `path:line`, `defect`, and a
+minimal rationale. Do not request a work log, broad summary, rewritten article, or repeated context.
+Stop after one sufficient pass unless the returned evidence exposes a specific unresolved defect.
+
 ## Content System
 
 ### Article Format

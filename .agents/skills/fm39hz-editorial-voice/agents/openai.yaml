@@ -1,0 +1,4 @@
+interface:
+  display_name: "FM39hz Editorial Voice"
+  short_description: "Preserve FM39hz prose and claim discipline"
+  default_prompt: "Use $fm39hz-editorial-voice to edit this article without flattening the author's voice or weakening claim precision."
