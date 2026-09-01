@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-01-02
-modDatetime: 2026-08-25
+modDatetime: 2026-09-01
 title: My thoughts about Games
 featured: false
 draft: false
@@ -181,6 +181,18 @@ The usual answer is to find a form that satisfies the condition but does not fee
 A goal can distinguish a contribution someone prefers from a fork nobody values. An intention can explain why a Rule was authored. A culture can decide which forms it recognizes and which ones it does not. An observer can find one Trajectory profound and another unbearable. All of that may matter more than anything in this article. None becomes part of the necessary relation merely by being important.
 
 So the bridge rules one direction out. It does not manufacture the entire other direction. A form with no Gameness Support fails the condition argued here. A form with Gameness Support has merely reached the point where the rest of the questions can begin.
+
+### So, about that family resemblance...
+
+There is another answer I have never found particularly satisfying: perhaps games share no common structure at all. They merely resemble one another through a loose family of overlapping traits.
+
+The trouble is that the family has already been assembled before resemblance is asked to explain it. To compare the things we call games, one must first decide which things enter the comparison. If convention supplies that set, then the result describes the convention that supplied it. Failing to find one common property among those examples does not establish that no common structural relation exists underneath them.
+
+A Game here is not an inventory of visible traits. It is a configured structure. Chess does not need to resemble a videogame as an object any more than a rulebook needs to resemble the Operating Instance that follows it. The commonality may belong to how Rules admit Contributions and carry their differences into Continuations, where looking over a shelf of nouns was never going to find it.
+
+At most, family resemblance describes why ordinary language keeps using the same word for an unruly collection of things. That is a claim about the word. Convention can move the label around; it cannot give an Agency point to a form whose every admitted Contribution opens the same Continuation.
+
+Beginning with a set already treated as Games, finding no common structure in the properties chosen for comparison, then returning that selection as the meaning of Game has left the decisive step exactly where it began. It may describe how the family was named. It does not answer what must already be structurally present in any member once the name has been granted.
 
 ### So what does all that settle?
 
