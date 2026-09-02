@@ -38,29 +38,21 @@ So, what makes a game... a game?
 
 This is not an attempt to decide which products deserve that label. I am asking something smaller: **what must already be structurally present before anything else can be built upon the game?**
 
-Perhaps the answer is not a "magic circle", a "storytelling machine", "interesting choices", "meaningful interaction", or any other phrase assembled from experience, value, or observation. Those may describe what someone does with a game, what someone receives from it, or what someone hopes it will become. They do not yet expose the relation underneath.
+I am not looking for the answer in a "magic circle", a "storytelling machine", "interesting choices", "meaningful interaction", or any other phrase assembled from experience, value, or observation. Those may describe what someone does with a game, what someone receives from it, or what someone hopes it will become. They do not yet expose the relation underneath.
 
 ### But what about family resemblance?
 
 Then there is family resemblance. It usually enters through the word "game": the things already gathered under it look different, their similarities overlap rather than run through every member, and there may be no common essence or necessary-and-sufficient condition behind the concept.
 
-The family has already been assembled before resemblance is asked to explain it. Something was allowed to enter and something was not. At the bare minimum, belonging to that already fixed set is both necessary and sufficient for belonging to it. That is tautological and explains nothing, but it matters: the question is whether a non-trivial condition can recover the boundary, not whether any condition exists at all. If no boundary has been fixed, then there is no completed family over which the absence of a common condition has been established.
+The useful part is simple: a concept does not need to arrive with one common essence and a complete definition before inquiry can proceed. But that changes the target. The question was whether the thing admits such a condition; the reply establishes only that inquiry can proceed without knowing one. That *may* is a proposal, not a result.
 
-Looking across board games, card games, ball games, and whatever else entered the room, then watching amusement, competition, victory, skill, or luck disappear one by one establishes exactly that: none of the properties inspected survived that comparison. It does not establish that the inspection exhausted every property, still less every relation by which a Game may be constituted. The failure of a selected comparison is not a property of the thing being compared.
+The family has already been assembled before resemblance is asked to explain it. Something was allowed to enter and something was not. At the bare minimum, belonging to that fixed set is both necessary and sufficient for belonging to it. That is tautological and explains nothing. But inspecting the members and defeating one candidate trait after another still establishes only that those candidates failed. It does not exhaust every property, still less every relation by which a Game may be constituted. The failure of a selected comparison is not a property of the thing being compared.
 
-That is where *may* enters, and *may* says nothing by itself. It is a proposal, not a result.
+If resemblance merely describes a family fixed in advance, it does not constitute that family. If resemblance is supposed to determine membership instead, it must say which resemblance counts, at what granularity, and how far an overlapping chain is allowed to travel. Those conditions induce a membership topology of their own. If neither the family nor the resemblance relation is fixed, the account excludes nothing. The invariant has not disappeared. It has moved.
 
-The original objection is fair as far as it goes: a concept does not have to arrive with one common essence and a complete necessary-and-sufficient definition before inquiry can proceed. But that changes the target. The question was whether the thing admits such a condition; the reply establishes only that inquiry can proceed without knowing one. Used as an answer here, family resemblance removes the demand to prove before proceeding, then treats that removal as permission to stop proving altogether.
+That does not make traditional essentialism true. Whoever asserts a common essence must produce it. Whoever asserts that none exists must say what could count as one and rule that field out. Neither claim inherits the burden of the other. Whether a complete definition exists can remain open; its absence would still not establish the absence of a necessary relation.
 
-That does not make traditional essentialism true. It leaves two claims unproved. Whoever asserts a common essence must produce it. Whoever asserts that none exists must say what could count as one and rule that field out. Family resemblance cannot hand its own burden to the first claim merely because that claim arrived earlier.
-
-"Things resemble other things in some respect" is an observation available long before anyone needs a theory of anything. Without a declared resemblance relation, it can be laid over almost any already assembled collection. A theory with an invariant rules some structures out. An unrestricted resemblance story rules none out, so it is strictly weaker as an explanation.
-
-The resemblance does not yet explain the family either. People may resemble one another because they are related; they are not related because somebody noticed the same eyes. If resemblance only helps recognize a family already there, the relation that makes it a family remains unexamined. If resemblance is supposed to constitute the family instead, it must say which resemblance counts, at what granularity, and how far an overlapping chain is allowed to travel. Otherwise almost anything can become somebody's distant cousin if the family tree is drawn with enough enthusiasm. Once those conditions are declared, they induce a topology that now does the work of a common structural condition. The invariant has not disappeared. It has moved.
-
-A counterexample can defeat any particular trait it lacks. A non-exhaustive search cannot turn that result into evidence that there is nothing left to find. I see no reason to grant that surrender in advance.
-
-So the question remains: what must already be structurally present before anything else can be built upon the game?
+I am about to draw one such boundary. From this point onward, the burden is mine.
 
 ### The Necessary Condition
 
@@ -204,7 +196,7 @@ A goal can distinguish a contribution someone prefers from a fork nobody values.
 
 So the bridge rules one direction out. It does not manufacture the entire other direction. A form with no Gameness Support fails the condition argued here. A form with Gameness Support has merely reached the point where the rest of the questions can begin.
 
-### So what does all that settle?
+## So what does all that settle?
 
 It settles where the argument must look.
 
