@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-01-02
-modDatetime: 2026-09-01
+modDatetime: 2026-09-02
 title: My thoughts about Games
 featured: false
 draft: false
@@ -39,6 +39,26 @@ So, what makes a game... a game?
 This is not an attempt to decide which products deserve that label. I am asking something smaller: **what must already be structurally present before anything else can be built upon the game?**
 
 Perhaps the answer is not a "magic circle", a "storytelling machine", "interesting choices", "meaningful interaction", or any other phrase assembled from experience, value, or observation. Those may describe what someone does with a game, what someone receives from it, or what someone hopes it will become. They do not yet expose the relation underneath.
+
+### But what about family resemblance?
+
+Then there is family resemblance. It usually enters through the word "game": the things already gathered under it look different, their similarities overlap rather than run through every member, and there may be no common essence or necessary-and-sufficient condition behind the concept.
+
+The family has already been assembled before resemblance is asked to explain it. Something was allowed to enter and something was not. At the bare minimum, belonging to that already fixed set is both necessary and sufficient for belonging to it. That is tautological and explains nothing, but it matters: the question is whether a non-trivial condition can recover the boundary, not whether any condition exists at all. If no boundary has been fixed, then there is no completed family over which the absence of a common condition has been established.
+
+Looking across board games, card games, ball games, and whatever else entered the room, then watching amusement, competition, victory, skill, or luck disappear one by one establishes exactly that: none of the properties inspected survived that comparison. It does not establish that the inspection exhausted every property, still less every relation by which a Game may be constituted. The failure of a selected comparison is not a property of the thing being compared.
+
+That is where *may* enters, and *may* says nothing by itself. It is a proposal, not a result.
+
+The original objection is fair as far as it goes: a concept does not have to arrive with one common essence and a complete necessary-and-sufficient definition before inquiry can proceed. But proceeding without that proof does not establish that the thing admits no such condition. Used as an answer here, family resemblance removes the demand to prove before proceeding, then treats that removal as permission to stop proving altogether.
+
+That does not make traditional essentialism true. It leaves two claims unproved. Whoever asserts a common essence must produce it. Whoever asserts that none exists must say what could count as one and rule that field out. Family resemblance cannot hand its own burden to the first claim merely because that claim arrived earlier.
+
+The resemblance does not yet explain the family either. People may resemble one another because they are related; they are not related because somebody noticed the same eyes. If resemblance only helps recognize a family already there, the relation that makes it a family remains unexamined. If resemblance is supposed to constitute the family instead, it must say which resemblance counts, at what granularity, and how far an overlapping chain is allowed to travel. Otherwise almost anything can become somebody's distant cousin if the family tree is drawn with enough enthusiasm.
+
+A counterexample can defeat any particular trait it lacks. A non-exhaustive search cannot turn that result into evidence that there is nothing left to find. I see no reason to grant that surrender in advance.
+
+So the question remains: what must already be structurally present before anything else can be built upon the game?
 
 ### The Necessary Condition
 
@@ -181,18 +201,6 @@ The usual answer is to find a form that satisfies the condition but does not fee
 A goal can distinguish a contribution someone prefers from a fork nobody values. An intention can explain why a Rule was authored. A culture can decide which forms it recognizes and which ones it does not. An observer can find one Trajectory profound and another unbearable. All of that may matter more than anything in this article. None becomes part of the necessary relation merely by being important.
 
 So the bridge rules one direction out. It does not manufacture the entire other direction. A form with no Gameness Support fails the condition argued here. A form with Gameness Support has merely reached the point where the rest of the questions can begin.
-
-### So, about that family resemblance...
-
-There is another answer I have never found particularly satisfying: perhaps games share no common structure at all. They merely resemble one another through a loose family of overlapping traits.
-
-The trouble is that the family has already been assembled before resemblance is asked to explain it. To compare the things we call games, one must first decide which things enter the comparison. If convention supplies that set, then the result describes the convention that supplied it. Failing to find one common property among those examples does not establish that no common structural relation exists underneath them.
-
-A Game here is not an inventory of visible traits. It is a configured structure. Chess does not need to resemble a videogame as an object any more than a rulebook needs to resemble the Operating Instance that follows it. The commonality may belong to how Rules admit Contributions and carry their differences into Continuations, where looking over a shelf of nouns was never going to find it.
-
-At most, family resemblance describes why ordinary language keeps using the same word for an unruly collection of things. That is a claim about the word. Convention can move the label around; it cannot give an Agency point to a form whose every admitted Contribution opens the same Continuation.
-
-Beginning with a set already treated as Games, finding no common structure in the properties chosen for comparison, then returning that selection as the meaning of Game has left the decisive step exactly where it began. It may describe how the family was named. It does not answer what must already be structurally present in any member once the name has been granted.
 
 ### So what does all that settle?
 
