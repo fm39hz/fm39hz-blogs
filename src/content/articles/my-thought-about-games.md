@@ -72,17 +72,17 @@ This gives the argument a direction. Begin with a simulation-like form, ask what
 
 We've already separated Mechanics from Rules. The next question is what a Rule must contain before any mechanic can express it.
 
-A Rule distinguishes an applicable situation, the inputs it accepts there, and the results it permits. It may transform something, preserve it, refuse a proposed transition, disclose a reading, or constrain several other Rules at once. It may also operate without receiving any intervention at all. Gravity does not wait for a player to authorize falling, and a turn counter does not acquire Agency merely by advancing.
+A Rule distinguishes an applicable situation, the inputs it accepts there, and the results it permits. It may transform something, preserve it, refuse a proposed transition, disclose a reading, or constrain several other Rules at once. It may also operate without receiving any intervention at all. Operation alone therefore says nothing about Agency.
 
 This already tells me that a Rule cannot be built from proper nouns.
 
-"Alice loses five health" is an event about Alice. "A target struck by this attack loses five health" may be a Rule. The concrete occupant enters through the position called target; the law belongs to the relation between positions. If Alice behaves differently, there must be some represented property, status, type, authority, or role by which the difference matters. Her spelling is not a secret input to the universe.
+A concrete occupant enters through a typed position; the law belongs to the relation between positions. Any difference in how that occupant is treated must be carried by some represented property, status, type, authority, or role. A proper noun is not an undeclared input to the universe.
 
-The same applies even when a Rule concerns a unique person, place, or artifact. Uniqueness may be represented as a property. Identity may be represented as a value. A crown may grant an authority unavailable to everything else. Once represented, the distinction is available to the Rules. Until then, a bare name is merely an exception pretending to be a law.
+The same applies when a Rule concerns something unique. Uniqueness may be represented as a property, identity as a value, and exclusive authority as a Role relation. Once represented, the distinction is available to the Rules. Until then, a bare name is merely an exception pretending to be a law.
 
 So a Rule contains typed positions and the relation among them. Configurations later provide occupants and values for those positions. One Rule clause may be applied many times, and several Rule clauses may participate in one transition. The clause, its particular application, and the intervention that may have prompted it are three different things.
 
-That last separation matters. An intervention enters a Rule as input. It does not write the result directly. The Rule decides whether the input is admissible and which consequences may follow. A button that secretly assigns the desired ending has skipped the relation I am trying to locate. It may still produce exactly the intended output. It has simply made the button itself the author of the consequence.
+That last separation matters. An intervention enters a Rule as input. It does not write the result directly. The Rule decides whether the input is admissible and which consequences may follow. The intervention, its particular application, and its consequences remain different objects even where some of their represented values coincide.
 
 Rules also need scope. A fact existing somewhere in the current configuration does not make it available to every Rule. One clause may carry a distinction into another only through a position their scopes actually share, and the second clause must genuinely depend on that position. The configuration is not a room in which every clause can overhear every other clause.
 
@@ -106,7 +106,7 @@ That gives us a raw carrier of everything the Rules can currently distinguish an
 
 It is tempting to rename Configuration as State and move on. That would leave too much accidental storage inside the concept.
 
-Two Configurations may differ in memory addresses, object identifiers, cached values, duplicated records, or labels that no Rule can ever read. If no declared reading, admitted input, or possible continuation can reveal the difference, the configured form itself has no use for it. Counting it as a different State would let an implementation detail manufacture structure merely by existing.
+Two Configurations may differ along represented coordinates that no Rule can ever read. If no declared reading, admitted input, or possible continuation can reveal the difference, the configured form itself has no use for it. Counting it as a different State would let inaccessible representation manufacture structure merely by existing.
 
 So I need a stricter name. Two Configurations belong to the same **State** when every finite inspection available to the configured form gives the same answer from both.
 
@@ -116,15 +116,15 @@ State is therefore the complete present condition *as far as the configured form
 
 A remembered event belongs to the current State when it can still change a reading, an admission, or a continuation. If the route taken to arrive here can matter later, some represented trace of that route separates the present States. If every future inspection agrees, the different histories have genuinely arrived at the same State for this form.
 
-This also separates State from what one particular participant can see. A hidden card belongs to the State when its value can still alter a reading, admission, or continuation, even if one Role is not allowed to read it. Each Role receives only the disclosures the Rules make available to it. The full State gathers every distinction the form can inspect; an occupant acts through a narrower and possibly uncertain view.
+This also separates State from what one particular participant can see. A distinction belongs to the State whenever it can still alter a reading, admission, or continuation, even where one Role cannot read it. Each Role receives only the disclosures the Rules make available to it. The full State gathers every distinction the form can inspect; an occupant acts through a narrower and possibly uncertain view.
 
 Now take every Configuration reachable from an admitted beginning, every transition among them, and every branch, loop, or continuation the Rules support. Call that entire reachable structure the **Possibility Space**.
 
-Possibility Space is not a synonym for freedom. It says nothing yet about expression, enjoyment, depth, or whether the available futures are interesting. It is simply the reach of the Rules. A huge structure may carry almost no intervention-sensitive difference. A tiny one may place such a difference at nearly every State.
+Possibility Space is not a synonym for freedom. It says nothing yet about expression, enjoyment, depth, or whether the available futures are interesting. It is simply the reach of the Rules. Its size does not determine how much of it carries intervention-sensitive difference.
 
 It also contains more than a list of destinations. Two contributions may eventually reach the same place and still open different continuations on the way there. Conversely, two immediately different outcomes may be indistinguishable once everything the form can inspect is considered. What matters is the branching structure the Rules preserve, not the artwork attached to the leaves.
 
-The Possibility Space belongs to the configured form before anyone runs it. It can remain there as a rulebook, a board position, or a dormant program. Running it introduces another layer.
+The Possibility Space belongs to the configured form whether or not an Operating Instance is running. Operation introduces another layer.
 
 #### From the form to one instance
 
@@ -140,11 +140,11 @@ So the next question is not whether somebody "interacts". It is how a difference
 
 A **Role** is a typed position through which contributions may become operative. It determines the contribution values authorized at that position and the information disclosed to it. A **Contribution** is one value supplied through the Role at a Transition Window. All Role contributions admitted together there form a **Contribution Profile**. A **Source** is whatever supplies one or more of them.
 
-The Source may be a person, a group producing one joint answer, an automated process, an animal moving in front of a sensor, or something stranger. The Rules do not need its biography. An Operating Instance binds that Source to a Role for the relevant window, and the contribution becomes attributable through that binding.
+A Source need not be a person, singular, aware, or intentional. The Rules need only a supplied value attributable through the relevant binding. An Operating Instance binds the Source to a Role for that window.
 
-Authority still does not produce Agency. A Role may authorize ten commands whose continuations are all structurally identical. Another may authorize only two, yet those two may divide the future of the form. Counting buttons counts an input alphabet. It does not tell us what the inputs do.
+Authority still does not produce Agency. Authority determines which contribution values are admitted through a Role; Agency additionally requires variation among those values to separate Continuations. The cardinality of an input alphabet alone says nothing about that relation.
 
-Nor does disclosure produce Agency. A Role may know everything and change nothing, or know almost nothing while still supplying a contribution that changes what may continue. Informed control requires both a structural alternative and some policy capable of using the available information. Guessing keeps the first relation and lacks the second.
+Nor does disclosure produce Agency. Disclosure determines which information is available to a Role; Agency compares Continuations under admitted contribution variation. Neither relation entails the other. Informed control requires both a structural alternative and some policy capable of using the available information. Guessing keeps the first relation and lacks the second.
 
 #### What continues from here?
 
@@ -152,7 +152,7 @@ After an admitted contribution, the form may permit several immediate outcomes a
 
 Two Continuations count as different when some finite inspection can eventually separate them. The first inspection depth at which that happens is their **Latency**. Latency orders how far one must look before a fork becomes legible. It is not elapsed time, consequence magnitude, or a ratio in which depth six is somehow twice depth three.
 
-This is why the next State alone is too weak. A contribution may leave the visible present unchanged and alter what becomes possible later. Another may produce spectacular immediate animation while every supported future remains the same. Agency belongs to the continuation, not to the amount of movement on the screen.
+This is why the next transition alone is too weak a comparison. Continuations are separated by finite inspections across the whole supported future, whether or not the distinction is already disclosed at depth one. Agency belongs to the Continuation, not to the amount of movement on the screen.
 
 Internal nondeterminism stays inside one Continuation. If the same complete contribution can lead to several supported outcomes, the form branches without attributing that branch selection to any Source. Randomness may decide what happens. Agency asks whether changing an admitted contribution can change the branching future that is available.
 
@@ -170,7 +170,7 @@ Agency here is structural availability. It does not say which contribution was a
 
 Call the Source occupying an Agency-supporting Role block an **Agent** at that binding and Transition Window.
 
-Agenthood is therefore local. The same person may be an Agent during one window, an observer during another, and irrelevant to a third. A fish may become an Agent through a sensor binding without knowing the game exists. A referee may occupy a Role whose ruling changes the admitted continuation even when the ruling describes the event incorrectly. A group may be one Agent when only its joint output enters the Rules.
+Agenthood is therefore local to that binding and Transition Window.
 
 Sometimes no single Role can vary while all others stay fixed, yet a block of Roles can vary together. That is still Agency. The minimum number of Role coordinates that must change tells us the **Agency arity** of that witness. It counts structural coordinates, not people, cooperation, social importance, or emotional intensity.
 
