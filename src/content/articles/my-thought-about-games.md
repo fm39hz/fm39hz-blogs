@@ -54,6 +54,12 @@ The family has already been assembled before resemblance is asked to explain it.
 
 An **invariant** is a non-trivial condition every Game within a declared domain and representation must satisfy. An **essence** would do more: explain what makes the thing a Game. A **complete definition** would decide membership in both directions. These are different claims. A single necessary invariant is enough to defeat the claim that there is nothing common to find. It need not explain an essence, complete a definition, or deny that other similarities overlap.
 
+More importantly, essence is the stronger level. Any common essence would have to contain or entail some common invariant, while a necessary invariant need not explain what makes a Game a Game. The invariant is the floor; essence is built above it. Yet the anti-essentialist stance has not established the absence of the floor before advertising the possible absence of the entire structure.
+
+That leaves it with two readings. If "there may be no common essence" states only a bare logical possibility, then it is trivial and licenses no methodological conclusion. If it is offered as a conclusion from looking across the family, then it carries the burden of showing why those observations support the absence of an essence. Either way, it cannot descend from anti-essentialism to the rejection of necessary invariants. The absence of an essence and the presence of a necessary invariant are perfectly compatible. The word *may* cannot alternate between a harmless hedge when challenged and a reason to abandon the inquiry when deployed. Anti-essentialism does not get that conclusion on credit.
+
+None of this makes essentialism true by default. Its positive claim carries its own burden, and until that burden is paid, it has proved no more than its opponent. The point is not to reverse the privilege. It is to remove it. Family resemblance leaves the contest open; it does not place anti-essentialism one step ahead.
+
 That is precisely why family resemblance appears here before the candidate. Its descriptive observation may survive untouched. Its use as grounds for abandoning the search does not. The candidate below is structural because that is what the inquiry produces: a relation, not another visible trait selected from the inventory.
 
 So who is being dogmatic here: the one who denies the question its legitimacy without carrying the burden of that denial, or the one who puts forward a candidate and leaves it open to attack?
