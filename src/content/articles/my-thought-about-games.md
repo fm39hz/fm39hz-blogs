@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-01-02
-modDatetime: 2026-09-02
+modDatetime: 2026-09-03
 title: My thoughts about Games
 featured: false
 draft: false
@@ -36,23 +36,29 @@ So, what makes a game... a game?
 
 ## If it's none of those, then what the heck is a game?
 
-This is not an attempt to decide which products deserve that label. I am asking something smaller: **what must already be structurally present before anything else can be built upon the game?**
+This is not an attempt to decide which products deserve that label. I am asking something smaller: **what must already be present before anything else can be built upon the game?**
 
-I am not looking for the answer in a "magic circle", a "storytelling machine", "interesting choices", "meaningful interaction", or any other phrase assembled from experience, value, or observation. Those may describe what someone does with a game, what someone receives from it, or what someone hopes it will become. They do not yet expose the relation underneath.
+I am not looking for the answer in a "magic circle", a "storytelling machine", "interesting choices", "meaningful interaction", or any other phrase assembled from experience, value, or observation. Those may describe what someone does with a game, what someone receives from it, or what someone hopes it will become. They do not yet reach whatever the Game itself cannot do without.
 
-### But what about family resemblance?
+### How about Family resemblance?
 
-Then there is family resemblance. It usually enters through the word "game": the things already gathered under it look different, their similarities overlap rather than run through every member, and there may be no common essence or necessary-and-sufficient condition behind the concept.
+> ☝️🤓 'But sir, you're dogmatic, Game has Family resemblance, it may not have common essence!'
 
-The useful part is simple: a concept does not need to arrive with one common essence and a complete definition before inquiry can proceed. But that changes the target. The question was whether the thing admits such a condition; the reply establishes only that inquiry can proceed without knowing one. That *may* is a proposal, not a result.
+Family resemblance is regularly placed in front of this question as if it had already disposed of it. It has not. The observation is that the things gathered under one concept may share overlapping similarities without one obvious trait running through the entire set. The stance attached to that observation is stronger: there may be no common essence to find, and demanding one may itself be a "craving for generality".
 
-The family has already been assembled before resemblance is asked to explain it. Something was allowed to enter and something was not. At the bare minimum, belonging to that fixed set is both necessary and sufficient for belonging to it. That is tautological and explains nothing. But inspecting the members and defeating one candidate trait after another still establishes only that those candidates failed. It does not exhaust every property, still less every relation by which a Game may be constituted. The failure of a selected comparison is not a property of the thing being compared.
+That *may* is a proposal, not a result. Looking across a collection can defeat every candidate trait actually tested. It cannot establish that no common condition exists outside that inventory, much less that the search itself is malformed. The variety of appearances supplies a research problem. It does not supply its impossibility theorem.
 
-If resemblance merely describes a family fixed in advance, it does not constitute that family. If resemblance is supposed to determine membership instead, it must say which resemblance counts, at what granularity, and how far an overlapping chain is allowed to travel. Those conditions induce a membership topology of their own. If neither the family nor the resemblance relation is fixed, the account excludes nothing. The invariant has not disappeared. It has moved.
+Nor does calling the demand a "craving" settle anything. That is already a diagnosis. Its supposed source is not a pathology report, and the patient is declared ill because he keeps asking a question the treatment has decided not to answer. Explanation is then told to disappear so "description alone" can take its place. But description establishes the pattern described, not an absence beyond the comparison performed. Purpose may choose the question; it cannot validate the inference. If "description alone" governs one practice, it binds nobody else. If it governs inquiry itself, it inherits the burden it dismisses.
 
-That does not make traditional essentialism true. Whoever asserts a common essence must produce it. Whoever asserts that none exists must say what could count as one and rule that field out. Neither claim inherits the burden of the other. Whether a complete definition exists can remain open; its absence would still not establish the absence of a necessary relation.
+The family has already been assembled before resemblance is asked to explain it. If resemblance merely describes that family, it does not constitute it. If it determines membership instead, it must specify which resemblance counts, at what granularity, and how far an overlapping chain may travel. Those rules move the membership condition into a topology. If neither the family nor the resemblance relation is fixed, the account excludes nothing. Calling the result a family does not recover the missing boundary.
 
-I am about to draw one such boundary. From this point onward, the burden is mine.
+An **invariant** is a non-trivial condition every Game within a declared domain and representation must satisfy. An **essence** would do more: explain what makes the thing a Game. A **complete definition** would decide membership in both directions. These are different claims. A single necessary invariant is enough to defeat the claim that there is nothing common to find. It need not explain an essence, complete a definition, or deny that other similarities overlap.
+
+That is precisely why family resemblance appears here before the candidate. Its descriptive observation may survive untouched. Its use as grounds for abandoning the search does not. The candidate below is structural because that is what the inquiry produces: a relation, not another visible trait selected from the inventory.
+
+So who is being dogmatic here: the one who denies the question its legitimacy without carrying the burden of that denial, or the one who puts forward a candidate and leaves it open to attack?
+
+So, I am about to offer one such candidate. From this point onward, the burden is mine.
 
 ### The Necessary Condition
 
@@ -142,13 +148,13 @@ Nor does disclosure produce Agency. Disclosure determines which information is a
 
 #### What continues from here?
 
-After an admitted contribution, the form may permit several immediate outcomes and many later paths. Take the whole branching future opened by that contribution. Call it a **Continuation**.
+After an admitted Contribution Profile, the form may permit several immediate outcomes and many later paths. Take the whole branching future opened by that profile. Call it a **Continuation**.
 
 Two Continuations count as different when some finite inspection can eventually separate them. The first inspection depth at which that happens is their **Latency**. Latency orders how far one must look before a fork becomes legible. It is not elapsed time, consequence magnitude, or a ratio in which depth six is somehow twice depth three.
 
 This is why the next transition alone is too weak a comparison. Continuations are separated by finite inspections across the whole supported future, whether or not the distinction is already disclosed at depth one. Agency belongs to the Continuation, not to the amount of movement on the screen.
 
-Internal nondeterminism stays inside one Continuation. If the same complete contribution can lead to several supported outcomes, the form branches without attributing that branch selection to any Source. Randomness may decide what happens. Agency asks whether changing an admitted contribution can change the branching future that is available.
+Internal nondeterminism stays inside one Continuation. If the same complete Contribution Profile can lead to several supported outcomes, the form branches without attributing that branch selection to any Source. Randomness may decide what happens. Agency asks whether changing an admitted profile can change the branching future that is available.
 
 #### Now Agency
 
@@ -176,13 +182,15 @@ Agency, Latency, arity, and Reconvergence remain attached to the same witness. P
 
 #### Back to Game
 
-We can now name one last property. A configured form is **Structurally Playable** when at least one reachable State contains an Agency point.
+Before applying any bridge to Game, the structural representation must already be fixed. It decides which differences enter as Rule-governed Role contributions, which remain internal branching after every Contribution Profile is fixed, and which are discarded. Call the configured form retained by that declared reading a **structural extraction**. No canonical extraction is assumed.
+
+A structural extraction is **Structurally Playable** when at least one reachable State contains an Agency point.
 
 My single bridge is this:
 
-**Within the simulation-first scope of this article, a Game must be Structurally Playable.**
+**Within the simulation-first scope of this article, the declared structural extraction of a Game must be Structurally Playable.**
 
-In other words, its Rule-constituted Possibility Space must contain somewhere two admitted Contribution Profiles that differ within a finite Role block, agree everywhere else, and open different Continuations.
+In other words, the extraction's Rule-constituted Possibility Space must contain somewhere two admitted Contribution Profiles that differ within a finite Role block, agree everywhere else, and open different Continuations.
 
 This is the necessary structure I was looking for. It leaves the rest of the Game wonderfully unresolved. Nothing here says the supporting contribution is wise, satisfying, expressive, fair, difficult, informed, or even noticed. Those judgments require more relations. The one relation kept here is the one without which the Operating Instance can still run, but every admitted contribution remains ceremonial.
 
