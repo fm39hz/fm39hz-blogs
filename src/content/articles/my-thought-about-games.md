@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-01-02
-modDatetime: 2026-09-03
+modDatetime: 2026-09-05
 title: My thoughts about Games
 featured: false
 draft: false
@@ -44,27 +44,11 @@ I am not looking for the answer in a "magic circle", a "storytelling machine", "
 
 > ☝️🤓 'But sir, you're dogmatic, Game has Family resemblance, it may not have common essence!'
 
-Family resemblance is regularly placed in front of this question as if it had already disposed of it. It has not. The observation is that the things gathered under one concept may share overlapping similarities without one obvious trait running through the entire set. The stance attached to that observation is stronger: there may be no common essence to find, and demanding one may itself be a "craving for generality".
+Family resemblance observes that things gathered under one concept may share overlapping similarities without one obvious trait running through the entire set. It does not establish that no common condition exists, and the word *may* cannot do that work for it.
 
-That *may* is a proposal, not a result. Looking across a collection can defeat every candidate trait actually tested. It cannot establish that no common condition exists outside that inventory, much less that the search itself is malformed. The variety of appearances supplies a research problem. It does not supply its impossibility theorem.
+An **invariant** is a non-trivial condition every Game within a declared domain and representation must satisfy. An **essence** would additionally explain what makes the thing a Game. A **complete definition** would decide membership in both directions. An essence must contain or entail some invariant, while an invariant need not rise to the level of an essence.
 
-Nor does calling the demand a "craving" settle anything. That is already a diagnosis. Its supposed source is not a pathology report, and the patient is declared ill because he keeps asking a question the treatment has decided not to answer. Explanation is then told to disappear so "description alone" can take its place. But description establishes the pattern described, not an absence beyond the comparison performed. Purpose may choose the question; it cannot validate the inference. If "description alone" governs one practice, it binds nobody else. If it governs inquiry itself, it inherits the burden it dismisses.
-
-The family has already been assembled before resemblance is asked to explain it. If resemblance merely describes that family, it does not constitute it. If it determines membership instead, it must specify which resemblance counts, at what granularity, and how far an overlapping chain may travel. Those rules move the membership condition into a topology. If neither the family nor the resemblance relation is fixed, the account excludes nothing. Calling the result a family does not recover the missing boundary.
-
-An **invariant** is a non-trivial condition every Game within a declared domain and representation must satisfy. An **essence** would do more: explain what makes the thing a Game. A **complete definition** would decide membership in both directions. These are different claims. A single necessary invariant is enough to defeat the claim that there is nothing common to find. It need not explain an essence, complete a definition, or deny that other similarities overlap.
-
-More importantly, essence is the stronger level. Any common essence would have to contain or entail some common invariant, while a necessary invariant need not explain what makes a Game a Game. The invariant is the floor; essence is built above it. Yet the anti-essentialist stance has not established the absence of the floor before advertising the possible absence of the entire structure.
-
-That leaves it with two readings. If "there may be no common essence" states only a bare logical possibility, then it is trivial and licenses no methodological conclusion. If it is offered as a conclusion from looking across the family, then it carries the burden of showing why those observations support the absence of an essence. Either way, it cannot descend from anti-essentialism to the rejection of necessary invariants. The absence of an essence and the presence of a necessary invariant are perfectly compatible. The word *may* cannot alternate between a harmless hedge when challenged and a reason to abandon the inquiry when deployed. Anti-essentialism does not get that conclusion on credit.
-
-None of this makes essentialism true by default. Its positive claim carries its own burden, and until that burden is paid, it has proved no more than its opponent. The point is not to reverse the privilege. It is to remove it. Family resemblance leaves the contest open; it does not place anti-essentialism one step ahead.
-
-That is precisely why family resemblance appears here before the candidate. Its descriptive observation may survive untouched. Its use as grounds for abandoning the search does not. The candidate below is structural because that is what the inquiry produces: a relation, not another visible trait selected from the inventory.
-
-So who is being dogmatic here: the one who denies the question its legitimacy without carrying the burden of that denial, or the one who puts forward a candidate and leaves it open to attack?
-
-So, I am about to offer one such candidate. From this point onward, the burden is mine.
+This inquiry asks for the weaker floor. Rejecting essentialism does not reject that floor, and family resemblance supplies no reason to abandon the search before a candidate has even been attacked. So here is one.
 
 ### The Necessary Condition
 

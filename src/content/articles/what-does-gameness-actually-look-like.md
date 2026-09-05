@@ -1,10 +1,10 @@
 ---
 author: FM39hz
 pubDatetime: 2026-08-18
-modDatetime: 2026-08-25
+modDatetime: 2026-09-05
 title: What does Gameness actually look like?
 featured: false
-draft: false
+draft: true
 tags:
   - mathematics
   - game-dev
