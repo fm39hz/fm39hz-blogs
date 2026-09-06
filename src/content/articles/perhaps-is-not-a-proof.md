@@ -16,13 +16,13 @@ There is a peculiar kind of argument that does not defeat a question. It diagnos
 
 A wonderfully efficient arrangement. The questioner supplies the question, the philosopher supplies the illness, and nobody has to supply the proof.
 
-I kept running into that move whenever somebody invoked family resemblance against the question of what a game must have. Eventually the phrase itself stopped bothering me. The confidence surrounding it did not.
+I kept running into that move whenever somebody invoked family resemblance against the question of what a game must have. Eventually the phrase itself stopped bothering me, but the confidence surrounding it did not.
 
 I was not yet sure whether I was annoyed with Wittgenstein or with the little Wittgensteins who appear whenever somebody tries to define anything. So I went back to the actual neighborhood: the interlocutor in *Philosophical Investigations*, the games in sections 65 through 71, the remarks on exactness that follow them, the conception of philosophy around sections 89 through 133, and the earlier diagnosis of a "craving for generality" in *The Blue Book*.
 
 I have no philosophical team to defend here. If anything, I lean toward the thought that human beings do not arrive with an essence waiting to be obeyed. That tells me nothing in advance about whether Game, number, law, or any other object has an invariant. A temperament is not a proof either.
 
-That made the position much harder to dismiss. Good. If an objection survives only while its target remains unread, it deserves to die before the target does.
+That made the position harder to dismiss, and if an objection survives only while its target remains unread, it deserves to die before the target does.
 
 ## Then I read what he was actually doing
 
@@ -40,11 +40,11 @@ The temptation is to stop reading there and treat family resemblance as his repl
 
 Then Heather Gert made that objection less comfortable. The metaphor need not invert the relation between family membership and family resemblance. Actual relatives do not enter a family because their noses happen to look alike. Their likeness may instead provide fallible evidence of a membership grounded elsewhere. On that reading, Wittgenstein is not offering resemblance as a membership algorithm at all.
 
-Annoying, but true. The crude circularity no longer lands. Keeping it would make the rant easier and the argument worse, which is usually how straw men earn their keep.
+The crude circularity no longer lands, and keeping it would only make the rant easier and the argument worse, which is usually how straw men earn their keep.
 
-But something else becomes clearer in its place. If resemblance supplies evidence for an extension already governed by our practice, it helps us recognize members without constituting their membership. It describes how the family appears and how we navigate it. It cannot, merely by doing that, establish that no other account of the family exists.
+But something else becomes clearer in its place. If resemblance supplies evidence for an extension already governed by our practice, it helps us recognize members without constituting their membership. It describes how the family appears and how we navigate it, which cannot, merely by doing that, establish that no other account of the family exists.
 
-The metaphor survives. Its jurisdiction becomes visible.
+The metaphor survives, but its jurisdiction becomes visible.
 
 ## The stronger reading drew a sharper border
 
@@ -56,19 +56,19 @@ The same attitude matures in *Philosophical Investigations*. Philosophy is not s
 
 Philosophy has become a clinic. That is fine, provided somebody remembers that diagnosing the patient is still a claim about the patient.
 
-The strongest Wittgensteinian reply was now obvious. Demanding a scientific proof from this project misses the project. Family resemblance is not a rival scientific theory about the hidden ontology of games. It is part of a grammatical investigation into how words work and how philosophy becomes trapped by a false demand placed upon them. "Look and see" is not an induction pretending to be a theorem. It is therapy for the urge to produce the theorem.
+The strongest Wittgensteinian reply was now obvious. Demanding a scientific proof from this project misses the project. Family resemblance is not a rival scientific theory about the hidden ontology of games. It is part of a grammatical investigation into how words work and how philosophy becomes trapped by a false demand placed upon them. "Look and see" is not an induction pretending to be a theorem, but therapy for the urge to produce one.
 
-That reply is fair, which is inconvenient in exactly the useful way. It also draws the boundary I need.
+That reply is fair, which is inconvenient in exactly the useful way, but it also draws the boundary I need.
 
 Rejecting scientific method does not reject the obligation to prove what the method claims. The proof need not be an experiment, an induction, or a formal derivation. A grammatical investigation may establish a grammatical conclusion by displaying the relevant uses and the confusion among them. A therapy may establish that a particular question arises from a particular picture by exposing the dependence. But once either says that the question is illegitimate, that no explanation belongs there, or that inquiry should stop, the conclusion still needs to follow from something.
 
-Calling the method non-scientific changes the form of the payment. It does not cancel the debt.
+Calling the method non-scientific changes the currency, but the debt remains on the ledger.
 
 If family resemblance describes how the ordinary word "game" is learned, extended, and negotiated, it may show that speakers do not consult a necessary-and-sufficient definition. It may show that no such definition is represented in their ordinary competence. It may show that the lack of one does not prevent successful use. Those are real results about grammar and practice.
 
-None determines what structural invariants the objects themselves possess. A grammar of recognition is not yet an ontology of the recognized object. A report about how a word is used is not yet a result about every structure to which the word is applied. If the therapy remains on its own side of that line, my objection does not touch it. It also cannot touch my question.
+None determines what structural invariants the objects themselves possess. A grammar of recognition is not yet an ontology of the recognized object. A report about how a word is used is not yet a result about every structure to which the word is applied. If the therapy remains on its own side of that line, my objection does not touch it, and it cannot touch my question.
 
-I now knew the dispute was not description against science. It was jurisdiction. I left the word "craving" sitting there for a while. I wanted to see what happened to it after it left the book.
+I now knew the dispute was not description against science, but jurisdiction, so I left the word "craving" sitting there for a while to see what happened to it after it left the book.
 
 ## Then perhaps started doing too much
 
@@ -84,19 +84,19 @@ There are two ways to read "there may be no common essence". If it states only a
 
 The sentence is harmless under the first reading and consequential under the second. It cannot borrow the safety of the first whenever challenged, then recover the authority of the second whenever somebody tries to continue the investigation. No conclusion about essence arrives on credit.
 
-*Perhaps* enters the room as a hedge and leaves carrying a court order. Apparently nobody checked its pockets.
+*Perhaps* enters the room as a hedge and leaves carrying a court order, without anyone having checked its pockets along the way.
 
 I also realized that I had been letting three claims share one coat.
 
-An **invariant** is a non-trivial condition every member of a declared domain and representation must satisfy. An **essence** does more: it explains what makes each member the kind of thing it is. A **complete definition** decides membership in both directions. Any common essence must contain or entail some common invariant. A necessary invariant need not rise to the level of an essence, and it need not provide a sufficient condition for membership. The invariant is the floor. Essence is an explanatory structure built above it.
+An **invariant** is a non-trivial condition every member of a declared domain and representation must satisfy. An **essence** does more: it explains what makes each member the kind of thing it is. A **complete definition** decides membership in both directions. Any common essence must contain or entail some common invariant. A necessary invariant need not rise to the level of an essence, and it need not provide a sufficient condition for membership. The invariant is the floor, while essence is an explanatory structure built above it.
 
 Rejecting essence therefore cannot automatically reject necessary invariants. The absence of an essence and the presence of an invariant are perfectly compatible. A family-resemblance account may be right about the lack of one privileged essence while an object-level inquiry still discovers something every member must structurally contain.
 
 This does not require whoever argues against essence to disprove every invariant first. It requires an argument against essence to be an argument against essence. The failure of several visible traits is not one. And an unpaid claim about essence cannot descend into a veto against the weaker search for an invariant.
 
-Nor does any of this make essence exist by default. The claim that an essence exists carries its burden. The claim that it does not carries another. I have no interest in balancing two camps because the camps have no standing here. Claims do. No default essence, no default absence, no victory awarded for choosing the more fashionable uncertainty.
+Nor does any of this make essence exist by default. The claim that an essence exists carries its burden. The claim that it does not carries another. I have no interest in balancing two camps because the camps have no standing here, only claims do, with no default essence, no default absence, and no victory awarded for choosing the more fashionable uncertainty.
 
-Premature surrender was the thing irritating me. Not family resemblance. Not blurred concepts. Not the denial of essence. The surrender happens when a useful warning about one picture of meaning is allowed to close an inquiry it has not entered.
+The real irritation was never family resemblance, blurred concepts, or the denial of essence, but premature surrender: allowing a useful warning about one picture of meaning to close an inquiry it has not entered.
 
 ## So I went back to where this started
 
@@ -114,15 +114,13 @@ Someone proposes a definition of game. Someone has read a game-design book whose
 
 Sometimes it helps. It reminds an OP that people learn the ordinary word through repeated encounters, not by memorizing necessary and sufficient conditions. Sometimes it actually attacks the candidate by checking what the proposed criterion includes and excludes. In those cases, family resemblance clarifies the question or names an alternative after the candidate has been tested.
 
-And sometimes it is simply a pocket veto.
-
-The citation does not enter the conversation. It ends it. A dead philosopher has been compressed into a reaction image, with the footnotes thoughtfully removed for portability.
+And sometimes it is simply a pocket veto, where a dead philosopher has been compressed into a reaction image, with the footnotes thoughtfully removed for portability.
 
 An OP asks for modern definitions after reading game-design books. The reply says Wittgenstein argued that there is no definition of game and no feature shared by all games. Another OP asks why people keep redefining game. A response quotes the family-resemblance passage, takes the absence of shared core attributes for granted, and recommends reconceptualization instead. Elsewhere the formula becomes shorter still: "game" cannot be defined; try necessary and sufficient conditions yourself and watch the project fail.
 
-The word *already* often appears nearby. Wittgenstein already dealt with this. People have already tried. Philosophy has already moved on. An objection has existed for decades, therefore the objection won decades ago, therefore reading the candidate now would be terribly old-fashioned. Intellectual history has become a queueing system, and apparently truth belongs to whoever arrived first.
+The word *already* often appears nearby, implying that because Wittgenstein dealt with this and people have already tried, philosophy has moved on and the objection won decades ago. Intellectual history has become a queueing system, and apparently truth belongs to whoever arrived first.
 
-The fine print vanishes just as quickly. Defining ordinary use and investigating the object become the same task. One failed definition becomes the impossibility of definition. No sharp boundary, no complete analytic definition, no essence, and no necessary invariant become four names for one absence. Philosophical therapy becomes an ontological result. The citation has done its job. There is now a stop sign where an argument should have been.
+The fine print vanishes just as quickly, collapsing ordinary use into the nature of the object, turning one failed definition into the impossibility of defining, and quietly converting philosophical therapy into an ontological result, leaving a stop sign where an argument should have been.
 
 The separate threads eventually began to read like one very patient conversation:
 
@@ -146,13 +144,13 @@ The separate threads eventually began to read like one very patient conversation
 >
 > **Reply:** This obsession with definitions is exactly the problem.
 
-Nothing has touched B. The objection began with essence, moved to ordinary extension, stopped briefly at stipulation, borrowed moral urgency from gatekeeping, then diagnosed the act of continuing. The candidate stayed in one place. Everything around it enjoyed the walk.
+Nothing has touched B. The objection began with essence, moved to ordinary extension, stopped briefly at stipulation, borrowed moral urgency from gatekeeping, then diagnosed the act of continuing. The candidate stayed in one place, while everything around it enjoyed the walk.
 
-The amount of work proves nothing. One clean counterexample in one sentence can erase months of formalization, and good for it. The problem is not that the reply is short. The problem is that it supplies no counterexample, attacks no premise, identifies no invalid inference, and corrects no scope. One surname and two words replace all four operations. Reddit marks the transaction as settled anyway.
+The amount of work proves nothing. One clean counterexample in one sentence can erase months of formalization, and good for it. The problem is not the brevity of the reply, but that it supplies no counterexample, attacks no premise, identifies no invalid inference, and corrects no scope, replacing all four operations with one surname and two words while Reddit marks the transaction as settled anyway.
 
-The veto favors every outcome. A counterexample defeats the candidate. A revision proves the search endless. A narrower scope is called incomplete. Continuing becomes another craving for generality. The candidate can lose in several ways. The refusal never states what would make it lose.
+The veto favors every outcome, where a counterexample defeats the candidate, a revision proves the search endless, and narrowing the scope is dismissed as incomplete, leaving the candidate able to lose in several ways while the refusal never specifies what would make it win.
 
-I did not conduct a census of Reddit, thank God. I only needed to know whether this creature was imaginary. It was not. Across game design, game development, gaming discussion, and philosophy Q&A, family resemblance appears at exactly the moment somebody tries to state what a game is. In its careful form, it sharpens the question. In its pocket form, it prevents the question from surviving long enough to become precise.
+I did not conduct a census of Reddit, thank God, but only needed to verify whether this creature was imaginary before finding it across game design, game development, gaming discussion, and philosophy forums, appearing at exactly the moment somebody tries to state what a game is. In its careful form, it sharpens the question, while in its pocket form, it prevents the question from surviving long enough to become precise.
 
 Wittgenstein is not personally responsible for every compressed reply bearing his name. Still, when "do not assume one essence in advance" repeatedly arrives downstream as "there is no common feature, so stop defining", the missing inferential guardrail is no longer a purely hypothetical concern.
 
@@ -160,7 +158,7 @@ Then another word showed up: gatekeeping.
 
 The suspicion does not come from nowhere. "Not a real game" has often been an evaluation disguised as a classification. Walking simulators, visual novels, mobile games, games associated with women, games without conventional failure states, and games whose primary appeal is narrative have all been pushed outside the respectable center of the medium. The object becomes not quite a game; its audience becomes not quite gamers; its makers become not quite game developers. One small predicate quietly carries an entire social hierarchy on its back.
 
-That history explains why a definition can sound hostile before anybody checks its premises. Unfortunately, moral suspicion is much faster than type checking. It still does not make the premises false.
+That history explains why a definition can sound hostile before anybody checks its premises. Unfortunately, moral suspicion is much faster than type checking, but it still does not make the premises false.
 
 Reading the arguments, I found four different questions hiding under one accusation. Does the object satisfy the predicate *Game*? Is it good, valuable, artistic, difficult, or worthy of respect? May its audience or makers legitimately claim an identity? May the object or person enter a community, platform, archive, market, curriculum, award, or field of study?
 
@@ -170,7 +168,7 @@ An answer to the first question can cause consequences at the others when an ins
 
 There is no clean side to hide on. Nobody can excuse a social hierarchy by calling the underlying sentence merely taxonomic when the hierarchy was the reason for uttering it. But the social history of a predicate cannot make every attempt to analyze it false. Motive may explain why a boundary was proposed. Harm may give us a reason not to use that boundary for one institution. Neither tells us whether the candidate condition is true of its declared objects.
 
-Exclusion by itself is not yet the defect. Every predicate excludes whatever does not satisfy it. If "game" must include everything placed on a game platform, made with a game engine, enjoyed by a gamer, or socially harmed by exclusion, then inclusion has stopped answering to the object. It answers to the cost of saying no. That may be a sensible policy for a storefront or a welcoming community. It is still a policy.
+Exclusion by itself is not yet the defect, since every predicate excludes whatever does not satisfy it. If "game" must include everything placed on a game platform, made with a game engine, enjoyed by a gamer, or socially harmed by exclusion, then inclusion has stopped answering to the object. It answers to the cost of saying no, and while that may be a sensible policy for a storefront or a welcoming community, it remains a policy rather than a fact about the object.
 
 The No True Scotsman accusation can make the same mistake. The fallacy occurs when a counterexample is rejected through an ad hoc revision whose only job is to protect the generalization. Merely deciding that an object does not satisfy a previously stated condition is not that fallacy. Otherwise every counterexample would win by announcing itself, and every predicate would become circular the moment it excluded anything.
 
@@ -206,17 +204,13 @@ The answer is not a person, and it is certainly not a team color. Dogmatism appe
 
 Against all of them, an attackable candidate has one simple virtue: it can lose.
 
-A failed candidate is a result. A counterexample is a result. A proof that no candidate within a specified class can work would be a remarkable result. Even a long record of failure can tell us where not to look next. None requires a doctrine to win before the search begins.
+A failed candidate or a counterexample is still a result, just as a proof that no candidate within a specified class can work would be, and even a long record of failure tells us where not to look next without requiring a doctrine to win before the search begins.
 
-What I reject is the strange privilege granted to surrender. The person who keeps looking is called dogmatic for believing an answer might exist. The person who declares the question confused without proving either the absence or the confusion is praised for modesty.
-
-No. Modesty would leave the question open.
+What I reject is the strange privilege granted to surrender, where the person who keeps looking is called dogmatic for believing an answer might exist, while the person who declares the question confused without proving either the absence or the confusion is praised for modesty, even though modesty would leave the question open.
 
 I do not need an essence to exist. I am not even convinced that human beings have one, and they matter rather more to me than the dignity of a definition. I do not need every useful concept to possess a sharp ordinary-language boundary. I do not need philosophy to imitate physics, or every inquiry to terminate in a formula. I only need each claim to pay for the distance it travels.
 
-Family resemblance can describe a practice. It can break the spell of one bad picture of meaning. It can remind us that use precedes analysis and that blurred boundaries do not make a word useless. Those are substantial achievements.
-
-It cannot turn an unpaid *perhaps* into the last word on what there is.
+Family resemblance can describe a practice, break the spell of one bad picture of meaning, and remind us that blurred boundaries do not make a word useless. Those are substantial achievements, but they cannot turn an unpaid *perhaps* into the last word on what there is.
 
 ## What I was reading
 
