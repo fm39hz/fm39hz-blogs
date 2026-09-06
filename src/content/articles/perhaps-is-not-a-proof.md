@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-09-05
-modDatetime: 2026-09-05
+modDatetime: 2026-09-06
 title: Perhaps is not a proof
 featured: false
 draft: false
@@ -56,7 +56,7 @@ The same attitude matures in *Philosophical Investigations*. Philosophy is not s
 
 Philosophy has become a clinic. That is fine, provided somebody remembers that diagnosing the patient is still a claim about the patient.
 
-At this point the strongest Wittgensteinian reply to me was obvious. Demanding a scientific proof from this project misses the project. Family resemblance is not a rival scientific theory about the hidden ontology of games. It is part of a grammatical investigation into how words work and how philosophy becomes trapped by a false demand placed upon them. "Look and see" is not an induction pretending to be a theorem. It is therapy for the urge to produce the theorem.
+The strongest Wittgensteinian reply was now obvious. Demanding a scientific proof from this project misses the project. Family resemblance is not a rival scientific theory about the hidden ontology of games. It is part of a grammatical investigation into how words work and how philosophy becomes trapped by a false demand placed upon them. "Look and see" is not an induction pretending to be a theorem. It is therapy for the urge to produce the theorem.
 
 That reply is fair, which is inconvenient in exactly the useful way. It also draws the boundary I need.
 
@@ -96,7 +96,7 @@ This does not require whoever argues against essence to disprove every invariant
 
 Nor does any of this make essence exist by default. The claim that an essence exists carries its burden. The claim that it does not carries another. I have no interest in balancing two camps because the camps have no standing here. Claims do. No default essence, no default absence, no victory awarded for choosing the more fashionable uncertainty.
 
-That was when premature surrender finally became the object of my irritation. Not family resemblance. Not blurred concepts. Not the denial of essence. The surrender happens when a useful warning about one picture of meaning is allowed to close an inquiry it has not entered.
+Premature surrender was the thing irritating me. Not family resemblance. Not blurred concepts. Not the denial of essence. The surrender happens when a useful warning about one picture of meaning is allowed to close an inquiry it has not entered.
 
 ## So I went back to where this started
 
@@ -110,8 +110,6 @@ A tool can decline a job. It does not get to announce that the object has no cor
 
 M. W. Rowe noticed why the game example matters so much. If "game" really can be defined, or if the comparison fails to support what has been asked of it, then the persuasive force of the wider argument against definition is weakened. Game is not a disposable illustration once it carries that weight. It becomes a load-bearing example, and load-bearing examples do not receive immunity from engineers.
 
-Then I returned to the smaller arguments that had sent me back to Wittgenstein in the first place.
-
 Someone proposes a definition of game. Someone has read a game-design book whose author proposes another. Someone asks whether sandboxes are games or toys, where the boundary of videogame lies, or why every book seems to define the same word again. Family resemblance arrives in the replies with remarkable regularity.
 
 Sometimes it helps. It reminds an OP that people learn the ordinary word through repeated encounters, not by memorizing necessary and sufficient conditions. Sometimes it actually attacks the candidate by checking what the proposed criterion includes and excludes. In those cases, family resemblance clarifies the question or names an alternative after the candidate has been tested.
@@ -122,39 +120,69 @@ The citation does not enter the conversation. It ends it. A dead philosopher has
 
 An OP asks for modern definitions after reading game-design books. The reply says Wittgenstein argued that there is no definition of game and no feature shared by all games. Another OP asks why people keep redefining game. A response quotes the family-resemblance passage, takes the absence of shared core attributes for granted, and recommends reconceptualization instead. Elsewhere the formula becomes shorter still: "game" cannot be defined; try necessary and sufficient conditions yourself and watch the project fail.
 
-The fine print has vanished. Defining ordinary use and investigating the object become the same task. One failed definition becomes the impossibility of definition. No sharp boundary, no complete analytic definition, no essence, and no necessary invariant become four names for one absence. Philosophical therapy becomes an ontological result. What remains is a philosopher-shaped stop sign.
+The word *already* often appears nearby. Wittgenstein already dealt with this. People have already tried. Philosophy has already moved on. An objection has existed for decades, therefore the objection won decades ago, therefore reading the candidate now would be terribly old-fashioned. Intellectual history has become a queueing system, and apparently truth belongs to whoever arrived first.
 
-The veto is efficient because every outcome favors it. If the candidate has a counterexample, family resemblance wins. If the author revises it, the revision proves the search endless. If the scope narrows, the definition is dismissed as stipulative or incomplete. If the author continues, persistence becomes another craving for generality. The candidate can lose in several ways. The refusal never has to say what would make it lose.
+The fine print vanishes just as quickly. Defining ordinary use and investigating the object become the same task. One failed definition becomes the impossibility of definition. No sharp boundary, no complete analytic definition, no essence, and no necessary invariant become four names for one absence. Philosophical therapy becomes an ontological result. The citation has done its job. There is now a stop sign where an argument should have been.
 
-The Reddit sample is not a census. It does not establish how common the move is across the platform. It establishes something narrower: the move is not imaginary. Across game design, game development, gaming discussion, and philosophy Q&A, family resemblance appears at exactly the moment somebody tries to state what a game is. In its careful form, it sharpens the question. In its pocket form, it prevents the question from surviving long enough to become precise.
+The separate threads eventually began to read like one very patient conversation:
+
+> **OP:** I am proposing B as a necessary condition.
+>
+> **Reply:** Games have family resemblance. There may be no definition.
+>
+> **OP:** B is not a complete definition.
+>
+> **Reply:** Then it does not capture everything people call games.
+>
+> **OP:** A necessary condition is not supposed to decide membership both ways.
+>
+> **Reply:** So your definition is merely stipulative.
+>
+> **OP:** I declared the scope before stating B.
+>
+> **Reply:** Why are you gatekeeping games?
+>
+> **OP:** Does that make B false?
+>
+> **Reply:** This obsession with definitions is exactly the problem.
+
+Nothing has touched B. The objection began with essence, moved to ordinary extension, stopped briefly at stipulation, borrowed moral urgency from gatekeeping, then diagnosed the act of continuing. The candidate stayed in one place. Everything around it enjoyed the walk.
+
+The amount of work proves nothing. One clean counterexample in one sentence can erase months of formalization, and good for it. The problem is not that the reply is short. The problem is that it supplies no counterexample, attacks no premise, identifies no invalid inference, and corrects no scope. One surname and two words replace all four operations. Reddit marks the transaction as settled anyway.
+
+The veto favors every outcome. A counterexample defeats the candidate. A revision proves the search endless. A narrower scope is called incomplete. Continuing becomes another craving for generality. The candidate can lose in several ways. The refusal never states what would make it lose.
+
+I did not conduct a census of Reddit, thank God. I only needed to know whether this creature was imaginary. It was not. Across game design, game development, gaming discussion, and philosophy Q&A, family resemblance appears at exactly the moment somebody tries to state what a game is. In its careful form, it sharpens the question. In its pocket form, it prevents the question from surviving long enough to become precise.
 
 Wittgenstein is not personally responsible for every compressed reply bearing his name. Still, when "do not assume one essence in advance" repeatedly arrives downstream as "there is no common feature, so stop defining", the missing inferential guardrail is no longer a purely hypothetical concern.
 
-At that point another word enters: gatekeeping.
+Then another word showed up: gatekeeping.
 
 The suspicion does not come from nowhere. "Not a real game" has often been an evaluation disguised as a classification. Walking simulators, visual novels, mobile games, games associated with women, games without conventional failure states, and games whose primary appeal is narrative have all been pushed outside the respectable center of the medium. The object becomes not quite a game; its audience becomes not quite gamers; its makers become not quite game developers. One small predicate quietly carries an entire social hierarchy on its back.
 
-That history explains why a definition can sound hostile before anybody checks its premises. It does not make the premises false.
-
-Unfortunately, moral suspicion is much faster than type checking.
+That history explains why a definition can sound hostile before anybody checks its premises. Unfortunately, moral suspicion is much faster than type checking. It still does not make the premises false.
 
 Reading the arguments, I found four different questions hiding under one accusation. Does the object satisfy the predicate *Game*? Is it good, valuable, artistic, difficult, or worthy of respect? May its audience or makers legitimately claim an identity? May the object or person enter a community, platform, archive, market, curriculum, award, or field of study?
 
+The familiar social chain runs from the first question through the rest without stopping. This is not a Game, therefore it is a lesser work, therefore its audience is not made of real gamers, therefore its creator has wandered into the wrong profession. Every arrow is suspicious. Then something strange happens: because those arrows are bad, the first sentence is treated as unavailable before its own predicate has been checked. A sequence of invalid implications becomes armor for its first premise.
+
 An answer to the first question can cause consequences at the others when an institution reuses the same word. It does not logically contain them. A classification can exclude an object from one extension without ranking it, insulting its audience, denying its maker a profession, or removing it from the shelf where somebody can find it. If an institution attaches access or status to that classification, the institutional rule performs the gatekeeping.
 
-The distinction cuts both ways. Nobody can excuse a social hierarchy by calling the underlying sentence merely taxonomic when the hierarchy was the reason for uttering it. But the social history of a predicate cannot make every attempt to analyze it false. Motive may explain why a boundary was proposed. Harm may give us a reason not to use that boundary for one institution. Neither tells us whether the candidate condition is true of its declared objects.
+There is no clean side to hide on. Nobody can excuse a social hierarchy by calling the underlying sentence merely taxonomic when the hierarchy was the reason for uttering it. But the social history of a predicate cannot make every attempt to analyze it false. Motive may explain why a boundary was proposed. Harm may give us a reason not to use that boundary for one institution. Neither tells us whether the candidate condition is true of its declared objects.
 
 Exclusion by itself is not yet the defect. Every predicate excludes whatever does not satisfy it. If "game" must include everything placed on a game platform, made with a game engine, enjoyed by a gamer, or socially harmed by exclusion, then inclusion has stopped answering to the object. It answers to the cost of saying no. That may be a sensible policy for a storefront or a welcoming community. It is still a policy.
 
 The No True Scotsman accusation can make the same mistake. The fallacy occurs when a counterexample is rejected through an ad hoc revision whose only job is to protect the generalization. Merely deciding that an object does not satisfy a previously stated condition is not that fallacy. Otherwise every counterexample would win by announcing itself, and every predicate would become circular the moment it excluded anything.
 
-So gatekeeping had been doing four jobs at once. Sometimes it named extensional restriction. Sometimes it named a rhetorical judgment that an excluded object was inferior. Sometimes it named an institutional rule tying classification to access or status. And sometimes the accusation itself guarded the entrance to inquiry by assigning a social vice to the act of proposing a candidate.
+Gatekeeping had been doing four jobs at once. Sometimes it named extensional restriction. Sometimes it named a rhetorical judgment that an excluded object was inferior. Sometimes it named an institutional rule tying classification to access or status. And sometimes the accusation itself guarded the entrance to inquiry by assigning a social vice to the act of proposing a candidate.
 
 The word arrives wearing an ethics badge, then starts issuing warrants in logic.
 
 Only that last use bears on whether the candidate may be stated and tested. The other uses bear on what people and institutions do with the result. First determine what the condition says, where it quantifies, what kind of claim it makes, and whether it survives counterexamples. Then decide what authority, if any, should be attached to it. A true distinction can support a cruel policy. A false distinction can support a generous one. Ethics governs what we do with a distinction; it does not alter the relation the distinction reports.
 
-Once separated, the debts are no longer difficult to assign. The analyst owes the truth of the candidate within its declared scope. The institution owes the rule converting classification into consequence. The critic owes the claim that either debt has gone unpaid. Nobody settles all three by pointing at the word "gatekeeping" and looking offended on behalf of logic.
+A gatekeeping objection can contribute something. It can show that the author smuggled an evaluation into a classification, that the declared domain already contains an excluded counterexample, or that an institution attached status to a boundary without justification. It can identify the arrow where description became punishment. But merely saying "gatekeeping" identifies none of them. It names a possible defect, leaves the defect unlocated, then waits for the candidate to apologize.
+
+The debts are not especially mysterious after that. An analyst still owes the candidate's truth within its declared scope. If an institution converts classification into status or access, it owes that rule separately. A critic who says either debt went unpaid has taken on a claim as well. The complaint contributes when it shows where the debt is. Pointing at the word "gatekeeping" does not settle all three, no matter how offended logic is expected to look.
 
 ## And we are back at the diagnosis
 
@@ -166,7 +194,7 @@ Sometimes that is exactly right. A demand for one feature can be a refusal to lo
 
 But a diagnosis still needs criteria. Otherwise any unsuccessful general inquiry can be reclassified as a symptom after the fact, and any unfinished one can be diagnosed before the result arrives. The method becomes self-sealing: continued inquiry proves the craving, while surrender confirms the cure.
 
-At that point the clinic no longer needs examinations. Refusing treatment is another symptom, and getting better means agreeing that you were ill.
+Soon the clinic no longer needs examinations. Refusing treatment is another symptom, and getting better means agreeing that you were ill.
 
 Asking what is common here is not pathological by grammatical form. Its legitimacy depends on its object, scope, candidate type, and method. A bad answer does not infect the question retroactively. Several bad answers do not do it either. To establish that an inquiry is confused, the therapy must show the confusion in that inquiry, not recall another patient with similar handwriting.
 
