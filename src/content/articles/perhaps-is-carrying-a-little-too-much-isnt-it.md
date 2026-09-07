@@ -2,7 +2,7 @@
 author: FM39hz
 pubDatetime: 2026-09-05
 modDatetime: 2026-09-07
-title: Perhaps is not a proof
+title: "\"Perhaps\" is carrying a little too much, isn't it?"
 featured: false
 draft: false
 tags:
@@ -11,6 +11,10 @@ tags:
 
 description: Did Wittgenstein ever use his own method to examine the method itself?
 ---
+
+## Table of contents
+
+## Prelude
 
 There is a peculiar kind of argument that does not defeat a question. It diagnoses the desire to ask it, describes the scenery around it, then walks away as though the investigation has been completed.
 
@@ -40,17 +44,9 @@ That point matters. A blurred boundary is not the same as no use. A rule can be 
 
 On that much, I have very little desire to argue with him.
 
-The temptation is to stop reading there and treat family resemblance as his replacement definition. That was roughly where my first objection formed. The family has already been assembled before resemblance is asked to explain it. If resemblance constitutes membership, which resemblance counts? At what granularity? How far may an overlapping chain travel before everything becomes related to everything else through some sufficiently patient route? A constrained answer has acquired a topology and must state it. An unconstrained one excludes nothing.
+Heather Gert argues that family resemblance need not constitute membership at all. It may instead provide fallible evidence for membership in an extension grounded elsewhere. That reading protects Wittgenstein from having to turn resemblance into a membership algorithm, but it narrows what the metaphor can establish. Evidence may guide recognition without proving that no other account or commonality exists beyond it. A constitutive reading would owe the resemblance relation, while Gert's evidential reading owes no such thing and receives no ontological authority in return. Either way, an inspection of selected similarities has not earned the right to decide what inquiry may continue.
 
-Then Heather Gert made that objection less comfortable. The metaphor need not invert the relation between family membership and family resemblance. Actual relatives do not enter a family because their noses happen to look alike. Their likeness may instead provide fallible evidence of a membership grounded elsewhere. On that reading, Wittgenstein is not offering resemblance as a membership algorithm at all.
-
-The crude circularity no longer lands, and keeping it would only make the rant easier and the argument worse, which is usually how straw men earn their keep.
-
-But something else becomes clearer in its place. If resemblance supplies evidence for an extension already governed by our practice, it helps us recognize members without constituting their membership. It describes how the family appears and how we navigate it, which cannot, merely by doing that, establish that no other account of the family exists.
-
-The metaphor survives, but its jurisdiction becomes visible.
-
-## The stronger reading drew a sharper border
+## The stronger it gets, the more it owes
 
 Family resemblance is only one piece of a broader philosophical method. *The Blue Book* made that impossible to ignore.
 
@@ -78,9 +74,15 @@ If family resemblance describes how the ordinary word "game" is learned, extende
 
 None determines what the objects themselves have in common. A grammar of recognition is not yet an account of the recognized object. A report about how a word is used is not yet a result about everything to which the word is applied. If the therapy remains on its own side of that line, my objection does not touch it, and it cannot touch my question.
 
+There is a limit to how personally I can press that complaint. Wittgenstein died in 1951, while *Philosophical Investigations* appeared in 1953. He had withdrawn the manuscript from publication, but authorized its posthumous appearance. The passages at issue belong to Part I, whose 1945-46 typescript came close to a finished work, so they are not merely a pile of notes assembled by strangers. Yet he never saw the printed book, the disputes it generated, or the portable versions of his name pasted into arguments decades later.
+
+Some line items still belong to him: the absence of one common thing, the disappearance of explanation, the descriptive limit of philosophy, and the promised disappearance of its problems. The text does not discharge every burden those formulations create. Later readers own whatever they add after removing the fine print, but the original bill was already substantial without forging his signature onto the rest.
+
+The interpreters have not found one stable uniform for these sentences either. Some find theses, others therapy, some a positive philosophy, and others an interventionist rather than quietist Wittgenstein. That disagreement has lasted long enough to show that the bare wording does not settle the authority of its own metaphilosophy.
+
 I now knew the dispute was not description against science, but jurisdiction, so I left the word "craving" sitting there for a while to see what happened to it after it left the book.
 
-## Then perhaps started doing too much
+## Then the passport stopped matching the jurisdiction
 
 Once the question about ordinary use was separated from the question about what might actually be common, the troublesome step became almost embarrassingly small.
 
@@ -126,29 +128,17 @@ The real irritation was never family resemblance, blurred concepts, or the denia
 
 ## So I went back to where this started
 
-The Wittgensteinian approach enters game studies in a respectable form. Definitions become tools inside particular discourses. A nominal definition draws one boundary for one purpose, while another purpose may draw another. The cycle of revision can improve understanding without converging on one final definition. Jonne Arjoranta develops this position explicitly: agreement on one definition is unnecessary, and a language-game approach can replace the repeated hunt for a common core.
+The Wittgensteinian approach enters game studies in a respectable form. Jonne Arjoranta treats definitions as tools inside particular discourses, where one purpose may draw a boundary that another purpose has no reason to keep. A field can study communities, interfaces, labor, fiction, markets, or culture without solving the ontology of Game first. "You do not need this definition for your present work" is often excellent advice.
 
-A field does not need to solve the ontology of Game before it can study player communities, interfaces, labor, fiction, markets, or culture. A local tool can be good enough for the work it was built to do. "You do not need this definition for your present work" is often excellent advice.
+Purpose determines usefulness, though, not truth. A boundary chosen for one study cannot answer a question about the object merely because the study had no use for the answer. "Nothing common need exist" is another claim, and "the search for anything common is a philosophical disease" is stronger again. Practical indifference cannot pay either bill. M. W. Rowe saw why the example matters: once Game carries a wider argument against definition, it stops being disposable evidence.
 
-But purpose determines usefulness, not truth. A nominal boundary chosen for one study cannot answer a question about the object merely because the study had no use for the answer. Context changes the question being asked, but it does not make every answer context-made. "Nothing common need exist" is one claim, while "the search for anything common is a philosophical disease" is stronger still, and the first sentence cannot quietly pay the bills of the other two.
+Then there are the smaller arguments that sent me back to Wittgenstein. Someone proposes a definition, reads one in a game-design book, or asks where videogames end and toys begin. Family resemblance appears in the replies with remarkable regularity.
 
-A tool can decline a job, but it does not get to announce that there is nothing to find simply because nobody brought the right tool to this particular workshop.
+Sometimes it helps by reminding an OP that ordinary words are learned through repeated encounters rather than necessary and sufficient conditions. Sometimes it attacks the candidate by checking what its criterion includes and excludes. In both cases, the reply contributes something the candidate can answer.
 
-M. W. Rowe noticed why the game example matters so much. If "game" really can be defined, or if the comparison fails to support what has been asked of it, then the persuasive force of the wider argument against definition is weakened. Game is not a disposable illustration once it carries that weight. It becomes a load-bearing example, and load-bearing examples do not receive immunity from engineers.
+Sometimes a dead philosopher has instead been compressed into a portable reaction image, with the footnotes thoughtfully removed. Wittgenstein already dealt with this. People already tried. Philosophy already moved on. An objection has existed for decades, so apparently it won decades ago, and truth belongs to whoever entered the queue first.
 
-Someone proposes a definition of game. Someone has read a game-design book whose author proposes another. Someone asks whether sandboxes are games or toys, where the boundary of videogame lies, or why every book seems to define the same word again. Family resemblance arrives in the replies with remarkable regularity.
-
-Sometimes it helps. It reminds an OP that people learn the ordinary word through repeated encounters, not by memorizing necessary and sufficient conditions. Sometimes it actually attacks the candidate by checking what the proposed criterion includes and excludes. In those cases, family resemblance clarifies the question or names an alternative after the candidate has been tested.
-
-And sometimes it is simply a pocket veto, where a dead philosopher has been compressed into a reaction image, with the footnotes thoughtfully removed for portability.
-
-An OP asks for modern definitions after reading game-design books. The reply says Wittgenstein argued that there is no definition of game and no feature shared by all games. Another OP asks why people keep redefining game. A response quotes the family-resemblance passage, takes the absence of shared core attributes for granted, and recommends reconceptualization instead. Elsewhere the formula becomes shorter still: "game" cannot be defined. Try necessary and sufficient conditions yourself and watch the project fail.
-
-The word *already* often appears nearby, implying that because Wittgenstein dealt with this and people have already tried, philosophy has moved on and the objection won decades ago. Intellectual history has become a queueing system, and apparently truth belongs to whoever arrived first.
-
-The fine print vanishes just as quickly, collapsing ordinary use into the nature of the object, turning one failed definition into the impossibility of defining, and quietly converting philosophical therapy into an ontological result, leaving a stop sign where an argument should have been.
-
-The separate threads eventually began to read like one very patient conversation:
+The fine print disappears along the way. Ordinary use becomes the nature of the object, one failed definition becomes the impossibility of definition, and philosophical therapy quietly becomes an ontological result. The separate threads eventually began to read like one patient conversation:
 
 > **OP:** I think the things called games share B.
 >
@@ -172,47 +162,19 @@ The separate threads eventually began to read like one very patient conversation
 
 Nothing has touched B. The objection began with commonality, retreated to essence, moved to ordinary extension, borrowed moral urgency from gatekeeping, then diagnosed the act of continuing. The candidate stayed in one place, while everything around it enjoyed the walk.
 
-The amount of work proves nothing, and one clean counterexample can erase months of formalization, which is exactly what a good counterexample should do. The problem is not brevity, but a reply that supplies no counterexample, attacks no premise, identifies no invalid inference, and corrects no scope. One surname and two words replace all four operations while Reddit marks the transaction as settled anyway.
+The amount of work proves nothing, and one clean counterexample can erase months of formalization, as it should. The problem is a reply that supplies no counterexample, attacks no premise, identifies no invalid inference, and corrects no scope. The veto can still claim every outcome: a counterexample defeats the candidate, a revision proves the search endless, and a narrower scope is dismissed as incomplete. The candidate can lose while the refusal never states what losing would mean for itself.
 
-The veto favors every outcome: a counterexample defeats the candidate, a revision proves the search endless, and a narrower scope is dismissed as incomplete. The candidate can lose in several ways while the refusal never specifies what would make it lose.
+I did not conduct a census of Reddit, thank God. I only needed to know whether this creature was imaginary, and it was easy to find across game design, gaming discussion, and philosophy forums. Family resemblance can sharpen a question, but its pocket form prevents the question from surviving long enough to become precise. Later readers did not invent the reach from nothing, though. The gap already existed between Wittgenstein's measuring rods and his prohibitions.
 
-I did not conduct a census of Reddit, thank God. I only needed to learn whether this creature was imaginary, and it was not difficult to find across game design, game development, gaming discussion, and philosophy forums. In its careful form, family resemblance sharpens the question, while its pocket form prevents the question from surviving long enough to become precise.
+Gatekeeping gives the veto moral urgency. The suspicion has a history: "not a real game" has demoted walking simulators, visual novels, mobile games, their audiences, and sometimes their makers. A predicate about an object quietly becomes a ranking, an identity test, and an institutional boundary. That history explains the hostility, but it cannot make a premise false before anyone checks it.
 
-Wittgenstein is not personally responsible for every compressed reply bearing his name. Those replies remove the qualifications, but they did not invent the reach from nothing. When "do not assume one essence in advance" arrives downstream as "there is no common feature, so stop defining", the missing inferential guardrail was already exposed by the distance between his measuring rods and his prohibitions.
+The social chain usually runs without stopping: not a game, therefore a lesser work, therefore not made for real gamers, therefore made by someone in the wrong profession. Every arrow deserves suspicion. Yet because those implications are bad, the first sentence is often treated as unavailable before its predicate has been examined. A sequence of invalid implications becomes armor for its own premise.
 
-There is a limit to how personally I can press that complaint. Wittgenstein died in 1951, while *Philosophical Investigations* appeared in 1953. He had withdrawn the manuscript from publication, but authorized its posthumous appearance. The family-resemblance and methodological passages belong to Part I, whose 1945-46 typescript came close to a finished work, so their wording is not merely a pile of notes assembled by strangers. Yet he never saw the printed book, the disputes it generated, or the increasingly portable versions of his name pasted into arguments decades later.
+A classification does not logically contain the status later attached to it. If a community, platform, archive, market, or award converts gamehood into access, that institutional rule performs the gatekeeping. This does not excuse a speaker who used taxonomy as camouflage for contempt, but motive and harm still cannot decide whether the stated condition is true.
 
-The distinction matters. Some line items belong to Wittgenstein himself: the absence of one common thing, the disappearance of explanation, the descriptive limit of philosophy, and the promised disappearance of its problems. The text does not discharge every burden those formulations create. Later interpreters add other charges, often after removing the fine print, and living readers remain responsible for spending the name that way. What I cannot honestly stage is a dead author receiving every later invoice and refusing to pay it. The original bill was already substantial without forging his signature onto the rest.
+The accusation becomes useful when it locates the missing step. It may show that evaluation was smuggled into classification, that the declared domain already contains a counterexample, or that an institution attached punishment without justification. Merely saying "gatekeeping" finds none of these. The word arrives wearing an ethics badge, issues a warrant in logic, and waits for the candidate to apologize.
 
-The interpretive literature has not found one stable uniform for the sentences either. Alois Pichler maps a long dispute between readings that find theses in the book and readings that find therapy instead, noting that the choice often imports the reader's own conception of philosophy. Paul Horwich reconstructs a substantive account of how philosophy should be conducted and then supplies the rational defense such an account requires. Oleg Pukhaev finds a positive philosophy in the methods and language-games, while Daniele Moyal-Sharrock rejects the quietist picture altogether. Rather than an unfortunate delay before consensus, that disagreement shows how little the bare wording settles about the authority of its own metaphilosophy.
-
-Then another word showed up: gatekeeping.
-
-The suspicion does not come from nowhere. "Not a real game" has often been an evaluation disguised as a classification. Walking simulators, visual novels, mobile games, games associated with women, games without conventional failure states, and games whose primary appeal is narrative have all been pushed outside the respectable center of the medium. The object becomes not quite a game, its audience becomes not quite gamers, and its makers become not quite game developers. One small predicate quietly carries an entire social hierarchy on its back.
-
-That history explains why a definition can sound hostile before anybody checks its premises. Unfortunately, moral suspicion is much faster than type checking, but it still does not make the premises false.
-
-Reading the arguments, I found four different questions hiding under one accusation. Does the object satisfy the predicate *game*? Is it good, valuable, artistic, difficult, or worthy of respect? May its audience or makers legitimately claim an identity? May the object or person enter a community, platform, archive, market, curriculum, award, or field of study?
-
-The familiar social chain runs from the first question through the rest without stopping. This is not a game, therefore it is a lesser work, therefore its audience is not made of real gamers, therefore its creator has wandered into the wrong profession. Every arrow is suspicious. Then something strange happens: because those arrows are bad, the first sentence is treated as unavailable before its own predicate has been checked. A sequence of invalid implications becomes armor for its first premise.
-
-An answer to the first question can cause consequences at the others when an institution reuses the same word. It does not logically contain them. A classification can exclude an object from one extension without ranking it, insulting its audience, denying its maker a profession, or removing it from the shelf where somebody can find it. If an institution attaches access or status to that classification, the institutional rule performs the gatekeeping.
-
-There is no clean side to hide on. Nobody can excuse a social hierarchy by calling the underlying sentence merely taxonomic when the hierarchy was the reason for uttering it. But the social history of a predicate cannot make every attempt to analyze it false. Motive may explain why a boundary was proposed. Harm may give us a reason not to use that boundary for one institution. Neither tells us whether the candidate condition is true of its declared objects.
-
-Exclusion by itself is not yet the defect, since every predicate excludes whatever does not satisfy it. If "game" must include everything placed on a game platform, made with a game engine, enjoyed by a gamer, or socially harmed by exclusion, then inclusion has stopped answering to the object. It answers to the cost of saying no, and while that may be a sensible policy for a storefront or a welcoming community, it remains a policy rather than a fact about the object.
-
-The No True Scotsman accusation can make the same mistake. The fallacy occurs when a counterexample is rejected through an ad hoc revision whose only job is to protect the generalization. Merely deciding that an object does not satisfy a previously stated condition is not that fallacy. Otherwise every counterexample would win by announcing itself, and every predicate would become circular the moment it excluded anything.
-
-Gatekeeping had been doing four jobs at once. Sometimes it named extensional restriction. Sometimes it named a rhetorical judgment that an excluded object was inferior. Sometimes it named an institutional rule tying classification to access or status. And sometimes the accusation itself guarded the entrance to inquiry by assigning a social vice to the act of proposing a candidate.
-
-The word arrives wearing an ethics badge, then starts issuing warrants in logic.
-
-Only that last use bears on whether the candidate may be stated and tested. The other uses bear on what people and institutions do with the result. First determine what the condition says, where it quantifies, what kind of claim it makes, and whether it survives counterexamples. Then decide what authority, if any, should be attached to it. A true distinction can support a cruel policy. A false distinction can support a generous one. Ethics governs what we do with a distinction, but it does not alter the relation the distinction reports.
-
-A gatekeeping objection can contribute something. It can show that the author smuggled an evaluation into a classification, that the declared domain already contains an excluded counterexample, or that an institution attached status to a boundary without justification. It can identify the arrow where description became punishment. But merely saying "gatekeeping" identifies none of them. It names a possible defect, leaves the defect unlocated, then waits for the candidate to apologize.
-
-The debts are not especially mysterious after that. An analyst still owes the candidate's truth within its declared scope. If an institution converts classification into status or access, it owes that rule separately. A critic who says either debt went unpaid has taken on a claim as well. The complaint contributes when it shows where the debt is. Pointing at the word "gatekeeping" does not settle all three, no matter how offended logic is expected to look.
+The debts remain separate. An analyst owes the candidate's truth within its scope. An institution owes the rule converting classification into consequence. A critic contributes by showing where either debt went unpaid. The label alone pays nothing.
 
 ## And we are back at the diagnosis
 
@@ -222,25 +184,13 @@ Wittgenstein is not merely saying that generalization sometimes fails. He connec
 
 Sometimes that is exactly right. A demand for one feature can be a refusal to look at actual differences. An elegant generalization can erase the structure under investigation. A philosopher can spend years repairing a definition whose only purpose is to preserve the expectation that there must be one.
 
-But a diagnosis still needs criteria. Otherwise any unsuccessful general inquiry can be reclassified as a symptom after the fact, and any unfinished one can be diagnosed before the result arrives. The method becomes self-sealing: continued inquiry proves the craving, while surrender confirms the cure.
+But a diagnosis needs criteria. Otherwise every failed inquiry becomes a symptom after the fact, and every unfinished one can be diagnosed before the result arrives. Continued inquiry proves the craving while surrender confirms the cure, leaving a clinic that no longer needs examinations. Refusing treatment is another symptom, and getting better means agreeing that you were ill.
 
-Soon the clinic no longer needs examinations. Refusing treatment is another symptom, and getting better means agreeing that you were ill.
+The text assigns philosophy a therapeutic job, then enlarges it through modal force: theory is barred, explanation disappears, description stands alone, and philosophy can do no more. Restricting those sentences to grammatical troubles may save them, but the restriction does not appear with equal clarity in every claim. A method's purpose cannot prove the jurisdiction its author gives it.
 
-Asking what is common here is not pathological by grammatical form. Its legitimacy depends on its object, scope, candidate type, and method. A bad answer does not infect the question retroactively. Several bad answers do not do it either. To establish that an inquiry is confused, the therapy must show the confusion in that inquiry, not recall another patient with similar handwriting.
+The method can describe itself and sometimes does so with more caution than its descendants. What remains unclear is whether it can distinguish the limit of its sight from the limit of philosophy. Without that difference, every method becomes sovereign by translating the rest of the world into its own language. Science can reduce literature to cognition, literature can return the favor by making science another story, and linguistic therapy can turn both into uses of words. Redescription is cheap enough for everyone, while exhaustion still needs paying for.
 
-The text assigns philosophy a particular therapeutic job, then enlarges that job with its own modal force: theory is barred, explanation disappears, description stands alone, and philosophy can do no more. Restricting those sentences to one class of grammatical trouble may save them, but the restriction does not appear with equal clarity in every claim. The purpose of a method cannot serve as proof of the jurisdiction its author gives it.
-
-The method plainly can describe itself, and sometimes does so with more caution than its descendants. What remains unclear is whether it describes the difference between the limit of its own sight and the limit of philosophy. Without that difference, every method can become sovereign by translating the rest of the world into its own language. Science could declare literature an inefficient account of cognition, literature could return the favor by treating science as one more story, and linguistic therapy could reduce both to uses of words. Redescription is cheap enough for everyone, while exhaustion is the claim that still needs paying for.
-
-So who is being dogmatic now?
-
-The answer is not a person, and it is certainly not a team color. Dogmatism appears wherever a claim is protected from the burden appropriate to it. Announce an essence and refuse counterexamples, and there it is. Turn "perhaps" into a veto against an inquiry, and the same work returns with softer punctuation. Say only that one inquiry does not need an essence, and the sentence may be completely right. Use that local fact to limit what can be true about the object, and the sentence has started spending money it never earned.
-
-Against all of them, an attackable candidate has one simple virtue: it can lose.
-
-A failed candidate is still a result, and so is a counterexample. A proof that no candidate within a specified class can work would be a remarkable result. Even a long record of failure tells us where not to look next without requiring a doctrine to win before the search begins.
-
-What I reject is the strange privilege granted to surrender. The person who keeps looking is called dogmatic for believing an answer might exist, while the person declaring the question confused is praised for modesty without proving either the absence or the confusion. Modesty would have left the question open.
+What I reject is the strange privilege granted to surrender. An inquiry is required to justify its legitimacy before its candidate can be tested, while the declaration that the question is confused may pass as modesty without proving either the absence or the confusion. Modesty would have left the question open.
 
 I do not need an essence to exist. I am not even convinced that human beings have one, and they matter rather more to me than the dignity of a definition. I do not need every useful concept to possess a sharp ordinary-language boundary. I do not need philosophy to imitate physics, or every inquiry to terminate in a formula. I only need each claim to pay for the distance it travels.
 
