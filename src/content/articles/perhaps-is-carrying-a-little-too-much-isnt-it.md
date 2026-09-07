@@ -190,6 +190,8 @@ The text assigns philosophy a therapeutic job, then enlarges it through modal fo
 
 The method can describe itself and sometimes does so with more caution than its descendants. What remains unclear is whether it can distinguish the limit of its sight from the limit of philosophy. Without that difference, every method becomes sovereign by translating the rest of the world into its own language. Science can reduce literature to cognition, literature can return the favor by making science another story, and linguistic therapy can turn both into uses of words. Redescription is cheap enough for everyone, while exhaustion still needs paying for.
 
+So who is being dogmatic here: the one who denies the question its legitimacy without carrying the burden of that denial, or the one who puts forward a candidate and leaves it open to attack?
+
 What I reject is the strange privilege granted to surrender. An inquiry is required to justify its legitimacy before its candidate can be tested, while the declaration that the question is confused may pass as modesty without proving either the absence or the confusion. Modesty would have left the question open.
 
 I do not need an essence to exist. I am not even convinced that human beings have one, and they matter rather more to me than the dignity of a definition. I do not need every useful concept to possess a sharp ordinary-language boundary. I do not need philosophy to imitate physics, or every inquiry to terminate in a formula. I only need each claim to pay for the distance it travels.
