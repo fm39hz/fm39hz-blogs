@@ -16,7 +16,8 @@ Before drafting, rewriting, proofreading, or reviewing prose:
 
 Apply the smallest edit that fixes the actual content problem. Do not rewrite protected passages,
 neutralize the prose, distribute sarcasm through the formal spine, or add examples merely to vary the
-tone.
+tone. Maintain a poised sentence cadence: avoid choppy micro-sentences or theatrical plot twists,
+connect clauses naturally, and ensure punchlines land through metaphor.
 
 For formal or conceptual articles, audit the mathematical type and dependency of a statement before
 polishing it. Mathematics warrants the prose; it does not supply the prose's voice.

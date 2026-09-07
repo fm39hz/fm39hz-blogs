@@ -77,6 +77,16 @@ Sarcasm is never the main content, never part of a proof, and never the source o
   counterexample, stress test, or an example the user explicitly wants.
 - A mathematical witness should read as a witness. It does not need a joke attached to it.
 
+## Sentence Cadence and Punchline Discipline
+
+The prose moves with a natural, poised cadence. It neither barks in micro-sentences nor meanders in endless run-on clauses.
+
+- Do not chop sentences into theatrical micro-fragments or isolated words (`Good.`, `No.`, `Annoying, but true.`, `It was not.`, `It ends it.`).
+- Do not split a single thought into formulaic staccato triplets (e.g. `Author dealt with this. People tried. Field moved on.`).
+- Connect complementary or contrasting clauses naturally with commas and conjunctions (`while`, `where`, `but`, `and`, `rather than`) instead of mechanically slicing them with periods or semicolons.
+- Do not overcorrect into bloated run-on sentences with excessive commas. Keep sentences balanced (typically 15 to 25 words), cohesive, and easy to breathe through.
+- Deliver punchlines through metaphor, not rhetorical plot twists. Avoid theatrical reversals (`X does not do A. It does B.`). The punchline must live entirely within the substance, precision, or absurdity of the metaphor itself (such as compressing a philosopher into a portable reaction image, leaving with an eviction notice, paying bills, or debts on a ledger).
+
 ## Formal and Conceptual Articles
 
 When an article contains axioms, definitions, or a formal framework:
@@ -125,8 +135,9 @@ punctuation inside an emphasized question may be intentional.
 3. Map each prose claim to its definition, assumption, result, or authorial stance.
 4. Fix mathematical or logical scope before polishing the sentence.
 5. Edit locally. Do not rewrite an entire section when one clause is wrong.
-6. Remove assistant-added disclaimers, sarcasm, examples, and neutralizing prose that do not belong to
-   the author's argument.
+6. Remove assistant-added disclaimers, staccato micro-sentences, theatrical plot twists, artificial
+   sarcasm, examples, and neutralizing prose that do not belong to the author's argument. Ensure
+   sentence cadence is balanced and punchlines land via metaphor.
 7. Re-read transitions outside formal blocks to ensure the author's voice remains present.
 8. Run the punctuation and character scans above.
 9. Run `git diff --check`, `bun run check`, and `bun run build` when Markdown or math structure changed.
