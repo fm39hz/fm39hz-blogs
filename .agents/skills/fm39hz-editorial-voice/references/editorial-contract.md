@@ -43,6 +43,31 @@ to make its argument.
   structural Agency from actual causation or modal depth from elapsed time.
 - In definitions and proofs, report-like scientific prose is acceptable. Outside them, preserve the
   author's direct and situated voice.
+- Tone: Direct, measured, and unpretentious. Avoid preachy, lecturing, or patronizing phrasing. State
+  observations and judgments plainly without moralizing.
+
+## Situated Stance
+
+The author speaks from a position rather than performing neutral distance. Preserve that position
+without turning it into unsupported certainty or explaining it beyond what the argument needs.
+
+- Keep judgment and epistemic status separate. The author may dislike, resist, or distrust something
+  before reaching a final conclusion about it.
+- Preserve explicit uncertainty when it marks the actual limit of the claim. Do not treat uncertainty
+  as weakness, or compensate for it with defensive explanation.
+- A self-directed question may expose doubt, friction, or intellectual honesty without asking an
+  imagined audience for permission. Keep it when it advances the thought; cut only the explanatory
+  scaffolding that follows it unnecessarily.
+- Let personal resistance remain visible. Discomfort, reluctance, dislike, and the wish to evade a
+  burden can strengthen a stance when the author still accepts what follows from it.
+- Do not make the author sound serene, reconciled, morally exemplary, or academically detached unless
+  the source prose actually does so.
+- Do not infer the author's values from the topic under discussion, or turn a structural judgment into
+  a moral verdict, confession, defense, or theory of everything.
+- Once an observation has enough warrant to carry the intended judgment, stop. Do not restate it as a
+  general principle, translate it into academic language, or pre-answer every possible objection.
+- Preserve deliberate roughness, abrupt qualification, conversational numerals, and local cadence when
+  they carry stance rather than obscure meaning.
 
 ## Claim Discipline
 
@@ -61,6 +86,9 @@ Every proposition must be objectively supportable even when its phrasing is poin
 - If a sentence is stronger than the theorem, narrow the sentence. Do not weaken the theorem to save
   the sentence.
 - When representation or comparison granularity matters, state it before drawing the comparison.
+- Diction: Concrete and unadorned. Prefer grounded, natural vocabulary over high-sounding jargon,
+  academic boilerplate, or purple prose. Avoid melodramatic embellishment.
+- Metaphors: Draw from mundane, practical realities rather than literary ornamentation.
 
 ## Sarcasm and Examples
 
@@ -77,15 +105,35 @@ Sarcasm is never the main content, never part of a proof, and never the source o
   counterexample, stress test, or an example the user explicitly wants.
 - A mathematical witness should read as a witness. It does not need a joke attached to it.
 
-## Sentence Cadence and Punchline Discipline
+## Sentence Cadence, Syntax, and Punchline Discipline
 
 The prose moves with a natural, poised cadence. It neither barks in micro-sentences nor meanders in endless run-on clauses.
 
-- Do not chop sentences into theatrical micro-fragments or isolated words (`Good.`, `No.`, `Annoying, but true.`, `It was not.`, `It ends it.`).
-- Do not split a single thought into formulaic staccato triplets (e.g. `Author dealt with this. People tried. Field moved on.`).
-- Connect complementary or contrasting clauses naturally with commas and conjunctions (`while`, `where`, `but`, `and`, `rather than`) instead of mechanically slicing them with periods or semicolons.
-- Do not overcorrect into bloated run-on sentences with excessive commas. Keep sentences balanced (typically 15 to 25 words), cohesive, and easy to breathe through.
-- Deliver punchlines through metaphor, not rhetorical plot twists. Avoid theatrical reversals (`X does not do A. It does B.`). The punchline must live entirely within the substance, precision, or absurdity of the metaphor itself (such as compressing a philosopher into a portable reaction image, leaving with an eviction notice, paying bills, or debts on a ledger).
+- Sentence cadence: Natural balance between cumulative clauses (connected via commas and natural
+  conjunctions) and concise declarative statements.
+- Minimal connective overhead: Avoid clunky, formulaic connectives (such as mechanical "because... therefore"
+  chains). Let clauses connect naturally through punctuation and conversational progression.
+- Before changing punctuation between clauses, identify the relation: continuation, contrast,
+  qualification, consequence, change of viewpoint, or judgment. Express that relation instead of
+  treating punctuation as an interchangeable separator.
+- When clauses remain in one movement, connect them with a comma and a natural conjunction. When the
+  later clause changes stance, viewpoint, or argumentative work, end the sentence and let the next
+  sentence carry that turn explicitly.
+- Starting a sentence with a conversational conjunction is acceptable when it preserves the movement
+  of thought. Do not merge it backward merely to make the prose look formally balanced.
+- A full stop may create room for the preceding judgment to stand before the thought continues. Do not
+  mistake topical continuity for a reason to keep everything in one sentence.
+- Avoid semicolons in prose. They tend to flatten directional relations into formally equal clauses.
+  Replace each one according to meaning, not mechanically with a comma or full stop.
+- Avoid theatrical micro-fragments (`Good.`, `No.`, `Annoying, but true.`) and formulaic staccato triplets.
+  Keep the rhythm poised, neither choppy nor bloated.
+- Deliver punchlines through metaphor, not rhetorical plot twists. Avoid theatrical reversals (`X does
+  not do A. It does B.`).
+
+## Headings and Questions
+
+- Headings: Frame section titles as direct propositions or focused questions rather than passive labels.
+- Questions: Use questions to probe assumptions directly rather than as rhetorical ornament.
 
 ## Formal and Conceptual Articles
 
@@ -108,6 +156,7 @@ Use plain ASCII punctuation in prose.
 - Use straight apostrophes and quotes: `'` and `"`.
 - Use three periods for an ellipsis: `...`.
 - Use the ASCII hyphen-minus `-`. Do not use em dashes or en dashes.
+- Do not use semicolons in prose unless they are required inside literal source text, code, or notation.
 - Do not use smart quotes, smart apostrophes, typographic ellipses, or decorative Unicode punctuation.
 - Non-ASCII letters required by the language or a proper name are content, not punctuation. Do not
   transliterate them merely to silence a character scan.
@@ -123,6 +172,7 @@ Before finishing a prose edit, scan the edited files:
 ```bash
 LC_ALL=C rg -n '[^\x00-\x7F]' src/content/articles src/content/pages
 rg -n '[,.!?;:][\")\]]' src/content/articles src/content/pages
+rg -n ';' src/content/articles src/content/pages
 ```
 
 Review every match instead of replacing blindly. Markdown emphasis markers are not quotation marks;
