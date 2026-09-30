@@ -13,6 +13,7 @@ import remarkMath from 'remark-math';
 import remarkToc from 'remark-toc';
 import { createHighlighter } from 'shiki';
 import { defineConfig } from 'vite';
+import { remarkHeadingSlugs } from './src/lib/markdown/headingSlug';
 import { rehypeTableCellCheckboxes } from './src/lib/markdown/rehypeTableCellCheckboxes';
 import { rehypeTableLabels } from './src/lib/markdown/rehypeTableLabels';
 
@@ -79,6 +80,7 @@ export default defineConfig({
 					remarkPlugins: [
 						remarkGfm,
 						remarkMath,
+						remarkHeadingSlugs,
 						[remarkToc, tocOptions],
 						[
 							function () {

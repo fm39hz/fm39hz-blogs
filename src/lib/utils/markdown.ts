@@ -1,3 +1,6 @@
+import GithubSlugger from 'github-slugger';
+import { asciiSlug } from '$lib/markdown/headingSlug';
+
 /** Drop YAML frontmatter for clipboard/export. Body only. */
 export function stripFrontmatter(md: string): string {
 	if (!md.startsWith('---')) return md;
@@ -18,17 +21,6 @@ function stripInlineFormatting(text: string): string {
 		.replace(/_(.+?)_/g, '$1')
 		.replace(/`(.+?)`/g, '$1')
 		.replace(/\[(.+?)\]\(.+?\)/g, '$1');
-}
-
-/** Generate GitHub-compatible heading slug (matches rehype-slug / github-slugger). */
-function headingToSlug(text: string): string {
-	const plain = stripInlineFormatting(text);
-	return plain
-		.toLowerCase()
-		.replace(/[^\w\s-]/g, '')
-		.replace(/\s+/g, '-')
-		.replace(/-+/g, '-')
-		.trim();
 }
 
 /** Format ISO date string as dd/mm/yyyy. */
@@ -98,12 +90,14 @@ export function buildCopyMarkdown(
 	// Extract headings for TOC (h2–h4) from body after TOC placeholder
 	const headings: { level: number; text: string; slug: string }[] = [];
 	const headingRegex = /^(#{2,4})\s+(.+)$/gm;
+	const slugger = new GithubSlugger();
 	let match: RegExpExecArray | null;
 	while ((match = headingRegex.exec(afterToc)) !== null) {
+		const text = stripInlineFormatting(match[2]);
 		headings.push({
 			level: match[1].length,
-			text: stripInlineFormatting(match[2]),
-			slug: headingToSlug(match[2]),
+			text,
+			slug: asciiSlug(text, slugger),
 		});
 	}
 
