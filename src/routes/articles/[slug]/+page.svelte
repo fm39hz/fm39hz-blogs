@@ -1,4 +1,5 @@
 <script lang="ts">
+import Icon from '@iconify/svelte';
 import { page } from '$app/state';
 // checkboxes replaced by build-time rehype plugin
 import { figureSurfaces } from '$lib/actions/figureSurface';
@@ -94,7 +95,7 @@ async function onCopyMarkdown() {
 
     <div class={styles.toolbar}>
       <nav class={styles.backNav} aria-label={t.post.goBack}>
-        <ButtonLink href="/articles">&larr; {t.post.goBack}</ButtonLink>
+        <ButtonLink href="/articles"><Icon icon="ph:arrow-left" class={styles.backIcon} /> {t.post.goBack}</ButtonLink>
       </nav>
       <div class={styles.toolbarRight}>
         <Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" locale={locale.value} />

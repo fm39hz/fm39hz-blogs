@@ -39,4 +39,4 @@ const recentPosts = sortedPosts.filter((p) => !p.metadata.featured);
   </section>
 {/if}
 
-<div class={styles.allPosts}><a href="/articles">{t.home.allPosts} &rarr;</a></div>
+<div class={styles.allPosts}><a href="/articles">{t.home.allPosts} <Icon icon="ph:arrow-right" class={styles.arrow} /></a></div>
