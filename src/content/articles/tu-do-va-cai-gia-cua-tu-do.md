@@ -1,10 +1,10 @@
 ---
 author: FM39hz
 pubDatetime: 2026-09-08
-modDatetime: 2026-09-29
+modDatetime: 2026-09-30
 title: Tự do và cái giá của tự do
 featured: false
-draft: true
+draft: false
 tags:
   - freedom
   - literature
