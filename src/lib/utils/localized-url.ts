@@ -1,5 +1,5 @@
-import type { ContentHeading } from '../content-language';
-import { translatedFragment } from '../content-language';
+import { translatedFragment } from '../content/policy';
+import type { ArticleTranslation } from '../content/types';
 import { extractLocaleFromUrl, localizeUrl } from '../paraglide/runtime';
 
 export function getLocalizedPath(path: string, targetLocale: string): string {
@@ -11,11 +11,6 @@ export function getLocalizedPath(path: string, targetLocale: string): string {
 
 export function articlePath(slug: string, lang: string): string {
 	return getLocalizedPath(`/articles/${slug}`, lang);
-}
-
-export interface ArticleTranslation {
-	lang: string;
-	metadata: { headings?: ContentHeading[] };
 }
 
 /** Pure navigation policy; undefined translations means a normal UI page. */

@@ -1,15 +1,16 @@
 import assert from 'node:assert/strict';
 import { describe, it as test } from 'node:test';
 import { mdsvex } from 'mdsvex';
+import { remarkHeadingSlugs } from '../markdown/headingSlug';
+import type { PostMeta } from '../types';
 import {
 	assertEquivalentHeadings,
 	contentLocale,
 	contentSlug,
-	selectLocalizedPosts,
+	selectCatalogArticles,
+	selectHomepageArticles,
 	translatedFragment,
-} from './content-language';
-import { remarkHeadingSlugs } from './markdown/headingSlug';
-import type { PostMeta } from './types';
+} from './policy';
 
 async function headings(body: string, filename = 'example.en.md') {
 	const result = await mdsvex({
@@ -23,25 +24,65 @@ async function headings(body: string, filename = 'example.en.md') {
 describe('content language and bilingual headings', () => {
 	test('homepage filters locale, catalogs include every article once with the best translation', () => {
 		const posts = [
-			{ slug: 'english', lang: 'en' },
-			{ slug: 'vietnamese', lang: 'vi' },
-			{ slug: 'both', lang: 'en' },
-			{ slug: 'both', lang: 'vi' },
+			{
+				slug: 'english',
+				lang: 'en' as const,
+				metadata: {
+					title: 'English',
+					description: '',
+					tags: [],
+					pubDatetime: '2026-01-01',
+					lang: 'en' as const,
+				},
+			},
+			{
+				slug: 'vietnamese',
+				lang: 'vi' as const,
+				metadata: {
+					title: 'Vietnamese',
+					description: '',
+					tags: [],
+					pubDatetime: '2026-01-01',
+					lang: 'vi' as const,
+				},
+			},
+			{
+				slug: 'both',
+				lang: 'en' as const,
+				metadata: {
+					title: 'Both EN',
+					description: '',
+					tags: [],
+					pubDatetime: '2026-01-01',
+					lang: 'en' as const,
+				},
+			},
+			{
+				slug: 'both',
+				lang: 'vi' as const,
+				metadata: {
+					title: 'Both VI',
+					description: '',
+					tags: [],
+					pubDatetime: '2026-01-01',
+					lang: 'vi' as const,
+				},
+			},
 		];
 		assert.deepEqual(
-			selectLocalizedPosts(posts, 'vi', true).map((post) => post.slug),
+			selectHomepageArticles(posts, 'vi').map((post) => post.slug),
 			['vietnamese', 'both'],
 		);
 		assert.deepEqual(
-			selectLocalizedPosts(posts, 'en', true).map((post) => post.slug),
+			selectHomepageArticles(posts, 'en').map((post) => post.slug),
 			['english', 'both'],
 		);
 		assert.deepEqual(
-			selectLocalizedPosts(posts, 'vi').map((post) => post.lang),
+			selectCatalogArticles(posts, 'vi').map((post) => post.lang),
 			['en', 'vi', 'vi'],
 		);
 		assert.deepEqual(
-			selectLocalizedPosts(posts, 'en').map((post) => post.lang),
+			selectCatalogArticles(posts, 'en').map((post) => post.lang),
 			['en', 'vi', 'en'],
 		);
 	});

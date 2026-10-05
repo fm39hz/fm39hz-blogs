@@ -1,15 +1,14 @@
 <script lang="ts">
 import cfg from '$lib/config';
+import type { ArticleCard } from '$lib/content/types';
 import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
-import { getDisplaySortedPosts, groupPostsByYearAndMonth } from '$lib/utils';
 import { getLocalizedPath } from '$lib/utils/localized-url';
 import styles from './+page.module.scss';
 
 let t = $derived(useTranslations(locale.value));
-let sorted = $derived(getDisplaySortedPosts(locale.value));
-
-let sortedYears = $derived(groupPostsByYearAndMonth(sorted));
+let { data }: { data: { years: import('$lib/content/types').ArchiveYearGroup<ArticleCard>[] } } =
+	$props();
 let monthFormatter = $derived(new Intl.DateTimeFormat(locale.value, { month: 'long' }));
 </script>
 
@@ -18,7 +17,7 @@ let monthFormatter = $derived(new Intl.DateTimeFormat(locale.value, { month: 'lo
 <section>
   <h1 class={styles.h1}>{t.pages.archivesTitle}</h1>
   <p class={styles.desc}>{t.pages.archivesDesc}</p>
-  {#each sortedYears as { year, monthGroups }}
+  {#each data.years as { year, monthGroups }}
     <div class={styles.yearGroup}>
       <div class={styles.yearHeader}>
         <span class={styles.yearNum}>{year}</span>

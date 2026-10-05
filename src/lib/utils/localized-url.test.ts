@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { describe, it as test } from 'node:test';
+import { searchArticles } from '../content/search';
 import { articlePath, getLocalizedPath, languageSwitchPath } from './localized-url';
-import { searchPosts } from './search';
 
 describe('localized navigation', () => {
 	test('localizes in both directions without losing query or fragment', () => {
@@ -13,13 +13,13 @@ describe('localized navigation', () => {
 	test('maps bilingual hash and preserves query', () => {
 		const entries = [
 			{
-				lang: 'en',
+				lang: 'en' as const,
 				metadata: {
 					headings: [{ id: 'responsibility', text: 'Responsibility', depth: 2 }],
 				},
 			},
 			{
-				lang: 'vi',
+				lang: 'vi' as const,
 				metadata: { headings: [{ id: 'trach-nhiem', text: 'Trách nhiệm', depth: 2 }] },
 			},
 		];
@@ -76,9 +76,9 @@ describe('localized navigation', () => {
 				},
 			},
 		];
-		assert.equal(searchPosts(posts, '').length, 2);
-		assert.equal(searchPosts(posts, 'tu do').length, 1);
-		assert.equal(searchPosts(posts, 'game state').length, 1);
-		assert.equal(searchPosts(posts, 'literature')[0], posts[0]);
+		assert.equal(searchArticles(posts, '').length, 2);
+		assert.equal(searchArticles(posts, 'tu do').length, 1);
+		assert.equal(searchArticles(posts, 'game state').length, 1);
+		assert.equal(searchArticles(posts, 'literature')[0], posts[0]);
 	});
 });

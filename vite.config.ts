@@ -14,6 +14,7 @@ import remarkToc from 'remark-toc';
 import { createHighlighter } from 'shiki';
 import { defineConfig } from 'vite';
 import { validateContent } from './scripts/validate-content';
+import { isPublished } from './src/lib/content/policy';
 import { SCHEDULED_POST_MARGIN_MS } from './src/lib/data/publication';
 import { remarkHeadingSlugs } from './src/lib/markdown/headingSlug';
 import { rehypeTableCellCheckboxes } from './src/lib/markdown/rehypeTableCellCheckboxes';
@@ -28,12 +29,13 @@ const tocOptions: Parameters<typeof remarkToc>[0] = {
 
 export default defineConfig(async () => {
 	const content = await validateContent();
+	const publication = {
+		mode: 'public' as const,
+		now: Date.now(),
+		scheduledMarginMs: SCHEDULED_POST_MARGIN_MS,
+	};
 	const articlePaths = content
-		.filter(
-			({ metadata }) =>
-				!metadata.draft &&
-				new Date(metadata.pubDatetime).getTime() - SCHEDULED_POST_MARGIN_MS < Date.now(),
-		)
+		.filter(({ metadata }) => isPublished(metadata, publication))
 		.flatMap(({ slug }) => [`/articles/${slug}`, `/vi/articles/${slug}`] as `/${string}`[]);
 	return {
 		build: { chunkSizeWarningLimit: 1500 },

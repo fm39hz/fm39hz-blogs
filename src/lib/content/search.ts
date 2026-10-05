@@ -1,4 +1,4 @@
-import type { PostMeta } from '../types';
+import type { PostMeta } from '$lib/types';
 
 function normalize(text: string): string {
 	return text
@@ -8,9 +8,12 @@ function normalize(text: string): string {
 		.toLowerCase();
 }
 
-export function searchPosts<T extends { metadata: PostMeta }>(posts: T[], query: string): T[] {
+export function searchArticles<T extends { metadata: PostMeta }>(
+	articles: T[],
+	query: string,
+): T[] {
 	const terms = normalize(query).trim().split(/\s+/).filter(Boolean);
-	return posts.filter(({ metadata }) => {
+	return articles.filter(({ metadata }) => {
 		const text = normalize([metadata.title, metadata.description, ...metadata.tags].join(' '));
 		return terms.every((term) => text.includes(term));
 	});

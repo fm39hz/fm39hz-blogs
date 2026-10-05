@@ -17,7 +17,7 @@ import ScrapCopies from '$lib/components/ui/ScrapCopies/ScrapCopies.svelte';
 import TableOfContents from '$lib/components/ui/TableOfContents/TableOfContents.svelte';
 import TagLine from '$lib/components/ui/TagLine/TagLine.svelte';
 import cfg from '$lib/config';
-import type { PageEntry } from '$lib/data/server';
+import type { ArticleSummary, RenderedArticle } from '$lib/content/types';
 import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
 import { slugifyStr } from '$lib/tags';
@@ -28,14 +28,13 @@ import { buildPostSeo } from '$lib/utils/seo';
 import { articleUrl } from '$lib/utils/site';
 import styles from './+page.module.scss';
 
-let { data }: { data: { posts: PageEntry[] } } = $props();
+let { data }: { data: { article: RenderedArticle; translations: ArticleSummary[] } } = $props();
 
 let slug = $derived(page.params.slug ?? '');
-let matching = $derived(data.posts);
-let entry = $derived(matching.find((e) => e.lang === locale.value));
+let entry = $derived(data.article);
 let meta = $derived(entry?.metadata ?? { title: '', description: '', pubDatetime: '', tags: [] });
 let t = $derived(useTranslations(locale.value));
-let seo = $derived(meta.title ? buildPostSeo(meta, slug, locale.value) : null);
+let seo = $derived(meta.title ? buildPostSeo(meta, slug, entry.lang) : null);
 
 let tocReady = $state(false);
 let copiedMd = $state(false);
@@ -51,6 +50,8 @@ async function onCopyMarkdown() {
 			pubDatetime: meta.pubDatetime,
 			tags: meta.tags,
 			sourceUrl: seo?.canonical,
+			lang: entry.lang,
+			headings: meta.headings ?? [],
 		},
 		entry.raw,
 	);
@@ -69,7 +70,7 @@ async function onCopyMarkdown() {
     <meta name="description" content={seo.description} />
     <meta name="author" content={seo.author} />
     <link rel="canonical" href={seo.canonical} />
-    {#each matching as translation}
+	{#each data.translations as translation}
       <link rel="alternate" hreflang={translation.lang} href={articleUrl(slug, translation.lang)} />
     {/each}
     <meta property="og:type" content="article" />
@@ -126,9 +127,7 @@ async function onCopyMarkdown() {
     >
       <!-- relative host for ScrapCopies overlay (declarative; no mount/wrap) -->
       <div class={styles.proseHost} bind:this={proseEl}>
-        {#key `${slug}:${entry.lang}`}
-          <div class="prose"><entry.component /></div>
-        {/key}
+        <div class="prose"><entry.component /></div>
         <ScrapCopies root={proseEl} />
       </div>
       <hr class={styles.hr} />

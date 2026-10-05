@@ -1,5 +1,4 @@
-import GithubSlugger from 'github-slugger';
-import { asciiSlug } from '$lib/markdown/headingSlug';
+import type { ContentHeading } from '$lib/content/types';
 
 /** Drop YAML frontmatter for clipboard/export. Body only. */
 export function stripFrontmatter(md: string): string {
@@ -10,17 +9,6 @@ export function stripFrontmatter(md: string): string {
 	if (body.startsWith('\r\n')) body = body.slice(2);
 	else if (body.startsWith('\n')) body = body.slice(1);
 	return body;
-}
-
-/** Strip inline markdown formatting for display text. */
-function stripInlineFormatting(text: string): string {
-	return text
-		.replace(/\*\*(.+?)\*\*/g, '$1')
-		.replace(/\*(.+?)\*/g, '$1')
-		.replace(/__(.+?)__/g, '$1')
-		.replace(/_(.+?)_/g, '$1')
-		.replace(/`(.+?)`/g, '$1')
-		.replace(/\[(.+?)\]\(.+?\)/g, '$1');
 }
 
 /** Format ISO date string as dd/mm/yyyy. */
@@ -65,44 +53,35 @@ export function buildCopyMarkdown(
 		pubDatetime: string;
 		tags?: string[];
 		sourceUrl?: string;
+		lang: 'en' | 'vi';
+		headings: ContentHeading[];
 	},
 	raw: string,
 ): string {
 	const body = stripFrontmatter(raw).trim();
 	const title = `# ${meta.title}`;
 
-	// Split body at "## Table of contents" into intro and rest
-	const tocMarker = '## Table of contents';
-	const tocIndex = body.indexOf(tocMarker);
+	// The AST provides headings and anchors; raw Markdown is only split around its TOC placeholder.
+	const tocMatch = /^##\s+(Table of contents|Mục lục)\s*$/m.exec(body);
+	const tocMarker = meta.lang === 'vi' ? '## Mục lục' : '## Table of contents';
+	const tocIndex = tocMatch?.index ?? -1;
+	const tocEnd = tocMatch ? tocMatch.index + tocMatch[0].length : -1;
 
 	let intro: string;
 	let afterToc: string;
 
 	if (tocIndex >= 0) {
 		intro = body.slice(0, tocIndex).trim();
-		const nextHeading = body.indexOf('\n## ', tocIndex + tocMarker.length);
+		const nextHeading = body.indexOf('\n## ', tocEnd);
 		afterToc = nextHeading >= 0 ? body.slice(nextHeading).trim() : '';
 	} else {
 		intro = body;
 		afterToc = '';
 	}
 
-	// Extract headings for TOC (h2–h4) from body after TOC placeholder
-	const headings: { level: number; text: string; slug: string }[] = [];
-	const headingRegex = /^(#{2,4})\s+(.+)$/gm;
-	const slugger = new GithubSlugger();
-	let match: RegExpExecArray | null;
-	while ((match = headingRegex.exec(afterToc)) !== null) {
-		const text = stripInlineFormatting(match[2]);
-		headings.push({
-			level: match[1].length,
-			text,
-			slug: asciiSlug(text, slugger),
-		});
-	}
-
-	const tocEntries = headings
-		.map((h) => `${'  '.repeat(h.level - 2)}- [${h.text}](#${h.slug})`)
+	const tocEntries = meta.headings
+		.filter(({ depth }) => depth >= 2 && depth <= 4)
+		.map(({ depth, text, id }) => `${'  '.repeat(depth - 2)}- [${text}](#${id})`)
 		.join('\n');
 
 	// Author signature

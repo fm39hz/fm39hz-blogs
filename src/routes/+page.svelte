@@ -5,14 +5,18 @@ import Socials from '$lib/components/ui/Socials/Socials.svelte';
 import cfg from '$lib/config';
 import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
-import { getDisplaySortedPosts } from '$lib/utils';
 import { getLocalizedPath } from '$lib/utils/localized-url';
 import styles from './+page.module.scss';
 
+let {
+	data,
+}: {
+	data: {
+		featured: import('$lib/content/types').ArticleCard[];
+		recent: import('$lib/content/types').ArticleCard[];
+	};
+} = $props();
 let t = $derived(useTranslations(locale.value));
-let sortedPosts = $derived(getDisplaySortedPosts(locale.value, true));
-let featuredPosts = $derived(sortedPosts.filter((p) => p.metadata.featured));
-let recentPosts = $derived(sortedPosts.filter((p) => !p.metadata.featured));
 </script>
 
 <svelte:head><title>{cfg.site.title}</title><meta name="description" content={t.pages.siteDescription} /></svelte:head>
@@ -26,17 +30,17 @@ let recentPosts = $derived(sortedPosts.filter((p) => !p.metadata.featured));
   {/if}
 </section>
 
-{#if featuredPosts.length > 0}
+  {#if data.featured.length > 0}
   <section class={styles.section}>
     <h2>{t.home.featured}</h2>
-    <ul>{#each featuredPosts as post}<li><PostCard {post} /></li>{/each}</ul>
+    <ul>{#each data.featured as post}<li><PostCard {post} /></li>{/each}</ul>
   </section>
 {/if}
 
-{#if recentPosts.length > 0}
+  {#if data.recent.length > 0}
   <section class={styles.section}>
     <h2>{t.home.recentPosts}</h2>
-    <ul>{#each recentPosts.slice(0, cfg.posts.perIndex) as post}<li><PostCard {post} /></li>{/each}</ul>
+    <ul>{#each data.recent.slice(0, cfg.posts.perIndex) as post}<li><PostCard {post} /></li>{/each}</ul>
   </section>
 {/if}
 

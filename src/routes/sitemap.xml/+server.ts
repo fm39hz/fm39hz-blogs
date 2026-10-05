@@ -1,14 +1,13 @@
 import cfg from '$lib/config';
-import { loadPosts } from '$lib/data/server';
+import { getAllPublicArticles } from '$lib/content/queries.server';
 import { getUniqueTags } from '$lib/tags';
-import { postFilter } from '$lib/utils';
 import { articleUrl, siteUrl } from '$lib/utils/site';
 import { sitemapXml } from '$lib/utils/xml';
 
 export const prerender = true;
 
 export const GET = () => {
-	const allPosts = loadPosts().filter(postFilter);
+	const allPosts = getAllPublicArticles();
 	const urls = ['en', 'vi'].flatMap((lang) => {
 		const prefix = lang === 'vi' ? '/vi' : '';
 		const posts = allPosts.filter((post) => post.lang === lang);

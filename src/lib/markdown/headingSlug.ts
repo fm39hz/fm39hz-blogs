@@ -16,7 +16,8 @@ import GithubSlugger from 'github-slugger';
 import type { Heading, Root } from 'mdast';
 import mdastToString from 'mdast-util-to-string';
 import visit from 'unist-util-visit';
-import { type ContentHeading, contentLocale } from '../content-language';
+import { contentLocale } from '../content/policy';
+import type { ContentHeading } from '../content/types';
 
 export const TOC_HEADING = /^(table of contents|mục lục)$/i;
 

@@ -1,5 +1,5 @@
 import { Lang } from '$lib/constants';
-import { contentLocale, contentSlug } from '../content-language';
+import { contentLocale, contentSlug } from '../content/policy';
 
 export function parseSlug(fileName: string): string {
 	return contentSlug(fileName);

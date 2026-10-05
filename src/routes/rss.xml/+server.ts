@@ -1,18 +1,14 @@
-import { loadPosts } from '$lib/data/server';
-import { getSortedPosts, groupPostsBySlug, postFilter } from '$lib/utils';
+import { getCatalogArticles } from '$lib/content/queries.server';
 import { articleUrl } from '$lib/utils/site';
 import { rssXml } from '$lib/utils/xml';
 
 export const prerender = true;
 
 export const GET = () => {
-	const allPosts = loadPosts().filter(postFilter);
-	const groups = groupPostsBySlug(allPosts);
-	const displayPosts = groups.map((g) => g.defaultEntry);
-	const sorted = getSortedPosts(displayPosts);
+	const articles = getCatalogArticles('en');
 
 	const xml = rssXml(
-		sorted.map((p) => ({
+		articles.map((p) => ({
 			title: p.metadata.title,
 			description: p.metadata.description,
 			url: articleUrl(p.slug, p.lang),

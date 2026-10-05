@@ -2,7 +2,7 @@ import { readdir, readFile } from 'node:fs/promises';
 import { mdsvex } from 'mdsvex';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
-import { assertEquivalentHeadings, contentLocale, contentSlug } from '../src/lib/content-language';
+import { assertEquivalentHeadings, contentLocale, contentSlug } from '../src/lib/content/policy';
 import { remarkHeadingSlugs } from '../src/lib/markdown/headingSlug';
 import type { PostMeta } from '../src/lib/types';
 

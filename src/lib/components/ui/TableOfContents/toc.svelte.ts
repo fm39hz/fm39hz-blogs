@@ -11,20 +11,17 @@ export type TocHeading = { id: string; text: string; level: number };
 
 export function collectHeadings(prose: Element): TocHeading[] {
 	const elements = prose.querySelectorAll<HTMLHeadingElement>('h2, h3');
-	return Array.from(elements).map((el) => {
-		if (!el.id) {
-			const text = el.textContent ?? '';
-			el.id = text
-				.toLowerCase()
-				.replace(/[^a-z0-9]+/g, '-')
-				.replace(/(^-|-$)/g, '');
-		}
-		return {
-			id: el.id,
-			text: el.textContent ?? '',
-			level: Number.parseInt(el.tagName.substring(1), 10),
-		};
-	});
+	return Array.from(elements).flatMap((el) =>
+		el.id
+			? [
+					{
+						id: el.id,
+						text: el.textContent ?? '',
+						level: Number.parseInt(el.tagName.substring(1), 10),
+					},
+				]
+			: [],
+	);
 }
 
 /** Ideal scrollTop to put `active` on mid-line, clamped to legal range. */

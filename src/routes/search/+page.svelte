@@ -2,19 +2,18 @@
 import { page } from '$app/state';
 import ContentEntry from '$lib/components/ui/ContentEntry/ContentEntry.svelte';
 import cfg from '$lib/config';
+import { searchArticles } from '$lib/content/search';
 import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
-import { getDisplaySortedPosts } from '$lib/utils';
-import { searchPosts } from '$lib/utils/search';
 import styles from './+page.module.scss';
 
 let t = $derived(useTranslations(locale.value));
+let { data }: { data: { articles: import('$lib/content/types').ArticleCard[] } } = $props();
 let query = $state('');
 $effect(() => {
 	query = page.url.searchParams.get('q') ?? '';
 });
-let posts = $derived(getDisplaySortedPosts(locale.value));
-let results = $derived(searchPosts(posts, query));
+let results = $derived(searchArticles(data.articles, query));
 </script>
 
 <svelte:head><title>{t.pages.searchTitle} | {cfg.site.title}</title><meta name="description" content={t.pages.searchDesc} /></svelte:head>
