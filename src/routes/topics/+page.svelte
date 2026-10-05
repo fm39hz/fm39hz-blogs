@@ -8,8 +8,8 @@ import { getDisplaySortedPosts } from '$lib/utils';
 import styles from './+page.module.scss';
 
 let t = $derived(useTranslations(locale.value));
-const displayPosts = getDisplaySortedPosts();
-const tags = getUniqueTags(displayPosts);
+let displayPosts = $derived(getDisplaySortedPosts(locale.value));
+let tags = $derived(getUniqueTags(displayPosts));
 </script>
 
 <svelte:head><title>{t.pages.tagsTitle} | {cfg.site.title}</title><meta name="description" content={t.pages.tagsDesc} /></svelte:head>

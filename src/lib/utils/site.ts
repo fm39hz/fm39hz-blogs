@@ -1,4 +1,5 @@
 import cfg from '$lib/config';
+import { articlePath } from './localized-url';
 
 /** Absolute public URL. Bare/relative path or already-absolute. Empty → site root. */
 export function siteUrl(pathOrUrl = ''): string {
@@ -9,6 +10,6 @@ export function siteUrl(pathOrUrl = ''): string {
 	return `${base}${path}`;
 }
 
-export function articleUrl(slug: string): string {
-	return siteUrl(`/articles/${slug}`);
+export function articleUrl(slug: string, lang = 'en'): string {
+	return siteUrl(articlePath(slug, lang));
 }

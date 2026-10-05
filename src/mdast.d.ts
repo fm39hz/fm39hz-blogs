@@ -17,5 +17,17 @@ declare module 'mdsvex' {
 	interface MdsvexOptions {
 		remarkPlugins?: unknown[];
 		rehypePlugins?: unknown[];
+		extensions?: string[];
+		highlight?:
+			| false
+			| {
+					highlighter: (code: string, lang?: string | null) => Promise<string>;
+			  };
 	}
+	export function mdsvex(options?: MdsvexOptions): {
+		markup(input: {
+			content: string;
+			filename?: string;
+		}): Promise<{ code: string; data?: Record<string, unknown>; map?: string } | undefined>;
+	};
 }

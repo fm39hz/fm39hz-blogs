@@ -10,6 +10,7 @@
 		"prepare": "husky && svelte-kit sync || true",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"format": "bunx --bun @biomejs/biome check --max-diagnostics 100 --write --unsafe",
+		"check:content": "bun scripts/check-content.ts",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
 	"devDependencies": {

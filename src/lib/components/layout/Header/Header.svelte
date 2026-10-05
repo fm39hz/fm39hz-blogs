@@ -4,6 +4,7 @@ import IconButton from '$lib/components/ui/IconButton/IconButton.svelte';
 import NavLink from '$lib/components/ui/NavLink/NavLink.svelte';
 import cfg from '$lib/config';
 import { useTranslations } from '$lib/i18n';
+import { getLocalizedPath } from '$lib/utils/localized-url';
 import GearMenu from '../GearMenu/GearMenu.svelte';
 import styles from './Header.module.scss';
 import { SiteHeader } from './header.svelte';
@@ -24,7 +25,7 @@ const header = new SiteHeader();
   <div class={styles.shell}>
     <div class={styles.bar} use:resizeHeight={header.setBarH}>
       <a id="skip-link" href="#main-content" class={styles.skipLink}>{t.a11y.skipToContent}</a>
-      <a href="/" class={styles.title}>{cfg.site.title}</a>
+      <a href={getLocalizedPath('/', locale)} class={styles.title}>{cfg.site.title}</a>
       <IconButton
         {...header.nav.menu.trigger}
         class={styles.menuBtn}
@@ -36,23 +37,23 @@ const header = new SiteHeader();
     <nav class={styles.panel} aria-label={t.a11y.navPrimary}>
       <ul {...header.nav.menu.content} class={styles.list}>
         <li>
-          <NavLink href="/articles" onclick={header.close}>{t.nav.posts}</NavLink>
+          <NavLink href={getLocalizedPath('/articles', locale)} onclick={header.close}>{t.nav.posts}</NavLink>
         </li>
         <li>
-          <NavLink href="/topics" onclick={header.close}>{t.nav.tags}</NavLink>
+          <NavLink href={getLocalizedPath('/topics', locale)} onclick={header.close}>{t.nav.tags}</NavLink>
         </li>
         {#if cfg.features.showArchives}
           <li>
-            <NavLink href="/archives" onclick={header.close}>{t.nav.archives}</NavLink>
+            <NavLink href={getLocalizedPath('/archives', locale)} onclick={header.close}>{t.nav.archives}</NavLink>
           </li>
         {/if}
         <li>
-          <NavLink href="/author" onclick={header.close}>{t.nav.about}</NavLink>
+          <NavLink href={getLocalizedPath('/author', locale)} onclick={header.close}>{t.nav.about}</NavLink>
         </li>
         <li class={styles.utils}>
           {#if cfg.features.search !== false}
             <IconButton
-              href="/search"
+              href={getLocalizedPath('/search', locale)}
               icon="ph:magnifying-glass"
               title={t.nav.search}
               onclick={header.close}

@@ -7,8 +7,7 @@ import { getDisplaySortedPosts } from '$lib/utils';
 import styles from './+page.module.scss';
 
 let t = $derived(useTranslations(locale.value));
-const sorted = getDisplaySortedPosts();
-const perPage = cfg.posts.perPage;
+let sorted = $derived(getDisplaySortedPosts(locale.value));
 </script>
 
 <svelte:head><title>{t.pages.postsTitle} | {cfg.site.title}</title><meta name="description" content={t.pages.postsDesc} /></svelte:head>
@@ -16,7 +15,7 @@ const perPage = cfg.posts.perPage;
 <section>
   <h1 class={styles.h1}>{t.pages.postsTitle}</h1>
   <p class={styles.desc}>{t.pages.postsDesc}</p>
-  {#each sorted.slice(0, perPage) as post}
+  {#each sorted as post}
     <ContentEntry {post} />
   {/each}
 </section>

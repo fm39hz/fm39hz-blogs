@@ -3,6 +3,7 @@ import cfg from '$lib/config';
 import { locale } from '$lib/i18n-state.svelte';
 import { slugifyStr } from '$lib/tags';
 import { formatDate } from '$lib/utils/date';
+import { articlePath } from '$lib/utils/localized-url';
 import ButtonLink from '../ButtonLink/ButtonLink.svelte';
 import TagPill from '../TagPill/TagPill.svelte';
 import styles from './PostCard.module.scss';
@@ -12,14 +13,20 @@ let {
 }: {
 	post: {
 		slug: string;
-		metadata: { title: string; description: string; pubDatetime: string; tags?: string[] };
+		metadata: {
+			title: string;
+			description: string;
+			pubDatetime: string;
+			tags?: string[];
+			lang?: string;
+		};
 	};
 } = $props();
 </script>
 
-<article class={styles.card}>
+<article class={styles.card} lang={post.metadata.lang}>
   <h2>
-    <ButtonLink href="/articles/{post.slug}">
+    <ButtonLink href={articlePath(post.slug, post.metadata.lang ?? locale.value)}>
       {post.metadata.title}
     </ButtonLink>
   </h2>

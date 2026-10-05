@@ -1,25 +1,19 @@
 import { goto } from '$app/navigation';
 import { page } from '$app/state';
-import { getLocale } from '$lib/paraglide/runtime';
+import { extractLocaleFromUrl } from '$lib/paraglide/runtime';
+import { type ArticleTranslation, languageSwitchPath } from '$lib/utils/localized-url';
 
 export const locale = {
 	get value(): string {
-		// Accessing page.url reactively binds this getter to page navigation
-		return page.url ? getLocale() : 'en';
+		return extractLocaleFromUrl(page.url) ?? 'en';
 	},
 };
 
-export function getLocalizedPath(path: string, targetLocale: string): string {
-	const isVi = path === '/vi' || path.startsWith('/vi/');
-	const cleanPath = isVi ? path.substring(3) || '/' : path;
-	if (targetLocale === 'vi') {
-		return cleanPath === '/' ? '/vi' : `/vi${cleanPath}`;
-	}
-	return cleanPath;
-}
-
 export function setLocale(v: string): void {
 	if (typeof window === 'undefined') return;
-	const targetPath = getLocalizedPath(window.location.pathname, v);
-	goto(targetPath);
+	const translations =
+		page.route.id === '/articles/[slug]'
+			? (page.data as { posts?: ArticleTranslation[] }).posts
+			: undefined;
+	void goto(languageSwitchPath(new URL(window.location.href), v, translations));
 }

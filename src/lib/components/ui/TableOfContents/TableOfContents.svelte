@@ -1,6 +1,7 @@
 <script lang="ts">
-import { onMount } from 'svelte';
+import { tick } from 'svelte';
 import { browser } from '$app/env';
+import { page } from '$app/state';
 import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
 import { lockPageScroll, type ScrollLockHandle } from '$lib/utils/scrollLock';
@@ -66,7 +67,23 @@ function updateScrollProgress() {
 	}
 }
 
-onMount(() => {
+$effect(() => {
+	if (!browser) return;
+	page.url.pathname;
+	locale.value;
+	let cancelled = false;
+	let cleanup: (() => void) | undefined;
+	void tick().then(() => {
+		if (cancelled) return;
+		cleanup = initialize();
+	});
+	return () => {
+		cancelled = true;
+		cleanup?.();
+	};
+});
+
+function initialize() {
 	const prose = document.querySelector('.prose');
 	if (!prose) {
 		onReady?.(false);
@@ -100,7 +117,7 @@ onMount(() => {
 		window.removeEventListener('resize', onResize);
 		window.removeEventListener('scroll', updateScrollProgress);
 	};
-});
+}
 </script>
 
 {#if browser && headings.length > 0}

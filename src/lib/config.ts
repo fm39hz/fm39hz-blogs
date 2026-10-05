@@ -1,5 +1,6 @@
 import { Dir, Lang } from '$lib/constants';
 import type { BlogConfig } from '$lib/types';
+import { SCHEDULED_POST_MARGIN_MS } from './data/publication';
 
 const cfg: BlogConfig = {
 	site: {
@@ -20,7 +21,7 @@ const cfg: BlogConfig = {
 	posts: {
 		perPage: 4,
 		perIndex: 4,
-		scheduledPostMargin: 15 * 60 * 1000,
+		scheduledPostMargin: SCHEDULED_POST_MARGIN_MS,
 	},
 	features: {
 		lightAndDarkMode: true,

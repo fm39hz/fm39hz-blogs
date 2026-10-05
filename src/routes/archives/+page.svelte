@@ -3,12 +3,13 @@ import cfg from '$lib/config';
 import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
 import { getDisplaySortedPosts, groupPostsByYearAndMonth } from '$lib/utils';
+import { getLocalizedPath } from '$lib/utils/localized-url';
 import styles from './+page.module.scss';
 
 let t = $derived(useTranslations(locale.value));
-const sorted = getDisplaySortedPosts();
+let sorted = $derived(getDisplaySortedPosts(locale.value));
 
-const sortedYears = groupPostsByYearAndMonth(sorted);
+let sortedYears = $derived(groupPostsByYearAndMonth(sorted));
 let monthFormatter = $derived(new Intl.DateTimeFormat(locale.value, { month: 'long' }));
 </script>
 
@@ -32,7 +33,7 @@ let monthFormatter = $derived(new Intl.DateTimeFormat(locale.value, { month: 'lo
           </div>
           <ul class={styles.postList}>
             {#each posts as post}
-              <li class={styles.postItem}><a href="/articles/{post.slug}">{post.metadata.title}</a></li>
+              <li class={styles.postItem}><a href={getLocalizedPath(`/articles/${post.slug}`, post.metadata.lang ?? locale.value)}>{post.metadata.title}</a></li>
             {/each}
           </ul>
         </div>

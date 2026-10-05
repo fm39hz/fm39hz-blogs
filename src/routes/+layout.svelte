@@ -12,9 +12,16 @@ import '../styles/global.scss';
 import '$lib/design-system/foundations/prose.scss';
 import '$lib/design-system/foundations/code.scss';
 import { locale } from '$lib/i18n-state.svelte';
+import { getTextDirection } from '$lib/paraglide/runtime';
 import { viewTransition } from './viewTransition';
 
 let { children } = $props();
+
+$effect(() => {
+	if (!browser) return;
+	document.documentElement.lang = locale.value;
+	document.documentElement.dir = getTextDirection(locale.value as 'en' | 'vi');
+});
 
 if (browser) {
 	const basePath = import.meta.env.VITE_VERCEL_OBSERVABILITY_BASEPATH;

@@ -2,6 +2,8 @@
 import { browser } from '$app/env';
 import { prefersReducedMotion } from '$lib/animations/reduce';
 import { AnimDurationMs } from '$lib/constants';
+import { locale } from '$lib/i18n-state.svelte';
+import { getLocalizedPath } from '$lib/utils/localized-url';
 import { observeIntersection } from '$lib/utils/observer';
 import styles from './TagPill.module.scss';
 
@@ -51,7 +53,7 @@ function roughTagAction(node: HTMLElement) {
 </script>
 
 <li class={styles.tag}>
-  <a href="/topics/{tag}/" class={styles[size]} use:roughTagAction>
+  <a href={getLocalizedPath(`/topics/${tag}/`, locale.value)} class={styles[size]} use:roughTagAction>
     #{tagName}
   </a>
 </li>

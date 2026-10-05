@@ -15,7 +15,7 @@ export const GET = () => {
 		sorted.map((p) => ({
 			title: p.metadata.title,
 			description: p.metadata.description,
-			url: articleUrl(p.slug),
+			url: articleUrl(p.slug, p.lang),
 			date: p.metadata.modDatetime ?? p.metadata.pubDatetime,
 		})),
 	);

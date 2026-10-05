@@ -22,19 +22,20 @@ import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
 import { slugifyStr } from '$lib/tags';
 import { copyWithFeedback } from '$lib/utils/clipboard';
+import { getLocalizedPath } from '$lib/utils/localized-url';
 import { buildCopyMarkdown } from '$lib/utils/markdown';
 import { buildPostSeo } from '$lib/utils/seo';
+import { articleUrl } from '$lib/utils/site';
 import styles from './+page.module.scss';
 
 let { data }: { data: { posts: PageEntry[] } } = $props();
 
 let slug = $derived(page.params.slug ?? '');
 let matching = $derived(data.posts);
-let defaultEntry = $derived(matching.find((e) => e.lang === 'en') ?? matching[0]);
-let entry = $derived(matching.find((e) => (e.lang ?? 'en') === locale.value) ?? defaultEntry);
+let entry = $derived(matching.find((e) => e.lang === locale.value));
 let meta = $derived(entry?.metadata ?? { title: '', description: '', pubDatetime: '', tags: [] });
 let t = $derived(useTranslations(locale.value));
-let seo = $derived(meta.title ? buildPostSeo(meta, slug) : null);
+let seo = $derived(meta.title ? buildPostSeo(meta, slug, locale.value) : null);
 
 let tocReady = $state(false);
 let copiedMd = $state(false);
@@ -68,6 +69,9 @@ async function onCopyMarkdown() {
     <meta name="description" content={seo.description} />
     <meta name="author" content={seo.author} />
     <link rel="canonical" href={seo.canonical} />
+    {#each matching as translation}
+      <link rel="alternate" hreflang={translation.lang} href={articleUrl(slug, translation.lang)} />
+    {/each}
     <meta property="og:type" content="article" />
     <meta property="og:title" content={seo.title} />
     <meta property="og:description" content={seo.description} />
@@ -95,7 +99,7 @@ async function onCopyMarkdown() {
 
     <div class={styles.toolbar}>
       <nav class={styles.backNav} aria-label={t.post.goBack}>
-        <ButtonLink href="/articles"><Icon icon="ph:arrow-left" class={styles.backIcon} /> {t.post.goBack}</ButtonLink>
+        <ButtonLink href={getLocalizedPath('/articles', locale.value)}><Icon icon="ph:arrow-left" class={styles.backIcon} /> {t.post.goBack}</ButtonLink>
       </nav>
       <div class={styles.toolbarRight}>
         <Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" locale={locale.value} />
@@ -111,6 +115,7 @@ async function onCopyMarkdown() {
 
     <article
       class={styles.article}
+      lang={entry.lang}
       use:pencilEdge
       use:renderMermaid
       use:renderVegaLite
@@ -121,7 +126,9 @@ async function onCopyMarkdown() {
     >
       <!-- relative host for ScrapCopies overlay (declarative; no mount/wrap) -->
       <div class={styles.proseHost} bind:this={proseEl}>
-        <div class="prose"><entry.component /></div>
+        {#key `${slug}:${entry.lang}`}
+          <div class="prose"><entry.component /></div>
+        {/key}
         <ScrapCopies root={proseEl} />
       </div>
       <hr class={styles.hr} />

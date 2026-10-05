@@ -9,7 +9,7 @@ import { getDisplaySortedPosts } from '$lib/utils';
 import styles from './+page.module.scss';
 
 let t = $derived(useTranslations(locale.value));
-const displayPosts = getDisplaySortedPosts();
+let displayPosts = $derived(getDisplaySortedPosts(locale.value));
 const tagParam = $derived(decodeURIComponent(page.params.tag ?? ''));
 const tagPosts = $derived(
 	displayPosts.filter((p) => slugifyAll(p.metadata.tags).includes(tagParam)),

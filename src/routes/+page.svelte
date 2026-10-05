@@ -6,12 +6,13 @@ import cfg from '$lib/config';
 import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
 import { getDisplaySortedPosts } from '$lib/utils';
+import { getLocalizedPath } from '$lib/utils/localized-url';
 import styles from './+page.module.scss';
 
 let t = $derived(useTranslations(locale.value));
-const sortedPosts = getDisplaySortedPosts();
-const featuredPosts = sortedPosts.filter((p) => p.metadata.featured);
-const recentPosts = sortedPosts.filter((p) => !p.metadata.featured);
+let sortedPosts = $derived(getDisplaySortedPosts(locale.value, true));
+let featuredPosts = $derived(sortedPosts.filter((p) => p.metadata.featured));
+let recentPosts = $derived(sortedPosts.filter((p) => !p.metadata.featured));
 </script>
 
 <svelte:head><title>{cfg.site.title}</title><meta name="description" content={t.pages.siteDescription} /></svelte:head>
@@ -39,4 +40,4 @@ const recentPosts = sortedPosts.filter((p) => !p.metadata.featured);
   </section>
 {/if}
 
-<div class={styles.allPosts}><a href="/articles">{t.home.allPosts} <Icon icon="ph:arrow-right" class={styles.arrow} /></a></div>
+<div class={styles.allPosts}><a href={getLocalizedPath('/articles', locale.value)}>{t.home.allPosts} <Icon icon="ph:arrow-right" class={styles.arrow} /></a></div>

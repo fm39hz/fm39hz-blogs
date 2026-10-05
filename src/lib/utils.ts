@@ -1,10 +1,11 @@
+import { selectLocalizedPosts, selectTranslation } from '$lib/content-language';
 import { loadPosts, type PostEntry } from '$lib/data/server';
 import type { PostMeta } from '$lib/types';
 import { postFilter } from '$lib/utils/post';
 
 export { postFilter } from '$lib/utils/post';
 
-export function getSortedPosts(posts: { slug: string; metadata: PostMeta }[]) {
+export function getSortedPosts<T extends { slug: string; metadata: PostMeta }>(posts: T[]): T[] {
 	return posts.filter(postFilter).sort((a, b) => {
 		const aDate = a.metadata.modDatetime ?? a.metadata.pubDatetime;
 		const bDate = b.metadata.modDatetime ?? b.metadata.pubDatetime;
@@ -14,13 +15,13 @@ export function getSortedPosts(posts: { slug: string; metadata: PostMeta }[]) {
 
 export interface PostGroup {
 	slug: string;
-	defaultEntry: { slug: string; metadata: PostMeta };
-	entries: { slug: string; metadata: PostMeta }[];
+	defaultEntry: PostEntry;
+	entries: PostEntry[];
 	hasMultiLang: boolean;
 }
 
-export function groupPostsBySlug(posts: { slug: string; metadata: PostMeta }[]): PostGroup[] {
-	const map = new Map<string, { slug: string; metadata: PostMeta }[]>();
+export function groupPostsBySlug(posts: PostEntry[]): PostGroup[] {
+	const map = new Map<string, PostEntry[]>();
 	for (const post of posts) {
 		const slug = post.slug;
 		if (!map.has(slug)) map.set(slug, []);
@@ -28,8 +29,7 @@ export function groupPostsBySlug(posts: { slug: string; metadata: PostMeta }[]):
 	}
 	return Array.from(map.entries()).map(([slug, entries]) => {
 		const hasMultiLang = entries.length > 1;
-		const defaultEntry =
-			entries.find((e) => !e.metadata.lang || e.metadata.lang === 'en') ?? entries[0];
+		const defaultEntry = selectTranslation(entries, 'en')!;
 		return { slug, defaultEntry, entries, hasMultiLang };
 	});
 }
@@ -66,9 +66,7 @@ export function groupPostsByYearAndMonth(
 		.map(([year, monthGroups]) => ({ year, monthGroups }));
 }
 
-export function getDisplaySortedPosts(): PostEntry[] {
-	const allPosts = loadPosts().filter(postFilter);
-	const groups = groupPostsBySlug(allPosts);
-	const displayPosts = groups.map((g) => g.defaultEntry);
-	return getSortedPosts(displayPosts);
+export function getDisplaySortedPosts(lang = 'en', strict = false): PostEntry[] {
+	const posts = loadPosts().filter(postFilter);
+	return getSortedPosts(selectLocalizedPosts(posts, lang, strict));
 }

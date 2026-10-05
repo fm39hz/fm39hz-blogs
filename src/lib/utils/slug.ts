@@ -1,9 +1,10 @@
-import { Lang, MD_EXT_REGEX, SLUG_REGEX } from '$lib/constants';
+import { Lang } from '$lib/constants';
+import { contentLocale, contentSlug } from '../content-language';
 
 export function parseSlug(fileName: string): string {
-	return fileName.replace(SLUG_REGEX, '').replace(MD_EXT_REGEX, '');
+	return contentSlug(fileName);
 }
 
 export function parseLang(fileName: string, fallback = Lang.EN): string {
-	return (fileName.match(SLUG_REGEX)?.[1] ?? fallback) as string;
+	return contentLocale(fileName, undefined, fallback);
 }

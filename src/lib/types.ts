@@ -62,6 +62,8 @@ export interface BlogConfig {
 }
 
 export interface PostMeta {
+	/** Generated from Markdown; authors do not maintain this field. */
+	headings?: import('./content-language').ContentHeading[];
 	author?: string;
 	pubDatetime: string;
 	modDatetime?: string | null;

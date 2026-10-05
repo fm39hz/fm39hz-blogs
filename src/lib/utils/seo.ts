@@ -15,9 +15,9 @@ export type PostSeo = {
 	jsonLd: string;
 };
 
-export function buildPostSeo(meta: PostMeta, slug: string): PostSeo {
+export function buildPostSeo(meta: PostMeta, slug: string, lang = 'en'): PostSeo {
 	const author = resolveAuthor(meta);
-	const canonical = meta.canonicalURL ? siteUrl(meta.canonicalURL) : articleUrl(slug);
+	const canonical = meta.canonicalURL ? siteUrl(meta.canonicalURL) : articleUrl(slug, lang);
 	const ogImage = siteUrl(meta.ogImage || cfg.site.ogImage || '/favicon.png');
 	const title = meta.title;
 	const description = meta.description;
@@ -25,6 +25,7 @@ export function buildPostSeo(meta: PostMeta, slug: string): PostSeo {
 	const jsonLd = JSON.stringify({
 		'@context': 'https://schema.org',
 		'@type': 'BlogPosting',
+		inLanguage: lang,
 		headline: title,
 		description,
 		datePublished: meta.pubDatetime,

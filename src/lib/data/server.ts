@@ -1,10 +1,12 @@
 import type { Component } from 'svelte';
+import { contentLocale } from '$lib/content-language';
 import type { PostMeta } from '$lib/types';
 import { postFilter } from '$lib/utils/post';
-import { parseLang, parseSlug } from '$lib/utils/slug';
+import { parseSlug } from '$lib/utils/slug';
 
 export interface PostEntry {
 	slug: string;
+	lang: string;
 	metadata: PostMeta;
 }
 
@@ -28,11 +30,15 @@ function fileNameOf(path: string): string {
 }
 
 /** Unique article slugs (prerender entries). */
-export function listArticleSlugs(): string[] {
+export function listArticleSlugs(lang?: string): string[] {
 	return [
 		...new Set(
 			Object.entries(metaModules)
 				.filter(([_, metadata]) => postFilter({ metadata }))
+				.filter(
+					([path, metadata]) =>
+						!lang || contentLocale(fileNameOf(path), metadata.lang) === lang,
+				)
 				.map(([path]) => parseSlug(fileNameOf(path))),
 		),
 	];
@@ -44,6 +50,7 @@ export function listArticleSlugs(): string[] {
 export function loadPosts(): PostEntry[] {
 	return Object.entries(metaModules).map(([path, metadata]) => ({
 		slug: parseSlug(fileNameOf(path)),
+		lang: contentLocale(fileNameOf(path), metadata.lang),
 		metadata,
 	}));
 }
@@ -73,7 +80,7 @@ export async function loadPageEntriesAsync(slug: string): Promise<PageEntry[]> {
 			const fileName = fileNameOf(path);
 			return {
 				slug,
-				lang: parseLang(fileName),
+				lang: contentLocale(fileName, mod.metadata.lang),
 				component: mod.default,
 				metadata: mod.metadata,
 				raw: typeof raw === 'string' ? raw : '',

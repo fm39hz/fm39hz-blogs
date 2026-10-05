@@ -13,9 +13,12 @@
  */
 
 import GithubSlugger from 'github-slugger';
-import type { Root } from 'mdast';
+import type { Heading, Root } from 'mdast';
 import mdastToString from 'mdast-util-to-string';
 import visit from 'unist-util-visit';
+import { type ContentHeading, contentLocale } from '../content-language';
+
+export const TOC_HEADING = /^(table of contents|mục lục)$/i;
 
 /** Fold Vietnamese/Unicode text to a bare ASCII slug seed (no dedup). */
 export function asciiFold(text: string): string {
@@ -39,8 +42,9 @@ export function asciiSlug(text: string, slugger: GithubSlugger): string {
  * element — `rehype-slug` then leaves the already-set id untouched.
  */
 export function remarkHeadingSlugs() {
-	return (tree: Root) => {
+	return (tree: Root, file: { filename?: string; data: { fm?: Record<string, unknown> } }) => {
 		const slugger = new GithubSlugger();
+		const headings: ContentHeading[] = [];
 		visit(tree, 'heading', (node) => {
 			const text = mdastToString(node);
 			if (!text) return;
@@ -48,6 +52,17 @@ export function remarkHeadingSlugs() {
 			const data: { hProperties?: { id?: string } } = (node.data ??= {});
 			data.hProperties ??= {};
 			data.hProperties.id = id;
+			const heading = node as Heading;
+			if (heading.depth >= 2 && !TOC_HEADING.test(text)) {
+				headings.push({ id, text, depth: heading.depth });
+			}
 		});
+		if (file.data.fm) {
+			file.data.fm.lang = contentLocale(
+				file.filename ?? '',
+				file.data.fm.lang as string | undefined,
+			);
+			file.data.fm.headings = headings;
+		}
 	};
 }
