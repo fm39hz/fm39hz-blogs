@@ -1,3 +1,5 @@
+@use '../../lib/design-system/tokens/breakpoints' as bp;
+
 .h1 { font-size: var(--fs-2xl); font-weight: 700; margin: 0 0 var(--space-xs); }
 .desc { margin-bottom: var(--space-xl); font-style: italic; color: var(--muted-fg); }
 
@@ -85,7 +87,7 @@
   }
 }
 
-.postItem a {
+.postItem > a {
   color: var(--fg);
   text-decoration: none;
   transition: color var(--d-fast);
@@ -95,7 +97,7 @@
   }
 }
 
-@media (width >= 640px) {
+@media (width >= bp.$sm) {
   .yearNum { font-size: var(--fs-4xl); }
   .h1 { font-size: var(--fs-3xl); }
 }

@@ -1,4 +1,6 @@
-/* Breakpoint: BP.sm = 640 (design-system/tokens/layout.ts) */
+@use '../../../design-system/tokens/breakpoints' as bp;
+
+/* Responsive thresholds come from design-system/tokens/_breakpoints.scss. */
 
 /* ── Structure ──────────────────────────────────────────── */
 
@@ -97,7 +99,7 @@
  * fixed bar + content-sized panel (slide down) + scrim opacity
  * mirrors GearMenu: panel hugs content, outside = dismiss
  */
-@media (width < 640px) {
+@media (width < bp.$sm) {
   .root {
     position: fixed;
     top: 0;
@@ -126,7 +128,7 @@
     display: none;
   }
 
-  .root[data-open='true'] .panel {
+  .root[data-open='true'] > .shell > .panel {
     display: block;
     background: var(--bg);
     border-bottom: var(--line-solid);
@@ -157,6 +159,7 @@
     opacity: 0;
     transform: translateY(-0.5rem);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -167,13 +170,14 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
 }
 
 /* ── Desktop ────────────────────────────────────────────── */
-@media (width >= 640px) {
+@media (width >= bp.$sm) {
   .root {
     position: relative;
   }
@@ -233,7 +237,7 @@
     transition: none;
   }
 
-  .root[data-open='true'] .panel,
+  .root[data-open='true'] > .shell > .panel,
   .scrim {
     animation: none;
   }

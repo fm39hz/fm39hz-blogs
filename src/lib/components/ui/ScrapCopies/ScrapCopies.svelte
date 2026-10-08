@@ -23,6 +23,11 @@ function measure(host: HTMLElement, el: HTMLElement): ScrapChrome {
 	};
 }
 
+function sync() {
+	const host = root;
+	items = host ? queryScraps(host).map((el) => measure(host, el)) : [];
+}
+
 $effect(() => {
 	const host = root;
 	if (!host) {
@@ -30,30 +35,20 @@ $effect(() => {
 		return;
 	}
 
-	const sync = () => {
-		items = queryScraps(host).map((el) => measure(host, el));
-	};
-
 	sync();
-	const mo = new MutationObserver(() => sync());
+	const mo = new MutationObserver(sync);
 	mo.observe(host, {
 		childList: true,
 		subtree: true,
 		attributes: true,
 		attributeFilter: ['class', 'data-source', 'data-kind', 'style'],
 	});
-	const onScroll = () => sync();
-	window.addEventListener('resize', onScroll, { passive: true });
-	// article may scroll inside window
-	window.addEventListener('scroll', onScroll, { passive: true, capture: true });
 
-	return () => {
-		mo.disconnect();
-		window.removeEventListener('resize', onScroll);
-		window.removeEventListener('scroll', onScroll, true);
-	};
+	return () => mo.disconnect();
 });
 </script>
+
+<svelte:window onscroll={sync} onresize={sync} />
 
 <div class="scrap-copies" aria-hidden="false">
   {#each items as item (item.el)}

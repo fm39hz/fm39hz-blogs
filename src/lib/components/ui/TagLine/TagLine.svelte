@@ -17,7 +17,7 @@ let {
 
 <li class={styles.tag}>
   <a href={getLocalizedPath(`/topics/${tag}/`, locale.value)} class={styles[size]}>
-    <Icon icon="ph:tag" class={styles[size]} />
+    <Icon icon="ph:tag" class={`${styles.icon} ${styles[size]}`} />
     {tagName}
   </a>
 </li>

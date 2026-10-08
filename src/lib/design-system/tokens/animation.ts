@@ -1,51 +1,41 @@
-/** Single source for CSS vars + JS motion. Keep global.scss :root in sync. */
+export type AnimationDurationToken =
+	| 'fast'
+	| 'normal'
+	| 'enter'
+	| 'slow'
+	| 'page'
+	| 'scene'
+	| 'theme';
 
-export const AnimEasing = {
-	out: [0.22, 1, 0.36, 1] as const,
-	bounce: [0.34, 1.56, 0.64, 1] as const,
-	/** @deprecated use `out` */
-	EASE_OUT_QUART: [0.22, 1, 0.36, 1] as const,
-} as const;
+export type AnimationEasingToken = 'out' | 'bounce';
 
-/** Seconds — motion/mini + logic */
-export const AnimDuration = {
-	fast: 0.15,
-	normal: 0.2,
-	enter: 0.25,
-	slow: 0.3,
-	page: 0.35,
-	scene: 0.5,
-	theme: 0.55,
-} as const;
+function readToken(name: string): string {
+	if (typeof document === 'undefined') {
+		throw new Error(`CSS token ${name} can only be read in the browser`);
+	}
 
-/** Milliseconds — setTimeout / 3rd-party APIs */
-export const AnimDurationMs = {
-	fast: AnimDuration.fast * 1000,
-	normal: AnimDuration.normal * 1000,
-	enter: AnimDuration.enter * 1000,
-	slow: AnimDuration.slow * 1000,
-	page: AnimDuration.page * 1000,
-	scene: AnimDuration.scene * 1000,
-	theme: AnimDuration.theme * 1000,
-} as const;
+	const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+	if (!value) throw new Error(`Missing design token ${name}`);
+	return value;
+}
 
-export const easings = {
-	'--ease-out': `cubic-bezier(${AnimEasing.out.join(', ')})`,
-	'--ease-bounce': `cubic-bezier(${AnimEasing.bounce.join(', ')})`,
-} as const;
+export function animationDurationSeconds(token: AnimationDurationToken): number {
+	const value = readToken(`--d-${token}`);
+	const match = /^(-?(?:\d+(?:\.\d+)?|\.\d+))(ms|s)$/.exec(value);
+	if (!match) throw new Error(`Invalid duration token --d-${token}: ${value}`);
+	return Number(match[1]) * (match[2] === 'ms' ? 0.001 : 1);
+}
 
-export const durations = {
-	'--d-fast': `${AnimDuration.fast}s`,
-	'--d-normal': `${AnimDuration.normal}s`,
-	'--d-enter': `${AnimDuration.enter}s`,
-	'--d-slow': `${AnimDuration.slow}s`,
-	'--d-page': `${AnimDuration.page}s`,
-	'--d-scene': `${AnimDuration.scene}s`,
-	'--d-theme': `${AnimDuration.theme}s`,
-} as const;
+export function animationDurationMs(token: AnimationDurationToken): number {
+	return animationDurationSeconds(token) * 1000;
+}
 
-export const scales = {
-	'--scale-hover': '1.1',
-	'--scale-active': '0.95',
-	'--scale-pop': '1.15',
-} as const;
+export function animationEasing(token: AnimationEasingToken): [number, number, number, number] {
+	const value = readToken(`--ease-${token}`);
+	const match = /^cubic-bezier\(\s*([^)]*)\)$/.exec(value);
+	const values = match?.[1].split(',').map((part) => Number(part.trim()));
+	if (!values || values.length !== 4 || values.some((value) => !Number.isFinite(value))) {
+		throw new Error(`Invalid easing token --ease-${token}: ${value}`);
+	}
+	return values as [number, number, number, number];
+}

@@ -47,33 +47,24 @@ export class DismissibleCollapsible {
 				lock = lockPageScroll();
 			}
 
-			const onPointer = (e: MouseEvent) => {
-				if (!this.#opts.outsideClick) return;
-				const target = e.target as HTMLElement | null;
-				// Detached mid-render (Svelte) — ignore
-				if (!target?.isConnected) return;
-				if (this.rootEl && !this.rootEl.contains(target)) {
-					this.close();
-				}
-			};
-
-			const onKey = (e: KeyboardEvent) => {
-				if (e.key === 'Escape') this.close();
-			};
-
-			// click (not pointerdown): open-toggle on trigger finishes first
-			document.addEventListener('click', onPointer);
-			window.addEventListener('keydown', onKey);
-
 			return () => {
-				document.removeEventListener('click', onPointer);
-				window.removeEventListener('keydown', onKey);
 				const restoredY = lock?.y ?? y;
 				lock?.release();
 				this.#opts.onOpenChange?.(false, { y: restoredY });
 			};
 		});
 	}
+
+	handleDocumentClick = (event: MouseEvent) => {
+		if (!this.menu.open || !this.#opts.outsideClick) return;
+		const target = event.target;
+		if (!(target instanceof Node) || !target.isConnected) return;
+		if (this.rootEl && !this.rootEl.contains(target)) this.close();
+	};
+
+	handleKeydown = (event: KeyboardEvent) => {
+		if (this.menu.open && event.key === 'Escape') this.close();
+	};
 
 	get open(): boolean {
 		return this.menu.open;

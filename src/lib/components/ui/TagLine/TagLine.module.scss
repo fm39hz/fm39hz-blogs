@@ -1,4 +1,4 @@
-.tag a {
+.tag > a {
   display: inline-flex;
   align-items: center;
   gap: var(--space-3xs);
@@ -15,12 +15,12 @@
   }
 }
 
-.tag a:focus-visible {
+.tag > a:focus-visible {
   color: var(--accent);
   border: none;
 }
 
 .lg { font-size: var(--fs-lg); }
 .sm { font-size: var(--fs-xs); }
-.lg svg { width: var(--icon-md); height: var(--icon-md); opacity: var(--op-muted); }
-.sm svg { width: var(--icon-sm); height: var(--icon-sm); opacity: var(--op-muted); }
+.icon.lg { width: var(--icon-md); height: var(--icon-md); opacity: var(--op-muted); }
+.icon.sm { width: var(--icon-sm); height: var(--icon-sm); opacity: var(--op-muted); }

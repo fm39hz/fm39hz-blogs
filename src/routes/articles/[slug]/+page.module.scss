@@ -1,3 +1,5 @@
+@use '../../../lib/design-system/tokens/breakpoints' as bp;
+
 /* Content = --mw. TOC rail = fixed right, equal insets, grows on scroll. */
 
 .page {
@@ -98,6 +100,7 @@
   color: var(--muted-fg);
   white-space: nowrap;
   flex-shrink: 0;
+
   /* sticks to top of the expanding rail */
   position: sticky;
   top: 0;
@@ -105,7 +108,7 @@
   background: linear-gradient(to bottom, var(--bg) 70%, transparent);
 }
 
-@media (width >= 640px) {
+@media (width >= bp.$sm) {
   .title {
     font-size: var(--fs-3xl);
   }
@@ -126,7 +129,7 @@
 /* Dock TOC just outside the centered --mw column (not viewport edge).
  * At 125% zoom rem grows → content wider → gutter shrinks; content-relative
  * left + max-width:gutter prevents overlap. Hide when gutter too tight. */
-@media (width >= 68rem) {
+@media (width >= bp.$toc) {
   .tocRail[data-ready='true'] {
     --toc-w: 15rem;
     --toc-gap: var(--space-lg);
@@ -137,8 +140,7 @@
     flex-direction: column;
     position: fixed;
     z-index: var(--z-raised);
-    inset-inline-start: calc(50% + (var(--mw) / 2) + var(--toc-gap));
-    inset-inline-end: auto;
+    inset-inline: calc(50% + (var(--mw) / 2) + var(--toc-gap)) auto;
     top: var(--toc-inset);
     bottom: var(--toc-inset);
     width: min(var(--toc-w), max(0px, var(--toc-gutter)));
@@ -146,18 +148,12 @@
     pointer-events: none;
   }
 
-  .tocRail[data-ready='true'] .tocLabel,
-  .tocRail[data-ready='true'] :global(nav) {
+  .tocRail[data-ready='true'] > .tocLabel {
     pointer-events: auto;
-  }
-
-  .tocRail[data-ready='true'] :global(nav) {
-    flex: 1 1 auto;
-    min-height: 0;
   }
 }
 
-@media (width < 68rem) {
+@media (width < bp.$toc) {
   .tocRail {
     display: none !important;
   }

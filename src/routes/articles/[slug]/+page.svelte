@@ -2,11 +2,9 @@
 import { page } from '$app/state';
 // checkboxes replaced by build-time rehype plugin
 import { figureSurfaces } from '$lib/actions/figureSurface';
-import { lightboxAction } from '$lib/actions/lightbox';
 import { pencilEdge } from '$lib/actions/pencilEdge';
 import { renderMermaid } from '$lib/actions/renderMermaid';
 import { renderVegaLite } from '$lib/actions/renderVegaLite';
-import { responsiveTables } from '$lib/actions/responsiveTables';
 import { roughNotation } from '$lib/actions/roughNotation';
 import ButtonLink from '$lib/components/ui/ButtonLink/ButtonLink.svelte';
 import Datetime from '$lib/components/ui/Datetime/Datetime.svelte';
@@ -20,6 +18,7 @@ import type { ArticleSummary, RenderedArticle } from '$lib/content/types';
 import Icon from '$lib/design-system/primitives/Icon.svelte';
 import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
+import { lightbox } from '$lib/state/lightbox.svelte';
 import { slugifyStr } from '$lib/tags';
 import { copyWithFeedback } from '$lib/utils/clipboard';
 import { getLocalizedPath } from '$lib/utils/localized-url';
@@ -62,7 +61,16 @@ async function onCopyMarkdown() {
 		},
 	});
 }
+
+function onArticleClick(event: MouseEvent) {
+	if (!(event.target instanceof HTMLImageElement) || !proseEl?.contains(event.target)) return;
+	lightbox.src = event.target.currentSrc || event.target.src;
+	lightbox.alt = event.target.alt;
+	lightbox.dialog.open = true;
+}
 </script>
+
+<svelte:document onclick={onArticleClick} />
 
 <svelte:head>
   {#if seo}
@@ -122,8 +130,6 @@ async function onCopyMarkdown() {
       use:renderVegaLite
       use:figureSurfaces
       use:roughNotation
-      use:lightboxAction
-      use:responsiveTables
     >
       <!-- relative host for ScrapCopies overlay (declarative; no mount/wrap) -->
       <div class={styles.proseHost} bind:this={proseEl}>

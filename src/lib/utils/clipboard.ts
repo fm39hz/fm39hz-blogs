@@ -1,4 +1,4 @@
-import { COPY_FEEDBACK_MS } from '$lib/constants';
+import { animationDurationMs } from '$lib/design-system/tokens/animation';
 import { globalToaster } from '$lib/state/toast.svelte';
 
 export async function copyText(text: string): Promise<boolean> {
@@ -19,7 +19,7 @@ export function flashCopySuccess(opts: {
 	opts.setCopied?.(true);
 	globalToaster.addToast({ data: opts.toast });
 	if (opts.setCopied) {
-		const ms = opts.ms ?? COPY_FEEDBACK_MS;
+		const ms = opts.ms ?? animationDurationMs('theme');
 		setTimeout(() => opts.setCopied?.(false), ms);
 	}
 }

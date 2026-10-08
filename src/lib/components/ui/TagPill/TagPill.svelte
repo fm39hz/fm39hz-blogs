@@ -1,7 +1,7 @@
 <script lang="ts">
 import { browser } from '$app/env';
 import { prefersReducedMotion } from '$lib/animations/reduce';
-import { AnimDurationMs } from '$lib/constants';
+import { animationDurationMs } from '$lib/design-system/tokens/animation';
 import { locale } from '$lib/i18n-state.svelte';
 import { getLocalizedPath } from '$lib/utils/localized-url';
 import { observeIntersection } from '$lib/utils/observer';
@@ -34,7 +34,7 @@ function roughTagAction(node: HTMLElement) {
 			type: 'highlight',
 			color,
 			animate: !prefersReducedMotion(),
-			animationDuration: AnimDurationMs.scene,
+			animationDuration: animationDurationMs('scene'),
 		});
 
 		let stop: () => void;

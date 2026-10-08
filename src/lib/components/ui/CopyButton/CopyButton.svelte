@@ -32,5 +32,5 @@ async function handleCopy() {
   aria-label={label}
   title={label}
 >
-  <Icon icon={copied ? 'ph:check' : 'ph:paperclip'} />
+  <Icon icon={copied ? 'ph:check' : 'ph:paperclip'} class={styles.icon} />
 </button>

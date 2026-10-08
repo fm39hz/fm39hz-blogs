@@ -1,9 +1,12 @@
+@use '../../../design-system/tokens/breakpoints' as bp;
+
 /* List fills rail under sticky label; active item is centered via JS */
 
 .nav {
   width: 100%;
   min-height: 0;
   flex: 1 1 auto;
+  pointer-events: auto;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -23,7 +26,6 @@
   flex-direction: column;
   gap: var(--space-3xs);
   border-left: var(--border-w) dashed var(--border);
-
   mask-image: linear-gradient(
     to bottom,
     transparent 0,
@@ -107,13 +109,14 @@
 .mobileBtn {
   display: none;
 }
+
 .drawerOverlay,
 .drawerContent {
   display: none;
 }
 
 // ── Mobile Responsive Styles ──────────────────────────────
-@media (width < 1200px) {
+@media (width < bp.$xl) {
   // Hide desktop sidebar links
   .nav {
     display: none;
@@ -189,7 +192,7 @@
     display: block;
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgb(0 0 0 / 40%);
     backdrop-filter: blur(2px);
     z-index: var(--z-modal);
     animation: fade-in 0.2s var(--ease-out);
@@ -205,7 +208,7 @@
     background: var(--bg);
     border-top: var(--border-w) solid var(--border);
     border-radius: var(--br) var(--br) 0 0;
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 -4px 12px rgb(0 0 0 / 5%);
     padding: var(--space-md);
     max-height: 60vh;
     z-index: calc(var(--z-modal) + 1);

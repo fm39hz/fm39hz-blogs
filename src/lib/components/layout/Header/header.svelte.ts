@@ -1,5 +1,4 @@
-import { untrack } from 'svelte';
-import { BP_MQ, headerChrome as policy } from '$lib/design-system/tokens/layout';
+import { headerChrome as policy } from '$lib/design-system/tokens/layout';
 import { DismissibleCollapsible } from '$lib/ui/dismissibleCollapsible.svelte';
 import { stepHeaderChrome } from '$lib/utils/headerChrome';
 
@@ -27,32 +26,18 @@ export class SiteHeader {
 
 	hidden = $state(false);
 	elevated = $state(false);
-	barH = $state(0);
-
 	#lastY = 0;
+	#scrollInitialized = false;
 
-	constructor() {
-		// Desktop: no mobile drawer
-		$effect(() => {
-			if (typeof window === 'undefined') return;
-			const mq = window.matchMedia(BP_MQ.smUp);
-			const sync = () => {
-				if (mq.matches) this.nav.close();
-			};
-			sync();
-			mq.addEventListener('change', sync);
-			return () => mq.removeEventListener('change', sync);
-		});
-
-		// Hide-on-scroll
-		$effect(() => {
-			if (typeof window === 'undefined') return;
-			this.#lastY = window.scrollY;
-			const onScroll = () => untrack(() => this.#applyScroll(window.scrollY));
-			window.addEventListener('scroll', onScroll, { passive: true });
-			return () => window.removeEventListener('scroll', onScroll);
-		});
-	}
+	handleScroll = (y: number) => {
+		if (!this.#scrollInitialized) {
+			this.#lastY = y;
+			this.elevated = y > policy.elevateAfterPx;
+			this.#scrollInitialized = true;
+			return;
+		}
+		this.#applyScroll(y);
+	};
 
 	#applyScroll(y: number) {
 		if (this.nav.open) return;
@@ -73,13 +58,5 @@ export class SiteHeader {
 		this.#lastY = next.lastY;
 	}
 
-	setBarH = (h: number) => {
-		this.barH = h;
-	};
-
 	close = () => this.nav.close();
-
-	get barHeightStyle(): string | undefined {
-		return this.barH > 0 ? `${this.barH}px` : undefined;
-	}
 }

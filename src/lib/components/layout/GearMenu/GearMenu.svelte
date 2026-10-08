@@ -1,5 +1,6 @@
 <script lang="ts">
-import { animateThemeToggle } from '$lib/animations/theme';
+import { onMount } from 'svelte';
+import { animateThemeToggle, applyTheme, getStoredTheme } from '$lib/animations/theme';
 import IconButton from '$lib/components/ui/IconButton/IconButton.svelte';
 import { Lang } from '$lib/constants';
 import Icon from '$lib/design-system/primitives/Icon.svelte';
@@ -16,19 +17,15 @@ const panel = new DismissibleCollapsible({
 	scrollLock: false,
 });
 
-$effect(() => {
-	if (typeof document === 'undefined') return;
-	const stored = localStorage.getItem('theme');
-	if (stored === 'light' || stored === 'dark') currentTheme = stored;
+onMount(() => {
+	currentTheme = getStoredTheme();
 });
 
 function toggleTheme() {
 	const next = currentTheme === 'dark' ? 'light' : 'dark';
-	const btn = document.getElementById('gear-btn');
-	animateThemeToggle(btn ?? document.documentElement, () => {
+	animateThemeToggle(() => {
 		currentTheme = next;
-		localStorage.setItem('theme', next);
-		document.firstElementChild?.setAttribute('data-theme', next);
+		applyTheme(next);
 	});
 }
 
@@ -37,11 +34,15 @@ function toggleLang() {
 }
 </script>
 
+<svelte:document onclick={panel.handleDocumentClick} />
+<svelte:window onkeydown={panel.handleKeydown} />
+
 <div class={styles.root} bind:this={panel.rootEl}>
   <IconButton
     {...panel.menu.trigger}
     id="gear-btn"
     class={styles.gearBtn}
+    iconClass={styles.gearIcon}
     icon="ph:gear"
     aria-label={i18n.a11y.openMenu}
     title={i18n.a11y.openMenu}

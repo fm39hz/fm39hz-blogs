@@ -1,7 +1,5 @@
 .root {
   position: fixed;
-  bottom: var(--space-lg);
-  right: var(--space-lg);
   z-index: var(--z-toast);
   display: flex;
   flex-direction: column;
@@ -43,13 +41,9 @@
   align-items: center;
   color: var(--accent);
   flex-shrink: 0;
-  
-  :global(svg) {
-    width: var(--icon-md);
-    height: var(--icon-md);
-    display: block;
-  }
 }
+
+.statusIcon { width: var(--icon-md); height: var(--icon-md); display: block; }
 
 .message {
   flex: 1;
@@ -70,18 +64,16 @@
     color: var(--accent);
   }
 
-  :global(svg) {
-    width: var(--icon-sm);
-    height: var(--icon-sm);
-    display: block;
-  }
 }
+
+.closeIcon { width: var(--icon-sm); height: var(--icon-sm); display: block; }
 
 @keyframes slide-in {
   from {
     transform: translateY(1rem);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;

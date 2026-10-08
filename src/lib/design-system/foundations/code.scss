@@ -25,16 +25,19 @@
   }
 
   .line.diff.add {
-    background: rgba(74 222 128 / 0.2);
+    background: rgb(74 222 128 / 20%);
     &::before { content: '+'; position: absolute; inset-inline-start: -0.75rem; color: #22c55e; }
   }
+
   .line.diff.remove {
-    background: rgba(239 68 68 / 0.2);
+    background: rgb(239 68 68 / 20%);
     &::before { content: '-'; position: absolute; inset-inline-start: -0.75rem; color: #ef4444; }
   }
+
   .line.highlighted {
-    background: rgb(148 163 184 / 0.2);
+    background: rgb(148 163 184 / 20%);
   }
+
   .highlighted-word {
     border: 1px solid var(--border);
     border-radius: var(--space-3xs);
@@ -45,10 +48,7 @@
   &::before {
     content: '';
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: var(--space-md);
-    right: var(--space-md);
+    inset: 0 var(--space-md) 0 var(--space-md);
     pointer-events: none;
     background: repeating-linear-gradient(
       transparent,

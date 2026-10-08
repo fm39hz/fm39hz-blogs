@@ -1,3 +1,5 @@
+@use '../../../design-system/tokens/breakpoints' as bp;
+
 .link {
   display: flex;
   align-items: center;
@@ -19,7 +21,7 @@
   }
 }
 
-@media (width >= 640px) {
+@media (width >= bp.$sm) {
   .link {
     justify-content: flex-start;
     padding: var(--space-3xs) var(--space-sm);

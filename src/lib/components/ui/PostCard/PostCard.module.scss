@@ -1,8 +1,9 @@
 .card { border-bottom: var(--line-solid); padding: var(--space-lg) 0; }
 .card:last-child { border: none; }
-.card h2 { font-size: var(--fs-xl); font-weight: 600; margin: 0; }
-.card p { margin: var(--space-3xs) 0; font-size: var(--fs-xs); color: var(--muted-fg); }
+.card > h2 { font-size: var(--fs-xl); font-weight: 600; margin: 0; }
+.card > p { margin: var(--space-3xs) 0; font-size: var(--fs-xs); color: var(--muted-fg); }
 .meta { margin-top: var(--space-sm); display: flex; align-items: center; flex-wrap: wrap; gap: calc(var(--space-xs) * 2); font-size: var(--fs-xs); color: var(--muted-fg); }
+
 .tags {
   list-style: none;
   padding: 0;

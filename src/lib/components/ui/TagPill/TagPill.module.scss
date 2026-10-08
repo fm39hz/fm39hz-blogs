@@ -1,4 +1,4 @@
-.tag a {
+.tag > a {
   position: relative;
   z-index: 1;
   display: inline-flex;
@@ -17,7 +17,7 @@
   }
 }
 
-.tag a:focus-visible {
+.tag > a:focus-visible {
   color: var(--accent);
   outline: 2px dashed var(--accent);
   outline-offset: 2px;

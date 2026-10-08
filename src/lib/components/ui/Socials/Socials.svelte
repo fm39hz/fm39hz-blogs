@@ -20,7 +20,7 @@ const anim = {
 <div class={styles.socials}>
   {#each cfg.socials as { name, url, linkTitle }}
     <a href={url} title={linkTitle ?? `${cfg.site.title} on ${name}`} style={anim[name] ?? ''}>
-      <Icon icon={iconName(name)} />
+      <Icon icon={iconName(name)} class={styles.icon} />
     </a>
   {/each}
 </div>

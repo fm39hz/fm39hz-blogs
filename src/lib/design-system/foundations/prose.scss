@@ -1,3 +1,5 @@
+@use '../tokens/breakpoints' as bp;
+
 /*
  * Prose — Typography foundation for markdown-rendered content
  *
@@ -36,6 +38,7 @@
   p { margin-block: 1.25em; }
 
   /* ── Headings ───────────────────────────────────────────── */
+
   /*
    * h2: notebook section tab — uppercase + tracked letters + dashed underline
    *     signals "new chapter" in long-form writing
@@ -84,6 +87,7 @@
     text-underline-offset: 4px;
     transition: color var(--d-fast);
     &:hover { color: var(--accent); }
+
     &:focus-visible {
       outline: 2px dashed var(--accent);
       outline-offset: 2px;
@@ -98,7 +102,9 @@
     border-radius: var(--br);
     margin: 0 auto;
     display: block;
+    cursor: zoom-in;
   }
+
   figcaption {
     text-align: center;
     font-size: var(--fs-xs);
@@ -107,6 +113,7 @@
   }
 
   /* ── Horizontal rule ─────────────────────────────────────── */
+
   /*
    * Dashed line = notebook ruling; margin larger than text blocks
    * to signal a true section break
@@ -118,6 +125,7 @@
   }
 
   /* ── Blockquote ──────────────────────────────────────────── */
+
   /* Borel + OT + pencil-edge layer (IO pauses wiggle off-screen via data-pencil) */
   blockquote {
     font-family: var(--font-handwriting);
@@ -125,10 +133,8 @@
     font-size: var(--fs-xl);
     line-height: 1.6;
     color: var(--accent);
-
     padding: var(--space-lg) var(--space-md) var(--space-md);
     margin: var(--space-md) 0;
-
     border: var(--border-w) solid var(--accent);
     border-radius: var(--br);
 
@@ -138,7 +144,6 @@
     isolation: isolate;
     backface-visibility: hidden;
     will-change: filter;
-
     quotes: "“" "”";
 
     p { margin-block: 0.5em; }
@@ -153,6 +158,7 @@
   }
 
   /* ── Mark (inline highlight) ─────────────────────────────── */
+
   /*
    * rough-notation draws the highlight brushstroke.
    * We keep mark transparent so the library's SVG is the only visual.
@@ -190,6 +196,7 @@
    * (mermaid, vega-lite, manual markup, img wrapper…)
    * Options via data-*: data-panzoom, data-pencil, data-source
    */
+
   /* scrap shells: relative for declarative CopyButton reparent */
   :where(pre) {
     position: relative;
@@ -216,6 +223,7 @@
   pre.vega-lite:not(.is-ready) {
     min-height: 4rem;
   }
+
   figure.diagram:not(.is-ready) > *,
   pre.mermaid:not(.is-ready) > *,
   pre.vega-lite:not(.is-ready) > * {
@@ -234,6 +242,16 @@
   figure.diagram .diagram-viewport {
     overflow: hidden;
     border-radius: calc(var(--br) - 2px);
+  }
+
+  .vega-host svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .vega-host {
+    width: 100%;
+    min-height: 15rem;
   }
 
   .figure-surface,
@@ -315,6 +333,7 @@
         stroke: var(--fg) !important;
         stroke-width: 2px !important;
       }
+
       .markerPath {
         fill: var(--fg) !important;
         stroke: var(--fg) !important;
@@ -335,6 +354,7 @@
         fill: var(--bg) !important;
         stroke: var(--border) !important;
       }
+
       .edgeLabel text,
       .edgeLabel tspan {
         fill: var(--fg) !important;
@@ -346,6 +366,7 @@
         fill: var(--muted) !important;
         stroke: var(--accent) !important;
       }
+
       .messageLine0,
       .messageLine1 {
         stroke: var(--fg) !important;
@@ -371,11 +392,13 @@
     border: var(--border-w) dashed var(--border);
     margin: var(--space-md) 0;
   }
+
   th, td {
     border: var(--border-w) dashed var(--border);
     padding: var(--space-xs) var(--space-sm);
     text-align: start;
   }
+
   th {
     background: color-mix(in srgb, var(--accent) 10%, transparent);
     font-weight: 600;
@@ -392,7 +415,7 @@
    * Narrow: stack cells with header from data-label (attr, not a second tree).
    * Wide tables still one semantic table for SEO/reader/AT.
    */
-  @media (max-width: 768px) {
+  @media (width <= bp.$md) {
     :where(table.prose-table) {
       position: absolute !important;
       width: 1px !important;
@@ -421,6 +444,7 @@
   .task-list-item {
     list-style: none;
     margin-inline-start: -1.25rem;
+
     input[type="checkbox"] {
       accent-color: var(--accent);
       margin-inline-end: var(--space-sm);
@@ -428,7 +452,7 @@
   }
 }
 
-@media (width < 640px) {
+@media (width < bp.$sm) {
   .prose { font-size: 0.9375rem; }
   .katex-display { font-size: var(--fs-sm); }
 }

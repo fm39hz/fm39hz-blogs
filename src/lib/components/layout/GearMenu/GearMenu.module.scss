@@ -4,10 +4,8 @@
   align-items: center;
 }
 
-.gearBtn {
-  &[aria-expanded="true"] :global(svg) {
-    rotate: 180deg;
-  }
+.gearBtn[aria-expanded="true"] > .gearIcon {
+  rotate: 180deg;
 }
 
 
@@ -38,5 +36,3 @@
 }
 
 .itemIcon { width: var(--icon-md); height: var(--icon-md); flex-shrink: 0; }
-
-

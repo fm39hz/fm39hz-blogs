@@ -13,8 +13,11 @@ bun run dev
 # Build
 bun run build
 
-# Type checking
+# Type and style checks
 bun run check
+
+# SCSS lint
+bun run lint:styles
 
 # Format/lint (auto-fix)
 bun run format
@@ -29,14 +32,16 @@ bun run preview
 
 ## Code Style & Formatting
 
-**Biome** with strict settings:
+**Biome** with strict settings for TypeScript, Svelte, JSON, and related files:
 - **Indentation**: Tabs (not spaces)
 - **Quotes**: Single quotes
 - **Semicolons**: Always
 - **Line width**: 100 characters
 - **Line endings**: LF
 
-Run `bun run format` to auto-fix. Pre-commit hook runs lint-staged with Biome.
+SCSS uses **Stylelint standard-scss** with two-space indentation and CSS Modules class names in
+camelCase. Run `bun run format` to auto-fix. Pre-commit hooks run Biome and Stylelint through
+lint-staged.
 
 ## Project Structure
 
@@ -194,11 +199,13 @@ These are rendered client-side via Svelte actions (`renderMermaid`, `renderVegaL
 
 Located in `$lib/design-system/`:
 
-- **Tokens**: Animation durations, colors, layout breakpoints, spacing, typography
+- **Tokens**: CSS custom properties and Sass breakpoints in `tokens/` and `styles/global.scss`; runtime animation helpers read the CSS tokens
 - **Foundations**: SCSS for prose content and code blocks
 - **Primitives**: Base components (Icon)
 
-Use tokens from `$lib/design-system/tokens` for consistent styling.
+Use CSS custom properties for style values. `bun run check` includes Stylelint for SCSS.
+Follow [`src/lib/design-system/STYLING.md`](src/lib/design-system/STYLING.md) for selector ownership,
+inheritance, and component boundaries.
 
 ## Component Patterns
 
@@ -218,6 +225,22 @@ ComponentName.svelte
 ComponentName.module.scss
 ```
 
+CSS Modules localize class names but do not isolate descendant selectors from nested child
+components. Keep layout selectors on the component's own root and direct children; child components
+own their internal elements.
+
+### DOM Ownership
+
+- Render structure, reactive attributes, classes, and event handlers through Svelte templates and
+  state. Put visual behavior in CSS instead of writing `element.style` or `classList` from code.
+- Use `<svelte:window>` and `<svelte:document>` for global event handlers so Svelte owns their
+  lifecycle.
+- Use DOM APIs only at browser or third-party-library boundaries, or to read geometry from
+  Markdown-generated content that Svelte does not expose as individual components. Do not reparent
+  or remove nodes owned by a Svelte template.
+- Transform static Markdown structure with remark/rehype at build time. Use `{@html}` only for
+  trusted or sanitized content.
+
 ### Class-Based Components
 
 Complex components use class-based patterns (e.g., `SiteHeader` in `header.svelte.ts`):
@@ -227,7 +250,7 @@ Complex components use class-based patterns (e.g., `SiteHeader` in `header.svelt
 
 ## Testing
 
-No test suite configured. Use `bun run check` for type checking.
+No test suite configured. Use `bun run check` for Svelte diagnostics and SCSS linting.
 
 ## Deployment
 

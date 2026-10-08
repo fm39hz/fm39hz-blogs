@@ -1,6 +1,6 @@
 /**
- * One semantic <table> SSOT: stamp th text onto td[data-label] for CSS stack layout.
- * No second DOM tree. Labels are attributes (not duplicated prose nodes).
+ * Add responsive table labels to the canonical table. The companion mobile
+ * card view is generated from the same syntax tree at build time.
  */
 
 import type { Element, Nodes, Parents, Root } from 'hast';

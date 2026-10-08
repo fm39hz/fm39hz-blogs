@@ -1,3 +1,5 @@
+@use '../lib/design-system/tokens/breakpoints' as bp;
+
 :root, [data-theme="light"] {
   --bg: #faedcd;
   --fg: #5c6a72;
@@ -10,6 +12,7 @@
   --border-style: dashed;
   --font-body: 'Sriracha', cursive;
   --font-handwriting: 'Borel', cursive;
+
   /* OT features for handwriting surfaces — calt/liga only (no rand on web) */
   --font-hand-features: "calt" 1, "liga" 1;
   --fs-xs: 0.75rem;
@@ -34,16 +37,18 @@
   --icon-xl: 2.25rem;
   --br: 0.25rem;
   --br-full: 9999px;
+
   /* Z-index layers — ordered stacking context */
-  /* z / breakpoints — mirror design-system/tokens/layout.ts */
+
+  /* Stacking order */
   --z-base: 0;
   --z-raised: 10;
   --z-dropdown: 100;
   --z-sticky: 200;
   --z-modal: 300;
   --z-toast: 400;
-  --bp-sm: 640px;
-  --bp-lg: 1024px;
+  --bp-sm: #{bp.$sm};
+  --bp-lg: #{bp.$lg};
   --op-muted: 0.8;
   --op-solid: 1;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -88,8 +93,9 @@
   font-family: var(--font-handwriting);
   font-feature-settings: var(--font-hand-features);
 }
+
 .prose blockquote .katex {
-  font-family: var(--font-handwriting), KaTeX_Main, serif;
+  font-family: var(--font-handwriting), "KaTeX_Main", serif;
 }
 
 *, *::before, *::after {
@@ -127,13 +133,13 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
-@media (width >= 640px) {
+@media (width >= bp.$sm) {
   html {
     font-size: 18px;
   }
 }
 
-@media (width >= 1024px) {
+@media (width >= bp.$lg) {
   html {
     font-size: 20px;
   }
@@ -143,6 +149,7 @@ a, button {
   outline-color: var(--accent);
   outline-offset: 1px;
 }
+
 a:focus-visible, button:focus-visible {
   text-decoration: none;
   outline-width: 2px;
@@ -154,7 +161,7 @@ a:focus-visible, button:focus-visible {
   button, [role="button"] { min-height: 44px; }
 }
 
-@media (width < 640px) {
+@media (width < bp.$sm) {
   .prose, .app-prose { font-size: 0.9375rem; }
   .katex-display { font-size: 0.875rem; }
 }
@@ -177,7 +184,7 @@ mark {
 button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
 :target { scroll-margin-block: 1rem; }
 
-@media (width < 640px) {
+@media (width < bp.$sm) {
   .katex-display { font-size: 0.875rem; }
 }
 
@@ -233,6 +240,31 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
     mix-blend-mode: normal !important;
     background: var(--bg);
   }
+
+  :root[data-theme="light"]::view-transition-old(root),
+  :root[data-theme="dark"]::view-transition-old(root) {
+    animation-duration: var(--d-theme) !important;
+    animation-timing-function: var(--ease-out) !important;
+    animation-fill-mode: forwards !important;
+  }
+
+  :root[data-theme="light"]::view-transition-old(root) {
+    animation-name: vt-open !important;
+  }
+
+  :root[data-theme="dark"]::view-transition-old(root) {
+    animation-name: vt-close !important;
+  }
+}
+
+@keyframes vt-open {
+  from { clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); }
+  to { clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%); }
+}
+
+@keyframes vt-close {
+  from { clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); }
+  to { clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -259,7 +291,7 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
 }
 
 .katex { color: var(--fg); }
-.katex-display { margin: 1rem 0; overflow-x: auto; overflow-y: hidden; }
+.katex-display { margin: 1rem 0; overflow: auto hidden; }
 
 /*
  * Handwriting + pencil wiggle:
@@ -276,6 +308,7 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
 .pencil-edge,
 .sketchy-quote {
   filter: url('#pencil-wiggle');
+
   /* promote layer — isolates filter invalidation from document scroll */
   transform: translateZ(0);
   isolation: isolate;
@@ -308,9 +341,11 @@ blockquote[data-pencil='static'] {
 
   ul { margin: 0 !important; }
 }
+
 .prose summary {
   font-weight: 600;
   cursor: pointer;
+
   /* browser disclosure triangle stays — do not hide ::marker */
   &:focus-visible {
     outline: 2px dashed var(--accent);
@@ -322,13 +357,15 @@ blockquote[data-pencil='static'] {
 .responsive-card-stack {
   display: none;
 }
-@media (max-width: 768px) {
+
+@media (width <= bp.$md) {
   .responsive-card-stack {
     display: block;
     width: 100%;
   }
 }
-@media (width > 768px) {
+
+@media (width > bp.$md) {
   .responsive-card-stack {
     display: none !important;
   }
@@ -346,5 +383,3 @@ blockquote[data-pencil='static'] {
   white-space: nowrap !important;
   border: 0 !important;
 }
-
-

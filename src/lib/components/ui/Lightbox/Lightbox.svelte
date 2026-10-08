@@ -29,7 +29,7 @@ const contentAction = lightbox.dialog.refs.attach('content') as Action<HTMLEleme
       class={styles.closeBtn}
       aria-label="Close image viewer"
     >
-      <Icon icon="ph:x-bold" />
+      <Icon icon="ph:x-bold" class={styles.closeIcon} />
     </button>
   </dialog>
 {/if}

@@ -1,5 +1,8 @@
+@use '../../../design-system/tokens/breakpoints' as bp;
+
 .root { display: flex; align-items: center; gap: var(--space-sm); color: var(--muted-fg); }
 .sm { font-size: var(--fs-xs); }
 .lg { font-size: var(--fs-base); }
 .label { font-size: var(--fs-xs); }
-@media (width >= 640px) { .lg { font-size: var(--fs-base); } }
+
+@media (width >= bp.$sm) { .lg { font-size: var(--fs-base); } }

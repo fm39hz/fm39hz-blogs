@@ -112,8 +112,6 @@ async function paint(el: HTMLElement, embed: EmbedFn) {
 
 		const host = document.createElement('div');
 		host.className = 'vega-host';
-		host.style.width = '100%';
-		host.style.minHeight = '240px';
 		el.replaceChildren(host);
 
 		const result = await embed(host, spec, {
@@ -135,8 +133,6 @@ async function paint(el: HTMLElement, embed: EmbedFn) {
 			el.getAttribute('aria-label') ||
 			'Chart';
 		if (svg) {
-			svg.style.maxWidth = '100%';
-			svg.style.height = 'auto';
 			await enhanceFigure(el, svg, {
 				source: src,
 				panzoom: true,

@@ -1,6 +1,6 @@
 import { annotate } from 'rough-notation';
 import { prefersReducedMotion } from '$lib/animations/reduce';
-import { AnimDurationMs } from '$lib/constants';
+import { animationDurationMs } from '$lib/design-system/tokens/animation';
 import { observeIntersection } from '$lib/utils/observer';
 
 /**
@@ -33,7 +33,7 @@ export function roughNotation(node: HTMLElement) {
 			color,
 			multiline: true,
 			animate: !prefersReducedMotion(),
-			animationDuration: AnimDurationMs.scene,
+			animationDuration: animationDurationMs('scene'),
 		});
 		annotations.push(ann);
 

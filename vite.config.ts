@@ -17,6 +17,7 @@ import { validateContent } from './scripts/validate-content';
 import { isPublished } from './src/lib/content/policy';
 import { SCHEDULED_POST_MARGIN_MS } from './src/lib/data/publication';
 import { remarkHeadingSlugs } from './src/lib/markdown/headingSlug';
+import { rehypeResponsiveTables } from './src/lib/markdown/rehypeResponsiveTables';
 import { rehypeTableCellCheckboxes } from './src/lib/markdown/rehypeTableCellCheckboxes';
 import { rehypeTableLabels } from './src/lib/markdown/rehypeTableLabels';
 
@@ -158,6 +159,7 @@ export default defineConfig(async () => {
 							rehypeKatexSvelte,
 							rehypeTableLabels,
 							rehypeTableCellCheckboxes,
+							rehypeResponsiveTables,
 						],
 					}),
 				],

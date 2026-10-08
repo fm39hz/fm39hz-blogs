@@ -8,8 +8,9 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"prepare": "husky && svelte-kit sync || true",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"format": "bunx --bun @biomejs/biome check --max-diagnostics 100 --write --unsafe",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && bun run lint:styles",
+		"lint:styles": "stylelint \"src/**/*.scss\"",
+		"format": "bunx --bun @biomejs/biome check --max-diagnostics 100 --write --unsafe && bun run lint:styles --fix",
 		"check:content": "bun scripts/check-content.ts",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
@@ -23,6 +24,7 @@
 		"@types/lodash.kebabcase": "^4.1.9",
 		"@types/node": "^26.0.1",
 		"dayjs": "^1.11.21",
+		"hast-util-to-html": "^9.0.5",
 		"husky": "^9.1.7",
 		"katex": "^0.17.0",
 		"lint-staged": "^17.0.8",
@@ -37,13 +39,16 @@
 		"sass": "^1.101.0",
 		"shiki": "^4.2.0",
 		"slugify": "^1.6.9",
+		"stylelint": "^17.16.0",
+		"stylelint-config-standard-scss": "^17.0.0",
 		"svelte": "^5.56.1",
 		"svelte-check": "^4.6.0",
 		"typescript": "^6.0.3",
 		"vite": "^8.0.16"
 	},
 	"lint-staged": {
-		"*.{js,ts,svelte,css,json}": "bunx --bun @biomejs/biome check --max-diagnostics 100 --write --unsafe"
+		"*.{js,ts,svelte,css,json}": "bunx --bun @biomejs/biome check --max-diagnostics 100 --write --unsafe",
+		"*.scss": "stylelint --fix"
 	},
 	"dependencies": {
 		"@panzoom/panzoom": "^4.6.2",

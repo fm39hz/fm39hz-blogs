@@ -9,6 +9,7 @@ let {
 	id,
 	style,
 	class: className = '',
+	iconClass = '',
 	ok = false,
 	...rest
 }: {
@@ -18,6 +19,7 @@ let {
 	id?: string;
 	style?: string;
 	class?: string;
+	iconClass?: string;
 	/** Success flash (copy grammar). */
 	ok?: boolean;
 	[key: string]: unknown;
@@ -26,10 +28,10 @@ let {
 
 {#if href}
   <a {href} {onclick} {id} {style} class={`${styles.btn} ${ok ? styles.ok : ''} ${className}`} data-ok={ok ? 'true' : undefined} {...rest}>
-    <Icon icon={ok ? 'ph:check' : icon} />
+    <Icon icon={ok ? 'ph:check' : icon} class={iconClass ? `${styles.icon} ${iconClass}` : styles.icon} />
   </a>
 {:else}
   <button type="button" {onclick} {id} {style} class={`${styles.btn} ${ok ? styles.ok : ''} ${className}`} data-ok={ok ? 'true' : undefined} {...rest}>
-    <Icon icon={ok ? 'ph:check' : icon} />
+    <Icon icon={ok ? 'ph:check' : icon} class={iconClass ? `${styles.icon} ${iconClass}` : styles.icon} />
   </button>
 {/if}

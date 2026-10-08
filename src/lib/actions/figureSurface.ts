@@ -56,7 +56,6 @@ export async function enhanceFigure(
 	}
 	surface.dataset.panzoom = panzoom ? 'true' : 'false';
 	surface.dataset.pencil = pencil ? 'true' : 'false';
-	surface.style.opacity = '1';
 
 	// Prefer real <figure>; role only when shell is not figure (legacy pre)
 	if (surface.tagName !== 'FIGURE') {

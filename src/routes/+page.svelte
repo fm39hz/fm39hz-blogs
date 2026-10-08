@@ -23,7 +23,7 @@ let t = $derived(useTranslations(locale.value));
 
 <section class={styles.hero}>
   <h1 class={styles.h1}>{t.home.heroTitle}</h1>
-  <a href="/rss.xml" class={styles.rss} aria-label={t.a11y.rssFeed} title={t.a11y.rssFeed}><Icon icon="ph:rss" class="rss-icon" /></a>
+  <a href="/rss.xml" class={styles.rss} aria-label={t.a11y.rssFeed} title={t.a11y.rssFeed}><Icon icon="ph:rss" class={styles.rssIcon} /></a>
   <p class={styles.tagline}>{t.home.heroTagline}</p>
   {#if cfg.socials.length > 0}
     <div class={styles.socialRow}><span>{t.home.socialLinks}:</span><Socials /></div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { resizeHeight } from '$lib/actions/resizeHeight';
+import { onMount } from 'svelte';
 import IconButton from '$lib/components/ui/IconButton/IconButton.svelte';
 import NavLink from '$lib/components/ui/NavLink/NavLink.svelte';
 import cfg from '$lib/config';
@@ -12,7 +12,26 @@ import { SiteHeader } from './header.svelte';
 let { locale = 'en' }: { locale?: string } = $props();
 let t = $derived(useTranslations(locale));
 const header = new SiteHeader();
+let scrollY = $state(0);
+let innerWidth = $state(0);
+let desktopMediaQuery = $state('(min-width: 40rem)');
+let barHeight = $state(0);
+
+onMount(() => {
+	const breakpoint = getComputedStyle(document.documentElement)
+		.getPropertyValue('--bp-sm')
+		.trim();
+	if (breakpoint) desktopMediaQuery = `(min-width: ${breakpoint})`;
+});
+
+$effect(() => header.handleScroll(scrollY));
+$effect(() => {
+	if (innerWidth > 0 && window.matchMedia(desktopMediaQuery).matches) header.close();
+});
 </script>
+
+<svelte:window bind:scrollY bind:innerWidth onkeydown={header.nav.handleKeydown} />
+<svelte:document onclick={header.nav.handleDocumentClick} />
 
 <header
   bind:this={header.nav.rootEl}
@@ -20,10 +39,10 @@ const header = new SiteHeader();
   data-hidden={header.hidden ? 'true' : undefined}
   data-elevated={header.elevated ? 'true' : undefined}
   data-open={header.nav.open ? 'true' : undefined}
-  style:--header-bar-h={header.barHeightStyle}
+  style:--header-bar-h={barHeight > 0 ? `${barHeight}px` : undefined}
 >
   <div class={styles.shell}>
-    <div class={styles.bar} use:resizeHeight={header.setBarH}>
+    <div class={styles.bar} bind:clientHeight={barHeight}>
       <a id="skip-link" href="#main-content" class={styles.skipLink}>{t.a11y.skipToContent}</a>
       <a href={getLocalizedPath('/', locale)} class={styles.title}>{cfg.site.title}</a>
       <IconButton

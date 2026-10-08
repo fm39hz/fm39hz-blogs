@@ -78,10 +78,7 @@ export function renderMermaid(container: HTMLElement) {
 		for (const el of blocks) {
 			let source = readFigureSource(el);
 			if (!source) source = (el.textContent ?? '').trim();
-			if (!source) {
-				el.style.opacity = '1';
-				continue;
-			}
+			if (!source) continue;
 			// keep original for copy; render with SVG-safe labels
 			el.dataset.source = source;
 			const renderSrc = normalizeMermaidSource(source);

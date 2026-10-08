@@ -135,11 +135,11 @@ function cardClass(idx: number) {
 
   <div class={styles.navigation}>
     <button type="button" onclick={prevCard} class={styles.navBtn}>
-      <Icon icon="ph:arrow-left-bold" />
+      <Icon icon="ph:arrow-left-bold" class={styles.navIcon} />
     </button>
     <span class={styles.indicator}>Row {activeIdx + 1} of {rows.length}</span>
     <button type="button" onclick={nextCard} class={styles.navBtn}>
-      <Icon icon="ph:arrow-right-bold" />
+      <Icon icon="ph:arrow-right-bold" class={styles.navIcon} />
     </button>
   </div>
 </div>

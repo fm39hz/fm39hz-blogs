@@ -35,9 +35,11 @@
   &::-webkit-scrollbar {
     width: 4px;
   }
+
   &::-webkit-scrollbar-track {
     background: transparent;
   }
+
   &::-webkit-scrollbar-thumb {
     background-color: color-mix(in srgb, var(--border) 40%, transparent);
     border-radius: var(--br-full);
@@ -243,12 +245,9 @@
     box-shadow: 1px 1px 0 var(--border);
   }
 
-  :global(svg) {
-    width: var(--icon-md);
-    height: var(--icon-md);
-    display: block;
-  }
 }
+
+.navIcon { width: var(--icon-md); height: var(--icon-md); display: block; }
 
 .indicator {
   font-family: var(--font-body);
