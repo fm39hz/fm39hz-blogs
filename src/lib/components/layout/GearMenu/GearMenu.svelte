@@ -1,8 +1,8 @@
 <script lang="ts">
-import Icon from '@iconify/svelte';
 import { animateThemeToggle } from '$lib/animations/theme';
 import IconButton from '$lib/components/ui/IconButton/IconButton.svelte';
 import { Lang } from '$lib/constants';
+import Icon from '$lib/design-system/primitives/Icon.svelte';
 import { useTranslations } from '$lib/i18n';
 import { locale, setLocale } from '$lib/i18n-state.svelte';
 import { DismissibleCollapsible } from '$lib/ui/dismissibleCollapsible.svelte';

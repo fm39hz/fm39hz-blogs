@@ -1,6 +1,6 @@
 <script lang="ts">
-import Icon from '@iconify/svelte';
 import cfg from '$lib/config';
+import Icon from '$lib/design-system/primitives/Icon.svelte';
 import { useTranslations } from '$lib/i18n';
 import { formatDate, formatISO } from '$lib/utils/date';
 import styles from './Datetime.module.scss';

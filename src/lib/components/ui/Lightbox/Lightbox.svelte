@@ -1,7 +1,7 @@
 <script lang="ts">
-import Icon from '@iconify/svelte';
 import type { Action } from 'svelte/action';
 import { browser } from '$app/env';
+import Icon from '$lib/design-system/primitives/Icon.svelte';
 import { lightbox } from '$lib/state/lightbox.svelte';
 import styles from './Lightbox.module.scss';
 

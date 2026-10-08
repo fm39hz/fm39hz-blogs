@@ -1,7 +1,7 @@
 <script lang="ts">
-import Icon from '@iconify/svelte';
 import cfg from '$lib/config';
 import { socialIcons } from '$lib/design-system';
+import Icon from '$lib/design-system/primitives/Icon.svelte';
 import styles from './Socials.module.scss';
 
 function iconName(name: string): string {

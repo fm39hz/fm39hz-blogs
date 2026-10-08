@@ -1,5 +1,5 @@
 <script lang="ts">
-import Icon from '@iconify/svelte';
+import Icon from '$lib/design-system/primitives/Icon.svelte';
 import { locale } from '$lib/i18n-state.svelte';
 import { getLocalizedPath } from '$lib/utils/localized-url';
 import styles from './TagLine.module.scss';

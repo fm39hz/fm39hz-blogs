@@ -1,6 +1,6 @@
 <script lang="ts">
-import Icon from '@iconify/svelte';
 import { browser } from '$app/env';
+import Icon from '$lib/design-system/primitives/Icon.svelte';
 import { globalToaster } from '$lib/state/toast.svelte';
 import styles from './Toaster.module.scss';
 </script>

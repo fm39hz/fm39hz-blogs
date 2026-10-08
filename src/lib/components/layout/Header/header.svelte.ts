@@ -1,18 +1,7 @@
-import { loadIcons } from '@iconify/svelte';
 import { untrack } from 'svelte';
 import { BP_MQ, headerChrome as policy } from '$lib/design-system/tokens/layout';
 import { DismissibleCollapsible } from '$lib/ui/dismissibleCollapsible.svelte';
 import { stepHeaderChrome } from '$lib/utils/headerChrome';
-
-const ICONS = [
-	'ph:gear',
-	'ph:x',
-	'ph:list',
-	'ph:magnifying-glass',
-	'ph:moon',
-	'ph:sun',
-	'ph:translate',
-] as const;
 
 /**
  * Header chrome: hide-on-scroll + mobile nav shell.
@@ -43,10 +32,6 @@ export class SiteHeader {
 	#lastY = 0;
 
 	constructor() {
-		if (typeof window !== 'undefined') {
-			loadIcons([...ICONS]);
-		}
-
 		// Desktop: no mobile drawer
 		$effect(() => {
 			if (typeof window === 'undefined') return;

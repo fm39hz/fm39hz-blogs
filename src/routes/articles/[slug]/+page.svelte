@@ -1,5 +1,4 @@
 <script lang="ts">
-import Icon from '@iconify/svelte';
 import { page } from '$app/state';
 // checkboxes replaced by build-time rehype plugin
 import { figureSurfaces } from '$lib/actions/figureSurface';
@@ -18,6 +17,7 @@ import TableOfContents from '$lib/components/ui/TableOfContents/TableOfContents.
 import TagLine from '$lib/components/ui/TagLine/TagLine.svelte';
 import cfg from '$lib/config';
 import type { ArticleSummary, RenderedArticle } from '$lib/content/types';
+import Icon from '$lib/design-system/primitives/Icon.svelte';
 import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
 import { slugifyStr } from '$lib/tags';

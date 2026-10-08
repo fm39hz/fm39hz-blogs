@@ -1,5 +1,5 @@
 <script lang="ts">
-import Icon from '@iconify/svelte';
+import Icon from '$lib/design-system/primitives/Icon.svelte';
 import { useTranslations } from '$lib/i18n';
 import { initTheme, toggleTheme as toggleThemeFn } from './ThemeToggle';
 import styles from './ThemeToggle.module.scss';

@@ -1,8 +1,8 @@
 <script lang="ts">
-import Icon from '@iconify/svelte';
 import PostCard from '$lib/components/ui/PostCard/PostCard.svelte';
 import Socials from '$lib/components/ui/Socials/Socials.svelte';
 import cfg from '$lib/config';
+import Icon from '$lib/design-system/primitives/Icon.svelte';
 import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
 import { getLocalizedPath } from '$lib/utils/localized-url';

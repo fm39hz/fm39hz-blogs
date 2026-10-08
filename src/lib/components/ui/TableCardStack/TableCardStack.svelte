@@ -1,5 +1,5 @@
 <script lang="ts">
-import Icon from '@iconify/svelte';
+import Icon from '$lib/design-system/primitives/Icon.svelte';
 import styles from './TableCardStack.module.scss';
 
 interface Props {
