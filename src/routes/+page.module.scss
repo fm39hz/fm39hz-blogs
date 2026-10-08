@@ -6,9 +6,9 @@
 .socialRow { margin-top: var(--space-md); display: flex; align-items: center; gap: var(--space-xs); }
 .socialRow span { white-space: nowrap; }
 .section { padding: var(--space-xl) 0; }
-.section h2 { font-size: var(--fs-2xl); font-weight: 600; letter-spacing: 0.05em; }
-.section ul { list-style: none; padding: 0; margin: 0; }
-.section li { margin: var(--space-lg) 0; }
+.section > h2 { font-size: var(--fs-2xl); font-weight: 600; letter-spacing: 0.05em; }
+.section > ul { list-style: none; padding: 0; margin: 0; }
+.section > ul > li { margin: var(--space-lg) 0; }
 .allPosts { text-align: center; margin: var(--space-xl) 0; }
 .allPosts a { color: var(--fg); text-decoration: none; }
 .allPosts a:hover { color: var(--accent); }
