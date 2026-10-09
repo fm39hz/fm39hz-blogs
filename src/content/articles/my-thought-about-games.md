@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-01-02
-modDatetime: 2026-09-05
+modDatetime: 2026-10-09
 title: My thoughts about Games
 featured: false
 draft: false
@@ -331,6 +331,8 @@ Adapting a film or novel into a game is not a matter of distributing the play bu
 > Just respect the intelligence and stature of the player, just as I respect you, and you respect me, alright?
 
 ## Conclusion
+
+So, after all, why do we need this? Well, it appears to make some invalid thing stay out of the way, as we need to focus on the right track.
 
 In reality, we do not need to settle every possible definition before taking one step closer to the thing itself. We only need to stop mixing every layer together.
 
