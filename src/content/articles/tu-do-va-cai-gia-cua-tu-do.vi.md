@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-09-08
-modDatetime: 2026-10-09
+modDatetime: 2026-10-11
 title: Tự do và cái giá của tự do
 featured: false
 draft: false
@@ -23,6 +23,10 @@ Từ đó tôi mới đặt AoT cạnh Tokyo Ghoul. Hai tác phẩm có một kh
 Và từ đây, chúng có hướng đi khác nhau. Tôi cho rằng, TG tầm thường hóa bi kịch để vĩ đại hóa nỗ lực của từng con người, nhưng không sử thi hóa chính con người đó. AoT thì có xu hướng làm điều ngược lại.
 
 Tầm thường hóa bi kịch, với tôi, tức là coi nó không đặc biệt. Nó chỉ là điều bình thường, đã tồn tại trong tự nhiên, chẳng phải thứ siêu hình gì đó. Việc một người đau khổ không khiến đời sống của họ thật hơn cuộc sống của một kẻ đang hạnh phúc. Ghoul sinh ra đã phải ăn thịt người, phải giằng xé với cái cơ chế sinh học ấy, rồi còn phải tìm cách sống, sống cái kiếp vừa là kẻ đi săn vừa là con mồi. Bi kịch bắt đầu từ những điều căn bản như vậy, từ những điều tầm thường nhất. Nó ở đó, nhưng nó không có bản chất là phải ở đó. Titan thì, well, nó không bắt nguồn từ sinh học, nó là công cụ chính trị, phải chứ?
+
+Cơ cấu của TG khác với AoT, và đó là 1 trong những điều khiến tôi đánh giá như vậy. Kaneki, trước hết bị đặt về phía ghoul. Cậu ta căm ghét cái cơ thể sinh học ấy, nhưng lại dần thấu hiểu loài ghoul. Sau đó, cậu ta trở thành thanh tra, đứng ở đúng vị trí kẻ tiêu diệt ghoul, và sau cùng, chọn làm kẻ đi giữa 2 thế giới. Với tôi, đây là vùng xám thực sự. Cấu trúc nội tại của xung đột tới từ sinh học, nên xét theo tiêu chí world building, nó nhất quán.
+
+AoT thì đi từ chỗ Eren là chính diện, rồi lật cậu ta sang phản diện. Các phe của con người được gộp lại để chống Eren, còn Eren lúc này trở thành kẻ đối địch tuyệt đối. Mọi thứ ở đây đều mang cấu trúc sắp đặt chính trị. Về plot thì nó nhất quán, nhưng world building lại khù khoằm, và khiến cả cấu trúc bị nhị nguyên hóa. Một kẻ đổi từ cực này sang cực kia, cần 1 kẻ thù chung để khiến loài người hợp sức, tôi không gọi đó là vùng xám được.
 
 Bi kịch không tự cấp cho người trải qua nó một hộ chiếu đẹp, cũng chẳng khiến người kết thúc với nó, hay nói đúng hơn, kết thúc câu chuyện với nó trở nên vĩ đại và sử thi hơn. Một cuộc trả thù sinh ra cuộc trả thù khác vẫn là chuyện những người cụ thể làm với nhau. Từ đó tới việc nói rằng con người vốn như vậy, thế giới vốn như vậy, ta đã đi qua những đâu, đã bỏ sót điều gì? Tôi cảm thấy AoT đang trao cho bi kịch nhiều quyền hơn mức nó xứng đáng có trong 1 tác phẩm vốn đặt chữ tự do lên làm chủ đề.
 
@@ -127,6 +131,8 @@ Tôi không đánh giá cao cách một phần fandom hùa theo những chữ nh
 ## Bi kịch ở đó, rồi sao nữa?
 
 Cuối *:re*, Kaneki và Furuta lại nói về một đời sống rồi sẽ kết thúc. Kaneki vẫn muốn sống với những gì mình đã có. Sau thảm họa, người và ghoul còn phải hợp tác, nghiên cứu và cứu chữa. Câu chuyện có thể khép lại khi phần việc ấy vẫn tiếp tục, chẳng cần Kaneki giải quyết xong toàn bộ những gì con người có thể làm với nhau.
+
+Chuyện giữa người và ghoul được chấm dứt bởi Hắc dương, bởi các thanh tra trong giai đoạn hậu Rồng, và quan trọng nhất, là Đại xa luân, chứ chẳng phải nhà Washuu hay V. Đại xa luân, 1 tổ chức do sinh viên đại học Kamii lập ra. Người khởi xướng, Kimi, thậm chí đã theo làm trợ lý cho Kanou để lấy được kiến thức về ghoul. Đây là câu chuyện về truyền thông và lòng tin.
 
 TG kết thúc bằng mặt trời ló rạng, còn AoT để Paradis bị hủy diệt. Mặt trời ấy phải bảo đảm rằng từ đây con người sẽ hạnh phúc mãi mãi thì hạnh phúc mới có chỗ ở đó sao? Nó vẫn ở đó, cùng với những tổn thương và phần việc còn lại, chẳng cần bị xem là một sự ngộ nhận đang chờ bi kịch tới sửa sai.
 
