@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-09-08
-modDatetime: 2026-10-11
+modDatetime: 2026-10-13
 title: Tự do và cái giá của tự do
 featured: false
 draft: false
@@ -121,6 +121,8 @@ Nhưng, chúng ta đã biết gì, và biết từ khi nào? Người đọc bi�
 AoT liên tục thay đổi những gì người xem biết. Bên ngoài tường thành từng là nơi có Titan, rồi thành một thế giới có những con người đang được dạy phải sợ người bên trong tường. Sau đó tới Con Đường, ký ức tương lai và việc những người ở một thời điểm có thể tác động tới chuyện đã xảy ra ở thời điểm khác. Mỗi lần biết thêm, người xem lại phải đọc lại những cảnh cũ. Cảm giác một chi tiết đã được chuẩn bị từ rất lâu là có thật, nhưng nó cho chúng ta biết điều gì về tự do của người trong cảnh ấy?
 
 Con Đường, Thủy tổ, sinh vật đã cho Ymir sức mạnh và những Titan vô tri, từng thứ đều có chỗ trong việc giải thích thế giới của AoT. Tôi vẫn thấy khó chịu khi những cơ chế ấy được đặt quanh một xung đột do con người gây ra. Ta từng có thể hỏi ai đã quyết định, ai đã làm. Rồi câu hỏi phải đi qua một quá khứ kéo dài hai nghìn năm và những ký ức nối ngược thời gian. Tới lúc đó, ta còn nhìn một chuyện như việc đã xảy ra, hay nó đã mang sẵn vẻ tất yếu vì mọi mảnh ghép đều tìm được chỗ?
+
+Còn con rết ấy, 1 Deus Ex Machina đem tới sức mạnh Titan, rồi tới cuối truyện lại biến mất cùng 2000 năm, đem theo cả Con Đường với toàn bộ Titan, có hơi dễ dàng quá chứ? Tác phẩm có thể đưa nó vào, rồi lấy nó ra như vậy, mà tôi lại phải nhìn những gì xảy ra ở giữa như một điều tất yếu sao?
 
 Một dàn ý khép kín có tự chứng minh được rằng con người không thể làm khác không? Nếu trong truyện đã có những sự kiện buộc phải khớp với nhau, ta có thể đem sự bắt buộc ấy ra nói về bản chất con người tới đâu? Tác giả đã dựng cả điều kiện lẫn kết quả, vậy vì sao kết quả lại được xem như câu trả lời mà thế giới tự đưa ra?
 
