@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-09-08
-modDatetime: 2026-10-13
+modDatetime: 2026-10-14
 title: Tự do và cái giá của tự do
 featured: false
 draft: false
@@ -40,7 +40,7 @@ AoT cũng đưa Eren tới trước Ramzi. Cậu ta khóc, cậu ta xin lỗi. V
 
 Cả thành phố bị Rồng càn quét cũng đâu thiếu những hình ảnh kinh hoàng. Tôi có thể nhìn vào thảm họa ấy, rồi nhìn vào điều Kaneki hiểu về mình, mà chẳng cần xem nỗi đau của cậu ta như một điều khiến câu chuyện lớn lao hơn. Với AoT, tại sao cái vẻ bi thảm của người gây ra thảm họa lại được đặt sát những người đang chết đến vậy?
 
-Rồi còn cái motif "vừa là nạn nhân vừa là kẻ thủ ác", "từ nạn nhân trở thành kẻ tội đồ". Một người đã chịu đựng và đã gây ra những gì, cứ nhìn vào những việc ấy không đủ sao? Tôi không thấy có gì đáng đánh giá cao ở việc gắn thêm 1 cái tag lên mặt nhân vật, rồi dùng nó để gọi một câu chuyện là phức tạp. Nhìn thấy một người từ nhiều phía có buộc tôi phải chấp nhận cái hình tượng mà tác phẩm muốn dựng từ người đó không?
+Rồi còn cái motif "vừa là nạn nhân vừa là kẻ thủ ác", "từ nạn nhân trở thành kẻ tội đồ". Một kẻ đã gặp phải và đã gây ra điều gì, cứ nhìn vào những việc ấy không đủ sao? Tôi không thấy có gì đáng đánh giá cao ở việc gắn thêm 1 cái tag lên mặt nhân vật, rồi dùng nó để gọi một câu chuyện là phức tạp. Nhìn thấy một người từ nhiều phía có buộc tôi phải chấp nhận cái hình tượng mà tác phẩm muốn dựng từ người đó không?
 
 ## Những kẻ khác, họ đâu cả rồi?
 
@@ -60,13 +60,13 @@ Armin có nói tới chính những việc nhỏ trong đời sống khi gặp Z
 
 Nhưng cuộc trò chuyện ấy nằm giữa trận chiến, rồi dẫn tới việc Zeke xuất hiện để Levi giết mình. Nhớ lại quả bóng của mình, rồi chọn chết để ngăn thảm họa. Tôi nghĩ tới Hange. Đời sống của họ vốn đã có giá trị, vậy mà lúc phải giải quyết chuyện lớn, câu chuyện lại tìm được cho mỗi người một cái chết có ích. Còn những lần chạy cùng bạn bè mà Armin vừa nói tới, chúng có được dành chỗ nào khi chẳng giúp ai kết thúc một trận chiến?
 
-Armin còn có con đường thương lượng sau trận chiến. Những người sống sót vẫn phải gặp nhau và nói chuyện, dù chẳng ai biết hòa bình sẽ kéo dài bao lâu. Vậy mà lúc chia tay, câu chuyện lại dành nhiều chỗ cho điều Eren muốn, điều cậu ta đã chịu đựng và những gì bạn bè nhớ về cậu ta. Câu chuyện đã mở rộng đến thế giới bên ngoài tường thành, rồi lúc khép lại, người xem lại được trở về cùng một nhóm bạn.
+Những người sống sót vẫn sẽ phải gặp nhau và đàm phán, dẫu chẳng ai biết hòa bình sẽ kéo dài bao lâu. Vậy mà, câu chuyện lại dành nhiều chỗ cho điều Eren muốn, cho điều cậu ta đã chịu đựng, cho những gì bạn bè nhớ về cậu ta. Câu chuyện đã mở rộng đến thế giới bên ngoài tường thành, rồi lúc khép lại, người xem lại được trở về cùng một nhóm bạn. Tôi rất ghét những kẻ đạo đức giả, đặc biệt là những kẻ yêu cầu Eren phải khổ sở hơn, đau đớn hơn. Nhưng, những kẻ ở ngoài tình bạn đó, có thể nói gì trong cuộc chia tay này? Eren là phạm nhân hay nạn nhân, có quan trọng hay chăng? Camera đang dõi theo kẻ nào?
 
-Ở manga, Armin cảm ơn Eren vì đã trở thành kẻ thảm sát vì họ. Anime đổi cuộc đối thoại, để Armin cùng nhận phần trách nhiệm và hẹn gặp lại Eren trong địa ngục. Nhưng câu chuyện vẫn để hai người bạn nói với nhau lần cuối về những việc đã xảy ra. Thương một người có cho mình nhận thay phần người ấy đã làm không? Những người ở ngoài tình bạn đó còn có thể nói gì trong cuộc chia tay này?
+Mikasa có thể coi là nhân vật tôi cảm thấy ít khó chịu nhất trong AoT. Cô vẫn yêu Eren khi giết cậu ta, tình yêu không làm thay được việc cô đã chọn. Chỉ có điều, tác phẩm còn đặt thêm vào lựa chọn đó một công đôi việc, tiện đường khép lại sự chờ đợi kéo dài hai nghìn năm của Ymir. Tại sao việc cô làm phải giải quyết cả chuyện ấy? Cô đã quyết định điều gì cho mình, và bao nhiêu phần trong đó đang được dùng để hoàn tất số phận của những người khác?
 
-Mikasa có thể coi là nhân vật tôi cảm thấy ít khó chịu nhất trong AoT. Cô vẫn yêu Eren khi giết cậu ta, tình yêu không làm thay được việc cô đã chọn. Chỉ có điều, tác phẩm còn đặt lựa chọn đó vào một sự chờ đợi kéo dài hai nghìn năm của Ymir. Tại sao việc cô làm phải giải quyết cả chuyện ấy? Cô đã quyết định điều gì cho mình, và bao nhiêu phần trong đó đang được dùng để hoàn tất số phận của những người khác?
+Btw, tranh luận về cô trong fandom lại xoay quanh việc cô lấy ai, có thủ tiết cho 1 thằng đàn ông không phải chồng cô, thậm chí còn đã chết, hay không. Quả tu duy rặt 1 phường thợ săn trinh tiết.
 
-Trong *:re*, Tsukiyama muốn đem Kaneki trở lại, còn Touka chọn không kéo Haise về đời sống ghoul nữa. Cậu ta đang sống như một điều tra viên CCG, dẫu là 1 kẻ săn ghoul ở bên kia chiến tuyến. Ít nhất, cậu ta không còn bị truy đuổi, cơn đói cũng không buộc cậu ta ăn thịt người. Nếu ký ức trở lại và cậu ta cần một nơi để về, :re vẫn ở đó.
+Trong *:re*, Tsukiyama muốn đem Kaneki trở lại, còn Touka lại chọn không kéo Haise về đời sống ghoul nữa. Cậu ta đang sống như một thanh tra CCG, dẫu điều đó khiến cậu ta trở thành 1 kẻ săn ghoul ở bên kia chiến tuyến. Ít nhất, cậu ta không bị truy đuổi, cơn đói cũng không buộc cậu ta ăn thịt người. Nếu ký ức trở lại và cậu ta cần một nơi để về, thì :re vẫn ở đó.
 
 Tới đây, tôi thấy camera đã trở về quanh Eren quá nhiều lần. Cậu ta có thể vắng mặt trong nhiều cảnh, nhưng lựa chọn của bạn bè, tình yêu của Mikasa, cả những cái chết ngoài kia vẫn bị kéo về câu chuyện của cậu ta. AoT từng rời camera sang Marley, để người xem sống cùng những người bên kia chiến tuyến. Tại sao tới lúc nói về tự do, thế giới ấy lại có vẻ chật đến vậy?
 
@@ -146,11 +146,13 @@ Thế là người đọc có thể điền "bản chất con người" vào ch�
 
 Từ việc chiến tranh trở lại, dựa vào đâu để nói rằng bản chất của con người là đấu tranh, là họ sẽ luôn tìm được cái cớ để đánh nhau? Tác phẩm có thể đặt sự hủy diệt ở cuối con đường, đó là 1 lựa chọn hoàn toàn hợp lệ. Nhưng, với tôi, con đường dẫn tới đó được đóng khung và dàn dựng rất tồi. Cái vẻ tất định đã được chuẩn bị bằng những sắp đặt trước đó, giờ còn có cả một lịch sử đổ nát để nhìn lại.
 
-AoT thật hào phóng với chữ tự do. Những người trong đó đã lựa chọn, đã có những lúc vượt khỏi điều được dạy và điều người khác muốn họ làm. Nhưng tôi vẫn thấy câu chuyện quá lưu luyến với hình ảnh họ bị ràng buộc, bị cuốn đi, với những gì cuối cùng vẫn quay trở lại. Một chữ được nhắc nhiều như vậy, cuối cùng còn lại gì bên trong nó? Tôi không chấp nhận cái tinh thần đã rút ruột tự do rồi giữ nguyên tên gọi. Tác giả có nói mình muốn gì đi nữa, những khoảng trống ấy vẫn nằm trong tác phẩm.
+Dẫu sao, những câu chuyện như diệt chủng hay ref tới thế chiến 2 thì to tát đấy, nhưng tôi chẳng quan tâm lắm. Ý đồ tác giả luôn là 1 chủ đề đáng quan tâm nhỉ, nhưng nvm, 'The author is dead'. Tôi thực tế chẳng cảm thấy gì khi nhìn AoT khái quát hóa nhân loại chết mất 80%, chính là vì Isayama thực sự đã thất bại với con số 80% này. Cấu trúc tự sự nó dễ nuốt mất thực tế tới vậy đấy.
 
-Một cuộc chiến vẫn cần những người cụ thể làm nó xảy ra. Khi dùng "con người vốn là như vậy" để giải thích thay những lựa chọn ấy, trách nhiệm lại được gửi về một bản chất mà chẳng ai phải đứng ra nhận.
+Sau cùng thì, tôi thấy sao về AoT? Well, công bằng mà nói, về mặt xây dựng cốt truyện, tôi không cảm thấy có gì đáng nói lắm, vẫn khá là typical, phụ thuộc nhiều vào plot và climax. Về World building và logic consistency, thực lòng mà nói, hơi khiên cưỡng nhưng phần nào đó vẫn chấp nhận được nếu hồi tố 1 chút. Có điều, nó chẳng qua là thật hào phóng với chữ tự do. Những người trong đó lựa chọn, có những lúc vượt khỏi điều được dạy và điều người khác muốn họ làm. Nhưng, câu chuyện vẫn quá lưu luyến với hình ảnh con người bị trói buộc, bị cuốn đi, với những điều bi quan cuối cùng vẫn quay trở lại. Một chữ được nhắc nhiều như vậy, sau cùng bên trong lõi còn gì? Tôi không nuốt nổi cái tự do với tinh thần ống tre này. 2 đầu thì bịt kín với Deus Ex Machina, ở giữa lại rỗng tuếch.
 
-Hạnh phúc và nỗ lực vẫn tồn tại, nhưng, tại sao bi kịch lại được quyền nhận xét về chúng, còn hạnh phúc dễ bị tính như một quãng nghỉ trước cuộc chiến tiếp theo? Vì nó được đặt ở cuối con đường chăng? Armin đã nói về những khoảnh khắc đáng sống dù chúng chẳng phục vụ điều gì lớn lao. Vậy tại sao câu chuyện còn cần lùi ra xa thêm, nhìn lâu thêm, tới tận lúc những gì được xây dựng lại bị phá hủy? Một điều phải tồn tại mãi thì nó mới có giá trị sao?
+Một cuộc chiến vẫn cần những người cụ thể làm nó xảy ra. Khi dùng "con người vốn là thế" để giải thích, trách nhiệm lại được ký gửi cho một bản chất mà chẳng ai phải đứng ra nhận.
+
+Tại sao hạnh phúc lại dễ được người đọc tính như một quãng nghỉ trước cuộc chiến tiếp theo? Vì bi kịch được đặt ở cuối con đường chăng? Armin đã có thể nói về những khoảnh khắc đáng sống dù chúng chẳng phục vụ điều gì lớn lao. Vậy, tại sao câu chuyện còn cần lùi ra xa thêm, xa thêm, lâu thêm nữa, tới tận lúc tất cả lại bị phá hủy? Một điều phải tồn tại mãi thì nó mới có giá trị sao?
 
 Với tôi, thứ gì đó có giá trị chính là vì nó hữu hạn.
 
