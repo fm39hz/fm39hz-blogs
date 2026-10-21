@@ -300,6 +300,12 @@ Complex components use class-based patterns (e.g., `SiteHeader` in `header.svelt
 standalone assertions: run each with `bun <file>`. Use `bun run check` for Svelte diagnostics and
 SCSS linting.
 
+`src/content/articles/render-fixtures.md` (+ `.vi.md`) is a draft page holding every content
+feature: inline marks, lists, quotes, code, each table shape, every diagram/chart kind, math, images
+and disclosures. It is visible only in `bun run dev` at `/articles/render-fixtures`, but `bun run
+build` still compiles it, so a broken fixture fails the build. When the content pipeline gains a
+feature, add a section to both files at the same heading level (bilingual TOC check).
+
 ## Deployment
 
 **Vercel** with `@sveltejs/adapter-vercel`. Configuration in `vite.config.ts`.

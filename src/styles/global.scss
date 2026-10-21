@@ -92,7 +92,9 @@
   --diagram-radius: var(--br);
   --diagram-series-1: var(--accent);
   --diagram-series-2: var(--muted-fg);
-  --diagram-series-3: var(--muted);
+
+  /* Series fill under bg-coloured labels (pie slices): every series must contrast with --bg. */
+  --diagram-series-3: color-mix(in srgb, var(--accent) 50%, var(--fg));
   --diagram-series-4: var(--fg);
 }
 
