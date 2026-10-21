@@ -9,6 +9,8 @@
  * Imported by vite.config at config load: keep it free of `$lib` imports.
  */
 
+import { isOneOf } from '../../utils/guards';
+
 export type DiagramKind = 'mermaid' | 'vega-lite';
 
 /** Prerendered diagram SVG plus the facts the client needs to export it. */
@@ -45,7 +47,7 @@ export type CheckState = 'done' | 'partial' | 'todo';
 const CHECK_STATES: readonly CheckState[] = ['done', 'partial', 'todo'];
 
 export function isCheckState(value: unknown): value is CheckState {
-	return CHECK_STATES.some((state) => state === value);
+	return isOneOf(CHECK_STATES, value);
 }
 
 export interface CardCell {

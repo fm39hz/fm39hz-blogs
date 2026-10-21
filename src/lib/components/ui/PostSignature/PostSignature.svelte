@@ -1,5 +1,7 @@
 <script lang="ts">
+import cfg from '$lib/config';
 import { resolveAuthor } from '$lib/utils/author';
+import { formatNumericDate } from '$lib/utils/date';
 
 let {
 	author: authorProp,
@@ -11,13 +13,7 @@ let {
 	pubDatetime: string;
 } = $props();
 
-let dateStr = $derived.by(() => {
-	const d = new Date(pubDatetime);
-	const day = String(d.getDate()).padStart(2, '0');
-	const month = String(d.getMonth() + 1).padStart(2, '0');
-	const year = d.getFullYear();
-	return `${day}/${month}/${year}`;
-});
+let dateStr = $derived(formatNumericDate(pubDatetime, cfg.site.timezone));
 
 let author = $derived(resolveAuthor({ author: authorProp ?? undefined }));
 </script>

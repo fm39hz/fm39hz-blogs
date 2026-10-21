@@ -1,4 +1,5 @@
 import type { Language } from './locale';
+import { isOneOf } from './utils/guards';
 
 export type { Language, TextDirection } from './locale';
 
@@ -6,7 +7,7 @@ export const THEMES = ['light', 'dark'] as const;
 export type ThemeMode = (typeof THEMES)[number];
 
 export function isThemeMode(value: unknown): value is ThemeMode {
-	return THEMES.some((mode) => mode === value);
+	return isOneOf(THEMES, value);
 }
 
 export interface SiteConfig {
