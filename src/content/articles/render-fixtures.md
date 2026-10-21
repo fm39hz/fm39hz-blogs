@@ -1,6 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-10-21
+modDatetime: 2026-10-21
 title: Render fixtures
 featured: false
 draft: true
@@ -28,7 +29,7 @@ Plain paragraph with **bold**, *italic*, ***both***, ~~strikethrough~~ and `inli
 A raw <mark>highlighted phrase</mark> uses the static mark style.
 
 A paragraph with a hard line break  
-continues on the next line.
+continues on the next line.[^second]
 
 ### Does a long unbroken string wrap?
 
@@ -277,9 +278,5 @@ Hidden content inside a native disclosure, with **Markdown** still parsed.
 
 </details>
 
-<!--
-  Known gap: GFM footnotes are not parsed (mdsvex 0.12 bundles a pre-micromark
-  remark-parse that remark-gfm 4 cannot extend), so `[^note]` renders literally.
--->
-
 [^note]: Footnote text, linked back to its reference.
+[^second]: A second footnote, numbered by first reference order.

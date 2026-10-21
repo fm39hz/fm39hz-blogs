@@ -1,6 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-10-21
+modDatetime: 2026-10-21
 title: Trang kiểm tra hiển thị
 featured: false
 draft: true
@@ -26,7 +27,7 @@ sánh phần hiển thị theo ngôn ngữ.
 <mark>cụm từ được tô</mark> viết bằng HTML thô dùng kiểu mark tĩnh.
 
 Một đoạn có ngắt dòng cứng  
-tiếp tục ở dòng sau.
+tiếp tục ở dòng sau.[^second]
 
 ### Chuỗi dài không có khoảng trắng có xuống dòng không?
 
@@ -275,9 +276,5 @@ Nội dung ẩn trong khối mở/đóng gốc của trình duyệt, **Markdown*
 
 </details>
 
-<!--
-  Lỗ hổng đã biết: footnote kiểu GFM chưa được parse (mdsvex 0.12 dùng remark-parse đời cũ
-  mà remark-gfm 4 không mở rộng được), nên `[^note]` hiện nguyên văn.
--->
-
 [^note]: Nội dung chú thích, có link quay về chỗ tham chiếu.
+[^second]: Chú thích thứ hai, đánh số theo thứ tự được nhắc tới lần đầu.

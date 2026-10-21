@@ -185,6 +185,26 @@
     vertical-align: baseline;
   }
 
+  /* ── Footnotes (remark-footnotes + rehypeFootnoteNumbers) ── */
+  .footnote-ref {
+    font-size: var(--fs-xs);
+    text-decoration: none;
+
+    &::before { content: '['; }
+    &::after { content: ']'; }
+  }
+
+  .footnotes {
+    margin-block-start: var(--space-xl);
+    font-size: var(--fs-sm);
+    color: var(--muted-fg);
+  }
+
+  .footnote-backref {
+    margin-inline-start: var(--space-2xs);
+    text-decoration: none;
+  }
+
   /* ── Tables (SSOT: one <table>, CSS progressive layout) ─── */
   :where(table),
   :where(table.prose-table) {

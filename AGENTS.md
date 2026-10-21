@@ -174,6 +174,7 @@ Use `useTranslations()` from `$lib/i18n.ts` for UI strings. Messages are accesse
 
 ### Remark Plugins
 - `remark-gfm` - GitHub Flavored Markdown
+- `remark-footnotes` (v2) - GFM footnotes; remark-gfm 4 cannot extend mdsvex's bundled remark-parse 8
 - `remark-math` - LaTeX math
 - `remark-toc` - Table of contents
 - Custom heading-range plugin for collapsible TOC
@@ -187,6 +188,7 @@ copy-as-Markdown export all derive their patterns from it.
 - `rehype-katex-svelte` - Math rendering
 - `rehypeTableLabels` - Add `data-label` to table cells for responsive layout
 - `rehypeTableCellCheckboxes` - Checkbox styling
+- `rehypeFootnoteNumbers` - Number footnote references (remark-footnotes v2 shows identifiers)
 
 ### Special Code Blocks
 

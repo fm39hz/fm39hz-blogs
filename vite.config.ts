@@ -7,6 +7,7 @@ import headingRange from 'mdast-util-heading-range';
 import { mdsvex } from 'mdsvex';
 import rehypeKatexSvelte from 'rehype-katex-svelte';
 import rehypeSlug from 'rehype-slug';
+import remarkFootnotes from 'remark-footnotes';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import remarkToc from 'remark-toc';
@@ -19,6 +20,7 @@ import { SCHEDULED_POST_MARGIN_MS } from './src/lib/data/publication';
 import { resolveLanguage } from './src/lib/locale';
 import { remarkHeadingSlugs } from './src/lib/markdown/headingSlug';
 import { renderMermaidArt } from './src/lib/markdown/mermaid';
+import { rehypeFootnoteNumbers } from './src/lib/markdown/rehypeFootnoteNumbers';
 import { rehypeResponsiveTables } from './src/lib/markdown/rehypeResponsiveTables';
 import { rehypeTableCellCheckboxes } from './src/lib/markdown/rehypeTableCellCheckboxes';
 import { rehypeTableLabels } from './src/lib/markdown/rehypeTableLabels';
@@ -136,6 +138,8 @@ export default defineConfig(async () => {
 						},
 						remarkPlugins: [
 							remarkGfm,
+							// GFM footnotes: remark-gfm 4 cannot extend mdsvex's bundled remark-parse 8.
+							remarkFootnotes,
 							remarkMath,
 							remarkHeadingSlugs,
 							[remarkToc, tocOptions],
@@ -181,6 +185,7 @@ export default defineConfig(async () => {
 							rehypeKatexSvelte,
 							rehypeTableLabels,
 							rehypeTableCellCheckboxes,
+							rehypeFootnoteNumbers,
 							rehypeResponsiveTables,
 						],
 					}),
