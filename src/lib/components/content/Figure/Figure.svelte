@@ -53,10 +53,9 @@ const view = new PanZoom();
       </div>
     </div>
   </div>
-  <div class={styles.copy}>
-    <CopyButton
-      kind="figure"
-      payload={{ text: source, image: () => (root ? svgToPng(svg, root) : Promise.reject()) }}
-    />
-  </div>
+  <CopyButton
+    kind="figure"
+    pinned
+    payload={{ text: source, image: () => (root ? svgToPng(svg, root) : Promise.reject()) }}
+  />
 </figure>

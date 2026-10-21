@@ -6,8 +6,15 @@ import { copyScrap, type ScrapKind, type ScrapPayload } from '$lib/scrap/model';
 import { flashCopySuccess } from '$lib/utils/clipboard';
 import styles from './CopyButton.module.scss';
 
-/** Pure presentational button for one scrap. Parent places it. */
-let { payload, kind }: { payload: ScrapPayload; kind: ScrapKind } = $props();
+/**
+ * Copy button for one scrap. `pinned` = top-right corner of the nearest
+ * positioned ancestor (the scrap shell); otherwise the parent places it.
+ */
+let {
+	payload,
+	kind,
+	pinned = false,
+}: { payload: ScrapPayload; kind: ScrapKind; pinned?: boolean } = $props();
 
 let i18n = $derived(useTranslations(locale.value));
 let copied = $state(false);
@@ -27,7 +34,7 @@ async function handleCopy() {
 
 <button
   type="button"
-  class={`${styles.btn} ${copied ? styles.copied : ''}`}
+  class={`${styles.btn} ${pinned ? styles.pinned : ''} ${copied ? styles.copied : ''}`}
   onclick={handleCopy}
   aria-label={label}
   title={label}

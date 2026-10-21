@@ -8,7 +8,5 @@ let { html, source }: { html: string; source: string } = $props();
 
 <div class={styles.block}>
   {@html html}
-  <div class={styles.copy}>
-    <CopyButton kind="code" payload={{ text: source }} />
-  </div>
+  <CopyButton kind="code" pinned payload={{ text: source }} />
 </div>

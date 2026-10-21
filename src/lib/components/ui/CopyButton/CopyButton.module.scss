@@ -11,6 +11,13 @@
   transition: transform var(--d-fast) var(--ease-out);
 }
 
+.pinned {
+  position: absolute;
+  top: var(--space-2xs);
+  right: var(--space-2xs);
+  z-index: var(--z-raised);
+}
+
 .btn:hover {
   transform: rotate(-15deg) scale(var(--scale-hover));
   color: var(--accent);
