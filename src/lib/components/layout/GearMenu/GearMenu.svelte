@@ -1,9 +1,10 @@
 <script lang="ts">
 import { onMount } from 'svelte';
-import { animateThemeToggle, applyTheme, getStoredTheme } from '$lib/animations/theme';
+import { animateThemeToggle, applyTheme } from '$lib/animations/theme';
 import IconButton from '$lib/components/ui/IconButton/IconButton.svelte';
 import { Lang } from '$lib/constants';
 import Icon from '$lib/design-system/primitives/Icon.svelte';
+import { rootTheme } from '$lib/document/root';
 import { useTranslations } from '$lib/i18n';
 import { locale, setLocale } from '$lib/i18n-state.svelte';
 import { DismissibleCollapsible } from '$lib/ui/dismissibleCollapsible.svelte';
@@ -18,7 +19,7 @@ const panel = new DismissibleCollapsible({
 });
 
 onMount(() => {
-	currentTheme = getStoredTheme();
+	currentTheme = rootTheme();
 });
 
 function toggleTheme() {

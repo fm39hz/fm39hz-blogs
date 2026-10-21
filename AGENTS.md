@@ -72,7 +72,7 @@ src/
 │   ├── data/server.ts    # Content loading (import.meta.glob)
 │   ├── markdown/         # Custom rehype plugins
 │   ├── utils/            # Utility functions
-│   ├── actions/          # Svelte actions (diagram rendering, pencil edge)
+│   ├── document/root.ts  # The only writer of <html> attributes (lang, dir, data-theme)
 │   └── state/            # Svelte state (lightbox, toast)
 ├── routes/               # File-based routing
 │   ├── +layout.svelte    # Root layout (Header, Footer, analytics)
@@ -249,6 +249,15 @@ own their internal elements.
 - Use DOM APIs only at browser or third-party-library boundaries, or to read geometry. Observers
   live in attachments that report state; the template renders the consequence. Do not reparent or
   remove nodes owned by a Svelte template.
+- The accepted DOM writes are exactly these; justify any new one the same way:
+  - `<html>` attributes via `$lib/document/root.ts` (outside the Svelte tree; no `<svelte:html>`).
+  - TOC list centering via `scrollTo` (element scroll position has no declarative binding).
+- Prefer Svelte primitives over hand-rolled browser code: `MediaQuery` (`svelte/reactivity`),
+  `prefersReducedMotion` (`svelte/motion`), `bind:clientWidth`/`bind:scrollY`, `on` from
+  `svelte/events` for non-passive listeners. Page scroll lock is the CSS rule
+  `:root:has([data-scroll-lock])`; render the attribute, never style `body`.
+- Libraries must not mutate the DOM either: use their pure parts (e.g. `rough.generator()` path
+  data) and render the result in a template.
 - Transform static Markdown structure with remark/rehype at build time. Use `{@html}` only for
   trusted or sanitized content.
 
@@ -283,7 +292,7 @@ Prerendering enabled globally (`src/routes/+layout.js`). Individual routes can o
 
 6. **Content paths**: Articles use `POSTS_DIR = '/src/content/articles/*.md'` constant, not direct imports.
 
-7. **Theme persistence**: Theme stored in localStorage. Check `$lib/utils/` for theme utilities.
+7. **Theme persistence**: Theme stored in localStorage. `app.html` applies it before hydration; `$lib/animations/theme.ts` toggles and persists through `$lib/document/root.ts`.
 
 8. **Analytics**: Vercel Analytics and Speed Insights injected in root layout. Disable via environment variables.
 

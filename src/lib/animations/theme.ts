@@ -1,18 +1,10 @@
 import { prefersReducedMotion } from 'svelte/motion';
-import { Theme } from '$lib/constants';
+import { setRootTheme } from '$lib/document/root';
 import type { ThemeMode } from '$lib/types';
 
-export function getStoredTheme(): ThemeMode {
-	if (typeof localStorage === 'undefined') return Theme.DARK;
-	const stored = localStorage.getItem('theme');
-	const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-	if (stored === Theme.LIGHT) return Theme.LIGHT;
-	if (stored === Theme.DARK) return Theme.DARK;
-	return prefersDark ? Theme.DARK : Theme.LIGHT;
-}
-
+/** Apply and persist; app.html reads the stored value on the next load. */
 export function applyTheme(mode: ThemeMode): void {
-	document.firstElementChild?.setAttribute('data-theme', mode);
+	setRootTheme(mode);
 	localStorage.setItem('theme', mode);
 }
 
