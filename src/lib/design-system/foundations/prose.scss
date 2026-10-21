@@ -7,7 +7,7 @@
  *   - earthy palette (--bg, --fg, --accent = sage green)
  *   - monospace font throughout
  *   - dashed borders as ruling lines
- *   - rough-notation handles brushstroke effects (blockquote, mark)
+ *   - pencil-edge filter wobbles blockquote borders (Blockquote.svelte)
  *
  * Element rationale:
  *   h1  — page title, rendered outside prose in +page.svelte
@@ -16,10 +16,10 @@
  *   h4  — inline label: bold base size, no visual trick
  *   p   — body text
  *   a   — underlined, dashed to match border system
- *   blockquote — indented passage; bracket drawn by rough-notation
- *   mark       — inline highlight; brushstroke drawn by rough-notation
+ *   blockquote — indented passage; pencil-edge border via Blockquote.svelte
+ *   mark       — inline highlight; static accent wash
  *   code       — inline snippet, muted background
- *   pre/shiki  — fenced block, styled separately in code.module.scss
+ *   pre/shiki  — fenced block, styled separately in foundations/code.scss
  *   hr  — section break = dashed ruling line
  *   table — structured data, dashed cell borders
  *   ul/ol — list with accent-colored markers
@@ -153,12 +153,13 @@
   /* ── Mark (inline highlight) ─────────────────────────────── */
 
   /*
-   * rough-notation draws the highlight brushstroke.
-   * We keep mark transparent so the library's SVG is the only visual.
-   * position: relative is required by rough-notation for correct placement.
+   * Raw HTML <mark> in Markdown compiles as plain Svelte markup (mdsvex only
+   * swaps Markdown-generated elements for layout components), so the
+   * highlight is static CSS rather than the hand-drawn RoughHighlight.
    */
   mark {
-    background: transparent;
+    background: color-mix(in srgb, var(--accent) 40%, transparent);
+    border-radius: var(--br);
     color: inherit;
   }
 

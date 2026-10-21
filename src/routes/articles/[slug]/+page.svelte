@@ -1,7 +1,6 @@
 <script lang="ts">
 import { page } from '$app/state';
 // checkboxes replaced by build-time rehype plugin
-import { roughNotation } from '$lib/actions/roughNotation';
 import ButtonLink from '$lib/components/ui/ButtonLink/ButtonLink.svelte';
 import Datetime from '$lib/components/ui/Datetime/Datetime.svelte';
 import IconButton from '$lib/components/ui/IconButton/IconButton.svelte';
@@ -119,7 +118,7 @@ function onArticleClick(event: MouseEvent) {
       </div>
     </div>
 
-    <article class={styles.article} lang={entry.lang} use:roughNotation>
+    <article class={styles.article} lang={entry.lang}>
       <div class="prose" bind:this={proseEl}><entry.component /></div>
       <hr class={styles.hr} />
       <PostSignature author={seo.author} location={meta.location} pubDatetime={meta.pubDatetime} />

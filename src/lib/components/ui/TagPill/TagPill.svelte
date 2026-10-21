@@ -1,10 +1,7 @@
 <script lang="ts">
-import { prefersReducedMotion } from 'svelte/motion';
-import { browser } from '$app/env';
-import { animationDurationMs } from '$lib/design-system/tokens/animation';
+import RoughHighlight from '$lib/components/ui/RoughHighlight/RoughHighlight.svelte';
 import { locale } from '$lib/i18n-state.svelte';
 import { getLocalizedPath } from '$lib/utils/localized-url';
-import { observeIntersection } from '$lib/utils/observer';
 import styles from './TagPill.module.scss';
 
 let {
@@ -16,44 +13,10 @@ let {
 	tagName: string;
 	size?: 'sm' | 'lg';
 } = $props();
-
-function roughTagAction(node: HTMLElement) {
-	if (!browser) return;
-
-	(async () => {
-		const { annotate } = await import('rough-notation');
-
-		const getCSSVar = (name: string): string => {
-			return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-		};
-
-		const baseColor = getCSSVar('--accent') || '#8b5cf6';
-		const color = `color-mix(in srgb, ${baseColor} 18%, transparent)`;
-
-		const ann = annotate(node, {
-			type: 'highlight',
-			color,
-			animate: !prefersReducedMotion.current,
-			animationDuration: animationDurationMs('scene'),
-		});
-
-		let stop: () => void;
-		stop = observeIntersection(
-			node,
-			(entry) => {
-				if (entry.isIntersecting) {
-					ann.show();
-					stop();
-				}
-			},
-			{ threshold: 0.1 },
-		);
-	})();
-}
 </script>
 
 <li class={styles.tag}>
-  <a href={getLocalizedPath(`/topics/${tag}/`, locale.value)} class={styles[size]} use:roughTagAction>
-    #{tagName}
+  <a href={getLocalizedPath(`/topics/${tag}/`, locale.value)} class={styles[size]}>
+    <RoughHighlight seed={tag}>#{tagName}</RoughHighlight>
   </a>
 </li>
