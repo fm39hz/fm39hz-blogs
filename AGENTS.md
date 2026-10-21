@@ -65,7 +65,7 @@ src/
 │   │   ├── foundations/  # SCSS for prose and code styling
 │   │   └── primitives/   # Base components (Icon)
 │   ├── components/
-│   │   ├── content/      # mdsvex layout + components Markdown renders through (Figure, CodeBlock)
+│   │   ├── content/      # mdsvex layout, contract.ts + components Markdown renders through
 │   │   ├── layout/       # Header, Footer, GearMenu, ThemeToggle
 │   │   └── ui/           # Reusable components (PostCard, TableOfContents, etc.)
 │   ├── attachments/      # Svelte attachments (read-only observers such as inView)

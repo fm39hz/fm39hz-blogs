@@ -7,12 +7,12 @@
  * Svelte-owned — no post-mount DOM enhancement.
  */
 import type { Component } from 'svelte';
-import TableCardStack from '../ui/TableCardStack/TableCardStack.svelte';
 import blockquote from './Blockquote.svelte';
 import CellCheck from './CellCheck/CellCheck.svelte';
 import CodeBlock from './CodeBlock/CodeBlock.svelte';
 import type { ContentComponents } from './contract';
 import Figure from './Figure/Figure.svelte';
+import TableCardStack from './TableCardStack/TableCardStack.svelte';
 
 // Every contract entry must be exported here with matching props.
 ({ CellCheck, CodeBlock, Figure, TableCardStack }) satisfies {

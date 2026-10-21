@@ -42,7 +42,7 @@ export type CellStatus = 'active' | 'inactive' | 'neutral';
 
 export type CheckState = 'done' | 'partial' | 'todo';
 
-export const CHECK_STATES: readonly CheckState[] = ['done', 'partial', 'todo'];
+const CHECK_STATES: readonly CheckState[] = ['done', 'partial', 'todo'];
 
 export function isCheckState(value: unknown): value is CheckState {
 	return CHECK_STATES.some((state) => state === value);

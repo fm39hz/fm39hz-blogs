@@ -1,10 +1,10 @@
 <script lang="ts">
-import CellCheck from '$lib/components/content/CellCheck/CellCheck.svelte';
-import type { CardCell, TableCardStackProps } from '$lib/components/content/contract';
 import Icon from '$lib/design-system/primitives/Icon.svelte';
 import { animationDurationMs } from '$lib/design-system/tokens/animation';
 import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
+import CellCheck from '../CellCheck/CellCheck.svelte';
+import type { CardCell, TableCardStackProps } from '../contract';
 import styles from './TableCardStack.module.scss';
 
 /** Mobile card view of a Markdown table; data is classified at build (rehypeResponsiveTables). */
