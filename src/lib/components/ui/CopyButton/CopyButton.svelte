@@ -34,7 +34,7 @@ async function handleCopy() {
 
 <button
   type="button"
-  class={`${styles.btn} ${pinned ? styles.pinned : ''} ${copied ? styles.copied : ''}`}
+  class={[styles.btn, pinned && styles.pinned, copied && styles.copied]}
   onclick={handleCopy}
   aria-label={label}
   title={label}

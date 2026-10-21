@@ -3,18 +3,12 @@ import OnlineIcon from '@iconify/svelte';
 import { isBundledIcon } from './icons';
 import OfflineIcon from './OfflineIcon.svelte';
 
-let {
-	icon,
-	className = '',
-	class: classAttribute = '',
-	...rest
-}: { icon: string; className?: string; class?: string; [key: string]: unknown } = $props();
-
-const iconClass = $derived(className || classAttribute);
+/** Iconify name (`ph:...`); bundled icons render offline. Size/colour come from `class`. */
+let { icon, class: className = '' }: { icon: string; class?: string } = $props();
 </script>
 
 {#if isBundledIcon(icon)}
-	<OfflineIcon {icon} class={iconClass} {...rest} />
+	<OfflineIcon {icon} class={className} />
 {:else}
-	<OnlineIcon {icon} class={iconClass} {...rest} />
+	<OnlineIcon {icon} class={className} />
 {/if}

@@ -1,7 +1,7 @@
 <script lang="ts">
 import { generateIcon } from '@iconify/svelte/dist/offline-functions';
 
-const props = $props();
+let props: { icon: string; class?: string } = $props();
 const data = $derived(generateIcon(props));
 </script>
 

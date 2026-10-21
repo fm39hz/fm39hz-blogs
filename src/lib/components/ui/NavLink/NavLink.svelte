@@ -19,6 +19,6 @@ let active = $derived(
 );
 </script>
 
-<a {href} {onclick} class={`${styles.link} ${active ? styles.active : ''}`}>
+<a {href} {onclick} class={[styles.link, active && styles.active]}>
   {@render children?.()}
 </a>

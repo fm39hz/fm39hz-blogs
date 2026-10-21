@@ -78,5 +78,6 @@
 	"a11y_check_todo": "Not done",
 	"table_card_position": "Row {current} of {total}",
 	"a11y_close_image": "Close image viewer",
-	"a11y_close_notification": "Close notification"
+	"a11y_close_notification": "Close notification",
+	"social_link_title": "{site} on {network}"
 }

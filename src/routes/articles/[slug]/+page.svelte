@@ -9,7 +9,6 @@ import TableOfContents from '$lib/components/ui/TableOfContents/TableOfContents.
 import { tocHeadings } from '$lib/components/ui/TableOfContents/toc.svelte';
 import TagLine from '$lib/components/ui/TagLine/TagLine.svelte';
 import cfg from '$lib/config';
-import type { ArticleSummary, RenderedArticle } from '$lib/content/types';
 import Icon from '$lib/design-system/primitives/Icon.svelte';
 import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
@@ -21,8 +20,9 @@ import { buildCopyMarkdown } from '$lib/utils/markdown';
 import { buildPostSeo } from '$lib/utils/seo';
 import { articleUrl } from '$lib/utils/site';
 import styles from './+page.module.scss';
+import type { PageProps } from './$types';
 
-let { data }: { data: { article: RenderedArticle; translations: ArticleSummary[] } } = $props();
+let { data }: PageProps = $props();
 
 let slug = $derived(page.params.slug ?? '');
 let entry = $derived(data.article);

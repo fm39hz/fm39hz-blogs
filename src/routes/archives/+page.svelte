@@ -1,14 +1,13 @@
 <script lang="ts">
 import cfg from '$lib/config';
-import type { ArticleCard } from '$lib/content/types';
 import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
 import { getLocalizedPath } from '$lib/utils/localized-url';
 import styles from './+page.module.scss';
+import type { PageProps } from './$types';
 
 let t = $derived(useTranslations(locale.value));
-let { data }: { data: { years: import('$lib/content/types').ArchiveYearGroup<ArticleCard>[] } } =
-	$props();
+let { data }: PageProps = $props();
 let monthFormatter = $derived(new Intl.DateTimeFormat(locale.value, { month: 'long' }));
 </script>
 

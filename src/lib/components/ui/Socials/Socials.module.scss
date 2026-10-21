@@ -16,6 +16,12 @@
   rotate: var(--rotate-val, 6deg);
   scale: var(--zoom-val, 1.1);
 }
+
+/* Each network tilts its own way on hover */
+.socials > a[data-social='github'] { --rotate-val: -12deg; --zoom-val: 1.15; }
+.socials > a[data-social='x'] { --rotate-val: 8deg; --zoom-val: 1.25; }
+.socials > a[data-social='linkedin'] { --rotate-val: -6deg; --zoom-val: 1.1; }
+.socials > a[data-social='mail'] { --rotate-val: 10deg; --zoom-val: 1.2; }
 .icon { width: var(--icon-lg); height: var(--icon-lg); }
 
 @media (width >= bp.$sm) { .socials > a { padding: var(--space-xs); } }

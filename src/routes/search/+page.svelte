@@ -6,9 +6,10 @@ import { searchArticles } from '$lib/content/search';
 import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
 import styles from './+page.module.scss';
+import type { PageProps } from './$types';
 
 let t = $derived(useTranslations(locale.value));
-let { data }: { data: { articles: import('$lib/content/types').ArticleCard[] } } = $props();
+let { data }: PageProps = $props();
 let query = $state('');
 $effect(() => {
 	query = page.url.searchParams.get('q') ?? '';

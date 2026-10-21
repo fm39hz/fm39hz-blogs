@@ -272,6 +272,21 @@ own their internal elements.
 - Transform static Markdown structure with remark/rehype at build time. Use `{@html}` only for
   trusted or sanitized content.
 
+### Typing Rules
+
+- No `as` casts (other than `as const`), `any`, or `@ts-ignore`. Narrow with type guards; validate
+  untyped input at its boundary: frontmatter via `toPostMeta` (`src/lib/content/frontmatter.ts`),
+  locales via `isLanguage`/`resolveLanguage`, theme via `isThemeMode`.
+- Derive types from their source instead of restating them: `Language` from paraglide's
+  `locales`, `ThemeMode` from `THEMES`, `UIStrings` from `useTranslations`, page `data` from
+  `PageProps` (`./$types`), content props from `contract.ts`.
+- Per-language data is `Record<Language, …>` (date locales, TOC titles) so a new language is a type
+  error until it is filled in.
+- Element classes use Svelte's array/object form (`class={[styles.a, on && styles.b]}`); only
+  string-typed component props (e.g. `Icon`'s `class`) take a composed string.
+- HTML-ish component props extend `svelte/elements` types (`HTMLAttributes<…>`), not
+  `[key: string]: unknown`.
+
 ### Class-Based Components
 
 Complex components use class-based patterns (e.g., `SiteHeader` in `header.svelte.ts`):

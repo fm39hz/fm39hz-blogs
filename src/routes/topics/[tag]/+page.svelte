@@ -4,10 +4,10 @@ import cfg from '$lib/config';
 import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
 import styles from './+page.module.scss';
+import type { PageProps } from './$types';
 
 let t = $derived(useTranslations(locale.value));
-let { data }: { data: { tag: string; articles: import('$lib/content/types').ArticleCard[] } } =
-	$props();
+let { data }: PageProps = $props();
 let tagParam = $derived(data.tag);
 </script>
 

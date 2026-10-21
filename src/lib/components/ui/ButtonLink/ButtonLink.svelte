@@ -9,4 +9,4 @@ let {
 }: { href: string; children?: Snippet; class?: string } = $props();
 </script>
 
-<a {href} class={`${styles.link} ${className}`}>{@render children?.()}</a>
+<a {href} class={[styles.link, className]}>{@render children?.()}</a>

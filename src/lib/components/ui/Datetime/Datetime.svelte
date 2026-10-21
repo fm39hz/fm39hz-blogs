@@ -27,7 +27,7 @@ let date = $derived(formatDate(dt, cfg.site.timezone, locale));
 let iso = $derived(formatISO(dt, cfg.site.timezone));
 </script>
 
-<div class={`${styles.root} ${className}`}>
+<div class={[styles.root, className]}>
   <Icon icon="ph:calendar-blank" class={styles[size]} />
   {#if isModified}
     <span class={styles.label}>{t.post.updatedAt}:</span>

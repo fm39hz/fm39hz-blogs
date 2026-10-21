@@ -95,6 +95,8 @@ export function useTranslations(locale: Language) {
 				todo: m.a11y_check_todo(undefined, opt),
 			},
 		},
+		socialLinkTitle: (site: string, network: string) =>
+			m.social_link_title({ site, network }, opt),
 		table: {
 			cardPosition: (current: number, total: number) =>
 				m.table_card_position({ current, total }, opt),

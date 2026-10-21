@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { describe, it as test } from 'node:test';
 import { mdsvex } from 'mdsvex';
 import { remarkHeadingSlugs } from '../markdown/headingSlug';
-import type { PostMeta } from '../types';
+import { toPostMeta } from './frontmatter';
 import {
 	assertEquivalentHeadings,
 	contentLocale,
@@ -12,13 +12,16 @@ import {
 	translatedFragment,
 } from './policy';
 
+const FRONTMATTER =
+	'---\ntitle: Example\ndescription: Example\npubDatetime: 2026-01-01\ntags: []\n---\n';
+
 async function headings(body: string, filename = 'example.en.md') {
 	const result = await mdsvex({
 		extensions: ['.md'],
 		highlight: false,
 		remarkPlugins: [remarkHeadingSlugs],
-	}).markup({ content: `---\ntitle: Example\n---\n${body}`, filename });
-	return (result?.data?.fm as PostMeta).headings!;
+	}).markup({ content: `${FRONTMATTER}${body}`, filename });
+	return toPostMeta(result?.data?.fm, filename).headings ?? [];
 }
 
 describe('content language and bilingual headings', () => {

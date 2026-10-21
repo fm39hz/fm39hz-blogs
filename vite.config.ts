@@ -4,7 +4,6 @@ import adapter from '@sveltejs/adapter-vercel';
 import { sveltekit } from '@sveltejs/kit/vite';
 import type { Heading, Root, RootContent } from 'mdast';
 import headingRange from 'mdast-util-heading-range';
-// @ts-ignore
 import { mdsvex } from 'mdsvex';
 import rehypeKatexSvelte from 'rehype-katex-svelte';
 import rehypeSlug from 'rehype-slug';

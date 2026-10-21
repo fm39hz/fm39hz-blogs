@@ -2,24 +2,22 @@
 import cfg from '$lib/config';
 import { socialIcons } from '$lib/design-system';
 import Icon from '$lib/design-system/primitives/Icon.svelte';
+import { useTranslations } from '$lib/i18n';
+import { locale } from '$lib/i18n-state.svelte';
 import styles from './Socials.module.scss';
+
+let t = $derived(useTranslations(locale.value));
 
 function iconName(name: string): string {
 	const link = cfg.socials.find((s) => s.name === name);
 	return link?.icon ?? socialIcons[name] ?? `ph:${name}`;
 }
-
-const anim = {
-	github: '--rotate-val: -12deg; --zoom-val: 1.15',
-	x: '--rotate-val: 8deg;   --zoom-val: 1.25',
-	linkedin: '--rotate-val: -6deg;  --zoom-val: 1.1',
-	mail: '--rotate-val: 10deg;  --zoom-val: 1.2',
-} as Record<string, string>;
 </script>
 
+<!-- Per-network hover tilt lives in Socials.module.scss, keyed by data-social. -->
 <div class={styles.socials}>
   {#each cfg.socials as { name, url, linkTitle }}
-    <a href={url} title={linkTitle ?? `${cfg.site.title} on ${name}`} style={anim[name] ?? ''}>
+    <a href={url} title={linkTitle ?? t.socialLinkTitle(cfg.site.title, name)} data-social={name}>
       <Icon icon={iconName(name)} class={styles.icon} />
     </a>
   {/each}

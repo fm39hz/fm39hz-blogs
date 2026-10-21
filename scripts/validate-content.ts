@@ -2,9 +2,9 @@ import { readdir, readFile } from 'node:fs/promises';
 import { mdsvex } from 'mdsvex';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
+import { toPostMeta } from '../src/lib/content/frontmatter';
 import { assertEquivalentHeadings, contentLocale, contentSlug } from '../src/lib/content/policy';
 import { remarkHeadingSlugs } from '../src/lib/markdown/headingSlug';
-import type { PostMeta } from '../src/lib/types';
 
 export async function validateContent() {
 	const directory = new URL('../src/content/articles/', import.meta.url);
@@ -17,8 +17,7 @@ export async function validateContent() {
 				highlight: false,
 				remarkPlugins: [remarkGfm, remarkMath, remarkHeadingSlugs],
 			}).markup({ content: source, filename: name });
-			const metadata = result?.data?.fm as PostMeta | undefined;
-			if (!metadata) throw new Error(`${name}: missing frontmatter`);
+			const metadata = toPostMeta(result?.data?.fm, name);
 			return {
 				name,
 				slug: contentSlug(name),

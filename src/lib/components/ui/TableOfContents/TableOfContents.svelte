@@ -53,8 +53,8 @@ function recenter() {
     <nav class={styles.nav} aria-label={t.post.tableOfContents}>
       <ul bind:this={listEl} class={styles.list}>
         {#each headings as { id, text, depth } (id)}
-          <li class={`${styles.item} ${styles[`level-${depth}`]}`} bind:this={itemEls[id]}>
-            <a href="#{id}" class={`${styles.link} ${activeId === id ? styles.active : ''}`}>
+          <li class={[styles.item, styles[`level-${depth}`]]} bind:this={itemEls[id]}>
+            <a href="#{id}" class={[styles.link, activeId === id && styles.active]}>
               {text}
             </a>
           </li>
@@ -124,10 +124,10 @@ function recenter() {
 
         <ul class={styles.drawerList}>
           {#each headings as { id, text, depth } (id)}
-            <li class={`${styles.drawerItem} ${styles[`drawerLevel-${depth}`]}`}>
+            <li class={[styles.drawerItem, styles[`drawerLevel-${depth}`]]}>
               <a
                 href="#{id}"
-                class={`${styles.drawerLink} ${activeId === id ? styles.drawerActive : ''}`}
+                class={[styles.drawerLink, activeId === id && styles.drawerActive]}
                 onclick={() => drawerOpen = false}
               >
                 {text}
