@@ -185,13 +185,13 @@
     vertical-align: baseline;
   }
 
-  /* ── Footnotes (remark-footnotes + rehypeFootnoteNumbers) ── */
+  /* ── Citation notes (remark-footnotes + rehypeFootnotes) ── */
   .footnote-ref {
     font-size: var(--fs-xs);
     text-decoration: none;
 
-    &::before { content: '['; }
-    &::after { content: ']'; }
+    &::before { content: '('; }
+    &::after { content: ')'; }
   }
 
   .footnotes {

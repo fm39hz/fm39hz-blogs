@@ -4,9 +4,10 @@
  * prose.scss, not an inline style.
  */
 
-import type { Element, Nodes, Parents, Root } from 'hast';
+import type { Root } from 'hast';
 import type {} from 'mdast-util-to-hast';
 import { type CheckState, emitComponent } from '../components/content/contract';
+import { isElement, visitElements } from './hast';
 
 const CHECKBOX_RE = /^\[\s*([x/]?)\s*\]$/;
 
@@ -14,33 +15,19 @@ const STATE_BY_MARK: Record<string, CheckState> = { x: 'done', '/': 'partial', '
 
 export function rehypeTableCellCheckboxes() {
 	return (tree: Root) => {
-		const walk = (node: Nodes) => {
-			if (isTableCell(node)) {
-				const [only] = node.children;
-				const mark =
-					node.children.length === 1 && only.type === 'text'
-						? CHECKBOX_RE.exec(only.value.trim())?.[1]
-						: undefined;
-				const state = mark === undefined ? undefined : STATE_BY_MARK[mark];
-				if (state) {
-					node.properties.className = ['checkCell'];
-					// Read back by rehypeResponsiveTables for the mobile card view.
-					node.properties.dataCheck = state;
-					node.children = [{ type: 'raw', value: emitComponent('CellCheck', { state }) }];
-				}
-			}
-			if (isParent(node)) {
-				for (const child of node.children) walk(child);
-			}
-		};
-		walk(tree);
+		visitElements(tree, (cell) => {
+			if (!isElement(cell, 'td', 'th')) return;
+			const [only] = cell.children;
+			const mark =
+				cell.children.length === 1 && only.type === 'text'
+					? CHECKBOX_RE.exec(only.value.trim())?.[1]
+					: undefined;
+			const state = mark === undefined ? undefined : STATE_BY_MARK[mark];
+			if (!state) return;
+			cell.properties.className = ['checkCell'];
+			// Read back by rehypeResponsiveTables for the mobile card view.
+			cell.properties.dataCheck = state;
+			cell.children = [{ type: 'raw', value: emitComponent('CellCheck', { state }) }];
+		});
 	};
-}
-
-function isTableCell(node: Nodes): node is Element {
-	return node.type === 'element' && (node.tagName === 'td' || node.tagName === 'th');
-}
-
-function isParent(node: Nodes): node is Parents {
-	return 'children' in node;
 }

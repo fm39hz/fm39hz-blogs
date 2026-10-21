@@ -278,5 +278,5 @@ Hidden content inside a native disclosure, with **Markdown** still parsed.
 
 </details>
 
-[^note]: Footnote text, linked back to its reference.
-[^second]: A second footnote, numbered by first reference order.
+[^note]: Ludwig Wittgenstein, *Philosophical Investigations*, trans. G. E. M. Anscombe (Basil Blackwell, 1953), sec. 65.
+[^second]: Wittgenstein, *Philosophical Investigations*, sec. 66.

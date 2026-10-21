@@ -3,17 +3,9 @@
  * card view is generated from the same syntax tree at build time.
  */
 
-import type { Element, Nodes, Parents, Root } from 'hast';
-
-function textOf(node: Nodes): string {
-	if (node.type === 'text') return String(node.value ?? '');
-	if (!isParent(node)) return '';
-	return node.children.map(textOf).join('');
-}
-
-function isElement(node: Nodes, tag: string): node is Element {
-	return node.type === 'element' && node.tagName === tag;
-}
+import type { Element, Root } from 'hast';
+import { toString as textOf } from 'hast-util-to-string';
+import { isElement, visitElements } from './hast';
 
 function rowCells(tr: Element, tag: 'th' | 'td'): Element[] {
 	return tr.children.filter((child): child is Element => isElement(child, tag));
@@ -49,7 +41,7 @@ function bodyRows(table: Element): Element[] {
 
 export function rehypeTableLabels() {
 	return (tree: Root) => {
-		const walk = (node: Nodes) => {
+		visitElements(tree, (node) => {
 			if (isElement(node, 'table')) {
 				const labels = headerLabels(node);
 				if (labels.length) {
@@ -78,14 +70,6 @@ export function rehypeTableLabels() {
 					}
 				}
 			}
-			if (isParent(node)) {
-				for (const child of node.children) walk(child);
-			}
-		};
-		walk(tree);
+		});
 	};
-}
-
-function isParent(node: Nodes): node is Parents {
-	return 'children' in node;
 }

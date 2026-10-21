@@ -86,6 +86,7 @@ export function useTranslations(locale: Language) {
 			navPrimary: m.a11y_nav_primary(undefined, opt),
 			closeImage: m.a11y_close_image(undefined, opt),
 			closeNotification: m.a11y_close_notification(undefined, opt),
+			footnote: (number: number) => m.a11y_footnote({ number }, opt),
 			diagram: m.a11y_diagram(undefined, opt),
 			diagramControls: m.a11y_diagram_controls(undefined, opt),
 			/** Keyed by `CheckState` (content contract) so cells index it directly. */

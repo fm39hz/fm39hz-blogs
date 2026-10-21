@@ -54,7 +54,7 @@ export function buildCopyMarkdown(
 	},
 	raw: string,
 ): string {
-	const body = stripFrontmatter(raw).trim();
+	const body = copyFootnotes(stripFrontmatter(raw).trim());
 	const title = `# ${meta.title}`;
 
 	// The AST provides headings and anchors; raw Markdown is only split around its TOC placeholder.
@@ -107,4 +107,28 @@ export function buildCopyMarkdown(
 	}
 
 	return parts.join('\n\n') + '\n';
+}
+
+function copyFootnotes(body: string): string {
+	const lines = body.split('\n');
+	const definitions = new Map<string, { line: number; text: string }>();
+	for (const [index, line] of lines.entries()) {
+		const definition = /^\[\^([^\]]+)\]:\s*(.*)$/.exec(line);
+		if (definition) definitions.set(definition[1], { line: index, text: definition[2] });
+	}
+	const definitionLines = new Set([...definitions.values()].map(({ line }) => line));
+	const content = lines.filter((_, index) => !definitionLines.has(index)).join('\n');
+	const order: string[] = [];
+	for (const match of content.matchAll(/\[\^([^\]]+)\]/g)) {
+		const id = match[1];
+		if (definitions.has(id) && !order.includes(id)) order.push(id);
+	}
+	if (order.length === 0) return body;
+	const numberById = new Map(order.map((id, index) => [id, String(index + 1)]));
+	const numberedContent = content.replace(/\[\^([^\]]+)\]/g, (marker, id: string) => {
+		const number = numberById.get(id);
+		return number ? `([^${number}])` : marker;
+	});
+	const notes = order.map((id, index) => `[^${index + 1}]: ${definitions.get(id)?.text ?? ''}`);
+	return `${numberedContent.trim()}\n\n${notes.join('\n')}`;
 }

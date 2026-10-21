@@ -1,0 +1,49 @@
+/* Positioning context for the popup, which floating-ui places relative to it. */
+.root {
+  position: relative;
+}
+
+.ref {
+  font-size: var(--fs-xs);
+  text-decoration: none;
+  cursor: pointer;
+
+  &::before { content: '('; }
+  &::after { content: ')'; }
+}
+
+.popup {
+  position: absolute;
+  z-index: var(--z-dropdown);
+  display: block;
+  width: max-content;
+  max-width: min(22rem, calc(100vw - 2 * var(--space-md)));
+  max-height: calc(100dvh - 2 * var(--space-md));
+  overflow: auto;
+  padding: var(--space-sm) var(--space-md);
+  border: var(--border-w) var(--border-style) var(--border);
+  border-radius: var(--br);
+  background: var(--surface);
+  color: var(--fg);
+  font-size: var(--fs-sm);
+  font-weight: normal;
+  line-height: var(--lh-normal);
+  text-align: start;
+  vertical-align: baseline;
+  box-shadow: 0 var(--space-2xs) var(--space-md) color-mix(in srgb, var(--fg) 15%, transparent);
+
+  &[data-pinned] {
+    border-color: var(--accent);
+  }
+}
+
+.number {
+  margin-inline-end: var(--space-2xs);
+  color: var(--accent);
+}
+
+@media print {
+  .popup {
+    display: none;
+  }
+}

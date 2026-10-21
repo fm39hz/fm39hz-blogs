@@ -69,11 +69,21 @@ export interface CellCheckProps {
 	state: CheckState;
 }
 
+export interface FootnoteRefProps {
+	/** 1-based order of first reference (GFM numbering). */
+	number: number;
+	/** Footnote identifier: anchors `#fn-<id>` (list item) and `fnref-<id>` (this reference). */
+	id: string;
+	/** Trusted Chicago citation note HTML, rendered in the popup and footnote list. */
+	html: string;
+}
+
 export interface ContentComponents {
 	Figure: FigureProps;
 	CodeBlock: CodeBlockProps;
 	TableCardStack: TableCardStackProps;
 	CellCheck: CellCheckProps;
+	FootnoteRef: FootnoteRefProps;
 }
 
 /**

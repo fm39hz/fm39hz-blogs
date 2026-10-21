@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-09-05
-modDatetime: 2026-09-07
+modDatetime: 2026-10-21
 title: "\"Perhaps\" is carrying a little too much, isn't it?"
 featured: false
 draft: false
@@ -22,7 +22,7 @@ A wonderfully efficient arrangement. The questioner supplies the question, the p
 
 I kept running into that move whenever somebody asked whether the things called games have anything in common. Family resemblance would arrive before the candidate did. Eventually the phrase itself stopped bothering me, but the confidence surrounding it did not.
 
-I was not yet sure whether I was annoyed with Wittgenstein or with the little Wittgensteins who appear whenever somebody tries to define anything. So I went back to the actual neighborhood: the interlocutor in *Philosophical Investigations*, the games in sections 65 through 71, the remarks on exactness that follow them, the conception of philosophy around sections 89 through 133, and the earlier diagnosis of a "craving for generality" in *The Blue Book*.
+I was not yet sure whether I was annoyed with Wittgenstein or with the little Wittgensteins who appear whenever somebody tries to define anything. So I went back to the actual neighborhood: the interlocutor in *Philosophical Investigations*, the games in sections 65 through 71[^pi-prelude-games], the remarks on exactness that follow them, the conception of philosophy around sections 89 through 133[^pi-prelude-philosophy], and the earlier diagnosis of a "craving for generality" in *The Blue Book*[^blue-prelude].
 
 I have no philosophical team to defend here. If anything, I lean toward the thought that human beings do not arrive with an essence waiting to be obeyed. That tells me nothing in advance about what games, numbers, laws, or any other objects have in common. A temperament is not a proof either.
 
@@ -32,11 +32,11 @@ That made the position harder to dismiss, and if an objection survives only whil
 
 The question in section 65 is not dropped from the sky. Wittgenstein has been describing many language-games, and an interlocutor objects that he has still not said what is common to them, what makes them language or parts of language. The objection asks for the general form. It asks for essence.
 
-The answer begins before section 66. Wittgenstein says these activities have no one thing in common that makes us use the same word, but are related in many ways, and those relations explain the shared name. Then comes the famous instruction not to think but to look. Board games, card games, ball games, winning, losing, skill, luck, amusement, competition: every proposed likeness gives way somewhere while another appears elsewhere. Section 67 names the resulting network "family resemblances", and the strength of its thread comes from overlapping fibers rather than one fiber running through the whole length.
+The answer begins before section 66. Wittgenstein says these activities have no one thing in common that makes us use the same word, but are related in many ways, and those relations explain the shared name. Then comes the famous instruction not to think but to look. Board games, card games, ball games, winning, losing, skill, luck, amusement, competition: every proposed likeness gives way somewhere while another appears elsewhere. Section 67 names the resulting network "family resemblances", and the strength of its thread comes from overlapping fibers rather than one fiber running through the whole length.[^pi-family-resemblance]
 
 He even anticipates one obvious reply. Someone may say that the constructions share a disjunction assembled from their overlapping properties, or that continuous overlapping itself runs through the thread. Wittgenstein calls this "playing with words". Perhaps it is, if the proposed commonality merely restates an extension and explains nothing. But that verdict already depends on what *common* is being asked to do. Being useless as an essence does not make it nonexistent as a relation, and calling the distinction wordplay does not pay for erasing it.
 
-By section 69, explaining the ordinary word "game" no longer requires an analytic boundary. We show examples and indicate that similar things belong with them. Sections 70 and 71 resist the complaint that a concept must be sharply bounded before it can be a concept at all. The discussion then keeps going: a sample becomes general through its use, knowing what a game is can be expressed through examples and analogies, and a sharp boundary drawn later produces a related concept rather than uncovering the blurred one that ordinary use had secretly contained.
+By section 69, explaining the ordinary word "game" no longer requires an analytic boundary. We show examples and indicate that similar things belong with them. Sections 70 and 71 resist the complaint that a concept must be sharply bounded before it can be a concept at all.[^pi-sections-70-71] The discussion then keeps going: a sample becomes general through its use, knowing what a game is can be expressed through examples and analogies, and a sharp boundary drawn later produces a related concept rather than uncovering the blurred one that ordinary use had secretly contained.
 
 Read in place, this is not a lazy attempt at taxonomy. Wittgenstein is attacking a picture of meaning. The picture says that a general word must receive its unity from one common property, that understanding the word consists in possessing that property, and that an unclear boundary reveals an incomplete concept. His reply is that our use of a word can be ordered, teachable, and perfectly serviceable without an analytic definition waiting behind it.
 
@@ -44,19 +44,19 @@ That point matters. A blurred boundary is not the same as no use. A rule can be 
 
 On that much, I have very little desire to argue with him.
 
-Heather Gert argues that family resemblance need not constitute membership at all. It may instead provide fallible evidence for membership in an extension grounded elsewhere. That reading protects Wittgenstein from having to turn resemblance into a membership algorithm, but it narrows what the metaphor can establish. Evidence may guide recognition without proving that no other account or commonality exists beyond it. A constitutive reading would owe the resemblance relation, while Gert's evidential reading owes no such thing and receives no ontological authority in return. Either way, an inspection of selected similarities has not earned the right to decide what inquiry may continue.
+Heather Gert argues that family resemblance need not constitute membership at all. It may instead provide fallible evidence for membership in an extension grounded elsewhere. That reading protects Wittgenstein from having to turn resemblance into a membership algorithm, but it narrows what the metaphor can establish. Evidence may guide recognition without proving that no other account or commonality exists beyond it. A constitutive reading would owe the resemblance relation, while Gert's evidential reading owes no such thing and receives no ontological authority in return. Either way, an inspection of selected similarities has not earned the right to decide what inquiry may continue.[^gert]
 
 ## The stronger it gets, the more it owes
 
 Family resemblance is only one piece of a broader philosophical method. *The Blue Book* made that impossible to ignore.
 
-There, the "craving for generality" gathers several tendencies together. One is the search for something common to everything covered by a general term. Another is the temptation to imagine a general mental picture behind our understanding of such a term. A third confuses a hypothetical mental mechanism with a state of consciousness. The most important one for my irritation is the attraction of scientific method: reducing phenomena to a small number of laws and unifying different cases through generalization. Wittgenstein says that philosophy is tempted to imitate this method and walks into darkness. Philosophy, in his formulation there, is "purely descriptive".
+There, the "craving for generality" gathers several tendencies together. One is the search for something common to everything covered by a general term. Another is the temptation to imagine a general mental picture behind our understanding of such a term. A third confuses a hypothetical mental mechanism with a state of consciousness. The most important one for my irritation is the attraction of scientific method: reducing phenomena to a small number of laws and unifying different cases through generalization. Wittgenstein says that philosophy is tempted to imitate this method and walks into darkness. Philosophy, in his formulation there, is "purely descriptive".[^blue-craving]
 
-Later in the same book, however, he calls philosophy, "as we use the word", a fight against the fascination of forms of expression. He even says the old title may be both appropriate and misleading, as though his subject were an heir to philosophy rather than its uncontested owner. That wording sounds local, almost stipulative. It describes the work he has chosen and warns that the name itself may smuggle in the wrong inheritance.
+Later in the same book, however, he calls philosophy, "as we use the word", a fight against the fascination of forms of expression. He even says the old title may be both appropriate and misleading, as though his subject were an heir to philosophy rather than its uncontested owner. That wording sounds local, almost stipulative. It describes the work he has chosen and warns that the name itself may smuggle in the wrong inheritance.[^blue-as-we-use]
 
-The issue returns in *Philosophical Investigations* through a more specific target: the sublime purity once demanded from logic, including the picture Wittgenstein had drawn in the *Tractatus*. Section 104 warns that we predicate of a thing what lies in our method of representing it, then mistake the convenience of comparison for a state of affairs at the highest generality. It is difficult to ask for a cleaner warning against method turning its own field of vision into the shape of reality.
+The issue returns in *Philosophical Investigations* through a more specific target: the sublime purity once demanded from logic, including the picture Wittgenstein had drawn in the *Tractatus*. Section 104 warns that we predicate of a thing what lies in our method of representing it, then mistake the convenience of comparison for a state of affairs at the highest generality. It is difficult to ask for a cleaner warning against method turning its own field of vision into the shape of reality.[^pi-section-104]
 
-Then the text says philosophy is not supposed to advance hypotheses. Explanation gives way to description in section 109, and philosophy leaves the actual use of language as it is in section 124. The relevant facts are already open to view, but their familiarity makes them hard to notice. Section 121 lets philosophy speak about the word "philosophy" without inventing a second-order discipline, much as orthography can deal with its own name. Sections 130 through 132 present language-games as objects of comparison, models as measuring rods rather than preconceived laws, and each order as one possible order serving a particular end. By section 133, there is no single philosophical method, but different therapies demonstrated through examples. The desired discovery gives philosophy peace.
+Then the text says philosophy is not supposed to advance hypotheses. Explanation gives way to description in section 109, and philosophy leaves the actual use of language as it is in section 124. The relevant facts are already open to view, but their familiarity makes them hard to notice. Section 121 lets philosophy speak about the word "philosophy" without inventing a second-order discipline, much as orthography can deal with its own name.[^pi-section-121] Sections 130 through 132 present language-games as objects of comparison, models as measuring rods rather than preconceived laws, and each order as one possible order serving a particular end. By section 133, there is no single philosophical method, but different therapies demonstrated through examples. The desired discovery gives philosophy peace.[^pi-sections-130-133]
 
 So the method does examine itself. It describes its procedure, its purpose, the danger of its models, and even the temptation to confuse representation with reality. What it does not make equally clear is the edge of its competence. A method can face a mirror without learning which wavelengths never reached the glass.
 
@@ -74,11 +74,11 @@ If family resemblance describes how the ordinary word "game" is learned, extende
 
 None determines what the objects themselves have in common. A grammar of recognition is not yet an account of the recognized object. A report about how a word is used is not yet a result about everything to which the word is applied. If the therapy remains on its own side of that line, my objection does not touch it, and it cannot touch my question.
 
-There is a limit to how personally I can press that complaint. Wittgenstein died in 1951, while *Philosophical Investigations* appeared in 1953. He had withdrawn the manuscript from publication, but authorized its posthumous appearance. The passages at issue belong to Part I, whose 1945-46 typescript came close to a finished work, so they are not merely a pile of notes assembled by strangers. Yet he never saw the printed book, the disputes it generated, or the portable versions of his name pasted into arguments decades later.
+There is a limit to how personally I can press that complaint. Wittgenstein died in 1951, while *Philosophical Investigations* appeared in 1953. He had withdrawn the manuscript from publication, but authorized its posthumous appearance. The passages at issue belong to Part I, whose 1945-46 typescript came close to a finished work, so they are not merely a pile of notes assembled by strangers.[^erbacher-edition] Yet he never saw the printed book, the disputes it generated, or the portable versions of his name pasted into arguments decades later.
 
 Some line items still belong to him: the absence of one common thing, the disappearance of explanation, the descriptive limit of philosophy, and the promised disappearance of its problems. The text does not discharge every burden those formulations create. Later readers own whatever they add after removing the fine print, but the original bill was already substantial without forging his signature onto the rest.
 
-The interpreters have not found one stable uniform for these sentences either. Some find theses, others therapy, some a positive philosophy, and others an interventionist rather than quietist Wittgenstein. That disagreement has lasted long enough to show that the bare wording does not settle the authority of its own metaphilosophy.
+The interpreters have not found one stable uniform for these sentences either. Some find theses[^horwich-reading], others therapy[^pichler-reading], some a positive philosophy[^pukhaev-reading], and others an interventionist rather than quietist Wittgenstein.[^moyal-sharrock-reading] That disagreement has lasted long enough to show that the bare wording does not settle the authority of its own metaphilosophy.
 
 I now knew the dispute was not description against science, but jurisdiction, so I left the word "craving" sitting there for a while to see what happened to it after it left the book.
 
@@ -128,9 +128,9 @@ The real irritation was never family resemblance, blurred concepts, or the denia
 
 ## So I went back to where this started
 
-The Wittgensteinian approach enters game studies in a respectable form. Jonne Arjoranta treats definitions as tools inside particular discourses, where one purpose may draw a boundary that another purpose has no reason to keep. A field can study communities, interfaces, labor, fiction, markets, or culture without solving the ontology of Game first. "You do not need this definition for your present work" is often excellent advice.
+The Wittgensteinian approach enters game studies in a respectable form. Jonne Arjoranta treats definitions as tools inside particular discourses, where one purpose may draw a boundary that another purpose has no reason to keep. A field can study communities, interfaces, labor, fiction, markets, or culture without solving the ontology of Game first.[^arjoranta-definitions] "You do not need this definition for your present work" is often excellent advice.
 
-Purpose determines usefulness, though, not truth. A boundary chosen for one study cannot answer a question about the object merely because the study had no use for the answer. "Nothing common need exist" is another claim, and "the search for anything common is a philosophical disease" is stronger again. Practical indifference cannot pay either bill. M. W. Rowe saw why the example matters: once Game carries a wider argument against definition, it stops being disposable evidence.
+Purpose determines usefulness, though, not truth. A boundary chosen for one study cannot answer a question about the object merely because the study had no use for the answer. "Nothing common need exist" is another claim, and "the search for anything common is a philosophical disease" is stronger again. Practical indifference cannot pay either bill. M. W. Rowe saw why the example matters: once Game carries a wider argument against definition, it stops being disposable evidence.[^rowe-game]
 
 Then there are the smaller arguments that sent me back to Wittgenstein. Someone proposes a definition, reads one in a game-design book, or asks where videogames end and toys begin. Family resemblance appears in the replies with remarkable regularity.
 
@@ -164,7 +164,7 @@ Nothing has touched B. The objection began with commonality, retreated to essenc
 
 The amount of work proves nothing, and one clean counterexample can erase months of formalization, as it should. The problem is a reply that supplies no counterexample, attacks no premise, identifies no invalid inference, and corrects no scope. The veto can still claim every outcome: a counterexample defeats the candidate, a revision proves the search endless, and a narrower scope is dismissed as incomplete. The candidate can lose while the refusal never states what losing would mean for itself.
 
-I did not conduct a census of Reddit, thank God. I only needed to know whether this creature was imaginary, and it was easy to find across game design, gaming discussion, and philosophy forums. Family resemblance can sharpen a question, but its pocket form prevents the question from surviving long enough to become precise. Later readers did not invent the reach from nothing, though. The gap already existed between Wittgenstein's measuring rods and his prohibitions.
+I did not conduct a census of Reddit, thank God. I only needed to know whether this creature was imaginary, and it was easy to find across game design, gaming discussion, and philosophy forums. Family resemblance can sharpen a question, but its pocket form prevents the question from surviving long enough to become precise. Later readers did not invent the reach from nothing, though. The gap already existed between Wittgenstein's measuring rods and his prohibitions.[^pichler-limits]
 
 Gatekeeping gives the veto moral urgency. The suspicion has a history: "not a real game" has demoted walking simulators, visual novels, mobile games, their audiences, and sometimes their makers. A predicate about an object quietly becomes a ranking, an identity test, and an institutional boundary. That history explains the hostility, but it cannot make a premise false before anyone checks it.
 
@@ -211,3 +211,24 @@ Family resemblance can describe a practice, break the spell of one bad picture o
 - Oleg Pukhaev, "Understanding Wittgenstein's Positive Philosophy through Language-Games: Giving Philosophy Peace".
 - Daniele Moyal-Sharrock, "The Myth of the Quietist Wittgenstein".
 - Reddit discussions about family resemblance, repeated attempts to define games, modern definitions of game, sandboxes versus toys, the claim that games cannot be defined, "real" games, walking simulators, visual novels, and gatekeeping gamer identity.
+
+
+[^pi-prelude-games]: Ludwig Wittgenstein, *Philosophical Investigations*, trans. G. E. M. Anscombe (Basil Blackwell, 1953), secs. 65-71.
+[^pi-prelude-philosophy]: Wittgenstein, *Philosophical Investigations*, secs. 89-133.
+[^blue-prelude]: Ludwig Wittgenstein, *The Blue and Brown Books* (Basil Blackwell, 1958).
+[^pi-family-resemblance]: Wittgenstein, *Philosophical Investigations*, secs. 66-67.
+[^gert]: Heather J. Gert, "Family Resemblances and Criteria," *Synthese* 105, no. 2 (1995): 177-90, https://doi.org/10.1007/BF01064217.
+[^blue-craving]: Wittgenstein, *Blue and Brown Books*.
+[^blue-as-we-use]: Wittgenstein, *Blue and Brown Books*.
+[^pi-section-104]: Wittgenstein, *Philosophical Investigations*, sec. 104.
+[^pi-section-121]: Wittgenstein, *Philosophical Investigations*, sec. 121.
+[^pi-sections-130-133]: Wittgenstein, *Philosophical Investigations*, secs. 130-33.
+[^erbacher-edition]: Christian Erbacher, "Editorial Approaches to Wittgenstein's Nachlass: Towards a Historical Appreciation," *Philosophical Investigations* 38, no. 3 (2015): 165-98, https://doi.org/10.1111/phin.12064.
+[^horwich-reading]: Paul Horwich, *Wittgenstein's Metaphilosophy* (Oxford University Press, 2012).
+[^pichler-reading]: Alois Pichler, "Outline of an Argument for a 'Therapeutic' Reading of Wittgenstein's *Philosophical Investigations*," in *Papers of the 28th International Wittgenstein Symposium*, ed. F. Stadler and M. Stöltzner (2005), https://wab.uib.no/ojs/index.php/agora-alws/article/view/2580.
+[^pukhaev-reading]: Andrey Pukhaev, "Understanding Wittgenstein's Positive Philosophy through Language-Games: Giving Philosophy Peace," *Philosophical Investigations* 46, no. 3 (2023): 376-94, https://doi.org/10.1111/phin.12373.
+[^moyal-sharrock-reading]: Daniele Moyal-Sharrock, "The Myth of the Quietist Wittgenstein," in *Wittgenstein and Scientism*, ed. Jonathan Beale and Ian Kidd (Routledge, 2017), 152-74.
+[^rowe-game]: M. W. Rowe, "The Definition of 'Game'," *Philosophy* 67, no. 262 (1992): 467-79, https://doi.org/10.1017/S0031819100040663.
+[^arjoranta-definitions]: Jonne Arjoranta, "Game Definitions: A Wittgensteinian Approach," *Game Studies* 14, no. 1 (2014), http://gamestudies.org/1401/articles/arjoranta.
+[^pichler-limits]: Pichler, "Outline of an Argument."
+[^pi-sections-70-71]: Wittgenstein, *Philosophical Investigations*, secs. 70-71.

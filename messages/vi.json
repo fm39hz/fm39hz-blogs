@@ -79,5 +79,6 @@
 	"table_card_position": "Dòng {current} / {total}",
 	"a11y_close_image": "Đóng trình xem ảnh",
 	"a11y_close_notification": "Đóng thông báo",
-	"social_link_title": "{site} trên {network}"
+	"social_link_title": "{site} trên {network}",
+	"a11y_footnote": "Chú thích {number}"
 }

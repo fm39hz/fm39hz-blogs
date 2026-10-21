@@ -276,5 +276,5 @@ Nội dung ẩn trong khối mở/đóng gốc của trình duyệt, **Markdown*
 
 </details>
 
-[^note]: Nội dung chú thích, có link quay về chỗ tham chiếu.
-[^second]: Chú thích thứ hai, đánh số theo thứ tự được nhắc tới lần đầu.
+[^note]: Ludwig Wittgenstein, *Philosophical Investigations*, trans. G. E. M. Anscombe (Basil Blackwell, 1953), sec. 65.
+[^second]: Wittgenstein, *Philosophical Investigations*, sec. 66.

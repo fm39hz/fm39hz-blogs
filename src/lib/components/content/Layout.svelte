@@ -12,14 +12,15 @@ import CellCheck from './CellCheck/CellCheck.svelte';
 import CodeBlock from './CodeBlock/CodeBlock.svelte';
 import type { ContentComponents } from './contract';
 import Figure from './Figure/Figure.svelte';
+import FootnoteRef from './FootnoteRef/FootnoteRef.svelte';
 import TableCardStack from './TableCardStack/TableCardStack.svelte';
 
 // Every contract entry must be exported here with matching props.
-({ CellCheck, CodeBlock, Figure, TableCardStack }) satisfies {
+({ CellCheck, CodeBlock, Figure, FootnoteRef, TableCardStack }) satisfies {
 	[Name in keyof ContentComponents]: Component<ContentComponents[Name]>;
 };
 
-export { blockquote, CellCheck, CodeBlock, Figure, TableCardStack };
+export { blockquote, CellCheck, CodeBlock, Figure, FootnoteRef, TableCardStack };
 </script>
 
 <script lang="ts">

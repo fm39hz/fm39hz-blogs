@@ -5,6 +5,7 @@
     "": {
       "name": "fm39hz-blogs",
       "dependencies": {
+        "@floating-ui/dom": "^1.6.13",
         "@vercel/analytics": "^2.0.1",
         "@vercel/speed-insights": "^2.0.0",
         "melt": "^0.44.0",

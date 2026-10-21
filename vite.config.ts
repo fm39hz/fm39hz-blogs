@@ -20,7 +20,7 @@ import { SCHEDULED_POST_MARGIN_MS } from './src/lib/data/publication';
 import { resolveLanguage } from './src/lib/locale';
 import { remarkHeadingSlugs } from './src/lib/markdown/headingSlug';
 import { renderMermaidArt } from './src/lib/markdown/mermaid';
-import { rehypeFootnoteNumbers } from './src/lib/markdown/rehypeFootnoteNumbers';
+import { rehypeFootnotes } from './src/lib/markdown/rehypeFootnotes';
 import { rehypeResponsiveTables } from './src/lib/markdown/rehypeResponsiveTables';
 import { rehypeTableCellCheckboxes } from './src/lib/markdown/rehypeTableCellCheckboxes';
 import { rehypeTableLabels } from './src/lib/markdown/rehypeTableLabels';
@@ -185,7 +185,7 @@ export default defineConfig(async () => {
 							rehypeKatexSvelte,
 							rehypeTableLabels,
 							rehypeTableCellCheckboxes,
-							rehypeFootnoteNumbers,
+							rehypeFootnotes,
 							rehypeResponsiveTables,
 						],
 					}),

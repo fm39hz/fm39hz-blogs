@@ -1,4 +1,4 @@
-import type { Element, ElementContent, Nodes, Parents, Root } from 'hast';
+import type { Element, ElementContent, Parents, Root } from 'hast';
 import { toHtml } from 'hast-util-to-html';
 import { toString as textOf } from 'hast-util-to-string';
 import type {} from 'mdast-util-to-hast';
@@ -10,6 +10,7 @@ import {
 	isCheckState,
 	type TableCardStackProps,
 } from '../components/content/contract';
+import { isElement, isParent } from './hast';
 
 /** Cell words that read as a yes/no answer (both content languages). */
 const ACTIVE_WORDS = new Set(['yes', 'true', '✓', 'v', 'có', 'checked']);
@@ -18,14 +19,6 @@ const INACTIVE_WORDS = new Set(['no', 'false', '✗', 'x', '-', '—', 'không',
 const SHORT_CELL = 6;
 /** Share of short/yes-no cells that makes a table a comparison grid. */
 const COMPARISON_RATIO = 0.8;
-
-function isElement(node: Nodes, tagName: string): node is Element {
-	return node.type === 'element' && node.tagName === tagName;
-}
-
-function isParent(node: Nodes): node is Parents {
-	return 'children' in node;
-}
 
 function cellHtml(cell: Element): string {
 	return toHtml({ type: 'root', children: cell.children }, { allowDangerousHtml: true }).trim();
