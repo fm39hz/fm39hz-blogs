@@ -36,5 +36,8 @@
   component measurements may stay local; promote repeated semantic values to tokens.
 - Runtime animation code reads duration and easing values from CSS custom properties through
   `tokens/animation.ts`.
+- Diagrams have one control point: the `--diagram-*` tokens in `global.scss`. Renderer-specific
+  variables are pure aliases of them (`--pele-*` for Mermaid in `foundations/prose.scss`), and
+  `renderVegaLite` reads them at render time. Never give a renderer its own color or font values.
 - Stylelint checks SCSS through `bun run check`; run `bun run lint:styles --fix` to apply safe
   formatting fixes.

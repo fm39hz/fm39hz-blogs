@@ -1,13 +1,13 @@
 .shiki {
   position: relative;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono);
   border: var(--border-w) var(--border-style);
   border-radius: var(--br);
   border-color: var(--shiki-light, var(--fg)) !important;
   padding: var(--space-lg) var(--space-lg) var(--space-xl) calc(var(--space-lg) + var(--space-md));
   font-size: var(--fs-sm);
   line-height: var(--space-lg);
-  background: var(--shiki-light-bg, color-mix(in srgb, var(--bg) 97%, var(--fg))) !important;
+  background: var(--shiki-light-bg, var(--surface)) !important;
   color: var(--shiki-light, var(--fg)) !important;
   overflow-x: auto;
 
@@ -80,7 +80,7 @@
 
 [data-theme="dark"] .shiki {
   border-color: var(--shiki-dark, var(--fg)) !important;
-  background: var(--shiki-dark-bg, color-mix(in srgb, var(--bg) 97%, var(--fg))) !important;
+  background: var(--shiki-dark-bg, var(--surface)) !important;
   color: var(--shiki-dark, var(--fg)) !important;
   span { color: var(--shiki-dark, inherit); }
 }

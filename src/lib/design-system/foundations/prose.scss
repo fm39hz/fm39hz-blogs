@@ -171,7 +171,7 @@
 
   /* ── Inline code ─────────────────────────────────────────── */
   code {
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-family: var(--font-mono);
     background: color-mix(in srgb, var(--accent) 12%, transparent);
     border-radius: var(--br);
     padding: var(--space-3xs) var(--space-2xs);
@@ -213,7 +213,7 @@
     overflow: visible; /* paperclip must not clip */
     border: var(--border-w) var(--border-style);
     border-radius: var(--br);
-    background: color-mix(in srgb, var(--bg) 97%, var(--fg));
+    background: var(--diagram-surface);
     padding: var(--space-md);
     margin: var(--space-md) 0;
   }
@@ -315,21 +315,25 @@
   }
 
   /*
-   * Mermaid SVG is prerendered by pele (vite.config.ts). It paints only through
-   * --pele-* variables, so mapping them to site tokens follows theme toggles.
+   * pele adapter: prerendered Mermaid SVG paints only through --pele-*.
+   * Pure aliases — change diagram look via --diagram-* in global.scss.
    */
   figure.mermaid {
-    --pele-bg: color-mix(in srgb, var(--bg) 97%, var(--fg));
-    --pele-fg: var(--fg);
-    --pele-muted: var(--muted-fg);
-    --pele-line: var(--fg);
-    --pele-surface: var(--muted);
-    --pele-surface-alt: color-mix(in srgb, var(--muted) 85%, var(--fg));
-    --pele-border: var(--accent);
-    --pele-accent: var(--accent);
-    --pele-font: var(--font-body);
-    --pele-font-mono: 'JetBrains Mono', ui-monospace, monospace;
-    --pele-radius: var(--br);
+    --pele-bg: var(--diagram-surface);
+    --pele-fg: var(--diagram-text);
+    --pele-muted: var(--diagram-text-muted);
+    --pele-line: var(--diagram-line);
+    --pele-surface: var(--diagram-node);
+    --pele-surface-alt: var(--diagram-node-alt);
+    --pele-border: var(--diagram-stroke);
+    --pele-accent: var(--diagram-stroke);
+    --pele-font: var(--diagram-font);
+    --pele-font-mono: var(--diagram-font-mono);
+    --pele-radius: var(--diagram-radius);
+    --pele-series-1: var(--diagram-series-1);
+    --pele-series-2: var(--diagram-series-2);
+    --pele-series-3: var(--diagram-series-3);
+    --pele-series-4: var(--diagram-series-4);
   }
 
   /* ── Tables (SSOT: one <table>, CSS progressive layout) ─── */
@@ -339,7 +343,7 @@
     table-layout: auto;
     border-collapse: separate;
     border-spacing: 0;
-    background: color-mix(in srgb, var(--bg) 97%, var(--fg));
+    background: var(--surface);
     border-radius: var(--br);
     border: var(--border-w) dashed var(--border);
     margin: var(--space-md) 0;

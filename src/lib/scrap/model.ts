@@ -89,17 +89,20 @@ function svgToPng(svg: SVGSVGElement): Promise<Blob> {
 			clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
 		}
 
-		const s = getComputedStyle(document.documentElement);
-		const accentColor = s.getPropertyValue('--accent').trim() || '#6f884c';
-		const fgColor = s.getPropertyValue('--fg').trim() || '#2d3129';
-		const bgColor = s.getPropertyValue('--bg').trim() || '#fdf6e3';
+		// An SVG loaded as <img> cannot see page CSS: pin every custom property it
+		// references (site tokens, --pele-* aliases) to the live computed value.
+		const live = getComputedStyle(svg);
+		const names = new Set(
+			[...new XMLSerializer().serializeToString(clone).matchAll(/var\((--[\w-]+)/g)].map(
+				(m) => m[1],
+			),
+		);
+		for (const name of names) {
+			const value = live.getPropertyValue(name).trim();
+			if (value) clone.style.setProperty(name, value);
+		}
 
-		let svgString = new XMLSerializer().serializeToString(clone);
-		svgString = svgString
-			.replace(/var\(--fg\)/g, fgColor)
-			.replace(/var\(--accent\)/g, accentColor)
-			.replace(/var\(--bg\)/g, bgColor);
-
+		const svgString = new XMLSerializer().serializeToString(clone);
 		const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
 		const url = URL.createObjectURL(svgBlob);
 		const img = new Image();
@@ -118,8 +121,8 @@ function svgToPng(svg: SVGSVGElement): Promise<Blob> {
 				reject(new Error('no 2d'));
 				return;
 			}
-			const style = getComputedStyle(svg.closest('.figure-surface') || svg || document.body);
-			ctx.fillStyle = style.backgroundColor || bgColor;
+			const surface = svg.closest('.figure-surface') ?? document.body;
+			ctx.fillStyle = getComputedStyle(surface).backgroundColor;
 			ctx.fillRect(0, 0, width, height);
 			ctx.drawImage(img, 0, 0, width, height);
 			canvas.toBlob((blob) => {

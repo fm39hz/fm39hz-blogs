@@ -23,29 +23,28 @@ function loadEmbed(): Promise<EmbedFn> {
 	return embedPromise;
 }
 
-function cssVar(name: string, fallback = '') {
-	return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
+function cssVar(name: string) {
+	return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 }
 
-/** Shared CSS-var theme → Vega config (same tokens as the mermaid --pele-* map in prose.scss). */
+/** --diagram-* tokens (global.scss) → Vega config; same palette pele paints Mermaid with. */
 function siteConfig() {
-	const fg = cssVar('--fg', '#d3c6aa');
-	const accent = cssVar('--accent', '#a7c080');
-	const muted = cssVar('--muted', '#514045');
-	const mutedFg = cssVar('--muted-fg', '#9da9a0');
-	const font = cssVar('--font-body', 'ui-monospace, monospace');
-	const border = cssVar('--border', mutedFg);
+	const fg = cssVar('--diagram-text');
+	const line = cssVar('--diagram-line');
+	const grid = cssVar('--diagram-grid');
+	const font = cssVar('--diagram-font');
+	const series = [1, 2, 3, 4].map((n) => cssVar(`--diagram-series-${n}`));
 
 	return {
 		background: null,
 		font,
 		axis: {
-			domainColor: fg,
-			gridColor: border,
+			domainColor: line,
+			gridColor: grid,
 			gridOpacity: 0.35,
 			labelColor: fg,
 			titleColor: fg,
-			tickColor: fg,
+			tickColor: line,
 			labelFont: font,
 			titleFont: font,
 			labelFontSize: 11,
@@ -58,9 +57,9 @@ function siteConfig() {
 			titleFont: font,
 		},
 		view: { stroke: null },
-		range: { category: [accent, mutedFg, muted, fg] },
-		mark: { color: fg, fill: accent, stroke: fg },
-		rule: { color: fg, stroke: fg, strokeWidth: 2 },
+		range: { category: series },
+		mark: { color: line, fill: series[0], stroke: line },
+		rule: { color: line, stroke: line, strokeWidth: 2 },
 		text: { color: fg, font, fontSize: 12 },
 		style: {
 			'guide-label': { fill: fg, font },

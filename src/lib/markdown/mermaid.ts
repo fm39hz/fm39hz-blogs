@@ -10,8 +10,9 @@
  * from Google Fonts `ofl/sriracha/Sriracha-Regular.ttf` (Version 1.002g,
  * no kern table, so advances are exact). Regenerate if the webfont changes.
  *
- * Colors are not baked: pele emits `var(--pele-*)`, mapped to site tokens in
- * `prose.scss`, so theme toggles repaint without re-rendering.
+ * Colors and font families are not baked: pele emits `var(--pele-*)`, aliased
+ * to the `--diagram-*` tokens in `global.scss`, so theme toggles repaint without
+ * re-rendering. Only the metrics below are build-time knowledge of those tokens.
  */
 
 import { createHash } from 'node:crypto';
@@ -23,7 +24,7 @@ const STYLE_BOLD = 1;
 const STYLE_MONO = 4;
 /** Sriracha ships no bold face; synthetic bold renders slightly wider. */
 const SYNTHETIC_BOLD = 1.05;
-/** JetBrains Mono advance (1/1000 em). */
+/** `--diagram-font-mono` (JetBrains Mono) advance (1/1000 em). */
 const MONO_ADVANCE = 600;
 /**
  * Diagram viewport width in CSS px at the widest layout (`--mw` column at the
@@ -57,8 +58,6 @@ export function renderMermaidSvg(source: string): string {
 	const idPrefix = `mmd-${createHash('sha1').update(source).digest('hex').slice(0, 8)}-`;
 	const { svg } = render(source, {
 		measurer: srirachaMeasurer,
-		fontFamily: 'Sriracha, cursive',
-		fontFamilyMono: "'JetBrains Mono', ui-monospace, monospace",
 		idPrefix,
 		maxWidth: DIAGRAM_MAX_WIDTH,
 	});

@@ -12,6 +12,7 @@
   --border-style: dashed;
   --font-body: 'Sriracha', cursive;
   --font-handwriting: 'Borel', cursive;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
   /* OT features for handwriting surfaces — calt/liga only (no rand on web) */
   --font-hand-features: "calt" 1, "liga" 1;
@@ -70,6 +71,29 @@
   --line-solid: 2px dashed var(--line);
   --line-w: 2px;
   --line-style: dashed;
+
+  /* Raised paper: figures, tables, code fallback */
+  --surface: color-mix(in srgb, var(--bg) 97%, var(--fg));
+
+  /*
+   * Diagram palette — single control point for every diagram renderer.
+   * pele (Mermaid) maps --pele-* to these in prose.scss; renderVegaLite reads them.
+   */
+  --diagram-surface: var(--surface);
+  --diagram-node: var(--muted);
+  --diagram-node-alt: color-mix(in srgb, var(--muted) 85%, var(--fg));
+  --diagram-stroke: var(--accent);
+  --diagram-line: var(--fg);
+  --diagram-text: var(--fg);
+  --diagram-text-muted: var(--muted-fg);
+  --diagram-grid: var(--border);
+  --diagram-font: var(--font-body);
+  --diagram-font-mono: var(--font-mono);
+  --diagram-radius: var(--br);
+  --diagram-series-1: var(--accent);
+  --diagram-series-2: var(--muted-fg);
+  --diagram-series-3: var(--muted);
+  --diagram-series-4: var(--fg);
 }
 
 [data-theme="dark"] {
