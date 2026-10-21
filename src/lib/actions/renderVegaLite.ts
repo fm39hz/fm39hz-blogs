@@ -27,7 +27,7 @@ function cssVar(name: string, fallback = '') {
 	return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
 }
 
-/** Shared CSS-var theme → Vega config (same tokens as mermaid themeVariables). */
+/** Shared CSS-var theme → Vega config (same tokens as the mermaid --pele-* map in prose.scss). */
 function siteConfig() {
 	const fg = cssVar('--fg', '#d3c6aa');
 	const accent = cssVar('--accent', '#a7c080');

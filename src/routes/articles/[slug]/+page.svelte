@@ -3,7 +3,6 @@ import { page } from '$app/state';
 // checkboxes replaced by build-time rehype plugin
 import { figureSurfaces } from '$lib/actions/figureSurface';
 import { pencilEdge } from '$lib/actions/pencilEdge';
-import { renderMermaid } from '$lib/actions/renderMermaid';
 import { renderVegaLite } from '$lib/actions/renderVegaLite';
 import { roughNotation } from '$lib/actions/roughNotation';
 import ButtonLink from '$lib/components/ui/ButtonLink/ButtonLink.svelte';
@@ -126,7 +125,6 @@ function onArticleClick(event: MouseEvent) {
       class={styles.article}
       lang={entry.lang}
       use:pencilEdge
-      use:renderMermaid
       use:renderVegaLite
       use:figureSurfaces
       use:roughNotation

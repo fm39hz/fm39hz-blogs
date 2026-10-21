@@ -193,7 +193,9 @@ graph LR
 ```
 ````
 
-These are rendered client-side via Svelte actions (`renderMermaid`, `renderVegaLite`).
+Mermaid is prerendered to SVG at build time by pele (`src/lib/markdown/mermaid.ts`); it is themed
+through `--pele-*` variables in `prose.scss`, and label widths come from
+`sriracha-metrics.json`. Vega-Lite is rendered client-side via the `renderVegaLite` action.
 
 ## Design System
 

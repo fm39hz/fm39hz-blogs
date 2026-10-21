@@ -311,73 +311,22 @@
     }
   }
 
-  /* Mermaid node chrome after pencil-edge SVG render */
-  pre.mermaid {
-    svg.pencil-edge {
-      display: block;
-      max-width: 100%;
-
-      /* Flowchart & Sequence Node Containers */
-      .node rect,
-      .node polygon,
-      .node circle,
-      .node ellipse,
-      .node path,
-      .label-container {
-        fill: var(--muted) !important;
-        stroke: var(--accent) !important;
-      }
-
-      /* Edge path lines & arrows */
-      .edgePath .path {
-        stroke: var(--fg) !important;
-        stroke-width: 2px !important;
-      }
-
-      .markerPath {
-        fill: var(--fg) !important;
-        stroke: var(--fg) !important;
-      }
-
-      /* Node text elements */
-      text,
-      tspan,
-      .label {
-        fill: var(--fg) !important;
-        color: var(--fg) !important;
-        font-family: var(--font-body) !important;
-      }
-
-      /* Edge labels (text on lines) */
-      .edgeLabel rect,
-      .edgeLabel .label-container {
-        fill: var(--bg) !important;
-        stroke: var(--border) !important;
-      }
-
-      .edgeLabel text,
-      .edgeLabel tspan {
-        fill: var(--fg) !important;
-        color: var(--fg) !important;
-      }
-
-      /* Sequence diagram actors */
-      .actor {
-        fill: var(--muted) !important;
-        stroke: var(--accent) !important;
-      }
-
-      .messageLine0,
-      .messageLine1 {
-        stroke: var(--fg) !important;
-      }
-
-      /* Sequence diagram notes */
-      .note {
-        fill: var(--muted) !important;
-        stroke: var(--accent) !important;
-      }
-    }
+  /*
+   * Mermaid SVG is prerendered by pele (vite.config.ts). It paints only through
+   * --pele-* variables, so mapping them to site tokens follows theme toggles.
+   */
+  figure.mermaid {
+    --pele-bg: color-mix(in srgb, var(--bg) 97%, var(--fg));
+    --pele-fg: var(--fg);
+    --pele-muted: var(--muted-fg);
+    --pele-line: var(--fg);
+    --pele-surface: var(--muted);
+    --pele-surface-alt: color-mix(in srgb, var(--muted) 85%, var(--fg));
+    --pele-border: var(--accent);
+    --pele-accent: var(--accent);
+    --pele-font: var(--font-body);
+    --pele-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --pele-radius: var(--br);
   }
 
   /* ── Tables (SSOT: one <table>, CSS progressive layout) ─── */

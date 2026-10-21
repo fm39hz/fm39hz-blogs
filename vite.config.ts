@@ -17,6 +17,7 @@ import { validateContent } from './scripts/validate-content';
 import { isPublished } from './src/lib/content/policy';
 import { SCHEDULED_POST_MARGIN_MS } from './src/lib/data/publication';
 import { remarkHeadingSlugs } from './src/lib/markdown/headingSlug';
+import { renderMermaidSvg } from './src/lib/markdown/mermaid';
 import { rehypeResponsiveTables } from './src/lib/markdown/rehypeResponsiveTables';
 import { rehypeTableCellCheckboxes } from './src/lib/markdown/rehypeTableCellCheckboxes';
 import { rehypeTableLabels } from './src/lib/markdown/rehypeTableLabels';
@@ -67,12 +68,14 @@ export default defineConfig(async () => {
 						extensions: ['.svx', '.md'],
 						highlight: {
 							highlighter: async (code: string, lang: string | null | undefined) => {
-								// Client-rendered media: source only on data-source (URI-encoded).
-								// Empty <figure> — no DSL/JSON text nodes for reader modes. Paint SVG in browser.
+								// Media source only on data-source (URI-encoded) — no DSL/JSON text nodes for reader modes.
+								// Mermaid: SVG prerendered here; figureSurfaces enhances it on the client.
 								if (lang === 'mermaid') {
 									const enc = encodeURIComponent(code);
-									return `{@html \`<figure class="diagram mermaid" data-kind="mermaid" data-source="${enc}" aria-label="Diagram"></figure>\`}`;
+									const svg = renderMermaidSvg(code).replace(/[\\`$]/g, '\\$&');
+									return `{@html \`<figure class="diagram mermaid figure-surface is-ready" data-kind="mermaid" data-source="${enc}" aria-label="Diagram">${svg}</figure>\`}`;
 								}
+								// Vega: client-rendered into an empty <figure>.
 								if (
 									lang === 'vega-lite' ||
 									lang === 'vegalite' ||
