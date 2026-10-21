@@ -43,10 +43,9 @@ if (browser) {
 		},
 		import.meta.env.VITE_VERCEL_OBSERVABILITY_CLIENT_CONFIG,
 	);
-	const speedInsights = injectSpeedInsights({
-		basePath,
-		framework: 'sveltekit',
-	});
+	// Production only: the dev debug script wraps history.pushState, which trips SvelteKit's
+	// router warning on every navigation, and localhost vitals are never reported anyway.
+	const speedInsights = dev ? null : injectSpeedInsights({ basePath, framework: 'sveltekit' });
 
 	afterNavigate(({ to }) => {
 		const route = to?.route.id;
