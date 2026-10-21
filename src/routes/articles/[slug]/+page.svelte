@@ -1,4 +1,5 @@
 <script lang="ts">
+import { afterNavigate } from '$app/navigation';
 import { page } from '$app/state';
 // checkboxes replaced by build-time rehype plugin
 import ButtonLink from '$lib/components/ui/ButtonLink/ButtonLink.svelte';
@@ -14,6 +15,7 @@ import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
 import { lightbox } from '$lib/state/lightbox.svelte';
 import { slugifyStr } from '$lib/tags';
+import { arrivalPath } from '$lib/utils/back-link';
 import { copyWithFeedback } from '$lib/utils/clipboard';
 import { getLocalizedPath } from '$lib/utils/localized-url';
 import { buildCopyMarkdown } from '$lib/utils/markdown';
@@ -34,6 +36,15 @@ let toc = $derived(tocHeadings(meta.headings));
 let tocReady = $derived(toc.length > 0);
 let copiedMd = $state(false);
 let proseEl = $state<HTMLElement | null>(null);
+// In-app page the reader arrived from; null → the article list (direct entry, reload).
+let origin = $state<string | null>(null);
+// Re-localized so a language switch on the article keeps the back target in that language.
+let backHref = $derived(getLocalizedPath(origin ?? '/articles', locale.value));
+
+afterNavigate(({ from, to }) => {
+	const path = arrivalPath(from, to?.params?.slug);
+	if (path) origin = path;
+});
 
 async function onCopyMarkdown() {
 	if (!entry?.raw || !meta) return;
@@ -104,7 +115,7 @@ function onArticleClick(event: MouseEvent) {
 
     <div class={styles.toolbar}>
       <nav class={styles.backNav} aria-label={t.post.goBack}>
-        <ButtonLink href={getLocalizedPath('/articles', locale.value)}><Icon icon="ph:arrow-left" class={styles.backIcon} /> {t.post.goBack}</ButtonLink>
+        <ButtonLink href={backHref}><Icon icon="ph:arrow-left" class={styles.backIcon} /> {t.post.goBack}</ButtonLink>
       </nav>
       <div class={styles.toolbarRight}>
         <Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" locale={locale.value} />
