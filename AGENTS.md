@@ -245,9 +245,14 @@ own their internal elements.
 - Use `<svelte:window>` and `<svelte:document>` for global event handlers so Svelte owns their
   lifecycle.
 - Markdown renders through Svelte components, never through post-mount enhancement. Interactive or
-  stateful content (figures, code blocks, card tables) is a named export of the content layout that
-  the highlighter or a rehype plugin emits as `Components.<Name>`; do not query, wrap, or patch the
-  rendered prose from an action.
+  stateful content (figures, code blocks, card tables, table checkboxes) is a named export of the
+  content layout that the highlighter or a rehype plugin emits as `Components.<Name>`; do not query,
+  wrap, or patch the rendered prose from an action.
+- `src/lib/components/content/contract.ts` types every build → component prop. Emit with
+  `emitComponent(name, props)` (never hand-built `JSON.stringify` strings); components declare
+  `$props()` with the same types, and `Layout.svelte` `satisfies` the contract so a missing export
+  or prop mismatch fails type-checking. Compute derived facts (SVG size, glyphs, cell status) at
+  build with hast tools rather than parsing markup strings in the browser.
 - Use DOM APIs only at browser or third-party-library boundaries, or to read geometry. Observers
   live in attachments that report state; the template renders the consequence. Do not reparent or
   remove nodes owned by a Svelte template.

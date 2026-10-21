@@ -70,5 +70,11 @@
 	"post_logs_count": "{count} logs",
 	"post_table_of_contents": "Table of contents",
 	"post_table_of_contents_menu": "Table of contents menu",
-	"post_close_menu": "Close menu"
+	"post_close_menu": "Close menu",
+	"a11y_diagram": "Diagram",
+	"a11y_diagram_controls": "Middle-drag: pan · Pinch or Shift+scroll: zoom · Double-click: reset",
+	"a11y_check_done": "Done",
+	"a11y_check_partial": "Partly done",
+	"a11y_check_todo": "Not done",
+	"table_card_position": "Row {current} of {total}"
 }

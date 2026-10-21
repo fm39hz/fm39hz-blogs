@@ -1,117 +1,76 @@
 <script lang="ts">
+import CellCheck from '$lib/components/content/CellCheck/CellCheck.svelte';
+import type { CardCell, TableCardStackProps } from '$lib/components/content/contract';
 import Icon from '$lib/design-system/primitives/Icon.svelte';
+import { animationDurationMs } from '$lib/design-system/tokens/animation';
+import { useTranslations } from '$lib/i18n';
+import { locale } from '$lib/i18n-state.svelte';
 import styles from './TableCardStack.module.scss';
 
-interface Props {
-	headers: string[];
-	rows: string[][];
-}
+/** Mobile card view of a Markdown table; data is classified at build (rehypeResponsiveTables). */
+let { headers, rows, comparison }: TableCardStackProps = $props();
 
-let { headers, rows }: Props = $props();
-
+let t = $derived(useTranslations(locale.value));
 let activeIdx = $state(0);
 let exitDir = $state<'right' | 'left' | null>(null);
 
-const isComparison = $derived.by(() => {
-	let shortCells = 0;
-	let totalCells = 0;
-	for (const row of rows) {
-		const compareCells = row.slice(1);
-		for (const cell of compareCells) {
-			totalCells++;
-			const cleanText = cell
-				.replace(/<[^>]*>/g, '')
-				.trim()
-				.toLowerCase();
-			const isShort =
-				cleanText.length <= 6 ||
-				[
-					'yes',
-					'no',
-					'true',
-					'false',
-					'✓',
-					'✗',
-					'x',
-					'-',
-					'—',
-					'có',
-					'không',
-					'checked',
-					'unchecked',
-				].includes(cleanText);
-			if (isShort) shortCells++;
-		}
-	}
-	if (totalCells === 0) return false;
-	return shortCells / totalCells >= 0.8;
-});
+const BADGE = {
+	active: styles.badgeActive,
+	inactive: styles.badgeInactive,
+	neutral: styles.badgeNeutral,
+} as const;
 
-function getStatusType(valueStr: string) {
-	const clean = valueStr
-		.replace(/<[^>]*>/g, '')
-		.trim()
-		.toLowerCase();
-	if (['yes', 'true', '✓', 'v', 'có', 'checked'].includes(clean)) return 'active';
-	if (['no', 'false', '✗', 'x', '-', 'không', 'unchecked', '—'].includes(clean))
-		return 'inactive';
-	return 'neutral';
-}
-
-function nextCard() {
+function step(direction: 'right' | 'left') {
 	if (exitDir) return;
-	exitDir = 'right';
-	activeIdx = (activeIdx + 1) % rows.length;
+	exitDir = direction;
+	activeIdx = (activeIdx + (direction === 'right' ? 1 : -1) + rows.length) % rows.length;
 	setTimeout(() => {
-		if (exitDir === 'right') exitDir = null;
-	}, 350);
-}
-
-function prevCard() {
-	if (exitDir) return;
-	exitDir = 'left';
-	activeIdx = (activeIdx - 1 + rows.length) % rows.length;
-	setTimeout(() => {
-		if (exitDir === 'left') exitDir = null;
-	}, 350);
+		if (exitDir === direction) exitDir = null;
+	}, animationDurationMs('page'));
 }
 
 function cardClass(idx: number) {
 	const rel = (idx - activeIdx + rows.length) % rows.length;
 	if (rel === 0) {
-		if (exitDir === 'right') return `${styles.card} ${styles.exitRight}`;
-		if (exitDir === 'left') return `${styles.card} ${styles.exitLeft}`;
-		return `${styles.card} ${styles.activeCard}`;
+		if (exitDir === 'right') return [styles.card, styles.exitRight];
+		if (exitDir === 'left') return [styles.card, styles.exitLeft];
+		return [styles.card, styles.activeCard];
 	}
-	if (rel === 1) return `${styles.card} ${styles.dummyCard2}`;
-	if (rel === 2) return `${styles.card} ${styles.dummyCard3}`;
-	return `${styles.card} ${styles.hiddenCard}`;
+	if (rel === 1) return [styles.card, styles.dummyCard2];
+	if (rel === 2) return [styles.card, styles.dummyCard3];
+	return [styles.card, styles.hiddenCard];
 }
 </script>
+
+{#snippet value(cell: CardCell)}
+  {#if cell.check}
+    <CellCheck state={cell.check} />
+  {:else}
+    {@html cell.html}
+  {/if}
+{/snippet}
 
 <div class={styles.container} aria-hidden="true">
   <div class={styles.stackWrapper}>
     {#each rows as row, idx (idx)}
       <div class={cardClass(idx)}>
-        <h4 class={styles.cardTitle}>{@html row[0]}</h4>
+        <h4 class={styles.cardTitle}>{@render value(row[0])}</h4>
 
         {#if headers.length === 2 && row[1]}
-          <div class={styles.singleValue}>{@html row[1]}</div>
-        {:else if isComparison}
+          <div class={styles.singleValue}>{@render value(row[1])}</div>
+        {:else if comparison}
           <div class={styles.badgeRow}>
             {#each headers.slice(1) as header, hIdx}
-              {@const colIdx = hIdx + 1}
-              {@const val = row[colIdx]}
-              {@const status = getStatusType(val)}
-              <div class={`${styles.badge} ${status === 'active' ? styles.badgeActive : status === 'inactive' ? styles.badgeInactive : styles.badgeNeutral}`}>
-                <span class={styles.badgeLabel}>{header}</span>
+              {@const cell = row[hIdx + 1]}
+              <div class={[styles.badge, BADGE[cell.status]]}>
+                <span class={styles.badgeLabel}>{@html header}</span>
                 <span class={styles.badgeVal}>
-                  {#if status === 'active'}
+                  {#if !cell.check && cell.status === 'active'}
                     <Icon icon="ph:check-bold" class={styles.badgeIcon} />
-                  {:else if status === 'inactive'}
+                  {:else if !cell.check && cell.status === 'inactive'}
                     <Icon icon="ph:x-bold" class={styles.badgeIcon} />
                   {/if}
-                  {@html val}
+                  {@render value(cell)}
                 </span>
               </div>
             {/each}
@@ -119,12 +78,10 @@ function cardClass(idx: number) {
         {:else}
           <div class={styles.fieldList}>
             {#each headers.slice(1) as header, hIdx}
-              {@const colIdx = hIdx + 1}
-              {@const val = row[colIdx]}
-              {@const status = getStatusType(val)}
-              <div class={`${styles.field} ${status === 'inactive' ? styles.fieldInactive : ''}`}>
-                <span class={styles.fieldLabel}>{header}</span>
-                <div class={styles.fieldValue}>{@html val}</div>
+              {@const cell = row[hIdx + 1]}
+              <div class={[styles.field, cell.status === 'inactive' && styles.fieldInactive]}>
+                <span class={styles.fieldLabel}>{@html header}</span>
+                <div class={styles.fieldValue}>{@render value(cell)}</div>
               </div>
             {/each}
           </div>
@@ -134,11 +91,11 @@ function cardClass(idx: number) {
   </div>
 
   <div class={styles.navigation}>
-    <button type="button" onclick={prevCard} class={styles.navBtn}>
+    <button type="button" onclick={() => step('left')} class={styles.navBtn}>
       <Icon icon="ph:arrow-left-bold" class={styles.navIcon} />
     </button>
-    <span class={styles.indicator}>Row {activeIdx + 1} of {rows.length}</span>
-    <button type="button" onclick={nextCard} class={styles.navBtn}>
+    <span class={styles.indicator}>{t.table.cardPosition(activeIdx + 1, rows.length)}</span>
+    <button type="button" onclick={() => step('right')} class={styles.navBtn}>
       <Icon icon="ph:arrow-right-bold" class={styles.navIcon} />
     </button>
   </div>

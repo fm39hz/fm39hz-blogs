@@ -1,35 +1,37 @@
 <script lang="ts">
 import { inView } from '$lib/attachments/inView';
 import CopyButton from '$lib/components/ui/CopyButton/CopyButton.svelte';
-import { svgToPng } from '$lib/scrap/model';
+import { useTranslations } from '$lib/i18n';
+import { locale } from '$lib/i18n-state.svelte';
+import { diagramToPng } from '$lib/scrap/model';
+import type { FigureProps } from '../contract';
 import styles from './Figure.module.scss';
 import { PanZoom } from './panzoom.svelte';
 
-/**
- * Prerendered diagram (build-time SVG from the mdsvex highlighter).
- * `svg` is trusted build output; `source` is the authored DSL for copying.
- */
-let {
-	kind,
-	source,
-	svg,
-	label = 'Diagram',
-}: { kind: 'mermaid' | 'vega-lite'; source: string; svg: string; label?: string } = $props();
+/** Prerendered diagram from the mdsvex highlighter (see contract.ts). */
+let { kind, source, art, label }: FigureProps = $props();
+
+let t = $derived(useTranslations(locale.value));
+let name = $derived(label ?? t.a11y.diagram);
 
 let root = $state<HTMLElement>();
 // Pencil wiggle animates only on screen; off screen it paints the static twin.
 let visible = $state(false);
 const view = new PanZoom();
+
+function exportImage(): Promise<Blob> {
+	return root ? diagramToPng(art, root) : Promise.reject(new Error('figure not mounted'));
+}
 </script>
 
 <svelte:window onpointermove={view.move} onpointerup={view.up} onpointercancel={view.up} />
 
-<figure bind:this={root} class={styles.figure} data-kind={kind} aria-label={label}>
+<figure bind:this={root} class={styles.figure} data-kind={kind} aria-label={name}>
   <!-- Pointer-only magnifier (middle-drag, dblclick); the diagram stays exposed as role="img". -->
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div
     class={styles.viewport}
-    title="Middle-drag: pan · Pinch or Shift+scroll: zoom · Double-click: reset"
+    title={t.a11y.diagramControls}
     bind:clientWidth={view.viewWidth}
     bind:clientHeight={view.viewHeight}
     onpointerdown={view.down}
@@ -43,19 +45,15 @@ const view = new PanZoom();
       bind:clientHeight={view.contentHeight}
     >
       <div
-        class={`pencil-edge ${styles.surface}`}
+        class={['pencil-edge', styles.surface]}
         data-pencil={visible ? undefined : 'static'}
         role="img"
-        aria-label={label}
+        aria-label={name}
         {@attach inView((v) => (visible = v))}
       >
-        {@html svg}
+        {@html art.svg}
       </div>
     </div>
   </div>
-  <CopyButton
-    kind="figure"
-    pinned
-    payload={{ text: source, image: () => (root ? svgToPng(svg, root) : Promise.reject()) }}
-  />
+  <CopyButton kind="figure" pinned payload={{ text: source, image: exportImage }} />
 </figure>

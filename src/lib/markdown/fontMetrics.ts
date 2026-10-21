@@ -18,6 +18,9 @@ const MONO_ADVANCE = 600;
 
 const widths: Record<string, number> = metrics.widths;
 
+/** Family the widths were extracted from — what diagram labels are laid out for. */
+export const DIAGRAM_FONT_FAMILY = metrics.font;
+
 export function textWidth(
 	text: string,
 	size: number,

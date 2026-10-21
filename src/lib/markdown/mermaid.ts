@@ -8,6 +8,8 @@
 import { createHash } from 'node:crypto';
 import { render } from 'pele';
 import type { TextMeasurer } from 'pele/core';
+import type { DiagramArt } from '../components/content/contract';
+import { diagramArt } from './diagramArt';
 import { DIAGRAM_MAX_WIDTH, textWidth } from './fontMetrics';
 
 const STYLE_BOLD = 1;
@@ -23,7 +25,7 @@ const measurer: TextMeasurer = {
  * them natively, so the source passes through unchanged.
  * Throws on invalid source so a broken diagram fails the build instead of shipping.
  */
-export function renderMermaidSvg(source: string): string {
+export function renderMermaidArt(source: string): DiagramArt {
 	// stable per-diagram prefix: marker/clip ids stay unique on a page and across builds
 	const idPrefix = `mmd-${createHash('sha1').update(source).digest('hex').slice(0, 8)}-`;
 	const { svg } = render(source, {
@@ -31,5 +33,5 @@ export function renderMermaidSvg(source: string): string {
 		idPrefix,
 		maxWidth: DIAGRAM_MAX_WIDTH,
 	});
-	return svg;
+	return diagramArt(svg);
 }

@@ -70,5 +70,11 @@
 	"post_logs_count": "{count} bài viết",
 	"post_table_of_contents": "Mục lục",
 	"post_table_of_contents_menu": "Menu mục lục",
-	"post_close_menu": "Đóng menu"
+	"post_close_menu": "Đóng menu",
+	"a11y_diagram": "Sơ đồ",
+	"a11y_diagram_controls": "Kéo chuột giữa: di chuyển · Chụm hoặc Shift+cuộn: phóng to · Nhấp đúp: đặt lại",
+	"a11y_check_done": "Đã xong",
+	"a11y_check_partial": "Xong một phần",
+	"a11y_check_todo": "Chưa xong",
+	"table_card_position": "Dòng {current} / {total}"
 }

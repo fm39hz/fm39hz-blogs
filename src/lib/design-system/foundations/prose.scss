@@ -204,6 +204,12 @@
     text-align: start;
   }
 
+  /* Cell holding only a CellCheck (rehypeTableCellCheckboxes) */
+  .checkCell {
+    text-align: center;
+    vertical-align: middle;
+  }
+
   th {
     background: color-mix(in srgb, var(--accent) 10%, transparent);
     font-weight: 600;

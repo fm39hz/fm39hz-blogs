@@ -15,14 +15,15 @@ import remarkToc from 'remark-toc';
 import { createHighlighter } from 'shiki';
 import { defineConfig } from 'vite';
 import { validateContent } from './scripts/validate-content';
+import { emitComponent } from './src/lib/components/content/contract';
 import { isPublished } from './src/lib/content/policy';
 import { SCHEDULED_POST_MARGIN_MS } from './src/lib/data/publication';
 import { remarkHeadingSlugs } from './src/lib/markdown/headingSlug';
-import { renderMermaidSvg } from './src/lib/markdown/mermaid';
+import { renderMermaidArt } from './src/lib/markdown/mermaid';
 import { rehypeResponsiveTables } from './src/lib/markdown/rehypeResponsiveTables';
 import { rehypeTableCellCheckboxes } from './src/lib/markdown/rehypeTableCellCheckboxes';
 import { rehypeTableLabels } from './src/lib/markdown/rehypeTableLabels';
-import { renderVegaLiteSvg } from './src/lib/markdown/vega';
+import { renderVegaLiteArt } from './src/lib/markdown/vega';
 
 let highlighterPromise: ReturnType<typeof createHighlighter> | null = null;
 
@@ -76,18 +77,27 @@ export default defineConfig(async () => {
 						),
 						highlight: {
 							// Fences render through layout components (Components.*), never raw
-							// HTML the client has to enhance. Props are JSON string literals.
+							// HTML the client has to enhance. Props are typed by components/content/contract.ts.
 							highlighter: async (code: string, lang: string | null | undefined) => {
 								if (lang === 'mermaid') {
-									return `<Components.Figure kind="mermaid" source={${JSON.stringify(code)}} svg={${JSON.stringify(renderMermaidSvg(code))}} />`;
+									return emitComponent('Figure', {
+										kind: 'mermaid',
+										source: code,
+										art: renderMermaidArt(code),
+									});
 								}
 								if (
 									lang === 'vega-lite' ||
 									lang === 'vegalite' ||
 									lang === 'vega'
 								) {
-									const { svg, label } = await renderVegaLiteSvg(code);
-									return `<Components.Figure kind="vega-lite" label={${JSON.stringify(label)}} source={${JSON.stringify(code)}} svg={${JSON.stringify(svg)}} />`;
+									const { art, label } = await renderVegaLiteArt(code);
+									return emitComponent('Figure', {
+										kind: 'vega-lite',
+										source: code,
+										art,
+										label,
+									});
 								}
 								if (!highlighterPromise) {
 									highlighterPromise = createHighlighter({
@@ -121,7 +131,7 @@ export default defineConfig(async () => {
 										defaultColor: false,
 									})
 									.replace(/\s+tabindex="0"/g, '');
-								return `<Components.CodeBlock source={${JSON.stringify(code)}} html={${JSON.stringify(html)}} />`;
+								return emitComponent('CodeBlock', { html, source: code });
 							},
 						},
 						remarkPlugins: [

@@ -84,6 +84,18 @@ export function useTranslations(locale: Language) {
 			goToPreviousPage: m.a11y_go_to_previous_page(undefined, opt),
 			goToNextPage: m.a11y_go_to_next_page(undefined, opt),
 			navPrimary: m.a11y_nav_primary(undefined, opt),
+			diagram: m.a11y_diagram(undefined, opt),
+			diagramControls: m.a11y_diagram_controls(undefined, opt),
+			/** Keyed by `CheckState` (content contract) so cells index it directly. */
+			check: {
+				done: m.a11y_check_done(undefined, opt),
+				partial: m.a11y_check_partial(undefined, opt),
+				todo: m.a11y_check_todo(undefined, opt),
+			},
+		},
+		table: {
+			cardPosition: (current: number, total: number) =>
+				m.table_card_position({ current, total }, opt),
 		},
 		theme: {
 			dark: m.theme_dark(undefined, opt),

@@ -8,6 +8,8 @@
 
 import { parse, textMetrics, View } from 'vega';
 import { compile, type TopLevelSpec } from 'vega-lite';
+import type { DiagramArt } from '../components/content/contract';
+import { diagramArt } from './diagramArt';
 import { textWidth } from './fontMetrics';
 
 const token = (name: string) => `var(--diagram-${name})`;
@@ -50,12 +52,25 @@ textMetrics.width = (item: TextItem, text?: unknown) => {
 	return textWidth(str, item.fontSize ?? 11, { bold });
 };
 
+/**
+ * Shape screen at the library boundary: vega-lite's `compile` validates the
+ * spec in depth and throws on mismatch, so only "is a JSON object" is checked here.
+ */
+function isSpec(value: unknown): value is TopLevelSpec & { description?: unknown } {
+	return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
 /** Throws on invalid JSON or spec so a broken chart fails the build instead of shipping. */
-export async function renderVegaLiteSvg(source: string): Promise<{ svg: string; label: string }> {
-	const spec = JSON.parse(source) as TopLevelSpec & { description?: string };
-	const view = new View(parse(compile(spec, { config }).spec), { renderer: 'none' });
+export async function renderVegaLiteArt(
+	source: string,
+): Promise<{ art: DiagramArt; label?: string }> {
+	const spec: unknown = JSON.parse(source);
+	if (!isSpec(spec)) throw new Error('vega-lite: spec must be a JSON object');
+	const compiled = compile(spec, { config }).spec;
+	const view = new View(parse(compiled), { renderer: 'none' });
 	try {
-		return { svg: await view.toSVG(), label: spec.description || 'Chart' };
+		const label = typeof spec.description === 'string' ? spec.description : undefined;
+		return { art: diagramArt(await view.toSVG()), label };
 	} finally {
 		view.finalize();
 	}
