@@ -1,0 +1,62 @@
+/* Notebook scrap shell for prerendered diagram SVG (Mermaid via pele, Vega-Lite). */
+.figure {
+  /* pele adapter: pure aliases — change diagram look via --diagram-* in global.scss */
+  --pele-bg: var(--diagram-surface);
+  --pele-fg: var(--diagram-text);
+  --pele-muted: var(--diagram-text-muted);
+  --pele-line: var(--diagram-line);
+  --pele-surface: var(--diagram-node);
+  --pele-surface-alt: var(--diagram-node-alt);
+  --pele-border: var(--diagram-stroke);
+  --pele-accent: var(--diagram-stroke);
+  --pele-font: var(--diagram-font);
+  --pele-font-mono: var(--diagram-font-mono);
+  --pele-radius: var(--diagram-radius);
+  --pele-series-1: var(--diagram-series-1);
+  --pele-series-2: var(--diagram-series-2);
+  --pele-series-3: var(--diagram-series-3);
+  --pele-series-4: var(--diagram-series-4);
+
+  position: relative;
+  margin: var(--space-md) 0;
+  padding: var(--space-md);
+  border: var(--border-w) var(--border-style);
+  border-radius: var(--br);
+  background: var(--diagram-surface);
+  color: var(--diagram-text);
+}
+
+.viewport {
+  max-height: min(70vh, 36rem);
+  overflow: hidden;
+  border-radius: calc(var(--br) - 2px);
+}
+
+.target {
+  transform-origin: 0 0;
+  transition: transform var(--d-normal) var(--ease-out);
+
+  &[data-dragging] {
+    cursor: grabbing;
+    transition: none;
+  }
+}
+
+.surface {
+  display: flex;
+  justify-content: center;
+
+  > svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+}
+
+.copy {
+  position: absolute;
+  top: var(--space-2xs);
+  right: var(--space-2xs);
+  z-index: var(--z-raised);
+}

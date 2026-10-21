@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 import { paraglideVitePlugin } from '@inlang/paraglide-js';
 import adapter from '@sveltejs/adapter-vercel';
 import { sveltekit } from '@sveltejs/kit/vite';
@@ -5,7 +6,7 @@ import type { Heading, Root, RootContent } from 'mdast';
 import headingRange from 'mdast-util-heading-range';
 import mdastToString from 'mdast-util-to-string';
 // @ts-ignore
-import { escapeSvelte, mdsvex } from 'mdsvex';
+import { mdsvex } from 'mdsvex';
 import rehypeKatexSvelte from 'rehype-katex-svelte';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
@@ -56,8 +57,11 @@ export default defineConfig(async () => {
 					],
 				},
 				compilerOptions: {
+					// .md stays legacy: mdsvex wraps content in `<Layout {...$$props}>`.
 					runes: ({ filename }) =>
-						filename.split(/[/\\]/).includes('node_modules') ? undefined : true,
+						filename.split(/[/\\]/).includes('node_modules')
+							? undefined
+							: !filename.endsWith('.md'),
 					experimental: { async: true },
 					warningFilter: (warning) =>
 						!['script_context_deprecated'].includes(warning.code),
@@ -66,24 +70,18 @@ export default defineConfig(async () => {
 				preprocess: [
 					mdsvex({
 						extensions: ['.svx', '.md'],
+						layout: fileURLToPath(
+							new URL('./src/lib/components/content/Layout.svelte', import.meta.url),
+						),
 						highlight: {
+							// Fences render through layout components (Components.*), never raw
+							// HTML the client has to enhance. Props are JSON string literals.
 							highlighter: async (code: string, lang: string | null | undefined) => {
-								// Media source only on data-source (URI-encoded) — no DSL/JSON text nodes for reader modes.
-								// Mermaid: SVG prerendered here; figureSurfaces enhances it on the client.
 								if (lang === 'mermaid') {
-									const enc = encodeURIComponent(code);
-									const svg = renderMermaidSvg(code).replace(/[\\`$]/g, '\\$&');
-									return `{@html \`<figure class="diagram mermaid figure-surface is-ready" data-kind="mermaid" data-source="${enc}" aria-label="Diagram">${svg}</figure>\`}`;
+									return `<Components.Figure kind="mermaid" source={${JSON.stringify(code)}} svg={${JSON.stringify(renderMermaidSvg(code))}} />`;
 								}
-								// Vega: client-rendered into an empty <figure>.
-								if (
-									lang === 'vega-lite' ||
-									lang === 'vegalite' ||
-									lang === 'vega'
-								) {
-									const enc = encodeURIComponent(code);
-									return `{@html \`<figure class="diagram vega-lite" data-kind="vega-lite" data-source="${enc}" aria-label="Chart"></figure>\`}`;
-								}
+								const isVega =
+									lang === 'vega-lite' || lang === 'vegalite' || lang === 'vega';
 								if (!highlighterPromise) {
 									highlighterPromise = createHighlighter({
 										themes: ['everforest-light', 'everforest-dark'],
@@ -106,12 +104,17 @@ export default defineConfig(async () => {
 									});
 								}
 								const highlighter = await highlighterPromise;
-								const html = highlighter.codeToHtml(code, {
-									lang: lang ?? '',
-									themes: { light: 'everforest-light', dark: 'everforest-dark' },
-									defaultColor: false,
-								});
-								return escapeSvelte(html.replace(/\s+tabindex="0"/g, ''));
+								const html = highlighter
+									.codeToHtml(code, {
+										lang: isVega ? 'json' : (lang ?? ''),
+										themes: {
+											light: 'everforest-light',
+											dark: 'everforest-dark',
+										},
+										defaultColor: false,
+									})
+									.replace(/\s+tabindex="0"/g, '');
+								return `<Components.CodeBlock source={${JSON.stringify(code)}} html={${JSON.stringify(html)}} />`;
 							},
 						},
 						remarkPlugins: [

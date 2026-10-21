@@ -1,9 +1,6 @@
 import type { Element, ElementContent, Nodes, Parents, Root } from 'hast';
 import { toHtml } from 'hast-util-to-html';
 
-const COMPONENT_IMPORT =
-	"import TableCardStack from '$lib/components/ui/TableCardStack/TableCardStack.svelte';";
-
 function isElement(node: Nodes, tagName: string): node is Element {
 	return node.type === 'element' && node.tagName === tagName;
 }
@@ -47,24 +44,24 @@ function tableData(table: Element): { headers: string[]; rows: string[][] } | nu
 	return rows.length ? { headers, rows } : null;
 }
 
-/** Compile mobile card data into the mdsvex component tree; no client-side DOM extraction. */
+/**
+ * Compile mobile card data into the mdsvex component tree; no client-side DOM extraction.
+ * `Components.TableCardStack` comes from the content layout's named exports.
+ */
 export function rehypeResponsiveTables() {
 	return (tree: Root) => {
-		let hasTableCards = false;
-
 		const walk = (parent: Parents) => {
 			for (let index = 0; index < parent.children.length; index++) {
 				const child = parent.children[index];
 				if (isElement(child, 'table')) {
 					const data = tableData(child);
 					if (data) {
-						const component = `<div class="responsive-card-stack"><TableCardStack headers={${JSON.stringify(data.headers)}} rows={${JSON.stringify(data.rows)}} /></div>`;
+						const component = `<div class="responsive-card-stack"><Components.TableCardStack headers={${JSON.stringify(data.headers)}} rows={${JSON.stringify(data.rows)}} /></div>`;
 						parent.children.splice(index, 0, {
 							type: 'raw',
 							value: component,
 						} as unknown as ElementContent);
 						index++;
-						hasTableCards = true;
 					}
 				}
 				if (isParent(child)) walk(child);
@@ -72,13 +69,5 @@ export function rehypeResponsiveTables() {
 		};
 
 		walk(tree);
-		if (hasTableCards) {
-			tree.children.unshift({
-				type: 'element',
-				tagName: 'script',
-				properties: {},
-				children: [{ type: 'text', value: COMPONENT_IMPORT }],
-			});
-		}
 	};
 }

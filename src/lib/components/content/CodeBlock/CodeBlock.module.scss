@@ -1,0 +1,11 @@
+/* Shiki owns the <pre> chrome (foundations/code.scss); this only anchors the copy pin. */
+.block {
+  position: relative;
+}
+
+.copy {
+  position: absolute;
+  top: var(--space-2xs);
+  right: var(--space-2xs);
+  z-index: var(--z-raised);
+}

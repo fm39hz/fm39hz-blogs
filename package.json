@@ -52,14 +52,12 @@
 		"*.scss": "stylelint --fix"
 	},
 	"dependencies": {
-		"@panzoom/panzoom": "^4.6.2",
 		"@vercel/analytics": "^2.0.1",
 		"@vercel/speed-insights": "^2.0.0",
 		"melt": "^0.44.0",
 		"motion": "^12.40.0",
 		"rough-notation": "^0.5.1",
 		"vega": "^6.2.0",
-		"vega-embed": "^7.1.0",
 		"vega-lite": "^6.4.3"
 	}
 }

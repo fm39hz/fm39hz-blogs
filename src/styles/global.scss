@@ -77,7 +77,7 @@
 
   /*
    * Diagram palette — single control point for every diagram renderer.
-   * pele (Mermaid) maps --pele-* to these in prose.scss; renderVegaLite reads them.
+   * Figure.module.scss aliases each renderer's variables (--pele-*) to these.
    */
   --diagram-surface: var(--surface);
   --diagram-node: var(--muted);

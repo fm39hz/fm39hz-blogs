@@ -65,8 +65,10 @@ src/
 │   │   ├── foundations/  # SCSS for prose and code styling
 │   │   └── primitives/   # Base components (Icon)
 │   ├── components/
+│   │   ├── content/      # mdsvex layout + components Markdown renders through (Figure, CodeBlock)
 │   │   ├── layout/       # Header, Footer, GearMenu, ThemeToggle
 │   │   └── ui/           # Reusable components (PostCard, TableOfContents, etc.)
+│   ├── attachments/      # Svelte attachments (read-only observers such as inView)
 │   ├── data/server.ts    # Content loading (import.meta.glob)
 │   ├── markdown/         # Custom rehype plugins
 │   ├── utils/            # Utility functions
@@ -194,8 +196,10 @@ graph LR
 ````
 
 Mermaid is prerendered to SVG at build time by pele (`src/lib/markdown/mermaid.ts`); label widths
-come from `sriracha-metrics.json`. Vega-Lite is rendered client-side via the `renderVegaLite`
-action. Both are themed only through the `--diagram-*` tokens in `global.scss` (see `STYLING.md`).
+come from `sriracha-metrics.json`. The highlighter emits `<Components.Figure>` (diagrams) and
+`<Components.CodeBlock>` (Shiki) from the content layout `src/lib/components/content/Layout.svelte`;
+`.md` files compile in legacy mode because mdsvex wraps them in `<Layout {...$$props}>`. Diagrams
+are themed only through the `--diagram-*` tokens in `global.scss` (see `STYLING.md`).
 
 ## Design System
 
@@ -237,9 +241,13 @@ own their internal elements.
   state. Put visual behavior in CSS instead of writing `element.style` or `classList` from code.
 - Use `<svelte:window>` and `<svelte:document>` for global event handlers so Svelte owns their
   lifecycle.
-- Use DOM APIs only at browser or third-party-library boundaries, or to read geometry from
-  Markdown-generated content that Svelte does not expose as individual components. Do not reparent
-  or remove nodes owned by a Svelte template.
+- Markdown renders through Svelte components, never through post-mount enhancement. Interactive or
+  stateful content (figures, code blocks, card tables) is a named export of the content layout that
+  the highlighter or a rehype plugin emits as `Components.<Name>`; do not query, wrap, or patch the
+  rendered prose from an action.
+- Use DOM APIs only at browser or third-party-library boundaries, or to read geometry. Observers
+  live in attachments that report state; the template renders the consequence. Do not reparent or
+  remove nodes owned by a Svelte template.
 - Transform static Markdown structure with remark/rehype at build time. Use `{@html}` only for
   trusted or sanitized content.
 

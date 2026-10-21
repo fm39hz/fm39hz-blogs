@@ -1,214 +1,123 @@
 /**
  * Notebook scrap = one visual unit in prose that can be copied.
- * Same essence; source/presentation vary by kind.
  *
- * Contract:
- * - code:   <pre><code>…</code></pre>  — payload text = code text
- * - figure: <figure.diagram data-kind data-source> + media — payload text = data-source;
- *           optional image from rendered SVG/img
- *
- * Source never lives as extractable child text for figures (reader/SEO SSOT).
+ * Payloads come from component props (code source, prerendered SVG markup),
+ * never from reading the rendered DOM.
  */
 
-import { readFigureSource } from '$lib/actions/figureSurface';
 import { copyText } from '$lib/utils/clipboard';
 
 export type ScrapKind = 'code' | 'figure';
 
 export type ScrapPayload = {
-	kind: ScrapKind;
 	/** Canonical text for clipboard / paste into notes */
 	text: string;
-	/** Optional rich image (diagram/chart) */
-	image?: Blob;
+	/** Optional rich image (diagram/chart), produced on demand */
+	image?: () => Promise<Blob>;
 };
 
-/** True figure shell (current + legacy pre shells). */
-export function isFigureScrap(el: Element): el is HTMLElement {
-	if (!(el instanceof HTMLElement)) return false;
-	if (el.matches('figure.diagram')) return true;
-	if (el.classList.contains('figure-surface') && el.dataset.source != null) return true;
-	// legacy pre shells before/during migrate
-	if (el.matches('pre.mermaid, pre.vega-lite')) return true;
-	return false;
+/** Same stylesheet host the site loads its webfonts from (`+layout.svelte`). */
+const FONT_CSS_ENDPOINT = 'https://fonts.googleapis.com/css2';
+
+/** Glyphs painted by the SVG's text nodes (entities decoded loosely; extras are harmless). */
+function glyphs(svg: string): string {
+	const text = [...svg.matchAll(/>([^<]+)</g)]
+		.map((m) => m[1])
+		.join('')
+		.replace(/&lt;/g, '<')
+		.replace(/&gt;/g, '>')
+		.replace(/&quot;/g, '"')
+		.replace(/&#39;/g, "'")
+		.replace(/&amp;/g, '&');
+	return [...new Set(text.replace(/\s/g, ''))].join('');
 }
 
-export function isCodeScrap(el: Element): el is HTMLPreElement {
-	if (!(el instanceof HTMLElement)) return false;
-	if (el.tagName !== 'PRE') return false;
-	if (isFigureScrap(el)) return false;
-	// shiki / mdsvex: usually pre>code; also bare pre with text
-	const pre = el as HTMLPreElement;
-	if (pre.querySelector('code')) return true;
-	const t = (pre.textContent ?? '').trim();
-	return t.length > 0;
-}
-
-export function scrapKind(el: Element): ScrapKind | null {
-	if (isFigureScrap(el)) return 'figure';
-	if (isCodeScrap(el)) return 'code';
-	return null;
-}
-
-/** All scrap roots under container (query once, both kinds). */
-export function queryScraps(root: ParentNode): HTMLElement[] {
-	const out: HTMLElement[] = [];
-	const seen = new Set<Element>();
-
-	for (const el of root.querySelectorAll(
-		'figure.diagram, figure.figure-surface, pre.figure-surface, pre.mermaid, pre.vega-lite, .figure-surface[data-source], pre.shiki, pre',
-	)) {
-		if (seen.has(el)) continue;
-		// never treat nested pre inside figure as scrap root
-		if (el.parentElement?.closest('figure.diagram, .figure-surface')) {
-			if (el.tagName === 'PRE' && !isFigureScrap(el)) continue;
-		}
-		const kind = scrapKind(el);
-		if (!kind) continue;
-		seen.add(el);
-		out.push(el as HTMLElement);
+function toBase64(buffer: ArrayBuffer): string {
+	const bytes = new Uint8Array(buffer);
+	let binary = '';
+	for (let i = 0; i < bytes.length; i += 0x8000) {
+		binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
 	}
-	return out;
+	return btoa(binary);
 }
 
-/** Canonical text payload for a scrap. */
-export function scrapText(el: HTMLElement): string {
-	const kind = scrapKind(el);
-	if (kind === 'figure') return readFigureSource(el);
-	if (kind === 'code') {
-		const code = el.querySelector('code');
-		return (code?.innerText ?? el.textContent ?? '').trim();
+/**
+ * An SVG decoded as an image cannot load webfonts, so inline the diagram font
+ * as a data URL — subset to just the glyphs used (Google Fonts `text=`).
+ * Returns '' when offline; the PNG then falls back to a system font.
+ */
+async function fontFace(fontStack: string, chars: string): Promise<string> {
+	const family = fontStack
+		.split(',')[0]
+		?.trim()
+		.replace(/^['"]|['"]$/g, '');
+	if (!family || !chars) return '';
+	try {
+		const query = `family=${encodeURIComponent(family)}&text=${encodeURIComponent(chars)}`;
+		const css = await (await fetch(`${FONT_CSS_ENDPOINT}?${query}`)).text();
+		const url = /url\((https:[^)]+)\)/.exec(css)?.[1];
+		if (!url) return '';
+		const data = toBase64(await (await fetch(url)).arrayBuffer());
+		return `@font-face{font-family:'${family}';src:url(data:font/woff2;base64,${data}) format('woff2');}`;
+	} catch {
+		return '';
 	}
-	return '';
 }
 
-function svgToPng(svg: SVGSVGElement): Promise<Blob> {
-	return new Promise((resolve, reject) => {
-		const clone = svg.cloneNode(true) as SVGSVGElement;
-		if (!clone.getAttribute('xmlns')) {
-			clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-		}
+/**
+ * Rasterize prerendered SVG markup to PNG. `scope` is the element whose
+ * computed custom properties the SVG paints with (theme tokens, renderer
+ * aliases); they are pinned into a standalone <style> along with the font.
+ */
+export async function svgToPng(svg: string, scope: Element): Promise<Blob> {
+	const style = getComputedStyle(scope);
+	const vars = [...new Set([...svg.matchAll(/var\((--[\w-]+)/g)].map((m) => m[1]))]
+		.map((name) => [name, style.getPropertyValue(name).trim()])
+		.filter(([, value]) => value)
+		.map(([name, value]) => `${name}:${value}`)
+		.join(';');
+	const face = await fontFace(style.getPropertyValue('--diagram-font'), glyphs(svg));
+	const standalone = svg.replace(
+		/<svg\b[^>]*>/,
+		(open) => `${open}<style>${face}:root{${vars}}</style>`,
+	);
 
-		// An SVG loaded as <img> cannot see page CSS: pin every custom property it
-		// references (site tokens, --pele-* aliases) to the live computed value.
-		const live = getComputedStyle(svg);
-		const names = new Set(
-			[...new XMLSerializer().serializeToString(clone).matchAll(/var\((--[\w-]+)/g)].map(
-				(m) => m[1],
-			),
-		);
-		for (const name of names) {
-			const value = live.getPropertyValue(name).trim();
-			if (value) clone.style.setProperty(name, value);
-		}
+	const width = Number(/\bwidth="([\d.]+)"/.exec(svg)?.[1]) || 800;
+	const height = Number(/\bheight="([\d.]+)"/.exec(svg)?.[1]) || 600;
+	const scale = Math.max(2, globalThis.devicePixelRatio || 1);
 
-		const svgString = new XMLSerializer().serializeToString(clone);
-		const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
-		const url = URL.createObjectURL(svgBlob);
+	const url = URL.createObjectURL(
+		new Blob([standalone], { type: 'image/svg+xml;charset=utf-8' }),
+	);
+	try {
 		const img = new Image();
-		const rect = svg.getBoundingClientRect();
-		const scale = window.devicePixelRatio || 2;
-		const width = (rect.width || 800) * scale;
-		const height = (rect.height || 600) * scale;
-
-		img.onload = () => {
-			const canvas = document.createElement('canvas');
-			canvas.width = width;
-			canvas.height = height;
-			const ctx = canvas.getContext('2d');
-			if (!ctx) {
-				URL.revokeObjectURL(url);
-				reject(new Error('no 2d'));
-				return;
-			}
-			const surface = svg.closest('.figure-surface') ?? document.body;
-			ctx.fillStyle = getComputedStyle(surface).backgroundColor;
-			ctx.fillRect(0, 0, width, height);
-			ctx.drawImage(img, 0, 0, width, height);
-			canvas.toBlob((blob) => {
-				URL.revokeObjectURL(url);
-				if (blob) resolve(blob);
-				else reject(new Error('toBlob null'));
-			}, 'image/png');
-		};
-		img.onerror = (e) => {
-			URL.revokeObjectURL(url);
-			reject(e);
-		};
 		img.src = url;
-	});
-}
-
-function imgToPng(img: HTMLImageElement): Promise<Blob> {
-	return new Promise((resolve, reject) => {
-		const canvas = document.createElement('canvas');
-		const w = img.naturalWidth || img.width || 800;
-		const h = img.naturalHeight || img.height || 600;
-		canvas.width = w;
-		canvas.height = h;
+		await img.decode();
+		const canvas = new OffscreenCanvas(width * scale, height * scale);
 		const ctx = canvas.getContext('2d');
-		if (!ctx) {
-			reject(new Error('no 2d'));
-			return;
-		}
-		ctx.drawImage(img, 0, 0, w, h);
-		canvas.toBlob((blob) => {
-			if (blob) resolve(blob);
-			else reject(new Error('toBlob null'));
-		}, 'image/png');
-	});
+		if (!ctx) throw new Error('no 2d');
+		ctx.fillStyle = style.getPropertyValue('--diagram-surface').trim();
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
+		ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+		return await canvas.convertToBlob({ type: 'image/png' });
+	} finally {
+		URL.revokeObjectURL(url);
+	}
 }
 
-/** Build clipboard payload (text always; image when figure has media). */
-export async function scrapPayload(el: HTMLElement): Promise<ScrapPayload | null> {
-	const kind = scrapKind(el);
-	if (!kind) return null;
-
-	if (kind === 'code') {
-		const text = scrapText(el);
-		return text ? { kind, text } : null;
-	}
-
-	const text = scrapText(el);
-	const svg = el.querySelector('svg');
-	const img = el.querySelector('img');
-
-	if (svg) {
-		try {
-			const image = await svgToPng(svg);
-			return { kind, text, image };
-		} catch {
-			return text ? { kind, text } : null;
-		}
-	}
-	if (img?.src) {
-		try {
-			const image = await imgToPng(img);
-			return { kind, text: text || img.alt || img.src, image };
-		} catch {
-			return text || img.src ? { kind, text: text || img.src } : null;
-		}
-	}
-	return text ? { kind, text } : null;
-}
-
-/** Write scrap to clipboard (unified). */
-export async function copyScrap(el: HTMLElement): Promise<boolean> {
-	const payload = await scrapPayload(el);
-	if (!payload) return false;
-
+/** Write a scrap to the clipboard: PNG + text when an image exists, else text. */
+export async function copyScrap(payload: ScrapPayload): Promise<boolean> {
 	if (payload.image) {
 		try {
-			const parts: Record<string, Blob> = { 'image/png': payload.image };
-			if (payload.text) {
+			// Pass the pending Blob so the clipboard write stays inside the user gesture (Safari).
+			const parts: Record<string, Blob | Promise<Blob>> = { 'image/png': payload.image() };
+			if (payload.text)
 				parts['text/plain'] = new Blob([payload.text], { type: 'text/plain' });
-			}
 			await navigator.clipboard.write([new ClipboardItem(parts)]);
 			return true;
 		} catch {
 			// fall through to text
 		}
 	}
-	if (!payload.text) return false;
-	return copyText(payload.text);
+	return payload.text ? copyText(payload.text) : false;
 }

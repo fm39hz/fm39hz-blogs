@@ -18,6 +18,7 @@ declare module 'mdsvex' {
 		remarkPlugins?: unknown[];
 		rehypePlugins?: unknown[];
 		extensions?: string[];
+		layout?: string | Record<string, string>;
 		highlight?:
 			| false
 			| {

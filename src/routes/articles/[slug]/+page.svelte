@@ -1,15 +1,12 @@
 <script lang="ts">
 import { page } from '$app/state';
 // checkboxes replaced by build-time rehype plugin
-import { figureSurfaces } from '$lib/actions/figureSurface';
 import { pencilEdge } from '$lib/actions/pencilEdge';
-import { renderVegaLite } from '$lib/actions/renderVegaLite';
 import { roughNotation } from '$lib/actions/roughNotation';
 import ButtonLink from '$lib/components/ui/ButtonLink/ButtonLink.svelte';
 import Datetime from '$lib/components/ui/Datetime/Datetime.svelte';
 import IconButton from '$lib/components/ui/IconButton/IconButton.svelte';
 import PostSignature from '$lib/components/ui/PostSignature/PostSignature.svelte';
-import ScrapCopies from '$lib/components/ui/ScrapCopies/ScrapCopies.svelte';
 import TableOfContents from '$lib/components/ui/TableOfContents/TableOfContents.svelte';
 import TagLine from '$lib/components/ui/TagLine/TagLine.svelte';
 import cfg from '$lib/config';
@@ -121,19 +118,8 @@ function onArticleClick(event: MouseEvent) {
       </div>
     </div>
 
-    <article
-      class={styles.article}
-      lang={entry.lang}
-      use:pencilEdge
-      use:renderVegaLite
-      use:figureSurfaces
-      use:roughNotation
-    >
-      <!-- relative host for ScrapCopies overlay (declarative; no mount/wrap) -->
-      <div class={styles.proseHost} bind:this={proseEl}>
-        <div class="prose"><entry.component /></div>
-        <ScrapCopies root={proseEl} />
-      </div>
+    <article class={styles.article} lang={entry.lang} use:pencilEdge use:roughNotation>
+      <div class="prose" bind:this={proseEl}><entry.component /></div>
       <hr class={styles.hr} />
       <PostSignature author={seo.author} location={meta.location} pubDatetime={meta.pubDatetime} />
       <ul class={styles.tags}>

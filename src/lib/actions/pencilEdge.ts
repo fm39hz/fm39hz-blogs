@@ -10,7 +10,8 @@
  * Not a framework re-render fix — pauses paint work when the user cannot see it.
  */
 
-const SELECTOR = 'blockquote, .sketchy-quote, .pencil-edge';
+// Figure owns its own pencil state (data-pencil from Svelte); only prose quotes remain here.
+const SELECTOR = 'blockquote, .sketchy-quote';
 
 function setStatic(el: Element, on: boolean) {
 	if (!(el instanceof HTMLElement)) return;
