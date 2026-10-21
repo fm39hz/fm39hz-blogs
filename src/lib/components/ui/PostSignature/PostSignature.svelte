@@ -2,6 +2,7 @@
 import cfg from '$lib/config';
 import { resolveAuthor } from '$lib/utils/author';
 import { formatNumericDate } from '$lib/utils/date';
+import styles from './PostSignature.module.scss';
 
 let {
 	author: authorProp,
@@ -18,14 +19,4 @@ let dateStr = $derived(formatNumericDate(pubDatetime, cfg.site.timezone));
 let author = $derived(resolveAuthor({ author: authorProp ?? undefined }));
 </script>
 
-<p class="sig">{author}{location ? `, ${location}` : ''}, {dateStr}</p>
-
-<style>
-  .sig {
-    font-family: var(--font-handwriting);
-    font-size: var(--fs-sm);
-    color: var(--muted-fg);
-    text-align: end;
-    margin-block: var(--space-md) 0;
-  }
-</style>
+<p class={styles.sig}>{author}{location ? `, ${location}` : ''}, {dateStr}</p>

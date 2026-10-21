@@ -8,6 +8,10 @@
 - Shared colors, typography, spacing, motion, and stacking values live as CSS custom properties in
   `global.scss`; TypeScript should read those values instead of keeping a parallel style-token map.
 - A component's `.module.scss` owns its root class and the elements in that component's own markup.
+  Components and routes (including `+layout.svelte`) style only through `.module.scss`: no Svelte
+  `<style>` blocks and no static `style="…"` attributes. Runtime values go through `style:` directives
+  or CSS custom properties.
+- External asset hosts live in tokens too: webfont URLs come from `tokens/fonts.ts`.
 - A route stylesheet owns the route's structure and direct children. It must not style elements
   rendered inside a child component. Pass a class, variant, or CSS custom property through the child
   component when a parent needs to affect its appearance.

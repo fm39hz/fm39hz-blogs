@@ -6,6 +6,7 @@
  */
 
 import type { DiagramArt } from '$lib/components/content/contract';
+import { FONT_CSS_API } from '$lib/design-system/tokens/fonts';
 import { copyText } from '$lib/utils/clipboard';
 
 export type ScrapKind = 'code' | 'figure';
@@ -17,8 +18,6 @@ export type ScrapPayload = {
 	image?: () => Promise<Blob>;
 };
 
-/** Same stylesheet host the site loads its webfonts from (`+layout.svelte`). */
-const FONT_CSS_ENDPOINT = 'https://fonts.googleapis.com/css2';
 /** The stylesheet Google returns references one font file; take its URL. */
 const FONT_FILE_URL = /url\((https:[^)]+)\)/;
 const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -41,7 +40,7 @@ async function fontFace({ family, glyphs }: DiagramArt['font']): Promise<string>
 	if (!glyphs) return '';
 	try {
 		const query = new URLSearchParams({ family, text: glyphs });
-		const css = await (await fetch(`${FONT_CSS_ENDPOINT}?${query}`)).text();
+		const css = await (await fetch(`${FONT_CSS_API}?${query}`)).text();
 		const url = FONT_FILE_URL.exec(css)?.[1];
 		if (!url) return '';
 		const data = toBase64(await (await fetch(url)).arrayBuffer());
