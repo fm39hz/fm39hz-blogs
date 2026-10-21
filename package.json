@@ -45,6 +45,8 @@
 		"svelte": "^5.56.1",
 		"svelte-check": "^4.6.0",
 		"typescript": "^6.0.3",
+		"vega": "^6.2.0",
+		"vega-lite": "^6.4.3",
 		"vite": "^8.0.16"
 	},
 	"lint-staged": {
@@ -56,8 +58,6 @@
 		"@vercel/speed-insights": "^2.0.0",
 		"melt": "^0.44.0",
 		"motion": "^12.40.0",
-		"rough-notation": "^0.5.1",
-		"vega": "^6.2.0",
-		"vega-lite": "^6.4.3"
+		"rough-notation": "^0.5.1"
 	}
 }

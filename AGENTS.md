@@ -195,8 +195,9 @@ graph LR
 ```
 ````
 
-Mermaid is prerendered to SVG at build time by pele (`src/lib/markdown/mermaid.ts`); label widths
-come from `sriracha-metrics.json`. The highlighter emits `<Components.Figure>` (diagrams) and
+Both are prerendered to SVG at build time: Mermaid by pele (`src/lib/markdown/mermaid.ts`), Vega-Lite
+by a headless Vega View (`src/lib/markdown/vega.ts`). Label widths for both come from
+`fontMetrics.ts` (`sriracha-metrics.json`); a broken diagram fails the build. The highlighter emits `<Components.Figure>` (diagrams) and
 `<Components.CodeBlock>` (Shiki) from the content layout `src/lib/components/content/Layout.svelte`;
 `.md` files compile in legacy mode because mdsvex wraps them in `<Layout {...$$props}>`. Diagrams
 are themed only through the `--diagram-*` tokens in `global.scss` (see `STYLING.md`).

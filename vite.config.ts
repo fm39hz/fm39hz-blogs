@@ -22,6 +22,7 @@ import { renderMermaidSvg } from './src/lib/markdown/mermaid';
 import { rehypeResponsiveTables } from './src/lib/markdown/rehypeResponsiveTables';
 import { rehypeTableCellCheckboxes } from './src/lib/markdown/rehypeTableCellCheckboxes';
 import { rehypeTableLabels } from './src/lib/markdown/rehypeTableLabels';
+import { renderVegaLiteSvg } from './src/lib/markdown/vega';
 
 let highlighterPromise: ReturnType<typeof createHighlighter> | null = null;
 
@@ -80,8 +81,14 @@ export default defineConfig(async () => {
 								if (lang === 'mermaid') {
 									return `<Components.Figure kind="mermaid" source={${JSON.stringify(code)}} svg={${JSON.stringify(renderMermaidSvg(code))}} />`;
 								}
-								const isVega =
-									lang === 'vega-lite' || lang === 'vegalite' || lang === 'vega';
+								if (
+									lang === 'vega-lite' ||
+									lang === 'vegalite' ||
+									lang === 'vega'
+								) {
+									const { svg, label } = await renderVegaLiteSvg(code);
+									return `<Components.Figure kind="vega-lite" label={${JSON.stringify(label)}} source={${JSON.stringify(code)}} svg={${JSON.stringify(svg)}} />`;
+								}
 								if (!highlighterPromise) {
 									highlighterPromise = createHighlighter({
 										themes: ['everforest-light', 'everforest-dark'],
@@ -106,7 +113,7 @@ export default defineConfig(async () => {
 								const highlighter = await highlighterPromise;
 								const html = highlighter
 									.codeToHtml(code, {
-										lang: isVega ? 'json' : (lang ?? ''),
+										lang: lang ?? '',
 										themes: {
 											light: 'everforest-light',
 											dark: 'everforest-dark',
