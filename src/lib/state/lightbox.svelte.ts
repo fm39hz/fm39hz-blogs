@@ -2,7 +2,8 @@ import { Dialog } from 'melt/builders';
 
 class LightboxState {
 	dialog = new Dialog({
-		scrollLock: true,
+		// Page lock is the shared [data-scroll-lock] CSS rule, rendered by Lightbox.svelte.
+		scrollLock: false,
 		closeOnEscape: true,
 		closeOnOutsideClick: true,
 	});

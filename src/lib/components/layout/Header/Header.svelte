@@ -1,5 +1,6 @@
 <script lang="ts">
 import { onMount } from 'svelte';
+import { MediaQuery } from 'svelte/reactivity';
 import IconButton from '$lib/components/ui/IconButton/IconButton.svelte';
 import NavLink from '$lib/components/ui/NavLink/NavLink.svelte';
 import cfg from '$lib/config';
@@ -13,24 +14,23 @@ let { locale = 'en' }: { locale?: string } = $props();
 let t = $derived(useTranslations(locale));
 const header = new SiteHeader();
 let scrollY = $state(0);
-let innerWidth = $state(0);
-let desktopMediaQuery = $state('(min-width: 40rem)');
 let barHeight = $state(0);
+// Breakpoint SSOT is the --bp-sm token (STYLING.md); read once in the browser.
+let breakpoint = $state('40rem');
+let desktop = $derived(new MediaQuery(`min-width: ${breakpoint}`, false));
 
 onMount(() => {
-	const breakpoint = getComputedStyle(document.documentElement)
-		.getPropertyValue('--bp-sm')
-		.trim();
-	if (breakpoint) desktopMediaQuery = `(min-width: ${breakpoint})`;
+	breakpoint =
+		getComputedStyle(document.documentElement).getPropertyValue('--bp-sm').trim() || breakpoint;
 });
 
 $effect(() => header.handleScroll(scrollY));
 $effect(() => {
-	if (innerWidth > 0 && window.matchMedia(desktopMediaQuery).matches) header.close();
+	if (desktop.current) header.close();
 });
 </script>
 
-<svelte:window bind:scrollY bind:innerWidth onkeydown={header.nav.handleKeydown} />
+<svelte:window bind:scrollY onkeydown={header.nav.handleKeydown} />
 <svelte:document onclick={header.nav.handleDocumentClick} />
 
 <header
@@ -39,6 +39,7 @@ $effect(() => {
   data-hidden={header.hidden ? 'true' : undefined}
   data-elevated={header.elevated ? 'true' : undefined}
   data-open={header.nav.open ? 'true' : undefined}
+  data-scroll-lock={header.nav.locksScroll || undefined}
   style:--header-bar-h={barHeight > 0 ? `${barHeight}px` : undefined}
 >
   <div class={styles.shell}>

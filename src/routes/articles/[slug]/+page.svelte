@@ -7,6 +7,7 @@ import Datetime from '$lib/components/ui/Datetime/Datetime.svelte';
 import IconButton from '$lib/components/ui/IconButton/IconButton.svelte';
 import PostSignature from '$lib/components/ui/PostSignature/PostSignature.svelte';
 import TableOfContents from '$lib/components/ui/TableOfContents/TableOfContents.svelte';
+import { tocHeadings } from '$lib/components/ui/TableOfContents/toc.svelte';
 import TagLine from '$lib/components/ui/TagLine/TagLine.svelte';
 import cfg from '$lib/config';
 import type { ArticleSummary, RenderedArticle } from '$lib/content/types';
@@ -30,7 +31,8 @@ let meta = $derived(entry?.metadata ?? { title: '', description: '', pubDatetime
 let t = $derived(useTranslations(locale.value));
 let seo = $derived(meta.title ? buildPostSeo(meta, slug, entry.lang) : null);
 
-let tocReady = $state(false);
+let toc = $derived(tocHeadings(meta.headings));
+let tocReady = $derived(toc.length > 0);
 let copiedMd = $state(false);
 let proseEl = $state<HTMLElement | null>(null);
 
@@ -136,11 +138,11 @@ function onArticleClick(event: MouseEvent) {
     aria-hidden={!tocReady}
   >
     <p class={styles.tocLabel}>{t.post.onThisPage}</p>
-    <TableOfContents mode="desktop" onReady={(has) => (tocReady = has)} />
+    <TableOfContents mode="desktop" headings={toc} />
   </aside>
 
   <!-- Mobile Floating Action Button (FAB) and Drawer -->
   {#if tocReady}
-    <TableOfContents mode="mobile" />
+    <TableOfContents mode="mobile" headings={toc} />
   {/if}
 {/if}

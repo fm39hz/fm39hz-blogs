@@ -1,6 +1,6 @@
 <script lang="ts">
+import { prefersReducedMotion } from 'svelte/motion';
 import { browser } from '$app/env';
-import { prefersReducedMotion } from '$lib/animations/reduce';
 import { animationDurationMs } from '$lib/design-system/tokens/animation';
 import { locale } from '$lib/i18n-state.svelte';
 import { getLocalizedPath } from '$lib/utils/localized-url';
@@ -33,7 +33,7 @@ function roughTagAction(node: HTMLElement) {
 		const ann = annotate(node, {
 			type: 'highlight',
 			color,
-			animate: !prefersReducedMotion(),
+			animate: !prefersReducedMotion.current,
 			animationDuration: animationDurationMs('scene'),
 		});
 

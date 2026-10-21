@@ -1,6 +1,6 @@
+import { prefersReducedMotion } from 'svelte/motion';
 import { Theme } from '$lib/constants';
 import type { ThemeMode } from '$lib/types';
-import { prefersReducedMotion } from './reduce';
 
 export function getStoredTheme(): ThemeMode {
 	if (typeof localStorage === 'undefined') return Theme.DARK;
@@ -20,7 +20,7 @@ export function animateThemeToggle(callback: () => void): void {
 	if (
 		typeof document === 'undefined' ||
 		!document.startViewTransition ||
-		prefersReducedMotion()
+		prefersReducedMotion.current
 	) {
 		callback();
 		return;

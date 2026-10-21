@@ -148,8 +148,18 @@
 html {
   font-size: 16px;
   overflow-y: scroll;
+  scrollbar-gutter: stable;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+}
+
+/*
+ * Page scroll lock: any open overlay renders [data-scroll-lock] from its
+ * template. overflow keeps the scroll position (no body pinning / restore),
+ * and the stable gutter prevents a layout shift when the scrollbar hides.
+ */
+:root:has([data-scroll-lock]) {
+  overflow: hidden;
 }
 
 @media (width >= bp.$sm) {

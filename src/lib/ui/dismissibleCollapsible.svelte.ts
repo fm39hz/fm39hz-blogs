@@ -1,5 +1,4 @@
 import { Collapsible } from 'melt/builders';
-import { lockPageScroll, type ScrollLockHandle } from '$lib/utils/scrollLock';
 
 export type DismissibleCollapsibleOptions = {
 	/**
@@ -8,8 +7,9 @@ export type DismissibleCollapsibleOptions = {
 	 */
 	outsideClick?: boolean;
 	/**
-	 * Lock document scroll while open (mobile full/page overlays).
-	 * Default false (dropdowns don't need it).
+	 * Lock document scroll while open (mobile full/page overlays): the template
+	 * renders `data-scroll-lock={x.locksScroll || undefined}` and global.scss
+	 * pins the page. Default false (dropdowns don't need it).
 	 */
 	scrollLock?: boolean;
 	/** Called after open flips — for chrome pin / baseline, etc. */
@@ -38,20 +38,9 @@ export class DismissibleCollapsible {
 
 		$effect(() => {
 			if (typeof window === 'undefined' || !this.menu.open) return;
-
-			const y = window.scrollY;
-			this.#opts.onOpenChange?.(true, { y });
-
-			let lock: ScrollLockHandle | null = null;
-			if (this.#opts.scrollLock) {
-				lock = lockPageScroll();
-			}
-
-			return () => {
-				const restoredY = lock?.y ?? y;
-				lock?.release();
-				this.#opts.onOpenChange?.(false, { y: restoredY });
-			};
+			this.#opts.onOpenChange?.(true, { y: window.scrollY });
+			// overflow lock keeps the scroll position, so the close-time Y is current
+			return () => this.#opts.onOpenChange?.(false, { y: window.scrollY });
 		});
 	}
 
@@ -68,6 +57,10 @@ export class DismissibleCollapsible {
 
 	get open(): boolean {
 		return this.menu.open;
+	}
+
+	get locksScroll(): boolean {
+		return this.#opts.scrollLock && this.menu.open;
 	}
 
 	close = () => {

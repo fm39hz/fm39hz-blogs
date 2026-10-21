@@ -13,7 +13,12 @@ const contentAction = lightbox.dialog.refs.attach('content') as Action<HTMLEleme
 {#if browser}
   <div {...lightbox.dialog.overlay} use:overlayAction class={styles.overlay}></div>
 
-  <dialog {...lightbox.dialog.content} use:contentAction class={styles.dialog}>
+  <dialog
+    {...lightbox.dialog.content}
+    use:contentAction
+    class={styles.dialog}
+    data-scroll-lock={lightbox.dialog.open || undefined}
+  >
     <div class={styles.imageContainer}>
       {#if lightbox.src}
         <img src={lightbox.src} alt={lightbox.alt} />

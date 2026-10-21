@@ -1,5 +1,5 @@
 import { annotate } from 'rough-notation';
-import { prefersReducedMotion } from '$lib/animations/reduce';
+import { prefersReducedMotion } from 'svelte/motion';
 import { animationDurationMs } from '$lib/design-system/tokens/animation';
 import { observeIntersection } from '$lib/utils/observer';
 
@@ -32,7 +32,7 @@ export function roughNotation(node: HTMLElement) {
 			type: 'highlight',
 			color,
 			multiline: true,
-			animate: !prefersReducedMotion(),
+			animate: !prefersReducedMotion.current,
 			animationDuration: animationDurationMs('scene'),
 		});
 		annotations.push(ann);
