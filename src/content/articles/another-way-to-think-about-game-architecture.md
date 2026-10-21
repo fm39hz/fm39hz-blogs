@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-07-07
-modDatetime: 2026-08-25
+modDatetime: 2026-10-21
 title: Another way to think about Game Architecture
 featured: false
 draft: false
@@ -10,7 +10,6 @@ tags:
   - architecture
   - game-dev
   - systems-design
-  - rambling
 description: I used to live inside my engine, rent-free and grateful. Then I read my own diary and got embarrassed.
 ---
 

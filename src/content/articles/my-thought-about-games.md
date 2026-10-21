@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-01-02
-modDatetime: 2026-10-09
+modDatetime: 2026-10-21
 title: My thoughts about Games
 featured: false
 draft: false
@@ -12,23 +12,25 @@ tags:
 description: Just some scattered thoughts, from my own biased perspective.
 ---
 
-This piece isn't a guide on how to make a *better* game, nor a manifesto on what counts as a *successful*, *fun*, or *great* one. Those are different questions, belonging to different layers.
-
-Its only purpose is to stimulate thought and help game developers understand the thing they are creating before they decide what else they want it to become.
+This piece is not a discussion towards or on how to make a better game, or a manifesto on what a successful, fun, or great game is. Those are separate questions, concerning different layers. Its sole purpose is to stimulate thought and help game developers understand the thing they are creating prior to deciding what else they want it to become.
 
 ## Table of contents
 
 ## Misconceptions and Associations
 
-Sometimes, while developing games on my own, I catch myself returning to the same irritating question. There are plenty of things people call games, and yet something in my intuition keeps insisting that a few of them are actually...less game than they appear to be. So what actually makes a game become itself?
+Sometimes, while developing games on my own, I find myself returning to the same irritating question. There are plenty of things that are called games, but something inside my intuition insists that a few of them are actually...less game than they seem. So what actually makes a game become itself?
 
-- **Graphics, story, world-building?** Painting, literature, comics, and film already know what to do with those.
-- **Flow, pacing, music?** A concert, a film, or a stage performance can be constituted through all three.
-- **Progression, competition, goals?** Too generic. Careers, arguments, education, sports, and exercise can organize themselves around them perfectly well.
-- **Interaction?** A light switch is interactive. A DVD menu is interactive. Replacing a play/pause button of a movie with the controller pushing upward did not make that into a game.
-- **Mechanics?** Closer, but not yet. We first have to distinguish mechanics from *Rules*. A Rule is a pure logical relation. A mechanic is one expression of that relation. One Rule may be expressed through many mechanics, and two things that look nothing alike may still instantiate the same Rule. In Xiangqi, a pawn advancing one square and a cannon moving in a straight line to leap over a piece and capture share no movement mechanic, yet both consume one turn. Notice that this last sentence only became true once I said *which comparison I was making*. Hold onto that. It turns out to be the whole problem, and it gets settled further down.
+- Graphics, story, world-building? Painting, literature, comics, and film already know what to do with those.
 
-None of these things is worthless. They may enter a game, dominate it, or become the entire reason anyone cares about it. But they can already constitute forms and activities whose identities do not depend on gameness. A story does not wait for a controller to become a story. Music does not need a skill tree before it becomes music.
+- Flow, pacing, music? A concert, a film, or a stage performance can be constituted through all three.
+
+- Progression, competition, goals? Too generic. Careers, arguments, education, sports, and exercise can organize themselves around them perfectly well.
+
+- Interaction? A light switch is interactive. A DVD menu is interactive. Replacing a play/pause button of a movie with the controller pushing upward did not make that into a game.
+
+- Mechanics? Closer, but not quite. We first have to distinguish mechanics from Rules. A Rule is a pure logical relation. A mechanic is one expression of that relation. One Rule may be expressed through many mechanics, and two things that look nothing alike may still instantiate the same Rule. In Xiangqi, a pawn advancing one square and a cannon moving in a straight line to leap over a piece and capture share no movement mechanic, yet both consume one turn. Notice that this last sentence only became true once I said which comparison I was making. Hold onto that. It turns out to be the whole problem, and it gets settled further down.
+
+None of these things are worthless. They may enter a game, dominate it, or become the entire reason anyone cares about it. But they can already constitute forms and activities, whose identities do not depend on gameness. A story does not wait for a controller to become a story. Music does not need a skill tree before it becomes music.
 
 Strip those layers away and they may remain intact as themselves. They do not yet explain what gameness adds.
 
@@ -36,27 +38,13 @@ So, what makes a game... a game?
 
 ## If it's none of those, then what the heck is a game?
 
-This is not an attempt to decide which products deserve that label. I am asking something smaller: **what must already be present before anything else can be built upon the game?**
+This is not an attempt to decide which products deserve that label. I am asking something smaller: What must be present before anything else can be built upon the game?
 
 I am not looking for the answer in a "magic circle", a "storytelling machine", "interesting choices", "meaningful interaction", or any other phrase assembled from experience, value, or observation. Those may describe what someone does with a game, what someone receives from it, or what someone hopes it will become. They do not yet reach whatever the Game itself cannot do without.
 
-### How about Family resemblance?
-
-> ☝️🤓 'But sir, you're dogmatic, Game has Family resemblance, it may not have common essence!'
-
-Family resemblance observes that things gathered under one concept may share overlapping similarities without one obvious trait running through the entire set. It does not establish that no common condition exists, and the word *may* cannot do that work for it.
-
-An **invariant** is a non-trivial condition every Game within a declared domain and representation must satisfy. An **essence** would additionally explain what makes the thing a Game. A **complete definition** would decide membership in both directions. An essence must contain or entail some invariant, while an invariant need not rise to the level of an essence.
-
-This inquiry asks for the weaker floor. Rejecting essentialism does not reject that floor, and family resemblance supplies no reason to abandon the search before a candidate has even been attacked. So here is one.
-
 ### The Necessary Condition
 
-I should state my bias before asking the argument to carry it: I think a game is closer to a simulation than to a film.
-
-That does not mean it must imitate physics, pursue realism, or calculate thousands of little objects. A game may simulate a duel, an economy, a conversation, a legal procedure, a deck of cards, or a world whose laws would be insulted by ordinary gravity. What matters is that there is a configured form capable of continuing according to its own relations. An event occurs because the form admits it and determines what it can lead to, rather than because a finished sequence has already placed it there.
-
-This gives the argument a direction. Begin with a simulation-like form, ask what lets an intervention become structurally operative inside it, then see what that relation forces us to distinguish.
+I should state my bias before asking the argument to carry it. I think a game is closer to a simulation than to a film. That does not mean it must imitate physics, pursue realism, or calculate thousands of little objects. A game may simulate a duel, an economy, a conversation, a legal procedure, a deck of cards, or a world whose laws would be insulted by ordinary gravity. What matters is that there is a configured form capable of continuing according to its own relations. An event occurs because the form admits it and determines what it can lead to, rather than because a finished sequence, has already placed it there. This gives the argument a direction. Begin with a simulation-like form, ask what lets an intervention become structurally operative inside it, then see what that relation forces us to distinguish.
 
 #### Rules, first
 
@@ -64,9 +52,7 @@ We've already separated Mechanics from Rules. The next question is what a Rule m
 
 A Rule distinguishes an applicable situation, the inputs it accepts there, and the results it permits. It may transform something, preserve it, refuse a proposed transition, disclose a reading, or constrain several other Rules at once. It may also operate without receiving any intervention at all. Operation alone therefore says nothing about Agency.
 
-This already tells me that a Rule cannot be built from proper nouns.
-
-A concrete occupant enters through a typed position; the law belongs to the relation between positions. Any difference in how that occupant is treated must be carried by some represented property, status, type, authority, or role. A proper noun is not an undeclared input to the universe.
+This already tells me that a Rule cannot be built from proper nouns. A concrete occupant enters through a typed position; the law belongs to the relation between positions. Any difference in how that occupant is treated must be carried by some represented property, status, type, authority, or role. A proper noun is not an undeclared input to the universe.
 
 The same applies when a Rule concerns something unique. Uniqueness may be represented as a property, identity as a value, and exclusive authority as a Role relation. Once represented, the distinction is available to the Rules. Until then, a bare name is merely an exception pretending to be a law.
 
@@ -76,113 +62,95 @@ That last separation matters. An intervention enters a Rule as input. It does no
 
 Rules also need scope. A fact existing somewhere in the current configuration does not make it available to every Rule. One clause may carry a distinction into another only through a position their scopes actually share, and the second clause must genuinely depend on that position. The configuration is not a room in which every clause can overhear every other clause.
 
-This is what I mean by a **Rule intersection**. Two Rules intersect where the output position of one becomes an input position of another in a later application. The intersection opens a route. It does not guarantee that the route carries anything useful: a distinction must survive the relation instead of being ignored, merged, or erased.
+What I mean by a Rule intersection is: Two Rules intersect where the output position of one becomes an input position of another in a later application. The intersection opens a route. It does not guarantee that the route carries anything useful: a distinction must survive the relation instead of being ignored, merged, or erased.
 
 The same restriction applies to information. Transmission, validation, proof, disclosure, and knowledge are not five names for a value arriving somewhere.
 
 - A distinction is transmitted when a chain of Rules actually carries it.
+
 - A claim is validated when the Rules establish it from the inputs that support it.
+
 - A proof is a represented certificate that may itself be preserved, transformed, or disclosed.
+
 - A disclosure makes a reading available through a declared interface.
+
 - Information supplied by the form can become knowledge after a Source receives a reading and updates on it. A Source may also arrive with knowledge acquired elsewhere.
 
 One relation may support another, but none appears merely because a message with a reassuring label has arrived. Information travels through Rule intersections, under the same scoping discipline as every other operative difference.
 
-At this point the Rules describe more than a bag of local clauses. Taken together, they determine which complete transitions are admitted. Clauses that apply at the same point must agree on shared results. Anything they leave untouched persists only because persistence is itself part of how the configured form carries the present into the next transition.
-
-That gives us a raw carrier of everything the Rules can currently distinguish and update. Call one complete assignment of those represented quantities a **Configuration**.
+At this point the Rules describe more than a bag of local clauses. Taken together, they determine which complete transitions are admitted. Clauses that apply at the same point must agree on shared results. Anything they leave untouched persists only because persistence is itself part of how the configured form carries the present into the next transition. That gives us a raw carrier of everything the Rules can currently distinguish and update. Call one complete assignment of those represented quantities a Configuration.
 
 #### So, what is State?
 
-It is tempting to rename Configuration as State and move on. That would leave too much accidental storage inside the concept.
-
-Two Configurations may differ along represented coordinates that no Rule can ever read. If no declared reading, admitted input, or possible continuation can reveal the difference, the configured form itself has no use for it. Counting it as a different State would let inaccessible representation manufacture structure merely by existing.
-
-So I need a stricter name. Two Configurations belong to the same **State** when every finite inspection available to the configured form gives the same answer from both.
+It is tempting to rename Configuration as State and move on. That would leave too much accidental storage inside the concept. Two Configurations may differ along represented coordinates that no Rule can ever read. If no declared reading, admitted input, or possible continuation can reveal the difference, the configured form itself has no use for it. Counting it as a different State would let inaccessible representation manufacture structure merely by existing. So I need a stricter name. Two Configurations belong to the same State when every finite inspection available to the configured form gives the same answer from both.
 
 An inspection may read what is currently disclosed. It may ask which contributions are admitted. It may also look through a possible contribution and inspect what could be read after it, then continue doing so through a finite chain. Because the form may branch internally, an inspection keeps the whole set of supported results. Because several questions about the same branch may be correlated, it keeps those answers together rather than flattening them into unrelated lists.
 
-State is therefore the complete present condition *as far as the configured form can ever make a distinction operative*. It is neither the whole machine nor a screenshot.
-
-A remembered event belongs to the current State when it can still change a reading, an admission, or a continuation. If the route taken to arrive here can matter later, some represented trace of that route separates the present States. If every future inspection agrees, the different histories have genuinely arrived at the same State for this form.
+State is therefore the complete present condition as far as the configured form can ever make a distinction operative. It is neither the whole machine nor a screenshot. A remembered event belongs to the current State when it can still change a reading, an admission, or a continuation. If the route taken to arrive here can matter later, some represented trace of that route separates the present States. If every future inspection agrees, the different histories have genuinely arrived at the same State for this form.
 
 This also separates State from what one particular participant can see. A distinction belongs to the State whenever it can still alter a reading, admission, or continuation, even where one Role cannot read it. Each Role receives only the disclosures the Rules make available to it. The full State gathers every distinction the form can inspect; an occupant acts through a narrower and possibly uncertain view.
 
-Now take every Configuration reachable from an admitted beginning, every transition among them, and every branch, loop, or continuation the Rules support. Call that entire reachable structure the **Possibility Space**.
+Now take every Configuration reachable from an admitted beginning, every transition among them, and every branch, loop, or continuation the Rules support. Call that entire reachable structure the Possibility Space. Possibility Space is not a synonym for freedom. It says nothing yet about expression, enjoyment, depth, or whether the available futures are interesting. It is simply the reach of the Rules. Its size does not determine how much of it carries intervention-sensitive difference. It also contains more than a list of destinations. Two contributions may eventually reach the same place and still open different continuations on the way there. Conversely, two immediately different outcomes may be indistinguishable once everything the form can inspect is considered. What matters is the branching structure the Rules preserve, not the artwork attached to the leaves.
 
-Possibility Space is not a synonym for freedom. It says nothing yet about expression, enjoyment, depth, or whether the available futures are interesting. It is simply the reach of the Rules. Its size does not determine how much of it carries intervention-sensitive difference.
-
-It also contains more than a list of destinations. Two contributions may eventually reach the same place and still open different continuations on the way there. Conversely, two immediately different outcomes may be indistinguishable once everything the form can inspect is considered. What matters is the branching structure the Rules preserve, not the artwork attached to the leaves.
-
-The Possibility Space belongs to the configured form whether or not an Operating Instance is running. Operation introduces another layer.
+The Possibility Space belongs to the configured form, whether or not an Operating Instance is running. Operation introduces another layer.
 
 #### From the form to one instance
 
-Call one concrete operation of the configured form an **Operating Instance**. It begins from an admitted Configuration and commits one ordered path through the Possibility Space. Call that committed path a **Trajectory**.
+Call one concrete operation of the configured form an Operating Instance. It begins from an admitted Configuration and commits one ordered path through the Possibility Space. Call that committed path a Trajectory.
 
-The Possibility Space may branch. The Trajectory does not branch retroactively. Once one outcome has been actualized, the alternatives remain counterfactual parts of the form, while the instance has acquired one history. Another Operating Instance may actualize another Trajectory without changing the configured form at all.
+The Possibility Space may branch. The Trajectory does not branch retroactively. Once one outcome has been actualized, the alternatives remain counterfactual parts of the form, while the instance has acquired one history. Another Operating Instance may actualize another Trajectory, without changing the configured form at all.
 
-Between two consecutive States lies a **Transition Window**. It is a logical position in the Trajectory, not a promise about seconds, frames, animation length, or processor time. A consequence may become inspectable immediately or only after several later transitions. Its structural delay is about how deeply one must look into the continuation before the difference appears.
-
-This distinction prevents several layers from collapsing into one another. Rules define the form. The Possibility Space is what the form admits. An Operating Instance actualizes a Trajectory. The source observing or intervening in that instance is yet another thing.
+Between two consecutive States lies a Transition Window. It is a logical position in the Trajectory, not a promise about seconds, frames, animation length, or processor time. A consequence may become inspectable immediately or only after several later transitions. Its structural delay is about how deeply one must look into the continuation before the difference appears. This distinction prevents several layers from collapsing into one another. Rules define the form. The Possibility Space is what the form admits. An Operating Instance actualizes a Trajectory. The source observing or intervening in that instance is yet another thing.
 
 So the next question is not whether somebody "interacts". It is how a difference supplied by somebody can enter the Rules.
 
-A **Role** is a typed position through which contributions may become operative. It determines the contribution values authorized at that position and the information disclosed to it. A **Contribution** is one value supplied through the Role at a Transition Window. All Role contributions admitted together there form a **Contribution Profile**. A **Source** is whatever supplies one or more of them.
+A Role is a typed position, through which contributions may become operative. It determines the contribution values authorized at that position, and the information disclosed to it. A Contribution is one value supplied through the Role at a Transition Window. All Role contributions admitted together there form a Contribution Profile. A Source is whatever supplies one or more of them.
 
-A Source need not be a person, singular, aware, or intentional. The Rules need only a supplied value attributable through the relevant binding. An Operating Instance binds the Source to a Role for that window.
+A Source need not be a person, singular, aware, or intentional. The Rules need only a supplied value attributable through the relevant binding. An Operating Instance binds the Source to a Role, for that window.
 
-Authority still does not produce Agency. Authority determines which contribution values are admitted through a Role; Agency additionally requires variation among those values to separate Continuations. The cardinality of an input alphabet alone says nothing about that relation.
-
-Nor does disclosure produce Agency. Disclosure determines which information is available to a Role; Agency compares Continuations under admitted contribution variation. Neither relation entails the other. Informed control requires both a structural alternative and some policy capable of using the available information. Guessing keeps the first relation and lacks the second.
+Authority still does not produce Agency. Authority determines which contribution values are admitted through a Role; Agency additionally requires variation among those values to separate Continuations. The cardinality of an input alphabet alone says nothing about that relation. Nor does disclosure produce Agency. Disclosure determines which information is available to a Role; Agency compares Continuations, under admitted contribution variation. Neither relation entails the other. Informed control requires both a structural alternative and some policy, capable of using the available information. Guessing keeps the first relation, and lacks the second.
 
 #### What continues from here?
 
-After an admitted Contribution Profile, the form may permit several immediate outcomes and many later paths. Take the whole branching future opened by that profile. Call it a **Continuation**.
+After an admitted Contribution Profile, the form may permit several immediate outcomes and many later paths. Take the whole branching future opened by that profile. Call it a Continuation.
 
-Two Continuations count as different when some finite inspection can eventually separate them. The first inspection depth at which that happens is their **Latency**. Latency orders how far one must look before a fork becomes legible. It is not elapsed time, consequence magnitude, or a ratio in which depth six is somehow twice depth three.
-
-This is why the next transition alone is too weak a comparison. Continuations are separated by finite inspections across the whole supported future, whether or not the distinction is already disclosed at depth one. Agency belongs to the Continuation, not to the amount of movement on the screen.
+Two Continuations count as different when some finite inspection can eventually separate them. The first inspection depth at which that happens is their Latency. Latency orders how far one must look before a fork becomes legible. It is not elapsed time, consequence magnitude, or a ratio in which depth six is somehow twice depth three. This is why the next transition alone is too weak a comparison. Continuations are separated by finite inspections across the whole supported future, whether or not the distinction is already disclosed at depth one. Agency belongs to the Continuation, not to the amount of movement on the screen.
 
 Internal nondeterminism stays inside one Continuation. If the same complete Contribution Profile can lead to several supported outcomes, the form branches without attributing that branch selection to any Source. Randomness may decide what happens. Agency asks whether changing an admitted profile can change the branching future that is available.
 
-#### Now Agency
+#### And now, Agency!
 
 The required comparison is finally visible.
 
-At one reachable State, take two admitted Contribution Profiles. Let them differ only through the Role, or block of Roles, being evaluated. Hold every contribution outside that block fixed. If the two profiles open different Continuations, call the relation **Agency**.
+At one reachable State, take two admitted Contribution Profiles. Let them differ only through the Role, or block of Roles, being evaluated. Hold every contribution outside that block fixed. If the two profiles open different Continuations, call the relation Agency.
 
 Holding the rest fixed is the important part. Without it, a difference produced elsewhere can be credited to whichever participant happens to be convenient. With it, the counterfactual is local: this Role block could have supplied another admitted contribution under the same surrounding commitments, and the form would have opened another continuation.
 
-An **Agency point** is a reachable place where such a counterfactual difference can enter. It belongs on the input side of the Rules. The Rules receive the contribution, determine its admissibility, and carry or erase its distinction through their consequences. A Rule does not need to create an Agency point in order to operate, and no Agency point needs to be the output of a Rule.
+An Agency point is a reachable place where such a counterfactual difference can enter. It belongs on the input side of the Rules. The Rules receive the contribution, determine its admissibility, and carry or erase its distinction through their consequences. A Rule does not need to create an Agency point in order to operate, and no Agency point needs to be the output of a Rule.
 
-Agency here is structural availability. It does not say which contribution was actually chosen, which immediate outcome became actual, or whether the contribution caused that particular outcome in every useful sense of causation. The State and binding may be actual while the alternative contribution remains counterfactual.
-
-Call the Source occupying an Agency-supporting Role block an **Agent** at that binding and Transition Window.
+Agency here is structural availability. It does not say which contribution was actually chosen, which immediate outcome became actual, or whether the contribution caused that particular outcome in every useful sense of causation. The State and binding may be actual while the alternative contribution remains counterfactual. Call the Source occupying an Agency-supporting Role block an Agent at that binding and Transition Window.
 
 Agenthood is therefore local to that binding and Transition Window.
 
-Sometimes no single Role can vary while all others stay fixed, yet a block of Roles can vary together. That is still Agency. The minimum number of Role coordinates that must change tells us the **Agency arity** of that witness. It counts structural coordinates, not people, cooperation, social importance, or emotional intensity.
+Sometimes no single Role can vary while all others stay fixed, yet a block of Roles can vary together. That is still Agency. The minimum number of Role coordinates that must change tells us the Agency arity of that witness. It counts structural coordinates, not people, cooperation, social importance, or emotional intensity.
 
-Different Agency witnesses can also have different shapes. One fork becomes legible quickly; another remains latent for many transitions. For one witness, every immediate outcome under both Contributions may retain a route to one common State under one finite bound; for another, no such bound exists. Call that question **Reconvergence**.
-
-Reconvergence does not undo Agency. If two Continuations were distinguishable, a later common State does not erase the fork that occurred. It says every immediate outcome retains some admitted route to that State within the shared bound. Possibility is not actuality, and those routes are not a guarantee that an Agent can force them.
+Different Agency witnesses can also have different shapes. One fork becomes legible quickly; another, remains latent for many transitions. For one witness, every immediate outcome under both Contributions may retain a route to one common State under one finite bound; for another, no such bound exists. Call that question Reconvergence. Reconvergence does not undo Agency. If two Continuations were distinguishable, a later common State does not erase the fork that occurred. It says, every immediate outcome retains some admitted route to that State within the shared bound. Possibility is not actuality, and those routes are not a guarantee that an Agent can force them.
 
 Agency, Latency, arity, and Reconvergence remain attached to the same witness. Pulling them apart into free-floating scores would lose the very relation that gave them meaning.
 
 #### Back to Game
 
-Before applying any bridge to Game, the structural representation must already be fixed. It decides which differences enter as Rule-governed Role contributions, which remain internal branching after every Contribution Profile is fixed, and which are discarded. Call the configured form retained by that declared reading a **structural extraction**. No canonical extraction is assumed.
+Before applying any bridge to Game, the structural representation must already be fixed. It decides which differences enter as Rule-governed Role contributions, which remain internal branching, after every Contribution Profile is fixed, and which are discarded. Call the configured form retained by that declared reading a structural extraction. No canonical extraction is assumed.
 
-A structural extraction is **Structurally Playable** when at least one reachable State contains an Agency point.
+A structural extraction is Structurally Playable when at least one reachable State contains an Agency point.
 
 My single bridge is this:
 
-**Within the simulation-first scope of this article, the declared structural extraction of a Game must be Structurally Playable.**
+Within the simulation-first scope of this article, the declared structural extraction of a Game must be Structurally Playable.
 
 In other words, the extraction's Rule-constituted Possibility Space must contain somewhere two admitted Contribution Profiles that differ within a finite Role block, agree everywhere else, and open different Continuations.
 
-This is the necessary structure I was looking for. It leaves the rest of the Game wonderfully unresolved. Nothing here says the supporting contribution is wise, satisfying, expressive, fair, difficult, informed, or even noticed. Those judgments require more relations. The one relation kept here is the one without which the Operating Instance can still run, but every admitted contribution remains ceremonial.
+This is the necessary structure I was looking for. It leaves the rest of the Game wonderfully unresolved. Nothing here says the supporting contribution is wise, satisfying, expressive, fair, difficult, informed, or even noticed. Those judgments require more relations. The one relation kept here is the one, without which the Operating Instance can still run, but every admitted contribution remains ceremonial.
 
 ### Why does the condition only point one way?
 
