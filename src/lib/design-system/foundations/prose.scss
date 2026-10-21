@@ -258,9 +258,12 @@
   figure.diagram,
   pre.mermaid,
   pre.vega-lite {
+    /*
+     * No min-height: the viewport only exists once media is painted, and panzoom
+     * contain:'outside' would upscale a short, wide SVG to fill it (clipping sides).
+     */
     .diagram-viewport {
       width: 100%;
-      min-height: 12rem;
       max-height: min(70vh, 36rem);
       overflow: hidden;
       cursor: default;

@@ -25,6 +25,13 @@ const STYLE_MONO = 4;
 const SYNTHETIC_BOLD = 1.05;
 /** JetBrains Mono advance (1/1000 em). */
 const MONO_ADVANCE = 600;
+/**
+ * Diagram viewport width in CSS px at the widest layout (`--mw` column at the
+ * `lg` root size, measured inside the figure's padding). pele wraps labels and
+ * tightens layout to fit, so the SVG paints near 1:1 instead of being scaled
+ * down after the fact. Re-measure if `--mw` or the figure padding changes.
+ */
+const DIAGRAM_MAX_WIDTH = 836;
 
 const widths: Record<string, number> = metrics.widths;
 
@@ -53,6 +60,7 @@ export function renderMermaidSvg(source: string): string {
 		fontFamily: 'Sriracha, cursive',
 		fontFamilyMono: "'JetBrains Mono', ui-monospace, monospace",
 		idPrefix,
+		maxWidth: DIAGRAM_MAX_WIDTH,
 	});
 	return svg;
 }
