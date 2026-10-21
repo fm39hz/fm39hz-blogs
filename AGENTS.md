@@ -178,6 +178,10 @@ Use `useTranslations()` from `$lib/i18n.ts` for UI strings. Messages are accesse
 - `remark-toc` - Table of contents
 - Custom heading-range plugin for collapsible TOC
 
+The TOC marker heading (`## Table of contents` / `## Mục lục`) is defined once per language in
+`src/lib/markdown/toc.ts` (`TOC_TITLES`); remark-toc, heading-range, heading metadata and the
+copy-as-Markdown export all derive their patterns from it.
+
 ### Rehype Plugins
 - `rehype-slug` - Auto-generate heading IDs
 - `rehype-katex-svelte` - Math rendering

@@ -18,17 +18,8 @@ import mdastToString from 'mdast-util-to-string';
 import visit from 'unist-util-visit';
 import { contentLocale } from '../content/policy';
 import type { ContentHeading } from '../content/types';
-
-export const TOC_HEADING = /^(table of contents|mục lục)$/i;
-
-/** Fold Vietnamese/Unicode text to a bare ASCII slug seed (no dedup). */
-export function asciiFold(text: string): string {
-	return text
-		.normalize('NFD')
-		.replace(/[\u0300-\u036f]/g, '')
-		.replace(/đ/g, 'd')
-		.replace(/Đ/g, 'D');
-}
+import { asciiFold } from '../utils/text';
+import { TOC_HEADING } from './toc';
 
 /** ASCII-fold then github-slugger. Pass a shared slugger for collision suffixes. */
 export function asciiSlug(text: string, slugger: GithubSlugger): string {
@@ -46,22 +37,22 @@ export function remarkHeadingSlugs() {
 	return (tree: Root, file: { filename?: string; data: { fm?: Record<string, unknown> } }) => {
 		const slugger = new GithubSlugger();
 		const headings: ContentHeading[] = [];
-		visit(tree, 'heading', (node) => {
-			const text = mdastToString(node);
+		visit(tree, 'heading', (heading: Heading) => {
+			const text = mdastToString(heading);
 			if (!text) return;
 			const id = asciiSlug(text, slugger);
-			const data: { hProperties?: { id?: string } } = (node.data ??= {});
+			const data: { hProperties?: { id?: string } } = (heading.data ??= {});
 			data.hProperties ??= {};
 			data.hProperties.id = id;
-			const heading = node as Heading;
 			if (heading.depth >= 2 && !TOC_HEADING.test(text)) {
 				headings.push({ id, text, depth: heading.depth });
 			}
 		});
 		if (file.data.fm) {
+			const declared = file.data.fm.lang;
 			file.data.fm.lang = contentLocale(
 				file.filename ?? '',
-				file.data.fm.lang as string | undefined,
+				typeof declared === 'string' ? declared : undefined,
 			);
 			file.data.fm.headings = headings;
 		}

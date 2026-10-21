@@ -1,21 +1,24 @@
 <script lang="ts">
-import type { Action } from 'svelte/action';
 import { browser } from '$app/env';
 import Icon from '$lib/design-system/primitives/Icon.svelte';
+import { useTranslations } from '$lib/i18n';
+import { locale } from '$lib/i18n-state.svelte';
 import { lightbox } from '$lib/state/lightbox.svelte';
 import styles from './Lightbox.module.scss';
 
-// Svelte 5 use: needs a local reference, not a method chain expression
-const overlayAction = lightbox.dialog.refs.attach('overlay') as Action<HTMLElement>;
-const contentAction = lightbox.dialog.refs.attach('content') as Action<HTMLElement>;
+let t = $derived(useTranslations(locale.value));
 </script>
 
 {#if browser}
-  <div {...lightbox.dialog.overlay} use:overlayAction class={styles.overlay}></div>
+  <div
+    {...lightbox.dialog.overlay}
+    {@attach lightbox.dialog.refs.attach('overlay')}
+    class={styles.overlay}
+  ></div>
 
   <dialog
     {...lightbox.dialog.content}
-    use:contentAction
+    {@attach lightbox.dialog.refs.attach('content')}
     class={styles.dialog}
     data-scroll-lock={lightbox.dialog.open || undefined}
   >
@@ -32,7 +35,7 @@ const contentAction = lightbox.dialog.refs.attach('content') as Action<HTMLEleme
       type="button"
       onclick={() => { lightbox.dialog.open = false; }}
       class={styles.closeBtn}
-      aria-label="Close image viewer"
+      aria-label={t.a11y.closeImage}
     >
       <Icon icon="ph:x-bold" class={styles.closeIcon} />
     </button>

@@ -84,6 +84,8 @@ export function useTranslations(locale: Language) {
 			goToPreviousPage: m.a11y_go_to_previous_page(undefined, opt),
 			goToNextPage: m.a11y_go_to_next_page(undefined, opt),
 			navPrimary: m.a11y_nav_primary(undefined, opt),
+			closeImage: m.a11y_close_image(undefined, opt),
+			closeNotification: m.a11y_close_notification(undefined, opt),
 			diagram: m.a11y_diagram(undefined, opt),
 			diagramControls: m.a11y_diagram_controls(undefined, opt),
 			/** Keyed by `CheckState` (content contract) so cells index it directly. */

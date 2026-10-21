@@ -1,11 +1,8 @@
 import type { PostMeta } from '$lib/types';
+import { asciiFold } from '$lib/utils/text';
 
 function normalize(text: string): string {
-	return text
-		.normalize('NFD')
-		.replace(/[\u0300-\u036f]/g, '')
-		.replace(/[đĐ]/g, 'd')
-		.toLowerCase();
+	return asciiFold(text).toLowerCase();
 }
 
 export function searchArticles<T extends { metadata: PostMeta }>(

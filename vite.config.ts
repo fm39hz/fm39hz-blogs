@@ -4,7 +4,6 @@ import adapter from '@sveltejs/adapter-vercel';
 import { sveltekit } from '@sveltejs/kit/vite';
 import type { Heading, Root, RootContent } from 'mdast';
 import headingRange from 'mdast-util-heading-range';
-import mdastToString from 'mdast-util-to-string';
 // @ts-ignore
 import { mdsvex } from 'mdsvex';
 import rehypeKatexSvelte from 'rehype-katex-svelte';
@@ -18,18 +17,20 @@ import { validateContent } from './scripts/validate-content';
 import { emitComponent } from './src/lib/components/content/contract';
 import { isPublished } from './src/lib/content/policy';
 import { SCHEDULED_POST_MARGIN_MS } from './src/lib/data/publication';
+import { resolveLanguage } from './src/lib/locale';
 import { remarkHeadingSlugs } from './src/lib/markdown/headingSlug';
 import { renderMermaidArt } from './src/lib/markdown/mermaid';
 import { rehypeResponsiveTables } from './src/lib/markdown/rehypeResponsiveTables';
 import { rehypeTableCellCheckboxes } from './src/lib/markdown/rehypeTableCellCheckboxes';
 import { rehypeTableLabels } from './src/lib/markdown/rehypeTableLabels';
+import { TOC_PATTERN, TOC_TITLES } from './src/lib/markdown/toc';
 import { renderVegaLiteArt } from './src/lib/markdown/vega';
 
 let highlighterPromise: ReturnType<typeof createHighlighter> | null = null;
 
 const tocOptions: Parameters<typeof remarkToc>[0] = {
 	tight: true,
-	heading: '(table of contents|mục lục)',
+	heading: `(${TOC_PATTERN})`,
 };
 
 export default defineConfig(async () => {
@@ -151,16 +152,15 @@ export default defineConfig(async () => {
 									) {
 										headingRange(
 											tree,
-											'table of contents|mục lục',
+											TOC_PATTERN,
 											(
-												start: Heading,
+												_start: Heading,
 												nodes: RootContent[],
 												end?: Heading,
 											) => {
+												// Summary is the canonical marker for the file's language.
 												const label =
-													file.data.fm?.lang === 'vi'
-														? 'Mục lục'
-														: mdastToString(start);
+													TOC_TITLES[resolveLanguage(file.data.fm?.lang)];
 												const out: RootContent[] = [
 													{
 														type: 'html',

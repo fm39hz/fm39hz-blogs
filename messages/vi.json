@@ -76,5 +76,7 @@
 	"a11y_check_done": "Đã xong",
 	"a11y_check_partial": "Xong một phần",
 	"a11y_check_todo": "Chưa xong",
-	"table_card_position": "Dòng {current} / {total}"
+	"table_card_position": "Dòng {current} / {total}",
+	"a11y_close_image": "Đóng trình xem ảnh",
+	"a11y_close_notification": "Đóng thông báo"
 }

@@ -76,5 +76,7 @@
 	"a11y_check_done": "Done",
 	"a11y_check_partial": "Partly done",
 	"a11y_check_todo": "Not done",
-	"table_card_position": "Row {current} of {total}"
+	"table_card_position": "Row {current} of {total}",
+	"a11y_close_image": "Close image viewer",
+	"a11y_close_notification": "Close notification"
 }

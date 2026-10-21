@@ -1,8 +1,12 @@
 <script lang="ts">
 import { browser } from '$app/env';
 import Icon from '$lib/design-system/primitives/Icon.svelte';
+import { useTranslations } from '$lib/i18n';
+import { locale } from '$lib/i18n-state.svelte';
 import { globalToaster } from '$lib/state/toast.svelte';
 import styles from './Toaster.module.scss';
+
+let t = $derived(useTranslations(locale.value));
 </script>
 
 {#if browser}
@@ -15,7 +19,7 @@ import styles from './Toaster.module.scss';
         <div class={styles.message}>
           <span {...toast.title}>{toast.data}</span>
         </div>
-        <button {...toast.close} class={styles.closeBtn} aria-label="Close notification">
+        <button {...toast.close} class={styles.closeBtn} aria-label={t.a11y.closeNotification}>
           <Icon icon="ph:x-bold" class={styles.closeIcon} />
         </button>
       </div>

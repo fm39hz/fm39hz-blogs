@@ -1,4 +1,9 @@
+import cfg from '$lib/config';
 import type { ContentHeading } from '$lib/content/types';
+import type { Language } from '$lib/locale';
+import { TOC_MARKER_LINE, TOC_TITLES } from '$lib/markdown/toc';
+import { resolveAuthor } from './author';
+import { formatNumericDate } from './date';
 
 /** Drop YAML frontmatter for clipboard/export. Body only. */
 export function stripFrontmatter(md: string): string {
@@ -9,15 +14,6 @@ export function stripFrontmatter(md: string): string {
 	if (body.startsWith('\r\n')) body = body.slice(2);
 	else if (body.startsWith('\n')) body = body.slice(1);
 	return body;
-}
-
-/** Format ISO date string as dd/mm/yyyy. */
-function formatDate(iso: string): string {
-	const d = new Date(iso);
-	const day = String(d.getDate()).padStart(2, '0');
-	const month = String(d.getMonth() + 1).padStart(2, '0');
-	const year = d.getFullYear();
-	return `${day}/${month}/${year}`;
 }
 
 /**
@@ -53,7 +49,7 @@ export function buildCopyMarkdown(
 		pubDatetime: string;
 		tags?: string[];
 		sourceUrl?: string;
-		lang: 'en' | 'vi';
+		lang: Language;
 		headings: ContentHeading[];
 	},
 	raw: string,
@@ -62,8 +58,8 @@ export function buildCopyMarkdown(
 	const title = `# ${meta.title}`;
 
 	// The AST provides headings and anchors; raw Markdown is only split around its TOC placeholder.
-	const tocMatch = /^##\s+(Table of contents|Mục lục)\s*$/m.exec(body);
-	const tocMarker = meta.lang === 'vi' ? '## Mục lục' : '## Table of contents';
+	const tocMatch = TOC_MARKER_LINE.exec(body);
+	const tocMarker = `## ${TOC_TITLES[meta.lang]}`;
 	const tocIndex = tocMatch?.index ?? -1;
 	const tocEnd = tocMatch ? tocMatch.index + tocMatch[0].length : -1;
 
@@ -85,8 +81,8 @@ export function buildCopyMarkdown(
 		.join('\n');
 
 	// Author signature
-	const author = meta.author ?? 'FM39hz';
-	const dateStr = formatDate(meta.pubDatetime);
+	const author = resolveAuthor(meta);
+	const dateStr = formatNumericDate(meta.pubDatetime, cfg.site.timezone);
 	const signature = `*${author}, ${dateStr}*`;
 
 	// Tags
