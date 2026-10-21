@@ -103,7 +103,7 @@ export function buildCopyMarkdown(
 		parts.push(tags);
 	}
 	if (meta.sourceUrl) {
-		parts.push(`Source: <${meta.sourceUrl}>`);
+		parts.push(`This article is hosted at: <${meta.sourceUrl}>`);
 	}
 
 	return parts.join('\n\n') + '\n';
