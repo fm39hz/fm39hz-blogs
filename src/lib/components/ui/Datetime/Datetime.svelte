@@ -2,6 +2,7 @@
 import cfg from '$lib/config';
 import Icon from '$lib/design-system/primitives/Icon.svelte';
 import { useTranslations } from '$lib/i18n';
+import type { Language } from '$lib/locale';
 import { formatDate, formatISO } from '$lib/utils/date';
 import styles from './Datetime.module.scss';
 
@@ -10,13 +11,13 @@ let {
 	modDatetime,
 	size = 'sm',
 	className = '',
-	locale = 'en',
+	locale,
 }: {
 	pubDatetime: string;
 	modDatetime?: string | null;
 	size?: 'sm' | 'lg';
 	className?: string;
-	locale?: string;
+	locale: Language;
 } = $props();
 
 let t = $derived(useTranslations(locale));

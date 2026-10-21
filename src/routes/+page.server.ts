@@ -1,10 +1,9 @@
 import { getHomepageArticles } from '$lib/content/queries.server';
-import { extractLocaleFromUrl } from '$lib/paraglide/runtime';
-import type { Language } from '$lib/types';
+import { localeFromUrl } from '$lib/utils/localized-url';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = ({ url }) => {
-	const locale = (extractLocaleFromUrl(url) === 'vi' ? 'vi' : 'en') as Language;
+	const locale = localeFromUrl(url);
 	const articles = getHomepageArticles(locale);
 	return {
 		featured: articles.filter((article) => article.metadata.featured),

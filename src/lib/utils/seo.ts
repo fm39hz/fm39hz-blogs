@@ -1,4 +1,5 @@
 import cfg from '$lib/config';
+import { BASE_LANGUAGE, type Language } from '$lib/locale';
 import type { PostMeta } from '$lib/types';
 import { resolveAuthor } from '$lib/utils/author';
 import { articleUrl, siteUrl } from '$lib/utils/site';
@@ -15,7 +16,11 @@ export type PostSeo = {
 	jsonLd: string;
 };
 
-export function buildPostSeo(meta: PostMeta, slug: string, lang = 'en'): PostSeo {
+export function buildPostSeo(
+	meta: PostMeta,
+	slug: string,
+	lang: Language = BASE_LANGUAGE,
+): PostSeo {
 	const author = resolveAuthor(meta);
 	const canonical = meta.canonicalURL ? siteUrl(meta.canonicalURL) : articleUrl(slug, lang);
 	const ogImage = siteUrl(meta.ogImage || cfg.site.ogImage || '/favicon.png');

@@ -5,12 +5,13 @@ import IconButton from '$lib/components/ui/IconButton/IconButton.svelte';
 import NavLink from '$lib/components/ui/NavLink/NavLink.svelte';
 import cfg from '$lib/config';
 import { useTranslations } from '$lib/i18n';
+import type { Language } from '$lib/locale';
 import { getLocalizedPath } from '$lib/utils/localized-url';
 import GearMenu from '../GearMenu/GearMenu.svelte';
 import styles from './Header.module.scss';
 import { SiteHeader } from './header.svelte';
 
-let { locale = 'en' }: { locale?: string } = $props();
+let { locale }: { locale: Language } = $props();
 let t = $derived(useTranslations(locale));
 const header = new SiteHeader();
 let scrollY = $state(0);

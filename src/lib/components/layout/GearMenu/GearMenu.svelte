@@ -2,16 +2,18 @@
 import { onMount } from 'svelte';
 import { animateThemeToggle, applyTheme } from '$lib/animations/theme';
 import IconButton from '$lib/components/ui/IconButton/IconButton.svelte';
-import { Lang } from '$lib/constants';
 import Icon from '$lib/design-system/primitives/Icon.svelte';
 import { rootTheme } from '$lib/document/root';
 import { useTranslations } from '$lib/i18n';
 import { locale, setLocale } from '$lib/i18n-state.svelte';
+import { LANGUAGES } from '$lib/locale';
+import { THEMES, type ThemeMode } from '$lib/types';
 import { DismissibleCollapsible } from '$lib/ui/dismissibleCollapsible.svelte';
+import { cycle } from '$lib/utils/cycle';
 import styles from './GearMenu.module.scss';
 
 let i18n = $derived(useTranslations(locale.value));
-let currentTheme = $state<'light' | 'dark'>('dark');
+let currentTheme = $state<ThemeMode>('dark');
 
 const panel = new DismissibleCollapsible({
 	outsideClick: true,
@@ -23,7 +25,7 @@ onMount(() => {
 });
 
 function toggleTheme() {
-	const next = currentTheme === 'dark' ? 'light' : 'dark';
+	const next = cycle(THEMES, currentTheme);
 	animateThemeToggle(() => {
 		currentTheme = next;
 		applyTheme(next);
@@ -31,7 +33,7 @@ function toggleTheme() {
 }
 
 function toggleLang() {
-	setLocale(locale.value === Lang.EN ? Lang.VI : Lang.EN);
+	setLocale(cycle(LANGUAGES, locale.value));
 }
 </script>
 
@@ -53,12 +55,12 @@ function toggleLang() {
     <div {...panel.menu.content} class={styles.dropdown} role="menu">
       <button class={styles.item} onclick={toggleTheme} role="menuitem">
         <Icon icon={currentTheme === 'dark' ? 'ph:moon' : 'ph:sun'} class={styles.itemIcon} />
-        <span>{currentTheme === 'dark' ? i18n.theme.dark : i18n.theme.light}</span>
+        <span>{i18n.theme[currentTheme]}</span>
       </button>
 
       <button class={styles.item} onclick={toggleLang} role="menuitem">
         <Icon icon="ph:translate" class={styles.itemIcon} />
-        <span>{locale.value === Lang.EN ? 'EN' : 'VI'}</span>
+        <span class={styles.langCode}>{locale.value}</span>
       </button>
     </div>
   {/if}

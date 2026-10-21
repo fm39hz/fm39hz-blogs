@@ -1,9 +1,10 @@
 <script lang="ts">
 import { useTranslations } from '$lib/i18n';
+import type { Language } from '$lib/locale';
 import Socials from '../../ui/Socials/Socials.svelte';
 import styles from './Footer.module.scss';
 
-let { locale = 'en', noMarginTop = false }: { locale?: string; noMarginTop?: boolean } = $props();
+let { locale, noMarginTop = false }: { locale: Language; noMarginTop?: boolean } = $props();
 let t = $derived(useTranslations(locale));
 const year = new Date().getFullYear();
 </script>

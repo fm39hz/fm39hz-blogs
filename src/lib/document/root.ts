@@ -1,5 +1,5 @@
-import { Theme } from '$lib/constants';
-import type { ThemeMode } from '$lib/types';
+import type { Language, TextDirection } from '$lib/locale';
+import { isThemeMode, type ThemeMode } from '$lib/types';
 
 /**
  * The only module that writes to <html>. That element sits outside the Svelte
@@ -11,14 +11,15 @@ import type { ThemeMode } from '$lib/types';
 
 const root = () => document.documentElement;
 
-export function setRootLocale(lang: string, dir: 'ltr' | 'rtl'): void {
+export function setRootLocale(lang: Language, dir: TextDirection): void {
 	root().lang = lang;
 	root().dir = dir;
 }
 
 /** Theme app.html applied before hydration — the single source for the initial value. */
 export function rootTheme(): ThemeMode {
-	return root().dataset.theme === Theme.LIGHT ? Theme.LIGHT : Theme.DARK;
+	const applied = root().dataset.theme;
+	return isThemeMode(applied) ? applied : 'dark';
 }
 
 export function setRootTheme(mode: ThemeMode): void {

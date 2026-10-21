@@ -10,6 +10,7 @@
 		"prepare": "husky && svelte-kit sync || true",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && bun run lint:styles",
 		"lint:styles": "stylelint \"src/**/*.scss\"",
+		"test": "bun test",
 		"format": "bunx --bun @biomejs/biome check --max-diagnostics 100 --write --unsafe && bun run lint:styles --fix",
 		"check:content": "bun scripts/check-content.ts",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"

@@ -1,13 +1,19 @@
-import type { Language, PostMeta } from '$lib/types';
+import type { PostMeta } from '$lib/types';
+// Relative, not $lib: vite.config loads this module before aliases exist.
+import { BASE_LANGUAGE, isLanguage, LANGUAGES, type Language } from '../locale';
 import type { ArchiveYearGroup, ArticleSummary, ContentHeading, PublicationContext } from './types';
+
+/** `name.<locale>.md` — locales from project.inlang, never hand-listed. */
+const LOCALE_SUFFIX = new RegExp(`\\.(${LANGUAGES.join('|')})\\.md$`);
+const MD_SUFFIX = /\.md$/;
 
 export function contentLocale(
 	fileName: string,
 	declared?: string,
-	fallback: Language = 'en',
+	fallback: Language = BASE_LANGUAGE,
 ): Language {
-	const suffix = fileName.match(/\.(en|vi)\.md$/)?.[1];
-	if (declared !== undefined && declared !== 'en' && declared !== 'vi') {
+	const suffix = LOCALE_SUFFIX.exec(fileName)?.[1];
+	if (declared !== undefined && !isLanguage(declared)) {
 		throw new Error(`${fileName}: unsupported content language ${declared}`);
 	}
 	if (suffix && declared && suffix !== declared) {
@@ -15,11 +21,12 @@ export function contentLocale(
 			`${fileName}: filename language ${suffix} conflicts with lang: ${declared}`,
 		);
 	}
-	return (declared ?? suffix ?? fallback) as Language;
+	const lang = declared ?? suffix;
+	return isLanguage(lang) ? lang : fallback;
 }
 
 export function contentSlug(fileName: string): string {
-	return fileName.replace(/\.(en|vi)\.md$/, '').replace(/\.md$/, '');
+	return fileName.replace(LOCALE_SUFFIX, '').replace(MD_SUFFIX, '');
 }
 
 export function isPublished(metadata: PostMeta, context: PublicationContext): boolean {

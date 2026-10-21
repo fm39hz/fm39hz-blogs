@@ -1,6 +1,8 @@
 import cfg from '$lib/config';
 import { getAllPublicArticles } from '$lib/content/queries.server';
+import { LANGUAGES } from '$lib/locale';
 import { getUniqueTags } from '$lib/tags';
+import { getLocalizedPath } from '$lib/utils/localized-url';
 import { articleUrl, siteUrl } from '$lib/utils/site';
 import { sitemapXml } from '$lib/utils/xml';
 
@@ -8,17 +10,17 @@ export const prerender = true;
 
 export const GET = () => {
 	const allPosts = getAllPublicArticles();
-	const urls = ['en', 'vi'].flatMap((lang) => {
-		const prefix = lang === 'vi' ? '/vi' : '';
+	const urls = LANGUAGES.flatMap((lang) => {
+		const page = (path: string) => siteUrl(getLocalizedPath(path, lang));
 		const posts = allPosts.filter((post) => post.lang === lang);
 		return [
-			siteUrl(prefix || '/'),
-			siteUrl(`${prefix}/articles`),
-			siteUrl(`${prefix}/author`),
-			siteUrl(`${prefix}/topics`),
-			...(cfg.features.showArchives ? [siteUrl(`${prefix}/archives`)] : []),
+			page('/'),
+			page('/articles'),
+			page('/author'),
+			page('/topics'),
+			...(cfg.features.showArchives ? [page('/archives')] : []),
 			...posts.map((post) => articleUrl(post.slug, lang)),
-			...getUniqueTags(allPosts).map((tag) => siteUrl(`${prefix}/topics/${tag.tag}`)),
+			...getUniqueTags(allPosts).map((tag) => page(`/topics/${tag.tag}`)),
 		];
 	});
 

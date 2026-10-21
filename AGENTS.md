@@ -56,7 +56,7 @@ src/
 │   └── pages/*.md        # Static pages
 ├── lib/
 │   ├── config.ts         # Site configuration (URL, socials, features)
-│   ├── constants.ts      # Enums, regex patterns, paths
+│   ├── locale.ts         # Language type + LANGUAGES/BASE_LANGUAGE from project.inlang
 │   ├── types.ts          # TypeScript interfaces (PostMeta, BlogConfig)
 │   ├── i18n.ts           # Translation helper (useTranslations)
 │   ├── i18n-state.svelte.ts  # Reactive locale state
@@ -153,13 +153,15 @@ description: Brief description
 
 ### Slug Parsing
 
-`src/lib/utils/slug.ts` handles language-aware slugs:
-- `parseSlug()` strips `.en.md`/`.vi.md` extensions
-- `parseLang()` extracts language code from filename
+`src/lib/content/policy.ts` handles language-aware file names (suffixes derive from `LANGUAGES`):
+- `contentSlug()` strips the `.<locale>.md` / `.md` suffix
+- `contentLocale()` resolves and validates the file's language
 
 ## i18n (Paraglide)
 
-- **Locales**: English (`en`), Vietnamese (`vi`)
+- **Locales**: `project.inlang/settings.json` is the SSOT. Code uses `Language`, `LANGUAGES`,
+  `BASE_LANGUAGE`, `resolveLanguage` (`$lib/locale`) and `localeFromUrl`
+  (`$lib/utils/localized-url`); never hard-code `'en'`/`'vi'` or cast to them.
 - **Messages**: `messages/{locale}.json`
 - **Generated code**: `src/lib/paraglide/` (gitignored)
 - **Strategy**: URL-based (`/vi/...` prefix for Vietnamese)
@@ -270,7 +272,9 @@ Complex components use class-based patterns (e.g., `SiteHeader` in `header.svelt
 
 ## Testing
 
-No test suite configured. Use `bun run check` for Svelte diagnostics and SCSS linting.
+`bun run test` runs the `*.test.ts` suites (Bun's test runner). `*.selfcheck.ts` files are
+standalone assertions: run each with `bun <file>`. Use `bun run check` for Svelte diagnostics and
+SCSS linting.
 
 ## Deployment
 
@@ -290,7 +294,8 @@ Prerendering enabled globally (`src/routes/+layout.js`). Individual routes can o
 
 5. **Tab indentation**: Biome enforces tabs. Don't use spaces.
 
-6. **Content paths**: Articles use `POSTS_DIR = '/src/content/articles/*.md'` constant, not direct imports.
+6. **Content paths**: `import.meta.glob` needs literal patterns, so the article glob lives in
+   `src/lib/content/renderer.ts` and `src/lib/server/article-repository.server.ts`.
 
 7. **Theme persistence**: Theme stored in localStorage. `app.html` applies it before hydration; `$lib/animations/theme.ts` toggles and persists through `$lib/document/root.ts`.
 

@@ -1,87 +1,9 @@
+import type { Language } from '$lib/locale';
 import * as m from '$lib/paraglide/messages';
 
-export interface UIStrings {
-	nav: {
-		home: string;
-		posts: string;
-		tags: string;
-		about: string;
-		archives: string;
-		search: string;
-	};
-	post: {
-		publishedAt: string;
-		updatedAt: string;
-		sharePostIntro: string;
-		sharePostOn: (platform: string) => string;
-		sharePostViaEmail: string;
-		tagLabel: string;
-		backToTop: string;
-		goBack: string;
-		onThisPage: string;
-		editPage: string;
-		previousPost: string;
-		nextPost: string;
-		logsCount: (count: number) => string;
-		tableOfContents: string;
-		tableOfContentsMenu: string;
-		closeMenu: string;
-		copied: string;
-		copiedMarkdown: string;
-	};
-	pagination: { prev: string; next: string; page: string };
-	home: {
-		socialLinks: string;
-		featured: string;
-		recentPosts: string;
-		allPosts: string;
-		heroTitle: string;
-		heroTagline: string;
-	};
-	footer: { copyright: string; allRightsReserved: string };
-	pages: {
-		tagTitle: string;
-		tagDesc: string;
-		tagsTitle: string;
-		tagsDesc: string;
-		postsTitle: string;
-		postsDesc: string;
-		archivesTitle: string;
-		archivesDesc: string;
-		searchTitle: string;
-		searchDesc: string;
-		siteDescription: string;
-		searchComingSoon: string;
-	};
-	a11y: {
-		skipToContent: string;
-		openMenu: string;
-		closeMenu: string;
-		toggleTheme: string;
-		toggleLanguage: string;
-		copyCode: string;
-		copyMarkdown: string;
-		copyFigure: string;
-		rssFeed: string;
-		rssLinkTitle: string;
-		paginationNav: string;
-		archiveLink: string;
-		searchLink: string;
-		searchPlaceholder: string;
-		noResults: string;
-		goToPreviousPage: string;
-		goToNextPage: string;
-		navPrimary: string;
-	};
-	theme: {
-		dark: string;
-		light: string;
-	};
-	notFound: { title: string; message: string; goHome: string };
-}
-
-export function useTranslations(locale?: string): UIStrings {
-	const opt = locale ? { locale: locale as 'en' | 'vi' } : undefined;
+/** UI copy for a locale; the shape is derived, so messages stay the only source. */
+export function useTranslations(locale: Language) {
+	const opt = { locale };
 
 	return {
 		nav: {
@@ -175,9 +97,4 @@ export function useTranslations(locale?: string): UIStrings {
 	};
 }
 
-export function tplStr(template: string, vars: Record<string, string | number>): string {
-	return template.replace(/\{\{(\w+)\}\}/g, (_, key: string) => {
-		const value = vars[key];
-		return value !== undefined && value !== null ? String(value) : '';
-	});
-}
+export type UIStrings = ReturnType<typeof useTranslations>;

@@ -1,4 +1,3 @@
-import { Dir, Lang } from '$lib/constants';
 import type { BlogConfig } from '$lib/types';
 import { SCHEDULED_POST_MARGIN_MS } from './data/publication';
 
@@ -10,9 +9,7 @@ const cfg: BlogConfig = {
 		author: 'FM39hz',
 		profile: 'https://fm39hz.is-a.dev/author',
 		ogImage: '/favicon.png',
-		lang: Lang.EN,
 		timezone: 'Asia/Bangkok',
-		dir: Dir.LTR,
 		hero: {
 			title: "FM39hz's blog",
 			tagline: 'This is my personal blogs, to mumbling about Work & Life',

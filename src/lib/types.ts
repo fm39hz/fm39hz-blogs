@@ -1,22 +1,13 @@
-export enum Lang {
-	EN = 'en',
-	VI = 'vi',
+import type { Language } from './locale';
+
+export type { Language, TextDirection } from './locale';
+
+export const THEMES = ['light', 'dark'] as const;
+export type ThemeMode = (typeof THEMES)[number];
+
+export function isThemeMode(value: unknown): value is ThemeMode {
+	return THEMES.some((mode) => mode === value);
 }
-
-export enum Theme {
-	LIGHT = 'light',
-	DARK = 'dark',
-}
-
-export enum Dir {
-	LTR = 'ltr',
-	RTL = 'rtl',
-	AUTO = 'auto',
-}
-
-export type Language = `${Lang}`;
-
-export type ThemeMode = `${Theme}`;
 
 export interface SiteConfig {
 	url: string;
@@ -25,9 +16,7 @@ export interface SiteConfig {
 	author: string;
 	profile?: string;
 	ogImage?: string;
-	lang: Language;
 	timezone: string;
-	dir: Dir;
 	googleVerification?: string;
 	hero: { title: string; tagline: string };
 }

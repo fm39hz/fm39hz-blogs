@@ -20,7 +20,7 @@ let { children } = $props();
 
 $effect(() => {
 	if (!browser) return;
-	setRootLocale(locale.value, getTextDirection(locale.value as 'en' | 'vi'));
+	setRootLocale(locale.value, getTextDirection(locale.value));
 });
 
 if (browser) {
