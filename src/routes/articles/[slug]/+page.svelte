@@ -1,7 +1,6 @@
 <script lang="ts">
 import { page } from '$app/state';
 // checkboxes replaced by build-time rehype plugin
-import { pencilEdge } from '$lib/actions/pencilEdge';
 import { roughNotation } from '$lib/actions/roughNotation';
 import ButtonLink from '$lib/components/ui/ButtonLink/ButtonLink.svelte';
 import Datetime from '$lib/components/ui/Datetime/Datetime.svelte';
@@ -118,7 +117,7 @@ function onArticleClick(event: MouseEvent) {
       </div>
     </div>
 
-    <article class={styles.article} lang={entry.lang} use:pencilEdge use:roughNotation>
+    <article class={styles.article} lang={entry.lang} use:roughNotation>
       <div class="prose" bind:this={proseEl}><entry.component /></div>
       <hr class={styles.hr} />
       <PostSignature author={seo.author} location={meta.location} pubDatetime={meta.pubDatetime} />

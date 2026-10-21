@@ -126,7 +126,7 @@
 
   /* ── Blockquote ──────────────────────────────────────────── */
 
-  /* Borel + OT + pencil-edge layer (IO pauses wiggle off-screen via data-pencil) */
+  /* Borel + OT; the wiggle comes from .pencil-edge (Blockquote.svelte, global.scss) */
   blockquote {
     font-family: var(--font-handwriting);
     font-feature-settings: var(--font-hand-features);
@@ -137,13 +137,6 @@
     margin: var(--space-md) 0;
     border: var(--border-w) solid var(--accent);
     border-radius: var(--br);
-
-    /* base = animated; [data-pencil=static] overrides in global.scss */
-    filter: url('#pencil-wiggle');
-    transform: translateZ(0);
-    isolation: isolate;
-    backface-visibility: hidden;
-    will-change: filter;
     quotes: "“" "”";
 
     p { margin-block: 0.5em; }

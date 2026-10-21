@@ -8,6 +8,7 @@
  */
 
 export { default as TableCardStack } from '../ui/TableCardStack/TableCardStack.svelte';
+export { default as blockquote } from './Blockquote.svelte';
 export { default as CodeBlock } from './CodeBlock/CodeBlock.svelte';
 export { default as Figure } from './Figure/Figure.svelte';
 </script>

@@ -113,11 +113,6 @@
   color: var(--fg);
 }
 
-.prose blockquote {
-  font-family: var(--font-handwriting);
-  font-feature-settings: var(--font-hand-features);
-}
-
 .prose blockquote .katex {
   font-family: var(--font-handwriting), "KaTeX_Main", serif;
 }
@@ -318,19 +313,11 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
 .katex-display { margin: 1rem 0; overflow: auto hidden; }
 
 /*
- * Handwriting + pencil wiggle:
- * 1) font glyphs + OT features (text intact)
- * 2) .pencil-edge = animated SVG filter on an OWN compositor layer
- *    so seed animation re-filters only that box (not the whole page).
+ * Pencil wiggle: .pencil-edge = animated SVG filter on an OWN compositor layer
+ * so seed animation re-filters only that box (not the whole page). Components
+ * render data-pencil="static" while off screen (inView attachment).
  */
-.hand,
-.sketchy-quote {
-  font-family: var(--font-handwriting);
-  font-feature-settings: var(--font-hand-features);
-}
-
-.pencil-edge,
-.sketchy-quote {
+.pencil-edge {
   filter: url('#pencil-wiggle');
 
   /* promote layer — isolates filter invalidation from document scroll */
@@ -341,17 +328,13 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
 }
 
 /* Off-screen / not yet painted: static edge — no seed animation cost */
-.pencil-edge[data-pencil='static'],
-.sketchy-quote[data-pencil='static'],
-blockquote[data-pencil='static'] {
+.pencil-edge[data-pencil='static'] {
   filter: url('#pencil-edge-static');
   will-change: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pencil-edge,
-  .sketchy-quote,
-  .prose blockquote {
+  .pencil-edge {
     filter: url('#pencil-edge-static') !important;
     will-change: auto !important;
   }
