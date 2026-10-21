@@ -14,6 +14,8 @@ import {
 	FONT_FILE_ORIGIN,
 	SITE_FONT_STYLESHEET,
 } from '$lib/design-system/tokens/fonts';
+// KaTeX CSS from the installed package: version always matches the renderer.
+import 'katex/dist/katex.min.css';
 import '../styles/global.scss';
 import '$lib/design-system/foundations/prose.scss';
 import '$lib/design-system/foundations/code.scss';
