@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-07-07
-modDatetime: 2026-10-21
+modDatetime: 2026-10-27
 title: Another way to think about Game Architecture
 featured: false
 draft: false
@@ -34,7 +34,7 @@ Take that simulation-first game-form as already configured. Architecture begins 
 | Kind | What it means here |
 | --- | --- |
 | Configured design | Authored quantities and relations accepted before the instance runs. This becomes **Knowledge**. |
-| Raw configuration | Mutable truth of one operating instance. I will call it **life**. |
+| Raw configuration | Mutable truth of one operating instance. I will call it **Actuality**. |
 | Intervention profile | Contributions admitted through the game's Roles at one boundary. It supplies input; Rules determine the consequence. |
 | Measurement | Causal evidence supplied by an apparatus under a declared contract, such as a measured contact. |
 | Disclosure | A reading the configured game-form permits a Role to receive. It is not whatever the apparatus happened to know. |
@@ -43,7 +43,7 @@ Here, capitalized **Knowledge** names accepted configured design. Lowercase know
 
 A Measurement has two honest places to land. If the measured value can remain operative after capture, a represented preparation transition commits it to a typed configuration port. The next macro-transition reads it from its source Configuration. If the value exists only while realizing one macro relation, it remains an internal value in that factorization, and anything consuming it there is an evaluation factor rather than another Rule cell. Neither case gives a Rule cell a third input family beside configuration ports and Role contributions. A Measurement is not a contribution through an intervention Role. If changing its contract changes admitted continuations or disclosures, the configured form has changed with it.
 
-Those distinctions already contain most of the architecture. Knowledge configures the form. Life locates one instance inside it. Intervention enters through declared Role inputs. A committed Measurement is already part of the source Configuration; an internal one disappears inside the realized relation. Disclosure leaves through declared readings. Repeated Rule application from an admitted initial Configuration gives the Trajectories the game may actualize.
+Those distinctions already contain most of the architecture. Knowledge configures the form. Actuality locates one instance inside it. Intervention enters through declared Role inputs. A committed Measurement is already part of the source Configuration; an internal one disappears inside the realized relation. Disclosure leaves through declared readings. Repeated Rule application from an admitted initial Configuration gives the Trajectories the game may actualize.
 
 The possibility space is therefore not a bag the engine stores somewhere. It is what the configured Rules, Knowledge, initial configurations, admitted interventions, and measurement contracts make reachable. A scheduler, component store, collider, or render graph may realize part of that operation. None gets to amend it by accident.
 
@@ -165,7 +165,7 @@ The first test I care about is topological. Change which Concept a Being claims,
 
 The value test comes second. Once the Aspect topology is fixed, change one authored value while holding the source Configuration, Contribution Profile, realized Measurement values, and every other configured quantity fixed. If no permitted Continuation or declared reading can change, that value is idle. But values are not the unit that gives the architecture its shape. They fill a domain the topology has already made available.
 
-`Health = 2` and `MaxHealth = 4` are two values in two different positions, one in life and one in Knowledge. The deeper architectural fact is that `Health` and `HealthPool` exist at all, and that Rules can lawfully relate the Subjects and Beings carrying them. A Subject with no `Health` position is outside a Health Rule's domain. No clever choice of number repairs the missing topology.
+`Health = 2` and `MaxHealth = 4` are two values in two different positions, one in Actuality and one in Knowledge. The deeper architectural fact is that `Health` and `HealthPool` exist at all, and that Rules can lawfully relate the Subjects and Beings carrying them. A Subject with no `Health` position is outside a Health Rule's domain. No clever choice of number repairs the missing topology.
 
 The same test works in the other direction. Add a new Being using only an existing Aspect topology and existing laws. If some Rule must now learn that Being's name, the vocabulary failed to express the law's real domain. If no new Rule is needed, the abstraction has actually bought something.
 
@@ -212,9 +212,9 @@ An entity is a bag of live fields, and it doesn't need to _know_ it's "Player". 
 
 ABC is an abstraction of game semantics, not a storage schema. It is how design and Rule share coordinates without collapsing into storage slang or class trees, viewpoint against free-form bags, role against identity. A database, ECS, object graph, or generated table may realize the same topology without becoming the topology itself.
 
-## Knowledge, and... life?
+## Knowledge, and Actuality
 
-Before "Player max HP is 4" and "Subject 17 currently has 2 HP" can differ as values, `HealthPool` and `Health` have to exist as two different positions. One belongs to design, the other to life. The numbers merely fill them. Cram the positions into the same address space and you get one of two failure modes: live changes quietly rewriting the design every future instance reads from, or endless reparsing because authored claims never became accepted truth.
+Before "Player max HP is 4" and "Subject 17 currently has 2 HP" can differ as values, `HealthPool` and `Health` have to exist as two different positions. One belongs to design, the other to Actuality. The numbers merely fill them. Cram the positions into the same address space and you get one of two failure modes: live changes quietly rewriting the design every future instance reads from, or endless reparsing because authored claims never became accepted truth.
 
 The distinction is not merely "read-only versus writable". Knowledge helps select the configured game-form; raw configuration says where one operating instance currently is. Hold Knowledge, the rest of the form, and future inputs fixed, and two instances with the same operative raw configuration must admit the same future evolution. An extra stored flag that cannot change that prediction through a declared Rule is a cache, a projection, or bookkeeping pretending to be ontology.
 
@@ -262,15 +262,15 @@ The spelling isn't important. Read it as: choose a thing, look through one Conce
 
 Collections have the same obligation. A mutable array hidden behind a read-only property is still a mutable array wearing a hat. Knowledge must not hand its authoring buffer back to a rule and hope nobody notices.
 
-Here's the part people trip over most often: **reading Knowledge is not a mutable read/write conflict against other rules**, because Knowledge is immutable by construction. Treat `Of`/`About` as scheduling noise and you'll invent false dependencies, and quietly train everyone to stop trusting the real dependency graph, the one that actually lives over mutable life. No gameplay dependency serializes two Knowledge reads; safe publication and storage remain infrastructure concerns. No mystery about who last wrote `MaxSpeed`, because design does not change during the transition.
+Here's the part people trip over most often: **reading Knowledge is not a mutable read/write conflict against other rules**, because Knowledge is immutable by construction. Treat `Of`/`About` as scheduling noise and you'll invent false dependencies, and quietly train everyone to stop trusting the real dependency graph, the one that lives over mutable Actuality. No gameplay dependency serializes two Knowledge reads; safe publication and storage remain infrastructure concerns. No mystery about who last wrote `MaxSpeed`, because design does not change during the transition.
 
-Design and life also need different kinds of references. Authoring sometimes means this exact Player definition or this exact Bat definition. Life may point to the current authored State, equipped Effect, or another design coordinate through the Concept that gives that reference meaning. The Ref may reveal only what its Concept promises. Otherwise authored identity slips back into the Rule through a more respectable-looking door.
+Design and Actuality also need different kinds of references. Authoring sometimes means this exact Player definition or this exact Bat definition. Actuality may point to the current authored State, equipped Effect, or another design coordinate through the Concept that gives that reference meaning. The Ref may reveal only what its Concept promises. Otherwise authored identity slips back into the Rule through a more respectable-looking door.
 
-And even that is not the identity of a living participant. Two bats materialized from the same Being read the same design and remain two different bats. Call the opaque, World-local participant a **Subject**: enough to say which life participates and nothing more. It is not a Knowledge reference and it is not permission to query an ECS handle. Confuse those three identities and either every bat becomes the same bat, or the storage engine quietly becomes the ontology again.
+And even that is not the identity of a living participant. Two bats materialized from the same Being read the same design and remain two different bats. Call the opaque, World-local participant a **Subject**: enough to say which Actuality participates and nothing more. It is not a Knowledge reference and it is not permission to query an ECS handle. Confuse those three identities and either every bat becomes the same bat, or the storage engine quietly becomes the ontology again.
 
-Knowledge holds configured design; fields hold life. Some design values may be copied into life when a Being participates in initial composition; timers, input samples, and other instance values simply begin there. The same value shape can therefore be immutable design in one place and mutable life in another. Its kind of truth follows from _where_ the position exists, not from its type name or current value. References such as a current State are how life points back at Knowledge without pretending to become a Being itself.
+Knowledge holds configured design; fields hold Actuality. Some design values may be copied into Actuality when a Being participates in initial composition; timers, input samples, and other instance values simply begin there. The same value shape can therefore be immutable design in one place and mutable Actuality in another. Its kind of truth follows from _where_ the position exists, not from its type name or current value. References such as a current State are how Actuality points back at Knowledge without pretending to become a Being itself.
 
-A Being is an authored thing, not necessarily a blueprint. An entity is one possible storage representation of a running Subject. For the Beings that participate in initial composition, `Materialize(Knowledge, initial condition)` is a one-way mapping into the initial raw configuration. Copy the design values life needs, apply its initial values, and never write back. After that point the instance is independent; changing this entity's `MaxSpeed` cannot touch Knowledge, and another instance still reads the authored value. The important part here is the direction of the mapping, not an API for Rules to create and destroy things.
+A Being is an authored thing, not necessarily a blueprint. An entity is one possible storage representation of a running Subject. For the Beings that participate in initial composition, `Materialize(Knowledge, initial condition)` is a one-way mapping into the initial raw configuration. Copy the design values Actuality needs, apply its initial values, and never write back. After that point the instance is independent; changing this entity's `MaxSpeed` cannot touch Knowledge, and another instance still reads the authored value. The important part here is the direction of the mapping, not an API for Rules to create and destroy things.
 
 That initial mapping is deliberately boring and pure. C# might write one function like this:
 
@@ -279,13 +279,13 @@ static Health MaterializeHealth(in HealthPool design)
     => new(design.Maximum, design.Maximum);
 ```
 
-Do not stretch that mapping into state management. Changing `CurrentState` changes one reference. Rules that care about the State read the appropriate design through that reference. Applying Decision changes `CurrentState`, not the entity's topology. A consequence Rule may read another Aspect carried by the selected State Being, but it does not need to copy that Aspect onto life and later remember to revoke it.
+Do not stretch that mapping into state management. Changing `CurrentState` changes one reference. Rules that care about the State read the appropriate design through that reference. Applying Decision changes `CurrentState`, not the entity's topology. A consequence Rule may read another Aspect carried by the selected State Being, but it does not need to copy that Aspect onto Actuality and later remember to revoke it.
 
-Why fight this hard for the Knowledge/life split? Because the moment you can no longer tell "design fact" from "this-instance-right-now", you've already lost the distinction between Rule and possibility space, and once that's gone, the blackbox owns you again.
+Why fight this hard for the Knowledge/Actuality split? Because the moment you can no longer tell "design fact" from "this-instance-right-now", you've already lost the distinction between Rule and possibility space, and once that's gone, the blackbox owns you again.
 
 ## Rules, and the greatness of honest reads and writes
 
-Rules need mutable life to work with. That life may live in an ECS, an SoA table, an object graph, or something stranger; storage is not the architectural decision. The decision is that a Rule cell can name what it observes and changes without importing the storage engine's vocabulary, and that every mutable touch in its realization remains visible to scheduling. "Ordering" without visible dependence is just theater.
+Rules need mutable Actuality to work with. That Actuality may live in an ECS, an SoA table, an object graph, or something stranger; storage is not the architectural decision. The decision is that a Rule cell can name what it observes and changes without importing the storage engine's vocabulary, and that every mutable touch in its realization remains visible to scheduling. "Ordering" without visible dependence is just theater.
 
 A Rule cell is a scoped relation before any method realizes it. It declares an application domain, typed input positions, mutable positions, output positions, and the relation among their values. The application domain is not an `if` ladder hidden inside the Rule. It says which complete tuples give the Rule something to speak about.
 
@@ -314,7 +314,7 @@ static void ApplyDamage(in Damage damage, ref Health health)
 There is nothing C#-specific about the idea. The notation only has to make three ordinary things visible:
 
 - `in` reads an input without changing it.
-- `ref` reads and replaces life already owned by the World.
+- `ref` reads and replaces Actuality already owned by the World.
 - `out` writes the result of an accepted transformation application.
 - Knowledge is immutable context, so reading it creates no mutable conflict.
 - Time is an input only to laws that genuinely depend on time.
@@ -342,7 +342,7 @@ A useful gut check for an evaluation factor: **if you can't state what it realiz
 
 Multi-sentence factors hide extra writes and slowly turn into dumping grounds.
 
-In this construction, an evaluation factor writes within one mutable owner, which I'll call a World below. Because its reads and writes are visible, the scheduler can compare it with every other factor in that World. A helper must not be able to hide a write. Knowledge is immutable, so reading it adds no mutable conflict; only life can be changed underneath another factor.
+In this construction, an evaluation factor writes within one mutable owner, which I'll call a World below. Because its reads and writes are visible, the scheduler can compare it with every other factor in that World. A helper must not be able to hide a write. Knowledge is immutable, so reading it adds no mutable conflict; only Actuality can be changed underneath another factor.
 
 > Remember to focus on where fact and rule intersect, that's where the architecture actually lives.
 > At that intersection, the Rule signature states a complete relation: where the cell applies, what it may refuse, what it changes, and what an accepted transformation produces. Its realization is not an imperative script driving undeclared consequences or hiding order inside a call stack. Procedure inside one evaluation factor, clamp, integrate, is fine. Orchestration between factors belongs to their shared data and the schedule.
@@ -353,13 +353,13 @@ The visible directions tell us which evaluation factors cannot run together. The
 
 Clockwork, intervention, Decision, and resolution can all participate in the same flow without sharing meaning. Friction, decay, integration, no choice involved, purely mechanical. A Source may supply a Contribution that changes what Decision can read or select, but that does not define Decision. Decision chooses the next represented State among legal candidates. Strike, health, and every other effect remain consequences of complete inputs. The apparatus measuring a `Hit` remains infrastructure even when its output is committed at the adjacent boundary, because it measures space and never owns the damage table.
 
-Behavior over life has to stay small and accountable in its reads and writes. Break that discipline and parameterization quietly dies in the programmer's calendar, while ordering dies in hope. Agency still belongs to the configured continuation structure. The architecture only gives admitted contributions an honest route into it.
+Behavior over Actuality has to stay small and accountable in its reads and writes. Break that discipline and parameterization quietly dies in the programmer's calendar, while ordering dies in hope. Agency still belongs to the configured continuation structure. The architecture only gives admitted contributions an honest route into it.
 
 ## Actually, why isolate decision at all?
 
-An admitted intervention profile is not permission for an Agent to write arbitrary life. The Rules still decide what its Contributions mean and which continuations they can reach. A button, an AI policy, and a referee ruling may arrive through different apparatus, but none stands above the configured relation.
+An admitted intervention profile is not permission for an Agent to write arbitrary Actuality. The Rules still decide what its Contributions mean and which continuations they can reach. A button, an AI policy, and a referee ruling may arrive through different apparatus, but none stands above the configured relation.
 
-Decision is not another name for Agency. It is the represented relation that selects the next State from the legal candidates supplied by the configured form. It may read a Contribution through a Role. It may also be intervention-free and evaluate an internal policy entirely from Knowledge and life. In the second case the simulation is deciding what one of its Subjects does, but no Source acquires Agency merely because an evaluator ran.
+Decision is not another name for Agency. It is the represented relation that selects the next State from the legal candidates supplied by the configured form. It may read a Contribution through a Role. It may also be intervention-free and evaluate an internal policy entirely from Knowledge and Actuality. In the second case the simulation is deciding what one of its Subjects does, but no Source acquires Agency merely because an evaluator ran.
 
 That is why I isolate Decision from consequence. The evaluator selects the next `State` Ref. It does not also grant invulnerability, spawn a volume, change velocity, deal damage, and reshape the entity while nobody is looking. Those are separate Rules that may read the selected State and establish their own consequences.
 
@@ -387,11 +387,11 @@ Evaluate(Knowledge, current State Ref, State group, sensed values)
     -> next State Ref or the current one
 ```
 
-Applying the result changes `CurrentState`, not the entity's shape. If rolling changes damage acceptance, a damage Rule reads that authored meaning from the selected State Being through the appropriate Concept or free-floating Aspect. Nothing needs to copy an `Invulnerable` tag onto life and remember to remove it later.
+Applying the result changes `CurrentState`, not the entity's shape. If rolling changes damage acceptance, a damage Rule reads that authored meaning from the selected State Being through the appropriate Concept or free-floating Aspect. Nothing needs to copy an `Invulnerable` tag onto Actuality and remember to remove it later.
 
 There is still a totality trap. If `State` reveals `Link`, every State Being supplies a Link position, including an empty value where there is no outgoing edge. If another Concept reveals `Gate` or `Desirability`, every Being claiming that view supplies the corresponding position, including a lawful neutral value. A typed None is valid only when None is one of the Aspect's meanings; it does not excuse a hole in the topology.
 
-Decision also needs changing facts without importing the whole World. A sensor definition is a Being in Knowledge, while its provider is one closed extraction from declared life or Measurement ports to a typed value. Health ratio may follow from `Health`; State duration may follow from the current timer; proximity may require a spatial apparatus. The evaluator consumes those values and never the query internals that produced them. None automatically becomes a disclosure to a Role merely because Decision can read it.
+Decision also needs changing facts without importing the whole World. A sensor definition is a Being in Knowledge, while its provider is one closed extraction from declared Actuality or Measurement ports to a typed value. Health ratio may follow from `Health`; State duration may follow from the current timer; proximity may require a spatial apparatus. The evaluator consumes those values and never the query internals that produced them. None automatically becomes a disclosure to a Role merely because Decision can read it.
 
 Dispatch should remain closed and typed, not a reflective provider soup on the hot path. Adding another State Being with the same three-Aspect topology is authoring. Adding another sensor Being uses the existing provider vocabulary when its extraction already exists. A genuinely new topology or relation may require a new Rule. The evaluator itself should not need another branch every time a designer invents a new State.
 
@@ -410,16 +410,16 @@ Duration is a quantity. Boundary identity is another fact. A Rule asks for which
 Three things get conflated constantly, so it is worth separating them cleanly:
 
 - A **Phase** expresses temporal meaning or advancement policy.
-- A **World** is one closed owner of mutable life and local identity.
+- A **World** is one closed owner of mutable Actuality and local identity.
 - A **Backend Binding** realizes a World using one storage and execution backend.
 
-If a simulation uses several Worlds, assign every mutable port to exactly one of them. The global raw Configuration is composed from those local Configurations, but no mutable position appears in two Worlds at once. The exact representation matters less than the wall. A Bridge may derive a value from one settled World and provide it to another at a known boundary, but that is a directional relation between distinct ports, not shared life. If the relation can change a permitted continuation or disclosed reading, it belongs to the represented game-form. Only the copying mechanism remains infrastructure.
+If a simulation uses several Worlds, assign every mutable port to exactly one of them. The global raw Configuration is composed from those local Configurations, but no mutable position appears in two Worlds at once. The exact representation matters less than the wall. A Bridge may derive a value from one settled World and provide it to another at a known boundary, but that is a directional relation between distinct ports, not shared Actuality. If the relation can change a permitted continuation or disclosed reading, it belongs to the represented game-form. Only the copying mechanism remains infrastructure.
 
 There is no sacred lineup of `RenderWorld` and `AudioWorld` waiting to be declared. Walls go up when mutable ownership actually divides, not merely because cadence, layout, backend, or failure policy differs. Those are Phase, Backend Binding, and apparatus concerns until another owner truly exists. Ordinary presentation consumes a declared projection or disclosure; it is not a World drawn so a diagram can have another box.
 
 We don't chase a global service locator, we chase visible flow. Outputs already connect producers to consumers; a second, invisible broadcast network would only give the same information another route through the program.
 
-Subject 42 in World A is not Subject 42 in World B. An evaluation factor in A never reaches directly into mutable life owned by B, and cross-wall data moves only through Bridges at declared boundaries. A single-World project simply has no Bridges; that is honesty, not a missing pillar. Split when ownership divides, not because a blog post once showed three boxes and it looked tidy.
+Subject 42 in World A is not Subject 42 in World B. An evaluation factor in A never reaches directly into mutable Actuality owned by B, and cross-wall data moves only through Bridges at declared boundaries. A single-World project simply has no Bridges; that is honesty, not a missing pillar. Split when ownership divides, not because a blog post once showed three boxes and it looked tidy.
 
 Capture may be where external input is admitted. Fixed may hold transformations needing stable Duration. Later Phases may project settled truth. These names are examples. World and Phase remain orthogonal: evaluation factors over one World may participate in several Phases, and the waves inside each boundary come from declared dependence rather than a table somebody keeps rearranging by hand.
 
@@ -500,7 +500,7 @@ Now hold one Being's Aspect topology fixed and change only its values. Knowledge
 
 An abstraction earns its place by preserving one of those invariants across the variation it hides. If it models no Rule, no topology, no quantity, no ownership boundary, and no replaceable mechanism, it has nothing to preserve. It is another place to look, wearing the name of an explanation.
 
-Feature pressure will keep trying to falsify them. The camera quietly becomes a global singleton. A shortcut writes life through a hidden service. A storage callback becomes the only place where a gameplay consequence exists. Each shortcut promotes machinery into the game model, then forces later Rules to understand the machinery. The small Rule with complete inputs, an honest scope, and a declared relation is the one I can still trust when the host changes.
+Feature pressure will keep trying to falsify them. The camera quietly becomes a global singleton. A shortcut writes Actuality through a hidden service. A storage callback becomes the only place where a gameplay consequence exists. Each shortcut promotes machinery into the game model, then forces later Rules to understand the machinery. The small Rule with complete inputs, an honest scope, and a declared relation is the one I can still trust when the host changes.
 
 ## Well, it really is about the game itself
 
