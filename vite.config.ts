@@ -56,7 +56,6 @@ export default defineConfig(async () => {
 						'/vi/topics',
 						'/vi/archives',
 						'/vi/author',
-						'/vi/search',
 						...articlePaths,
 					],
 				},
