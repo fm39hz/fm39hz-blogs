@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-10-21
-modDatetime: 2026-10-21
+modDatetime: 2026-11-05
 title: Render fixtures
 featured: false
 draft: true
@@ -267,7 +267,7 @@ $$
 
 ## Does an image open the lightbox?
 
-![Site icon used as a test image](/favicon.png)
+![FM39hz site icon](/favicon.png)
 
 ## Does a disclosure render?
 
