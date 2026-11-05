@@ -1,7 +1,7 @@
-import { getTopicTags } from '$lib/content/queries.server';
-import { localeFromUrl } from '$lib/utils/localized-url';
+import { redirect } from '@sveltejs/kit';
+import { getLocalizedPath, localeFromUrl } from '$lib/utils/localized-url';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = ({ url }) => ({
-	tags: getTopicTags(localeFromUrl(url)),
-});
+export const load: PageServerLoad = ({ url }) => {
+	redirect(308, getLocalizedPath('/search', localeFromUrl(url)));
+};

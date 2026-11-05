@@ -60,9 +60,6 @@ $effect(() => {
         <li>
           <NavLink href={getLocalizedPath('/articles', locale)} onclick={header.close}>{t.nav.posts}</NavLink>
         </li>
-        <li>
-          <NavLink href={getLocalizedPath('/topics', locale)} onclick={header.close}>{t.nav.tags}</NavLink>
-        </li>
         {#if cfg.features.showArchives}
           <li>
             <NavLink href={getLocalizedPath('/archives', locale)} onclick={header.close}>{t.nav.archives}</NavLink>

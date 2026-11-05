@@ -17,7 +17,6 @@ export const GET = () => {
 			page('/'),
 			page('/articles'),
 			page('/author'),
-			page('/topics'),
 			...(cfg.features.showArchives ? [page('/archives')] : []),
 			...posts.map((post) => articleUrl(post.slug, lang)),
 			...getUniqueTags(allPosts).map((tag) => page(`/topics/${tag.tag}`)),

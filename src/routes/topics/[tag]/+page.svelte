@@ -1,5 +1,5 @@
 <script lang="ts">
-import ContentEntry from '$lib/components/ui/ContentEntry/ContentEntry.svelte';
+import ArticleDiscovery from '$lib/components/ui/ArticleDiscovery/ArticleDiscovery.svelte';
 import cfg from '$lib/config';
 import { useTranslations } from '$lib/i18n';
 import { locale } from '$lib/i18n-state.svelte';
@@ -11,12 +11,10 @@ let { data }: PageProps = $props();
 let tagParam = $derived(data.tag);
 </script>
 
-<svelte:head><title>{t.pages.tagTitle}: {tagParam} | {cfg.site.title}</title><meta name="description" content={`${t.pages.tagDesc} "${tagParam}".`} /></svelte:head>
+<svelte:head><title>{t.pages.tagTitle}: {data.tagName} | {cfg.site.title}</title><meta name="description" content={`${t.pages.tagDesc} "${data.tagName}".`} /></svelte:head>
 
 <section>
-  <h1 class={styles.h1}>{t.pages.tagTitle}: {tagParam}</h1>
-  <p class={styles.desc}>{t.pages.tagDesc} "{tagParam}".</p>
-  {#each data.articles as post}
-    <ContentEntry {post} />
-  {/each}
+  <h1 class={styles.h1}>{t.pages.tagTitle}: {data.tagName}</h1>
+  <p class={styles.desc}>{t.pages.tagDesc} "{data.tagName}".</p>
+  <ArticleDiscovery articles={data.articles} topics={data.topics} initialTags={[tagParam]} />
 </section>

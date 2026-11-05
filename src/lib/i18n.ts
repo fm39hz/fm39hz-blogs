@@ -9,7 +9,6 @@ export function useTranslations(locale: Language) {
 		nav: {
 			home: m.nav_home(undefined, opt),
 			posts: m.nav_posts(undefined, opt),
-			tags: m.nav_tags(undefined, opt),
 			about: m.nav_about(undefined, opt),
 			archives: m.nav_archives(undefined, opt),
 			search: m.nav_search(undefined, opt),
@@ -54,8 +53,6 @@ export function useTranslations(locale: Language) {
 		pages: {
 			tagTitle: m.pages_tag_title(undefined, opt),
 			tagDesc: m.pages_tag_desc(undefined, opt),
-			tagsTitle: m.pages_tags_title(undefined, opt),
-			tagsDesc: m.pages_tags_desc(undefined, opt),
 			postsTitle: m.pages_posts_title(undefined, opt),
 			postsDesc: m.pages_posts_desc(undefined, opt),
 			archivesTitle: m.pages_archives_title(undefined, opt),
@@ -64,6 +61,12 @@ export function useTranslations(locale: Language) {
 			searchDesc: m.pages_search_desc(undefined, opt),
 			siteDescription: m.site_description(undefined, opt),
 			searchComingSoon: m.search_coming_soon(undefined, opt),
+		},
+		discovery: {
+			topics: m.discovery_topics(undefined, opt),
+			allTopics: (count: number) => m.discovery_all_topics({ count }, opt),
+			clearFilters: m.discovery_clear_filters(undefined, opt),
+			resultCount: (count: number) => m.discovery_result_count({ count }, opt),
 		},
 		a11y: {
 			skipToContent: m.a11y_skip_to_content(undefined, opt),

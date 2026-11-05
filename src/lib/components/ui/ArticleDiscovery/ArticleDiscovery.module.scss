@@ -1,0 +1,153 @@
+@use '../../../design-system/tokens/breakpoints' as bp;
+
+.discovery {
+	min-width: 0;
+}
+
+.searchForm {
+	display: flex;
+	align-items: stretch;
+	gap: var(--space-sm);
+	margin-block: var(--space-lg);
+}
+
+.searchInput {
+	box-sizing: border-box;
+	flex: 1 1 auto;
+	min-width: 0;
+	padding: var(--space-sm) var(--space-md);
+	font: inherit;
+	color: inherit;
+	background: var(--surface);
+	border: var(--border-w) dashed var(--border);
+	border-radius: var(--br);
+
+	&:focus-visible {
+		outline: 2px dashed var(--accent);
+		outline-offset: 2px;
+	}
+}
+
+.searchButton,
+.clearButton {
+	border: var(--border-w) solid var(--border);
+	border-radius: var(--br);
+	padding: var(--space-xs) var(--space-md);
+	font: inherit;
+	color: var(--fg);
+	background: var(--bg);
+	cursor: pointer;
+
+	&:hover,
+	&:focus-visible {
+		color: var(--accent);
+		border-color: var(--accent);
+	}
+
+	&:focus-visible {
+		outline: 2px dashed var(--accent);
+		outline-offset: 2px;
+	}
+}
+
+.topicSection {
+	padding-block: var(--space-md);
+	border-block: var(--line-solid);
+}
+
+.topicHeader {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: var(--space-md);
+}
+
+.topicHeading {
+	margin: 0 0 var(--space-sm);
+	font-size: var(--fs-lg);
+	color: var(--accent);
+}
+
+.topicList {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-xs);
+}
+
+.topicButton {
+	position: relative;
+	z-index: 1;
+	display: inline-flex;
+	align-items: center;
+	min-height: 1.75rem;
+	padding: var(--space-3xs) var(--space-sm);
+	border: 0;
+	border-radius: var(--br-full);
+	font-family: var(--font-body);
+	font-size: var(--fs-xs);
+	color: var(--fg);
+	background: none;
+	cursor: pointer;
+	white-space: nowrap;
+	transition: color var(--d-fast);
+
+	&:hover,
+	&:focus-visible {
+		color: var(--accent);
+	}
+
+	&:focus-visible {
+		outline: 2px dashed var(--accent);
+		outline-offset: 2px;
+	}
+}
+
+.selectedTopic {
+	color: var(--fg);
+}
+
+.allTopics {
+	margin-top: var(--space-sm);
+
+	summary {
+		width: fit-content;
+		padding-block: var(--space-xs);
+		color: var(--muted-fg);
+		cursor: pointer;
+
+		&:focus-visible {
+			outline: 2px dashed var(--accent);
+			outline-offset: 2px;
+		}
+	}
+
+	.topicList {
+		padding-block: var(--space-xs);
+	}
+}
+
+.resultCount {
+	margin: var(--space-lg) 0 var(--space-sm);
+	font-size: var(--fs-sm);
+	color: var(--muted-fg);
+}
+
+.results {
+	min-width: 0;
+}
+
+.emptyState {
+	margin: 0;
+	padding-block: var(--space-lg);
+	color: var(--muted-fg);
+}
+
+@media (width < bp.$sm) {
+	.searchForm {
+		flex-wrap: wrap;
+	}
+
+	.searchButton {
+		flex: 0 0 auto;
+	}
+}
