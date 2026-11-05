@@ -116,7 +116,7 @@
 }
 
 // ── Mobile Responsive Styles ──────────────────────────────
-@media (width < bp.$xl) {
+@media (width < bp.$toc) {
   // Hide desktop sidebar links
   .nav {
     display: none;
@@ -128,8 +128,8 @@
     align-items: center;
     justify-content: center;
     position: fixed;
-    bottom: 2rem;
-    inset-inline-end: 2rem;
+    bottom: max(var(--space-xl), calc(var(--space-md) + env(safe-area-inset-bottom)));
+    inset-inline-end: max(var(--space-md), calc((100vw - var(--mw)) / 2 + var(--space-md)), env(safe-area-inset-right));
     width: 3rem; /* 48px */
     height: 3rem; /* 48px */
     border-radius: var(--br-full);
@@ -152,10 +152,14 @@
     position: absolute;
     top: -2px;
     left: -2px;
-    width: 48px;
-    height: 48px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
     transform: rotate(-90deg);
     pointer-events: none;
+  }
+
+  :global([dir='rtl']) .mobileBtn {
+    inset-inline-end: max(var(--space-md), calc((100vw - var(--mw)) / 2 + var(--space-md)), env(safe-area-inset-left));
   }
 
   .progressBg {
@@ -203,14 +207,16 @@
     flex-direction: column;
     position: fixed;
     bottom: 0;
-    left: 0;
-    right: 0;
+    inset-inline: 0;
     background: var(--bg);
     border-top: var(--border-w) solid var(--border);
     border-radius: var(--br) var(--br) 0 0;
     box-shadow: 0 -4px 12px rgb(0 0 0 / 5%);
     padding: var(--space-md);
-    max-height: 60vh;
+    padding-left: max(var(--space-md), env(safe-area-inset-left));
+    padding-right: max(var(--space-md), env(safe-area-inset-right));
+    padding-bottom: calc(var(--space-md) + env(safe-area-inset-bottom));
+    max-height: min(60dvh, calc(100dvh - env(safe-area-inset-top) - var(--space-lg)));
     z-index: calc(var(--z-modal) + 1);
     animation: slide-up 0.25s var(--ease-bounce);
   }
@@ -240,6 +246,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
 
     svg {
       width: var(--icon-md);
@@ -280,6 +288,13 @@
       color: var(--accent);
       font-weight: 700;
     }
+  }
+}
+
+@media (width < bp.$toc) {
+  :global([dir='rtl']) .drawerContent {
+    padding-left: max(var(--space-md), env(safe-area-inset-left));
+    padding-right: max(var(--space-md), env(safe-area-inset-right));
   }
 }
 
