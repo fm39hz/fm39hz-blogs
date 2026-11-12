@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-11-05
-modDatetime: 2026-11-05
+modDatetime: 2026-11-16
 title: How I Think About Balatro
 featured: false
 draft: true
@@ -13,75 +13,63 @@ description: Pay a respect for LocalThunk's masterpiece
 
 ---
 
-I've spent a fair amount of time asking what a game is, then what an architecture has to preserve to carry one. Those ideas are easier to hold while they sit above a diagram. Give one card an effect on another, and the diagram has a few more questions to answer.
+I've spent a fair amount of time asking what a game is, then what an architecture has to preserve to carry one. Those ideas are easier to hold while they sit above a diagram. Give 1 card an effect on another, and the diagram has a few more questions to answer.
 
-This time I want to put those ideas to work on Balatro. I'll use Fantasia, a framework I made for my own experiments. What interests me here is the path from the game I can play to the relations I need to model.
+This time I want to put those ideas to work on Balatro. I'll use Fantasia, a private experimental framework I built for my own tinkering. It is not a public engine, and I am not pitching it here (though I'm gonna say I quite like the name). What interests me is the path from the game I play to the relations I need to model.
 
-LocalThunk created such a masterpiece, yet his code for it is quite messy. But, the game's the game, so I'll try to modeling it as how i see it.
+LocalThunk created such a masterpiece, yet his code for it is quite messy. But, the game's the game, and Baltro is a great game, so I'll try to model it as I see it.
 
-## Table of contents
+## Table of Contents
 
 ## Why Balatro?
 
-A card adds Chips. A Joker counts cards left in the deck. Another changes Mult. A seal makes a card score again. Each rule is simple enough to remember. Put them in the same Run, let the player change their order and conditions, and keeping track of what follows gets considerably less simple.
+A card supplies Chips, a Joker counts cards left in Draw, another changes Mult, and a seal grants an extra scoring pass out of nowhere. Each description is small, yet they quickly become a massive pile of garbage if left alone. In the original source, there are a million more `if`-`else` branches than anyone ever wanted to maintain.
 
-That's why I picked Balatro. Its rules are small enough to examine on their own, and they meet often enough to make their interactions worth examining. If I need a special explanation every time two familiar effects meet, I probably haven't separated their meanings as well as I thought.
+The interesting part begins when these effects meet: a card grows between passes, a copied ability reads somebody else's current value, or moving a single Joker completely changes the score. I want to explain all those interactions with the same rules that explain individual cards. Adding a new card composed of existing meanings should only require declaring its values, and a new rule is owed only when the game introduces a truly new relation. The number of card names in the game should not dictate the structural complexity of the codebase.
 
-## What I see when I play
+This article works through that model using ordinary Balatro, then brings in a few Cryptid examples to test where expressive power breaks down. The C# code snippets are just concrete syntax from my prototype to show what these declarations look like in practice.
 
-A Run starts with a deck, resources, and a set of conditions. I select cards to play or discard, try to meet a Blind's score target, then use what the game gives me to change my chances in later Rounds. Cards move, gain properties, enter or leave ownership. Jokers change quantities and permissions. Money and consumables let me change those relationships between plays.
+## Start with the things the game distinguishes
 
-There is a useful distinction hiding in that description. A card can enter Hand without entering Run ownership, because I might already own it. A card can be played once and score several times. A Joker can count cards currently in Draw while another grows from cards that entered ownership earlier. The screen shows numbers changing, but those numbers do not all come from the same kind of event.
+A Run owns cards, resources, progression, and history, while a Round supplies a score target and a budget of Hands and Discards. Playing consumes a Hand and evaluates whatever cards you selected, whereas discarding burns a different budget just to cycle that population. Hand size, selection limit, scoring membership, and remaining Hands all answer different questions.
 
-I want a model that can explain those differences and follow their consequences. I am describing the game as I understand it, not claiming that every outcome has been checked against the original Lua. Where I deliberately normalize behavior, I will say so.
+Jokers, playing cards, and consumables all participate as cards, but their zones enforce completely different capacity and admission rules. A seal, edition, enhancement, or voucher can attach another layer of meaning to a card, and the scoring system needs to address that meaning directly instead of checking what concrete class the card belongs to.
 
-## How I pull a rule apart
+Several identities need to stay separate:
 
-I start with what the game says or does, then try to state the relation behind it. If a Joker counts cards, which cards? If it reads a quantity, whose quantity is it and when does it read it? If an effect happens again, did I play another card, play another hand, or apply the same effect another time?
+| Identity or position | What it identifies in Balatro |
+| --- | --- |
+| Being | Authored static definition (e.g. rank, Joker definition, enhancement) |
+| Subject | 1 living card instance on the table, in hand, or in the shop |
+| Emitter | The card position originating an action or scoring pass |
+| Provider | The card supplying the operative values or parameters |
+| Recipient | The card or accumulator receiving the bonus |
 
-The answer gives me more than a calculation. It identifies the participants, the data they supply, the conditions under which the relation applies, and the result it establishes. When another rule uses that result, the connection has to preserve its origin and scope. Two values being numbers, or even having the same type, does not make them operands of the same application.
+2 cards created from the same definition remain 2 distinct Subjects. A Shop card exists as a Subject before the Run owns it. A card moving from Draw to Hand preserves its identity and ownership. In a Blueprint interaction, Blueprint is the emitter, while the Joker to its right is the parameter provider.
 
-I also separate the definition of a thing from its life in a Run. A card's authored rate, its current bonus, the number of cards now in Draw, and the result of one scoring application have different owners and lifetimes. Putting them all into one convenient object does not make those distinctions go away. It just makes the next rule guess.
+These distinctions matter before I choose any number. They determine which quantities can meet at all.
 
-I'll use my own framework to express the model. The framework gives me a place to put those meanings, but the questions come from Balatro. Blue Joker is simple enough to start with.
+## Design truth and running truth
 
-## What does Blue Joker count?
+The first thing you have to separate is what a card is from what is happening to it right now. What a card is (its rank, baseline Chips, face card or not) never changes. Once you start playing, the card picks up live state: where it sits, what edition it got stamped with, and how many permanent bonuses it stacked up. If you mix these 2 up, you are in for a bad time: mutating card definitions in the middle of a run makes save states brittle, bleeds upgrades back into your base deck, and turns card effects into an untraceable mess of shared mutations.
 
-Blue Joker contributes Chips based on the number of cards left in Draw. Under its ordinary rate, 23 cards give 46 Chips. I can write the calculation as:
+Authored definitions are static claims. A rank definition looks like this:
 
-```csharp
-public static void ContributeChips(
-    in ChipRate rate,
-    in CardCount observed,
-    out Chips contribution)
-    => contribution = rate * observed;
+```json
+{
+  "Rank_7": {
+    "$Rank": {},
+    "RankValues": {
+      "Chips": 7,
+      "Order": 5
+    }
+  }
+}
 ```
 
-That line needs a Chips-per-card rate and a card count. It does not tell me which Run to look at, which area to count, or which Play receives the result. Those belong to the application around it:
+Here `Rank` exposes `RankValues`, where the ordinal belongs to the authored rank relation rather than an entity index. Rank identity, ordinal value, face status, and intrinsic Chips are all distinct readings: J, Q, and K can each award 10 Chips without collapsing into the same rank.
 
-| Position | Meaning in this application |
-| --- | --- |
-| Source and carrier | The eligible ability and the card carrying it |
-| Provider | The source of the applicable rate, which may differ under delegation |
-| Run and population | This Run's complete Draw population |
-| Reading boundary | The point at which that population is counted |
-| Recipient | The Chips calculation for the same Play |
-
-The authored design identifies a Draw reading relative to the Run. The running instance supplies the actual Run and area, and the observation counts their members at the declared boundary. The applicable provider supplies the rate. Only after those positions are connected do the operands reach the multiplication.
-
-Blue Joker's ordinary contribution requires a positive Draw count. An empty population is a valid reading of zero, but the contribution domain is inactive. That differs from producing a zero contribution if another rule can observe whether an application occurred. A missing population is different again: it is a missing input, not an empty deck.
-
-I don't need to maintain a separate bonus every time a card moves. The contribution is derived from the rate and the population at the boundary where it matters. A count of owned cards or cards in Hand would answer a different question.
-
-### Where do those values live?
-
-I keep immutable design in **Knowledge** and represented running truth in a World's **Configuration**. A local result can remain inside one resolution when nothing later needs it. A value that can affect a later choice or Play needs a place to persist.
-
-In my setup, a **Being** is an authored thing, a card definition or a Sensor for example. A **Concept** is a view that promises its **Aspects**, the design positions or structures needed by that view. Claiming a Concept supplies every Aspect it promises. A missing position is not a zero waiting to be filled in.
-
-Blue Joker's ordinary rate can be read from design if the configured game does not let it change. A mutable rate needs an initialized instance value instead. Its current Draw count is an observation, not a parameter that happens to change. The 46 Chips are the result of a particular application. A reference to the rate in Knowledge still has to be connected to the correct value before the computation can use it.
-
-The running facts can be ordinary ECS components:
+What actually changes during a run is kept strictly in live state:
 
 ```csharp
 public readonly record struct Ownership(Subject Owner);
@@ -89,39 +77,148 @@ public readonly record struct Location(Subject Area, BigInteger Ordinal);
 public readonly record struct PermanentBonus(Chips Value);
 ```
 
-A **Subject** identifies a running participant within its World. Several cards can share a definition without sharing their current values. The backend's entity handle represents a Subject in storage, but game laws use the identity and relations the model gives them.
+These components represent live state, while card definitions describe static truth. Sharing a value shape does not make them interchangeable. When you level up Two Pair, the hand's baseline Chips in your progression component updates, but the authored definition of Two Pair remains untouched.
 
-## When the game changes a value
+## A sentence, an equation, and an application
 
-Blue Joker reads a population. Hologram changes a retained factor. Its ordinary factor starts at 1 and grows by 0.25 for each qualifying playing card that actually enters Run ownership. Two such entries in one cohort give:
+Take Blue Joker: it gives you Chips based on how many cards are left in your Draw pile. At its standard rate of 2 Chips per card, 23 cards in the deck give you 46 Chips. You can write that as a tiny pure equation:
 
-```text
-factor_after = factor_before + 0.25 × 2
+```csharp
+[Rule(typeof(TableWorld))]
+public static class ContributePopulationChips
+{
+    public static void Apply(
+        in ChipRate rate,
+        in CardCount observed,
+        out Chips contribution)
+        => contribution = rate * observed;
+}
 ```
 
-The count belongs to the acquisition or creation result that produced those entries. A later scoring relation reads the provider's current factor and multiplies Mult. Growth and scoring are different applications which meet through that retained value.
+The declaration states what varies together, and the expression supplies its arithmetic without querying entities, naming Blue Joker, or invoking subsequent rules.
 
-Receiving a card from the Shop can count as entry even when the card already had a Subject in the same World. Drawing a card I already own does not. Initial composition does not grow Hologram from the starting deck, and restoring a saved Run does not apply the growth again. If I only watch for backend entity allocation, I have already chosen the wrong boundary.
+For Blue Joker to score, the system needs an eligible source, its parameter provider, the Run's Draw count, and the Play's Chips accumulator. Their semantic relations determine which rate and count reach the multiplication. A signature alone cannot identify which of several card counts in the game is intended, but you do not need custom lookup glue once the domain establishes the relation: the meaning is declared once, and the compiler wires the dataflow.
 
-Hiker changes a different participant. It adds 5 permanent Chips to a scoring card after that pass has read the card's intrinsic contribution. Start with a 7 and no bonus: two passes read 7 and 12 Chips, then leave a permanent bonus of 10. The first pass cannot retroactively receive the bonus it just caused. Hologram grows its provider's factor, while Hiker changes the recipient card. The addition is similar, but the owner of the result is not.
+If the Draw pile is empty, the observed count is a valid reading of zero, producing zero Chips. If the required population is missing entirely, the rule cannot be invoked. That distinction matters: doing nothing because an input is zero is very different from failing to run because a required piece is missing.
 
-Blueprint gives me another distinction. It delegates an eligible application to a provider on its right. The forwarded scoring application can read that provider's current factor without making a copy of it on Blueprint. Provider, emitter, carrier, and recipient remain separate positions. Permission to forward a scoring contribution does not automatically authorize every mutation owned by the provider. A delegation route also retains its conditions and needs a finite traversal policy.
+### A parameter reference is not its value
 
-## Which cards make the hand, and which cards score?
+The ordinary rate for Blue Joker is 2 Chips per card, but when that rate scales, the live value belongs to that specific card instance rather than the static definition. 2 Blue Jokers on the table can easily hold different numbers.
 
-The player supplies a complete selection. Admission checks its members, ownership, source area, permissions, bounds, and cost. Silently filtering an invalid card out would change the request. Once admitted, the selection retains Hand order for the rules that need it.
+A reference to the parameter identifies which variable is meant rather than a raw numeric operand, and the binding resolves that provider to feed `ChipRate` directly into the equation. If a position is ambiguous or missing, the compiler rejects it instead of quietly substituting zero.
 
-Recognition can find several Patterns in that selection. A Full House contains a Pair, so a Joker may read Pair presence even though Full House is the selected Pattern. The model keeps three results apart:
+`Chips`, `Mult`, `Factor`, `CardCount`, and `Money` carry different meanings and units. Their arithmetic follows those meanings: multiplying Chips-per-card by card count yields Chips. If you dump everything into a generic number bag, you throw away the exact type safety that keeps these combinations from breaking.
 
-1. The Patterns present and the cards witnessing them.
-2. The Pattern and witness selected for the play's base value.
-3. The cards that actually participate in scoring.
+## How the rules meet without calling one another
 
-A **witness** retains the members establishing a Pattern. If several witnesses are possible, their selection and precedence need a policy. A compound Pattern also needs to say how its parts' witnesses combine. Stone or Splash can expand scoring membership without changing what the base witness proves. Royal Flush is a qualifying Straight Flush reading, not a separate progression.
+Now look at how the score actually adds up. Another tiny function takes that Chips contribution and rolls it into the hand total:
 
-Four Fingers changes the applicable thresholds. Shortcut changes permitted gaps. Smeared and Wild change suit membership under their respective conditions. These effects alter operands or relations used by recognition, so the recognition rule does not need to recognize each Joker by name. Rank, face status, suit membership, and intrinsic Chips also remain different readings: J, Q, and K can each give 10 Chips without becoming the same rank.
+```csharp
+[Rule(typeof(TableWorld))]
+public static class AccumulateChips
+{
+    public static void Apply(in Chips contribution, ref Chips total)
+        => total = total + contribution;
+}
+```
 
-Take an ordinary level-1 Pair with `7♥, 7♠, K♣`. The player played three cards, but the Pair's two sevens are the scoring members:
+The first function produces a value, and the second consumes that result into the hand total at the same scoring position. You do not need event dispatchers, pub/sub buses, or manual `RunAfter` annotations to hook them together: the dependency exists directly by construction.
+
+```mermaid
+flowchart LR
+    Draw["Draw Pile CardCount"] --> Rule1["ContributePopulationChips"]
+    Rate["Blue Joker ChipRate"] --> Rule1
+    Rule1 -->|"Chips contribution"| Rule2["AccumulateChips"]
+    Hand["Hand Chips accumulator"] --> Rule2
+    Rule2 -->|"Updated total"| Settled["Settled Play Chips"]
+```
+
+The schedule is derived directly from this dataflow: because `AccumulateChips` consumes the result of `ContributePopulationChips`, the producer automatically precedes the consumer. No event dispatcher or manual priority sorting is needed.
+
+The compiler also inspects method bodies reachable from the equations. A pure signature is worthless if a helper reads a service, captures mutable state, or invokes an arbitrary callback. Source code serves as evidence to analyze and lower, not a grab-bag of functions registered for the host to invoke at will.
+
+## What determines order?
+
+Suppose Mult starts at 4: adding 4 and then multiplying by 2 yields 16, whereas multiplying first and then adding gives 12. Both equations are well typed and share the same mutable accumulator, but arithmetic types alone cannot decide the direction.
+
+In Balatro, card positions settle that choice naturally: an ordered scoring domain evaluates each Joker from left to right. Dragging an additive Joker past a multiplicative Joker alters the scoring sequence immediately, without requiring global priority tags between addition and multiplication classes.
+
+The analyzer therefore reasons about more than method types:
+
+| Existing evidence | What follows from it |
+| --- | --- |
+| 1 result supplies another input | The producer precedes that consumer |
+| An ordered application domain | Replacements follow the left-to-right Joker or card order |
+| A reduction over a complete population | Scoring accumulates all cards in the played hand |
+| Stage order | Hand scoring settlement precedes end-of-round interest and cash-out |
+| Disjoint mutable state | Modifying separate cards or resources can proceed independently |
+
+Reading a card's static definition creates no mutable conflict. Modifying independent cards or separate resource pools can happen in parallel.
+
+Only a meaningful relation left unresolved by this evidence needs explicit before/after. If A precedes B and B supplies C, A already precedes C. Repeating that fact adds authoring burden without adding game meaning.
+
+If 2 possible orders produce different outcomes and the model chooses neither, compilation must diagnose the ambiguity. File order, registration order, backend enumeration, and alphabetical names cannot decide it. Once a valid partial order exists, independent work can form parallel waves. Parallelism follows from the analysis.
+
+Several contributions converging on 1 target also need a valid combination. An ordered fold preserves source order. A regroupable reduction needs the relevant identity and algebraic properties under its numeric contract. An explicitly collected result can instead become another rule's input. Last-write-wins supplies none of these meanings.
+
+A temporal stage expresses when steps occur, while the game state holds current truth. Scoring hands, calculating interest, and generating shop inventory happen across distinct stages without needing duplicate entities or exposing the scheduler to game rules.
+
+### Which version does a reader receive?
+
+Your Money can change multiple times while a single hand is scoring. Say you start the hand with $4: To Do List triggers mid-score and hands you another $4, and Bull triggers later on. Bull evaluates against the fresh $8 balance at its slot, whereas Vagabond and the interest cap hold onto the original $4 snapshot taken when the hand started. The payout happens once, and reading it later does not pay it again.
+
+The relation must distinguish an entry capture from an ordered prefix reading. Where that boundary already follows from the declared domain, the analyzer derives it. Where the game genuinely chooses between old and new values, that choice is authored once, and the compiler generates the capture and its lifetime.
+
+A blanket snapshot misses later updates, while a universal latest-value policy erases earlier readings. Neither can substitute for the game's actual relations.
+
+## Growth makes the read boundary visible
+
+Hologram starts with a 1x multiplier and gains +0.25 every time a playing card actually gets added to your deck:
+
+```csharp
+[Rule(typeof(TableWorld))]
+public static class GrowScoringFactor
+{
+    public static void Apply(
+        in GrowthRate rate,
+        in CardCount qualifying,
+        ref Factor factor)
+        => factor = factor + rate * qualifying;
+}
+```
+
+The qualifying count comes from the exact acquisition or creation event. Buying a Shop card counts even though the card already existed in the World, whereas drawing an already-owned card does not. Initial composition and save restore never manufacture spurious acquisition events.
+
+A later scoring application reads the retained factor. The result of growth becomes that later input through a real live position, without a notification bus or a second copy of the factor.
+
+Hiker modifies the recipient card directly, adding 5 permanent Chips after the current pass has already read the card's baseline contribution. If a 7 of Spades with zero bonus scores twice in 1 hand (via a Red Seal), the 2 passes unfold sequentially:
+
+```text
+pass 0: intrinsic 7,  permanent bonus becomes 5
+pass 1: intrinsic 12, permanent bonus becomes 10
+```
+
+The ordering belongs strictly within each pass: forcing all intrinsic reads to precede all growth writes across the entire hand would yield 2 reads of 7, breaking the game. Once the pass relation specifies the exact read-and-replace lifecycle, the compiler interleaves them across the evaluation domain.
+
+Internally this can be understood as `bonus₀ → bonus₁ → bonus₂`. The compiler can distinguish those value versions without requiring hand-written before/after components. A `ref` read followed by a replacement is not a dependency cycle merely because the component type appears on both sides.
+
+Blueprint introduces an indirection: it occupies its own scoring position as an emitter, but forwards execution to the provider on its right to supply the actual rule and parameters. Forwarding does not clone state onto Blueprint or alter the target Joker: eligibility, delegation routes, and mutation authority remain separate concerns.
+
+## Recognition produces witnesses, not just a hand name
+
+When you throw down up to 5 cards and hit Play, hand recognition gives you 3 separate facts rather than a single string:
+
+1. Which poker patterns are present in the cards, and which specific cards witness them.
+2. Which pattern is selected as the primary hand to set base Chips and Mult.
+3. Which subset of cards actually get to score.
+
+A **witness** is the physical evidence for a pattern. If you play a Full House, you also have a Pair sitting in there. A Joker asking whether a Pair is present and the Observatory voucher asking which poker hand just scored are asking 2 totally different questions.
+
+Several witnesses require an explicit preference policy. A compound pattern needs a relation combining its constituent witnesses. An implication between pattern names alone does not specify which members become the implied witness. Royal Flush can be a qualifying Straight Flush reading without another progression coordinate.
+
+Four Fingers drops Straights and Flushes down to 4 cards, Shortcut lets you skip ranks in Straights, Splash forces all 5 cards to score even if they are not part of the hand, and Stone cards score Chips without having a rank or suit. None of these need custom `if (has_joker('Splash'))` branches inside your poker hand recognizer. You just model what cards witness what, and what cards are admitted to score.
+
+For an ordinary level-1 Pair played as `7♥, 7♠, K♣`, the sevens witness the selected Pattern:
 
 ```text
 Chips = 10 + 7 + 7 = 24
@@ -129,149 +226,167 @@ Mult  = 2
 Score = floor(24 × 2) = 48
 ```
 
-A permission to score the King changes membership. Retriggering a seven adds applications without adding another played card or spending another Hand. Those distinctions matter to the rules that read history, as well as to the score.
+3 cards were played, 2 normally score, and 1 Hand was spent. Repeating a 7's scoring pass changes none of those 3 counts. History readers need the correct occurrence, not an undifferentiated trigger count.
 
-## When does a rule read?
+## Repetition is a finite application domain
 
-Ordering can change the answer even when all the values belong to the same Play. Start with Mult 4, add 4, then multiply by 2 and the result is 16. Multiply first and add afterward, and it is 12. Source order or another declared relation has to settle that direction. Backend iteration and registration order do not get to choose it for the game.
+Here is 1 of the most famous combos in the game: Baron, Mime, and a Red-sealed Steel King held in hand.
 
-A value may also have several versions within the ordered scoring region. Suppose Money is captured at $4 after the relevant pre-scoring consequences, and To Do List earns $4 before Bull applies. Bull reads $8 at its position, while Vagabond and the Chips-by-Money cap read the earlier $4 capture. Final Money is $8. A display of the income does not make a second payment.
-
-The same question appears with cards. DNA may add a Steel copy to Hand after a Steel tally was captured at Play entry. The copy can participate in a later held-card domain without changing that earlier tally. Midas before Vampire may replace an enhancement with Gold and then have it consumed, while Vampire before Midas may leave Gold behind.
-
-A snapshot of everything at entry loses some of those changes. Always reading the latest value loses some earlier facts. Each relation needs the boundary its meaning calls for.
-
-Repetition needs its own domain as well. A scoring pass has a participant, an ordinal, eligible sources, and captured inputs. Some repeat allowances are prepared before the first pass, while others depend on an initial result. The resulting iteration needs a finite carrier, bounded extension, or another declared termination meaning. A played-card occurrence, a Play, and a scoring pass still feed different histories.
-
-## How many effects does one King produce?
-
-Baron, Mime, and a Red-sealed Steel King make that last distinction harder to ignore. Assume all their relevant capabilities are available. Steel supplies a factor of 1.5 while held. Baron supplies another factor of 1.5 for the held King. The Red Seal supplies one extra held-card pass, and Mime supplies another because the initial held-effects result is nonempty.
+Steel gives a 1.5x multiplier. Baron gives another 1.5x multiplier for every King held in hand. Red Seal gives that held card another scoring pass, and Mime gives another pass because the card has held-in-hand abilities.
 
 ```text
-Held-card passes = 1 base + 1 Red Seal + 1 Mime = 3
-Factors per pass = 1 Steel + 1 Baron = 2
-Combined factor  = (1.5 × 1.5)³ = 1.5⁶ = 11.390625
+passes           = 1 base + 1 Red Seal + 1 Mime = 3
+factors per pass = 1 Steel + 1 Baron = 2
+combined factor  = 1.5⁶ = 11.390625
 ```
 
-One held card produced three passes and six multiplicative contributions. It was not played three times. Mime adds its allowance to the prepared pass domain rather than doubling an already-expanded count. Under that same preparation policy, another eligible Mime adds an allowance without recursively repeating the other Mime's calculation.
+1 card supplies 3 passes and 6 contributions. Mime adds an extra pass to the evaluation list instead of doubling an already-expanded count. If you have 2 Mimes, the second one just adds another pass to the queue without blowing up in a recursive loop.
 
-I need to preserve the initial effects result that justifies the allowance, the finite pass domain, and each source's contributions within a pass. A single `TriggerCount` field would conceal which of those things it counts.
+A repeat allowance needs its own quantity and scope. It is not a consumable-use quota. The game rules declare which result justifies an allowance, when it is read, and which finite applications it adds. The engine iterates those applications, carries updated values forward, and routes each result.
 
-This also tells me when the power notation is legitimate. It summarizes repeated multiplication for this example because the participating factors stay fixed. If a pass changes a later operand, I have to retain those intermediate values and their order. Numeric association still belongs to the realization contract.
+The power expression summarizes this example because all 6 factors stay fixed. A pass that changes a later factor prevents that compression unless an equivalent relation is established. Floating-point regrouping also needs the chosen numeric contract, because mathematical associativity does not grant arbitrary machine reassociation.
 
-The same held card can have terminal-Round effects, but those belong to another domain. An allowance that applies there does not reuse the scoring result as if the two occasions were one occurrence. I need an ordered application domain with a stated allowance producer. A general instruction to call every effect again whenever something says "retrigger" would lose that distinction.
+Terminal-Round repetitions have another application domain. A held-scoring allowance does not automatically authorize repeating terminal effects. The shared idea is finite reapplication, with the game's distinct populations and conditions preserved.
 
-## What happens when a card changes or stops working?
+A process returning to Round after a Play is also different from an instantaneous execution cycle. It begins another transition from a settled state. A genuine cyclic dependency within 1 resolution needs declared iteration or fixed-point meaning, with termination or convergence evidence. The scheduler cannot invent that meaning by repeatedly calling factors until they happen to stop changing values.
 
-Enhancements, editions, seals, and stickers can carry different meanings on the same card. An inhibition therefore identifies its cause, bearer, and capability. Several causes may inhibit one capability, and removing one does not remove the others. A Joker can lose a scoring contribution while its Negative edition continues to grant a slot through possession.
+## Game flow: Readings, transitions, and decisions
 
-Face-down limits Disclosure. It does not automatically erase rank or suit, and disabling a Blind does not automatically return cards or Money already lost. A reversal needs the relation and captured values that justify it. Capacity has its own rules too: losing a grant can leave an area above capacity, while a later receipt is checked under its own admission relation.
+Balatro is more than card scoring: it is a discrete state machine driven by readings:
 
-Identity matters when cards move or change. Moving a card between areas retains its Subject and unchanged ownership. Receiving an existing same-World card changes possession and placement. Creating or cloning establishes a fresh life, while copying properties onto an existing target retains that target's identity. Regenerating from a definition uses the specified design and initialization policy. Death, Cryptid, and The Fool therefore cannot all be reduced to one whole-object copy.
+1. **After a play scores**: Did the total score reach the Blind target? If yes, transition to Round Settlement and the Shop. If not, are there remaining Hands? If yes, return to the play/discard loop, and if not, the Run is lost.
+2. **In the Shop**: The player can purchase cards, open packs, reroll stock, or leave. Buying items or rerolling modifies state within the shop, but leaving advances the run to the next Blind choice.
+3. **Blind progression**: Small, Big, and Boss Blinds present specific targets and schedule meaning. Skipping a Blind grants a tag reward and advances the Ante without scoring a round.
 
-For one complete population application I can compare entering, ending, and retained members. The boundary matters: entries and removals within a Play cannot always be replaced by the net difference between its beginning and end. Two removal proposals for one card do not create two actual terminations. Two Trading Cards may each pay for a qualifying discard while the victim ends once, whereas Sixth Sense uses a first-qualifying-source policy for its reward.
+These readings and transitions sit in the same dataflow as card scoring. The system does not enter a chaotic callback that pays Money, rolls shop stock, and mutates arbitrary components all at once. State transitions are declared relations: what was reached, what budget remains, and which continuation is valid.
 
-Glass makes the distinction between a trial and an outcome visible. The trial can retain its draw even when another source proposes removal. In this model, growth based on shatter reads the actual shatter outcome, including a qualifying removal by another source. A request that produces no shatter supplies no growth. This is a deliberate normalization: some original Lua paths notify observers before setting the shatter marker and use consumable-specific workarounds, so those outcomes can differ.
+## 1 Play, from card selection to continuation
 
-## What happens between plays?
+When a player selects cards and hits Play, the game evaluates that proposal through an explicit resolution chain:
 
-A purchase brings together a captured quote, payment authority, an account, credit policy, ownership, and placement. The candidate has to satisfy those conditions together. I don't want to commit the payment and only then discover that the item cannot be received. A coupon can waive payment while retaining the priced basis used by sale. Removal is a sale only when the sale relation applies.
+```mermaid
+flowchart TD
+    Select["Selected cards & remaining Hand budget"] --> Validate["Validate selection size, membership & cost"]
+    Validate --> Order["Admitted cards in played hand order"]
+    Order --> Witness["Pattern witnesses & selected Poker Hand"]
+    Witness --> Base["Scoring cards & base Chips/Mult"]
+    Base --> Passes["Individual card scoring passes (played & held)"]
+    Passes --> Jokers["Ordered Joker contributions (left to right)"]
+    Jokers --> PlayScore["Settled Play Score: floor(Chips × Mult)"]
+    PlayScore --> RoundScore["Add to Round Score & decrement Hand"]
+    RoundScore --> Check["Evaluate Blind target & remaining budget"]
+    Check --> Next["Next action: continue Round, Cash Out, or Game Over"]
+```
 
-Rerolls have a free allowance, a paid-price basis, and progression after paid rolls. A zero price basis does not grant unlimited free allowance. A Voucher can replace a quantity or provide a standing policy, so later quotes read the changed truth. A valid reorder can leave the order unchanged and still be an occurrence. Structural difference and operation presence are separate results.
+This diagram maps the formal dependencies rather than a sequence of manual callbacks. Independent admission checks can run together, while specific effects introduce further result dependencies or capture relations. The analyzer derives the execution schedule from the complete form.
 
-Using a consumable also needs an exact source and complete target choices. An untargeted use has an explicitly empty target domain. Accepted use, source consumption, and the actual effect remain distinct: a failed chance trial need not refuse the use, and a suppressed effect does not invent a successful replacement. Sigil's shared random suit is one choice for the Hand, not a separate draw for every card.
+The score equation itself remains small:
 
-A Pack owns its options, quota, and Return context. An admitted choice originating from that Pack spends its quota. Using a consumable already in inventory while the Pack is open does not acquire that origin. Skip and quota exhaustion can both close the Pack, but they remain different outcomes. Tags likewise carry permissions whose consumption and resulting grants are distinct.
+```csharp
+[Rule(typeof(TableWorld))]
+public static class HandScore
+{
+    public static void Apply(in Chips chips, in Mult mult, out Score score)
+        => score = new(Math.Floor(chips.Value * mult.Value));
+}
+```
 
-Generating an offer needs an eligible definition population, availability, bans, duplicate policy, weights, constraints, and entropy. An earlier selection can change the population for the next one. A random draw supplies both a value and a continuation for the next draw. Reading its result does not draw again, and two procedures with the same distribution can have different seeded continuations when they consume draws in a different order.
+Its operands are the settled scoring quantities for that Play. The result contributes to the bound Round's Score. The resulting Round Score supplies the target test. Those producer/consumer edges need no additional before/after annotations.
 
-## Why can Perkeo and Observatory become so strong?
+A refused proposal commits no partial consequences. An admitted Play that loses the Run still spends its budget and produces its defined results. Refusal and an unfavorable outcome are different. Replacements evaluated while establishing a candidate are not permission to mutate the committed state early.
 
-Perkeo creates a Negative copy of a possessed consumable when leaving the Shop. Observatory lets each eligible possessed Planet contribute a factor of 1.5 when that Planet maps to the selected hand type. The Planet stays in inventory. Scoring neither consumes it nor performs its ordinary level-up use.
+Ports outside the active output scopes retain their values. Several active rules must agree on the admitted target rather than commit competing writes in whichever order the backend happens to visit them. When a relation deliberately permits several targets, a later declared choice may select among them, and the compiler cannot silently substitute its first candidate.
 
-For `n` matching Planets, with one eligible Observatory contribution per instance:
+The next action starts from settled game state. Host framerate does not define a Play, scoring pass, or Shop visit. The player sees the presented game view, not internal engine buffers.
+
+## Properties, permissions, and actual outcomes
+
+A card can wear a lot of hats: enhancements, editions, seals, and stickers. If a Boss Blind disables a Joker, it loses its ability, but a Negative edition still gives you +1 Joker slot because you still own the card.
+
+Face-down cards hide their visual values, but their underlying rank and suit still exist. Selling or disabling a Blind does not refund money or cards already lost. A reversal needs an authored relation and the values that justify it. Losing capacity can leave an area over its limit, but admitting the next receipt remains a separate question.
+
+Population changes distinguish retained, entering, and ending participation. Moving a card retains its Subject. Receiving it changes possession. A fresh clone receives a new Subject, whereas copying specified properties onto an existing card preserves the target's identity. Regeneration applies its declared defaults, while restore retains captured current truth.
+
+These are target state relations. The rules govern domain relations, leaving entity allocation, relocation, and deletion to the underlying storage.
+
+Actual outcomes can be inputs to further rules. Hologram reads actual ownership entry. Shatter-based growth can read actual shatter, retaining the qualifying cause and occurrence. 2 proposals to remove 1 card do not establish 2 actual terminations. Source reward multiplicity can still differ from victim multiplicity: 2 eligible Trading Cards can each contribute income while their shared discarded victim ends once.
+
+For shatter, this model deliberately normalizes observation to the actual qualifying outcome. Some native Lua paths notify observers before setting the shatter marker and compensate in consumable-specific paths. Preserving those implementation accidents would require their observable distinctions to be modeled explicitly, and the outcome relation used here does not claim equivalence to every such path.
+
+A local outcome functions as an intermediate value whose lineage and lifetime are managed by the compiler, avoiding temporary event entities. A remembered history value needs a live position only when a later continuation can inspect it.
+
+## Purchases, uses, and Pack choices
+
+A purchase relates a quoted price, payment authority, balance, credit floor, receipt, placement, and capacity. Its candidate must satisfy them together. Payment and receipt must commit together, preventing orphaned deductions if placement fails.
+
+A coupon can waive payment while retaining the priced basis used for sale. A zero paid-price basis does not grant an unlimited free-reroll allowance. A valid reorder can leave the order unchanged and still count as an operation. Numeric delta and operation presence are different results.
+
+Consumable use identifies its source and complete target selection. An untargeted use has an explicitly empty target domain. A failed chance outcome can remain an accepted use without restoring the consumed source. Sigil chooses a shared suit for the Hand, so the resulting value feeds several replacements without drawing again for each card.
+
+A Pack owns options, a choice quota, and its exact parent Return position. An admitted choice with that Pack origin spends the quota. Using an inventory consumable while the Pack is open does not acquire the same origin. Skip and quota exhaustion can both close a Pack while remaining distinct outcomes.
+
+Offer generation needs complete eligibility, availability, bans, duplicate policy, weights, and entropy. A previous selection can affect the next population. A draw's continuation is explicit running truth. Reading a draw result does not consume another draw, and equal distributions do not guarantee equal seeded continuations.
+
+### Perkeo, Observatory, and capacity rights
+
+Perkeo creates a Negative copy of a possessed consumable when leaving the Shop. Observatory lets each eligible possessed Planet supply a factor of 1.5 when its hand mapping matches the selected Pattern. The Planet stays in inventory and performs no ordinary level-up use.
+
+For `n` eligible matching instances, the combined factor is `1.5ⁿ`. A Full House containing a Pair does not qualify a Pair-mapped Planet for Observatory. Deduplicating equal definitions would discard the distinct copies Perkeo produced.
+
+The redeemed standing permission belongs to the Run rather than individual consumables. Its intersection with possession and the hand mapping activates the contribution directly.
+
+A fresh Negative copy supplies both an incoming member and a capacity right in the same receipt candidate: 2 occupied consumable slots with basis 2 can become 3 occupied slots with effective limit 3. If the card leaves possession, its supported right ends. Antimatter instead raises the Joker-capacity basis on redemption. Equal displayed limits can therefore have different future behavior.
+
+Copy applications also need the right reading boundary. An earlier copy may affect a later choice. It does not automatically join a source roster already captured for another relation. Selection, copying, edition replacement, receipt, capacity, and participation compose cleanly without ad-hoc cross-card handlers.
+
+### Retcon changes 1 condition
+
+Director's Cut permits a paid Boss replacement once per Ante under the corresponding schedule allowance. Retcon waives the frequency restriction. The ordinary $10 payment, active-offer identity, and replacement eligibility retain their meanings.
+
+The constraints can be stated separately:
 
 ```text
-Observatory factor = 1.5ⁿ
+payment:       balance_after = balance_before − quoted_cost
+credit:        the resulting balance respects the applicable floor
+permission:    this active Boss offer can be replaced
+frequency:     unused allowance OR a policy waiving that restriction
+replacement:   a choice from the complete eligible Boss population
 ```
 
-Perkeo changes the owned population. Observatory grants participation to members of that population. A consumable can now be a scoring source without becoming a Joker or passing through a second scoring engine.
+Retcon waives the frequency limit while leaving payment and eligibility checks intact. Renewing the scope resets ordinary frequency memory, whereas merely decreasing Ante does not. Replacing an offer establishes a new schedule member even if the selected Blind definition happens to be equal. A stale Contribution naming the old member remains stale.
 
-Redeeming Observatory does not edit the Planet definitions in Knowledge. The Run's redeemed evidence or standing permission is live truth. The contribution domain becomes applicable where that permission meets a possessed Planet with the matching hand relation. I do not need to copy a new behavior onto every Planet and remove it later.
+## Settlement, Profile, and restore
 
-The copy retains the selected consumable's declared current-state footprint, receives a fresh Subject, and has its edition replaced with Negative. Receipt establishes its owner and placement. Its Negative right contributes to consumable capacity. Starting at two occupied slots with a basis of two, one admitted Negative copy can produce three members and an effective limit of three. The right and the incoming member belong to the same receipt candidate.
+Terminal-Round consequences have their own populations and order. Survival, held-card effects, exhaustion, and rental obligations do not all follow from 1 win flag. An obligation already bound to an application does not disappear merely because its own source ends during resolution.
 
-I cannot represent that as "increase the inventory limit forever, then create a card". If the Negative card later leaves possession, its standing right ends too. By contrast, Antimatter's ordinary redemption increases the Joker-capacity basis by one. A lasting basis change and a right supported by current possession can produce the same displayed number while behaving differently afterward.
+Settlement is separate from owned Money. Under the ordinary policy, unused Hands contribute $1 each and interest contributes $1 per complete $5 held, up to $5. If direct terminal income changes Money from $4 to $7 and an unclaimed settlement contains another $2, the relevant principal is $7. Claiming transfers the settlement and establishes its once-only claimed fact together.
 
-The selected copy source also needs a reading boundary. Perkeo chooses from the consumables available when its copy relation reads them. Multiple copy applications cannot silently share a Shop-entry snapshot if an earlier copy can affect a later choice. Nor should a new copy automatically join a source roster already captured elsewhere.
+The Profile tracks persistent progress: unlocked Jokers, discovered consumables, and win records. At the end of a round or upon discovering a new card, settled values transfer to the Profile without leaking the active run's mutable entities.
 
-Finally, Observatory matches the **selected** Pattern, not every Pattern present in the played selection. A Full House containing a Pair does not make a Pair-mapped Planet eligible for that Play's Observatory contribution. Each possessed matching instance contributes separately. Deduplicating definitions would discard the very copies Perkeo produced.
+A save retains only operative truth: card identities, order, current parameters, history, pending permissions, Pack quota, unclaimed settlement, and RNG state. Restore starts directly from that state, without replaying initial grants, acquisition growth, or accepted uses. A factor-local scoring accumulator needs no persistent component when nothing outside that atomic resolution can inspect it.
 
-That gives me a path through source selection, copying, edition replacement, receipt, capacity, and scoring participation. None of those relations needs a special Perkeo-Observatory branch.
+## Cryptid tests different limits
 
-## What does Retcon actually remove?
+If you want to see where traditional game code really breaks, look at Cryptid. The mod pushes card interactions so far that hardcoded logic falls apart completely:
 
-Director's Cut permits a paid Boss replacement once per Ante under the corresponding schedule allowance. Retcon removes that once-per-Ante restriction. It does not remove the ordinary $10 payment, choose the Boss for the player, or turn an old offer into the newly selected one.
+### Exponentia reads the occurrence of an operation
 
-I can separate the admission conditions:
+Exponentia starts with exponent 1. Its ordinary growth adds 0.03 after a handled XMult application whose factor differs from 1. At its main scoring position, it raises Mult to its current exponent.[^exponentia]
+
+2 separate `x2` applications and 1 `x4` application can produce the same Mult while causing different growth. Their occurrences remain operative evidence:
 
 ```text
-Payment: balance_after = balance_before − quoted_cost
-Affordability: balance_after stays above the applicable credit floor
-Permission: this Run may replace this active scheduled Boss offer
-Frequency: unused allowance OR the policy waiving that restriction
+qualifying scale occurrence → exponent_after = exponent_before + 0.03
+power application           → Mult_after = Mult_before ^ current_exponent
 ```
 
-After admission, the old scheduled offer is replaced by a draw from the eligible Boss population. The new offer is a particular schedule member. A stale choice of the old offer is no longer valid even if the two draws happen to select the same Blind definition.
+The growth rule consumes the exact operation result, including the handled operand and origin. The analyzer derives that result edge. A trigger announcement or final Mult delta cannot substitute for it. Growth before Exponentia's position affects its exponent there, but subsequent growth cannot alter an earlier result. Its power operation remains distinct from XMult even though both modify Mult.
 
-The ordinary frequency memory belongs to the current Ante/schedule scope and resets at its renewal. Decreasing Ante numerically does not by itself renew that scope. Retcon bypasses that frequency condition, while the other conditions and consequences retain their meaning.
+### Light needs a finite threshold relation
 
-Each constraint states what it requires, and a policy alters the one it affects. Neither an invented infinite counter nor an "ignore all validation" flag tells me that. A free Boss-replacement grant can share the replacement relation while supplying a different payment entitlement.
+Light accumulates progress from the other scoring cards in a qualifying application. Its defaults are requirement 5, remaining progress 5, and factor 1. Each crossing adds 0.2 to the factor and raises the next requirement by 5, carrying any excess progress forward.[^light]
 
-## Where can the Run go next?
-
-The current context determines which choices and continuations are available. Blind selection, an active Round, settlement, Shop, Pack, victory choice, and loss are different contexts. A Shop visit is a particular occurrence, not `Current = Shop` checked again on every host frame. Stock generation, visit-local reroll state, and Return need that occurrence.
-
-I use a **Sensor** to describe a typed reading from declared facts at a boundary. A count, a remaining-Hand test, or Pattern presence can be used inside a **Decision**, whose authored topology identifies the current position, candidate group, permitted links, eligibility, ordering, and selection policy. Selecting a continuation and establishing its consequences are separate relations. An internal reading does not automatically become information disclosed to the player.
-
-After a Play, the target and remaining budget determine whether terminal resolution is required. A continuing Round has its own refill and draw guard. Outside the Tarot and Spectral Pack contexts, the native draw-failure condition involves both a nonpositive held-card limit and an empty Hand. An exhausted draw pile alone does not establish loss. An admitted loss outcome also does not roll the Play back or imply that every terminal-Round consequence occurred.
-
-The ordinary Blind progression goes from Small to Big to Boss. A permitted skip advances progression and grants its benefit without producing a won Round. A qualifying surviving Boss outcome at Ante 8 establishes victory. Endless continues the Run with that evidence retained. Reducing Ante alone does not select a new Boss schedule, and leaving the host to resume later does not close the trajectory.
-
-## What survives a Round?
-
-Terminal consequences have their own participants, order, and multiplicity. Survival, held-card effects, exhaustion, and rental obligations cannot all be inferred from one win flag. A source ending during its own application does not erase an obligation already bound to that application.
-
-Payout lines form a settlement separate from owned Money. Under the ordinary policy, unused Hands grant $1 each and interest grants $1 per $5 held, up to $5. If direct terminal income changes Money from $4 to $7 while an unclaimed settlement contains another $2, the specified interest reading uses $7. The settlement enters Money when it is claimed, together with the once-only claimed fact.
-
-The **Profile** owns persistent records such as usage, discovery, unlocks, and completion. They can have different mode guards. A higher-tier win can provide lower-tier completion evidence without creating extra historical wins. A **Bridge** can transfer authorized settled values between the Run's World and the Profile's World without carrying a live Subject or backend handle across that boundary.
-
-A save retains what can still affect the future: identities and order, current values, operative history, pending permissions, Pack options and quota, unclaimed settlement, and entropy continuation. Restore starts from that truth. It does not replay startup grants, gameplay births, or growth. A local accumulator used only within an atomic resolution need not become a persistent object.
-
-## What changes when I bring Cryptid into it?
-
-Cryptid raises a few more questions. I use the defaults in the linked definitions below, though its gamesets can override them.
-
-### Exponentia can observe a calculation
-
-Exponentia starts with exponent 1. Its ordinary growth path adds 0.03 after a handled XMult application whose factor differs from 1. At its main scoring position, it raises Mult to the current exponent.[^exponentia]
-
-Two separate `x2` applications and one `x4` application can leave the same Mult, but they give Exponentia different growth counts. Compressing them loses an observable distinction.
-
-```text
-+0.03 per qualifying scale application
-Mult_after = Mult_before ^ current_exponent
-```
-
-I need the operation's result, origin, and ordinal, with the operand actually handled. An announcement of a trigger or a final Mult difference cannot supply that evidence. Growth before Exponentia's position can change the exponent used there. Later growth cannot rewrite an earlier result.
-
-Multiplication and exponentiation are different relations. Exponentia grows from a qualifying multiplication, so its own power application does not qualify merely because it also changes Mult.
-
-### Light can cross more than one threshold
-
-Light accumulates progress from the other scoring cards in a qualifying application. Its defaults begin with requirement 5, remaining progress 5, and factor 1. Each crossing adds 0.2 to the factor and raises the next requirement by 5. Excess progress carries forward.[^light]
-
-Let `a` be remaining progress, `q` the current requirement, and `d` the incoming count. These are entry captures for this application. Choose the least nonnegative integer `k` such that:
+Let `a`, `q`, and `d` be this application's entry remaining progress, requirement, and incoming count. Choose the least nonnegative integer `k` satisfying:
 
 ```text
 a_after = a − d + kq + 5k(k + 1)/2 > 0
@@ -279,33 +394,48 @@ q_after = q + 5k
 f_after = f + 0.2k
 ```
 
-With an enlarged scoring population of 17, there are 16 other cards. Starting from the defaults, two thresholds are crossed: `q_after = 15`, `a_after = 14`, and `f_after = 1.4`.
+With 17 scoring cards there are 16 others. Starting from the defaults gives 2 crossings: `a_after = 14`, `q_after = 15`, and `f_after = 1.4`.
 
-One occurrence has produced two crossings. The positive-step progression has a finite least solution. Its crossing count feeds three replacements, each still expressible by a one-writer equation. The integer relation defining that count needs to be modeled and lowered. Naming a helper after Light would merely conceal it.
+The positive-step relation supplies a finite least solution. Its crossing count is 1 result feeding 3 1-writer replacement equations. The compiler derives those dependencies and their candidate composition. The game specifies the mathematical relation, avoiding custom loop logic tied to an individual card.
 
-### Old Membership Card needs something outside the Run
+### Old Membership Card needs Measurement
 
-Old Membership Card bases its Chips contribution on the Cryptid Discord member count. Its ordinary reading uses one Chip per member, while the balanced variant groups members by eight.[^old-membership-card]
+Old Membership Card bases Chips on the Cryptid Discord member count. Its ordinary reading uses 1 Chip per member, whereas the balanced variant groups members by 8.[^old-membership-card]
 
-That count is not derivable from the deck, and it is not immutable design. I would give it an explicit Measurement capture. The extraction supplies a complete value, and the law consumes the captured member count. A refresh has a declared boundary, and replay or restore retains the value that was actually used until another capture replaces it.
+That value is neither deck population nor immutable Knowledge. An explicit Measurement contract supplies a complete value at a declared capture boundary. A durable capture becomes a represented port, whereas a reading used only within a single resolution can remain factor-local. Replay must retain or reproduce the actual supplied value under that contract.
 
-The origin and boundary determine which count the law receives. An HTTP call inside scoring would hide that dependency. A Discord member and a playing card are also different counted units, even if both use an integer representation.
+The scoring equation receives the typed count directly, leaving network requests to the measurement apparatus. The capture establishes the causal input, while the apparatus realizes how it is measured. Discord members and playing cards remain different counted units.
 
-### Googol Play Card tests the numeric carrier
+### Googol Play Card tests numeric realization
 
-Googol Play Card ordinarily offers a one-in-eight chance of multiplying Mult by `10¹⁰⁰`.[^googol-play-card] That is still multiplication with a trial. The magnitude alone does not require a new gameplay law.
+Googol Play Card ordinarily offers a 1-in-8 chance of multiplying Mult by `10¹⁰⁰`.[^googol-play-card] Trial and multiplication remain familiar relations.
 
-Multiplying `10²⁵⁰` by `10¹⁰⁰` produces `10³⁵⁰`, which binary64 cannot represent as a finite value. If the form distinguishes such results, silently collapsing them to infinity changes its comparisons and future calculations. Range, rounding, and exponentiation behavior belong to the chosen realization of the semantic quantity. Replacing every value with a universal Number would leave that obligation unresolved.
+But `10²⁵⁰ × 10¹⁰⁰ = 10³⁵⁰` exceeds binary64's finite range. If later rules distinguish such values, collapsing them to infinity changes the game. Range, rounding, and exponentiation need a concrete numeric realization preserving the semantic quantity. A larger magnitude need not create a new rule, and calling everything Number does not solve representation.
 
-## What did the examples leave me with?
+## Why model it this way?
 
-The examples ask different questions, but the distinctions keep recurring. Blue Joker needs a complete population at a boundary. Hologram needs actual ownership entry. Blueprint needs a provider separate from its emitter. Retcon changes one admission condition, while Perkeo and Observatory meet through possession, a standing permission, and the selected Pattern.
+Balatro's original Lua source is famous for being a messy pile of nested `if`-`else` checks, global tables, and ad-hoc flags. It worked because LocalThunk is a genius who held the entire game in his head, and the heart of the game, the game design of Balatro is wonderful. But, anyone who has ever tried writing a complex mod for it knows how fragile that gets. You add 1 card, and suddenly 3 other cards stop triggering in the right order.
 
-None of those meanings requires a separate entity merely because I have given it a name. Each one does need a position in the model when another relation can read it. A value also needs its unit and owner, an application needs its occurrence and result, and an ordered region needs a finite domain or another explicit settling contract. Otherwise the next calculation has to guess which fact I meant.
+When you flip the architecture around, you do not write cards as imperative scripts that poke each other. You declare what cards are, what live components they carry, and write pure mathematical equations for their interactions.
 
-My framework takes those declarations and handles the matching, projections, routing, iteration, and writeback that can be derived from them. I still have to supply the game-specific domains, boundaries, and ordering that cannot be inferred. A new card can combine existing meanings through its claims and values. When it introduces a relation the model does not have, I owe that relation its own definition and, where needed, a finite realization.
+```csharp
+using var runtime = BalatroGame.CreateRuntime(new ArchBinding());
+using var session = runtime.Start(BalatroGame.CreateInitial(seed: seed));
+using var host = MonoGameHost.Create(runtime, options);
+using var operatorBinding = host.Bind(
+    session.Roles.RunOperator,
+    RoleInspector.MouseAndKeyboard());
 
-[^exponentia]: Cryptid, Exponentia definition and scaling hook, [`items/exotic.lua`](https://raw.githubusercontent.com/SpectralPack/Cryptid/main/items/exotic.lua).
-[^light]: Cryptid, Light enhancement definition, [`items/misc.lua`](https://raw.githubusercontent.com/SpectralPack/Cryptid/main/items/misc.lua).
-[^old-membership-card]: Cryptid, Old Membership Card descriptions, [`localization/en-us.lua`](https://raw.githubusercontent.com/SpectralPack/Cryptid/main/localization/en-us.lua).
-[^googol-play-card]: Cryptid, Googol Play Card definition, [`items/epic.lua`](https://raw.githubusercontent.com/SpectralPack/Cryptid/main/items/epic.lua).
+host.Run();
+```
+
+It contains no direct game rule calls. The host advances configured boundaries, while generated execution realizes their dataflow applications.
+
+A new card that uses existing mechanics requires only new data: its claims and baseline values. A genuinely new mechanic requires defining the new relation and its equations once. In neither case do you crack open a monolithic scoring switch-statement or invent another ad-hoc trigger stage.
+
+Fantasia is just my private, unreleased sandbox for testing these architectural ideas. I am not pitching a framework here. But Balatro demonstrates why game architecture needs better foundations: when mechanics compound, the only way to keep a game manageable is to let mathematics and relations define the rules, and let the compiler worry about execution order.
+
+[^exponentia]: Cryptid, Exponentia definition and scaling hook, [`items/exotic.lua`](https://github.com/SpectralPack/Cryptid/tree/main/items/exotic.lua).
+[^light]: Cryptid, Light enhancement definition, [`items/misc.lua`](https://github.com/SpectralPack/Cryptid/tree/main/items/misc.lua).
+[^old-membership-card]: Cryptid, Old Membership Card descriptions, [`localization/en-us.lua`](https://github.com/SpectralPack/Cryptid/tree/main/localization/en-us.lua).
+[^googol-play-card]: Cryptid, Googol Play Card definition, [`items/epic.lua`](https://github.com/SpectralPack/Cryptid/tree/main/items/epic.lua).

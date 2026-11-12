@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-08-18
-modDatetime: 2026-09-05
+modDatetime: 2026-11-16
 title: What does Gameness actually look like?
 featured: false
 draft: true
@@ -125,7 +125,7 @@ D_c
 \operatorname{Prof}(U_c),
 $$
 
-and one local relation
+and 1 local relation
 
 $$
 L_c
@@ -141,7 +141,7 @@ $$
 d:\operatorname{Val}(I_c)\to V_d.
 $$
 
-One cell is one scoped clause. A bound input $(i,u)\in D_c$ activates it. A candidate output $v$ is accepted when $(i,u,v)\in L_c$; if no such $v$ exists, the active cell refuses the candidate transition. Outside $D_c$, the cell is idle. Cells with $U_c=\varnothing$ are intervention-free; $I_c=\varnothing$ gives a generative cell; $O_c=\varnothing$ gives a constraint cell.
+1 cell is 1 scoped clause. A bound input $(i,u)\in D_c$ activates it. A candidate output $v$ is accepted when $(i,u,v)\in L_c$; if no such $v$ exists, the active cell refuses the candidate transition. Outside $D_c$, the cell is idle. Cells with $U_c=\varnothing$ are intervention-free; $I_c=\varnothing$ gives a generative cell; $O_c=\varnothing$ gives a constraint cell.
 
 The logical directions are
 
@@ -242,9 +242,9 @@ C_{\mathfrak R}(x,p)\neq\varnothing
 \pi_{Z\setminus O_{\mathfrak R}(x,p)}(x').
 $$
 
-The intersection is the natural join of the lifted local relations. The final equality is the frame clause. Overlapping outputs agree because they become one configuration.
+The intersection is the natural join of the lifted local relations. The final equality is the frame clause. Overlapping outputs agree because they become 1 configuration.
 
-Two cells have a directed Rule intersection when
+2 cells have a directed Rule intersection when
 
 $$
 c\leadsto d
@@ -254,7 +254,7 @@ $$
 
 The shared port is time-polarized by Rule axiom R3: $c$ constrains its value in $x'$, and $d$ may consume it when $x'$ becomes the source of a later transition.
 
-**Definition R4. Local Rule dependence.** Regard $(i,u)\in\operatorname{Val}(I_c)\times\operatorname{Prof}(U_c)$ as one valuation on $I_c\sqcup U_c$. For $W\subseteq O_c$, define
+**Definition R4. Local Rule dependence.** Regard $(i,u)\in\operatorname{Val}(I_c)\times\operatorname{Prof}(U_c)$ as 1 valuation on $I_c\sqcup U_c$. For $W\subseteq O_c$, define
 
 $$
 \operatorname{Out}_c(i,u;W)
@@ -264,7 +264,7 @@ $$
 
 When $a=(i,u)$, write $\operatorname{Out}_c(a;W)$.
 
-A non-empty input block $B\subseteq I_c\sqcup U_c$ activates $c$ when two input valuations agreeing outside $B$ differ in membership in $D_c$. The block feeds $W$ through an applied $c$ when two such valuations both lie in $D_c$ and their $\operatorname{Out}_c(-;W)$ sets differ.
+A non-empty input block $B\subseteq I_c\sqcup U_c$ activates $c$ when 2 input valuations agreeing outside $B$ differ in membership in $D_c$. The block feeds $W$ through an applied $c$ when 2 such valuations both lie in $D_c$ and their $\operatorname{Out}_c(-;W)$ sets differ.
 
 With $W=\varnothing$, the output set distinguishes active refusal from positive support. For non-empty $W$, it retains nondeterministic support and tuple correlation.
 
@@ -343,7 +343,7 @@ a_0^\xi=a
 \right\}.
 $$
 
-A non-empty block $B\subseteq I_{c_0}\sqcup U_{c_0}$ changes the global extendability of $\mathbf c$ when there are $a\equiv_{-B}a'$ such that exactly one of
+A non-empty block $B\subseteq I_{c_0}\sqcup U_{c_0}$ changes the global extendability of $\mathbf c$ when there are $a\equiv_{-B}a'$ such that exactly 1 of
 
 $$
 \operatorname{ExtTrace}_{\mathfrak R}(\mathbf c;a),
@@ -411,7 +411,7 @@ $$
 J_n:=O_{c_n}\cap I_e.
 $$
 
-The block $B$ feeds the disclosure $d$ through $\mathbf c$ when two traces $\xi,\xi'$ satisfy the initial condition and every intermediate condition above, and also
+The block $B$ feeds the disclosure $d$ through $\mathbf c$ when 2 traces $\xi,\xi'$ satisfy the initial condition and every intermediate condition above, and also
 
 $$
 \pi_{J_n}(x_{n+1})
@@ -505,7 +505,7 @@ X,\;A,\;R,\;\operatorname{auth},\;\operatorname{obs},\;\longrightarrow,\;X_0
 \rangle.
 $$
 
-Write $\mathfrak R\models G$ when Rule axioms R2, R3, and R5 hold over this configured vocabulary. From here, $G$ ranges over configured forms presented by at least one such $\mathfrak R$.
+Write $\mathfrak R\models G$ when Rule axioms R2, R3, and R5 hold over this configured vocabulary. From here, $G$ ranges over configured forms presented by at least 1 such $\mathfrak R$.
 
 $\mathfrak R$ retains scope, intersection, dependence, and declared disclosure structure. $G$ retains the configured transition behavior from which State, continuation, and structural Agency will be derived.
 
@@ -706,7 +706,7 @@ V_{(r,o)}:=V_o,
 \llbracket(r,o)\rrbracket:=o.
 $$
 
-Every $b\in\mathcal B_G$ supplies one atomic inspection $\operatorname{atom}(b)\in\mathsf{Insp}_G$, and there are no other atomic inspections.
+Every $b\in\mathcal B_G$ supplies 1 atomic inspection $\operatorname{atom}(b)\in\mathsf{Insp}_G$, and there are no other atomic inspections.
 
 **Axiom 2. Free formation.** For every $1\leq n<\infty$ and every $p\in\operatorname{Prof}$ there are constructors
 
@@ -770,7 +770,7 @@ $$
 
 Tupling retains correlation between residual probes. Prefixing returns the set of results over every admitted outcome of the fixed profile.
 
-The following pair is separated by the branching inspection while the stated flattened profile-word result sets identify it. In a one-role form, take a total reading $o$ with one common value on every non-terminal configuration and values $0,1$ on two terminals. Let
+The following pair is separated by the branching inspection while the stated flattened profile-word result sets identify it. In a 1-role form, take a total reading $o$ with 1 common value on every non-terminal configuration and values $0,1$ on 2 terminals. Let
 
 $$
 x\xrightarrow{a}u,
@@ -863,7 +863,7 @@ $$
 
 It is the kernel of the family $(\operatorname{res}_\iota)_{\iota\in\mathsf{Insp}_G}$.
 
-**Proposition 2.** Configurations of one State admit the same profiles.
+**Proposition 2.** Configurations of 1 State admit the same profiles.
 
 The atomic inspection $\operatorname{atom}(\mathbf{adm})$ returns $\operatorname{Adm}_G$. Therefore, for $s\in S_G$, define
 
@@ -1037,7 +1037,7 @@ $$
 \mathcal L_G^{\mathrm{run}}.
 $$
 
-Bare $G$ supplies no canonical $\mathcal L_G^{\mathrm{run}}$; declaring one selects a boundary relation over retained State and profile distinctions. The Session assignment remains operating-context data, and no axiom aligns it with $\mathcal L_G^{\mathrm{run}}$. A Session may therefore contain several gameplay Runs, and one gameplay Run may span several Sessions.
+Bare $G$ supplies no canonical $\mathcal L_G^{\mathrm{run}}$; declaring one selects a boundary relation over retained State and profile distinctions. The Session assignment remains operating-context data, and no axiom aligns it with $\mathcal L_G^{\mathrm{run}}$. A Session may therefore contain several gameplay Runs, and 1 gameplay Run may span several Sessions.
 
 **Definition 5. Transition window.** $\Delta t_n$ is the logical window joining $s_n$ to $s_{n+1}$ in the order supplied by Axiom 5:
 
@@ -1165,7 +1165,7 @@ $$
 \bigcap_{k\in\mathbb N_0}\equiv_G^k.
 $$
 
-**Lemma 10.1. State-rooted continuation.** If $x,y$ belong to one State and $p$ is admitted there, then
+**Lemma 10.1. State-rooted continuation.** If $x,y$ belong to 1 State and $p$ is admitted there, then
 
 $$
 \mathcal T_G(x,p)\equiv_G^k\mathcal T_G(y,p)
@@ -1210,7 +1210,7 @@ $$
 
 The inclusions follow because depth $k+1$ adds inspections. The intersections follow from Corollary 4.1.
 
-**Proposition 9.** If two continuation classes differ, a least separating residual depth exists.
+**Proposition 9.** If 2 continuation classes differ, a least separating residual depth exists.
 
 The set of separating depths is non-empty and upward closed in $\mathbb N_0$.
 
@@ -1249,7 +1249,7 @@ $$
 \kappa_s(p)\neq\kappa_s(q).
 $$
 
-Equivalently, there are $\gamma_1\neq\gamma_2$ in $\Gamma_G(U,s)$ and one shared completion
+Equivalently, there are $\gamma_1\neq\gamma_2$ in $\Gamma_G(U,s)$ and 1 shared completion
 
 $$
 \delta
@@ -1319,7 +1319,7 @@ a_q^c(x)
 \bigl(\pi_{I_c}(x),q|_{U_c}\bigr).
 $$
 
-The cell is activation-sensitive when exactly one of these valuations lies in $D_c$. When both lie in $D_c$, it is locally output-sensitive toward $W\subseteq O_c$ when
+The cell is activation-sensitive when exactly 1 of these valuations lies in $D_c$. When both lie in $D_c$, it is locally output-sensitive toward $W\subseteq O_c$ when
 
 $$
 \operatorname{Out}_c
@@ -1380,17 +1380,17 @@ $$
 \lambda_G(s,U)=\infty,
 $$
 
-and, within every shared completion, all contributions through $U$ lie in one continuation class.
+and, within every shared completion, all contributions through $U$ lie in 1 continuation class.
 
 **Proposition 11.** For $U_I(\alpha,\Delta t_n)\neq\varnothing$, Agency is present through the instance binding exactly when its latency is finite.
 
-**Proposition 12.** Internal nondeterminism may select one outcome of an unchanged profile without producing an Agency witness for any binding.
+**Proposition 12.** Internal nondeterminism may select 1 outcome of an unchanged profile without producing an Agency witness for any binding.
 
 **Proposition 13.** Role uncertainty does not veto local Agency.
 
 $\Gamma_G(U,s)$ is structural availability at the reached State. Information and policy remain separate layers.
 
-**Remark A1. Rule mutation.** Inside one fixed $\mathfrak R$, a mutable Rule parameter is data in $X$ read by cells that interpret it. An admitted intervention changes that data through Rule axiom R3. If the value changes a later inspection result, the affected configurations occupy different States.
+**Remark A1. Rule mutation.** Inside 1 fixed $\mathfrak R$, a mutable Rule parameter is data in $X$ read by cells that interpret it. An admitted intervention changes that data through Rule axiom R3. If the value changes a later inspection result, the affected configurations occupy different States.
 
 Changing a cell, scope, local relation, or disclosure interface outside represented meta-Rules produces a new presentation $\mathfrak R'$. It may present the same $G$ or a different $G'$.
 
@@ -1423,11 +1423,11 @@ $$
 \operatorname{Ag}(G)=\varnothing
 $$
 
-exactly when, at every reachable State, every two admitted profiles open the same continuation class.
+exactly when, at every reachable State, every 2 admitted profiles open the same continuation class.
 
 **Remark 15.1.** $\operatorname{Ag}_1$ and $\operatorname{Ag}_*$ can differ.
 
-Take two roles, each authorized for $0$ and $1$, and admit only $(0,0)$ and $(1,1)$ at one State, with the profiles opening different continuation classes. No singleton role block has a shared completion, while the two-role block does.
+Take 2 roles, each authorized for $0$ and $1$, and admit only $(0,0)$ and $(1,1)$ at 1 State, with the profiles opening different continuation classes. No singleton role block has a shared completion, while the 2-role block does.
 
 **Proposition 15.2. Difference-set normal form.** For every reachable $s$ and non-empty $U\subseteq R$,
 
@@ -1481,7 +1481,7 @@ $$
 
 For the reverse direction, choose profiles in different fibres and take $U=\operatorname{Diff}(p,q)$.
 
-**Definition 17. Structural playability.** A configured form is structurally playable when some reachable continuation map has at least two values:
+**Definition 17. Structural playability.** A configured form is structurally playable when some reachable continuation map has at least 2 values:
 
 $$
 \operatorname{SPlay}(G)
@@ -1510,7 +1510,7 @@ $$
 \operatorname{str}:\mathfrak C\to\mathcal G.
 $$
 
-The extraction is fixed before Agency is evaluated. Variation exposed by the candidate's Rules as a contribution port becomes a role coordinate. Variation remaining after every represented contribution has been fixed remains inside $\longrightarrow$. Recasting one internal branch as a fictitious role changes $\operatorname{str}(z)$; it does not discover Agency in the same configured form.
+The extraction is fixed before Agency is evaluated. Variation exposed by the candidate's Rules as a contribution port becomes a role coordinate. Variation remaining after every represented contribution has been fixed remains inside $\longrightarrow$. Recasting 1 internal branch as a fictitious role changes $\operatorname{str}(z)$; it does not discover Agency in the same configured form.
 
 No canonical extraction is asserted. Every bridge claim below is relative to the declared pair $(\mathfrak C,\operatorname{str})$. Let $\operatorname{Game}$ be a primitive predicate on $\mathfrak C$.
 
@@ -1561,7 +1561,7 @@ $$
 
 Since the extracted role carrier is finite, $\operatorname{Diff}(p,q)$ is a finite role block.
 
-The converse is absent. The bridge is refuted by one accepted candidate $z$ for which
+The converse is absent. The bridge is refuted by 1 accepted candidate $z$ for which
 
 $$
 \operatorname{Game}(z)
@@ -1581,7 +1581,7 @@ The bridge is support-level because $\operatorname{str}(z)$ retains transition s
 | Axiom 0 | structural Agency reads only $G$ | unrepresented material, intent, or reception may enter the Agency test |
 | Rule formation discipline | content identities remain carrier values | Rule, port, role, or disclosure labels may hardcode proper nouns |
 | R2 | Rule clauses respect the declared carrier symmetries | structurally interchangeable values may be treated differently |
-| R3 | active cells jointly determine one framed transition | the Rule presentation no longer determines $\longrightarrow$ |
+| R3 | active cells jointly determine 1 framed transition | the Rule presentation no longer determines $\longrightarrow$ |
 | R5 | every declared reading has a scoped Rule source | information may bypass Rule incidence |
 | Axiom 1 | admissibility and disclosures are atomic inspections | State-defined availability need not follow |
 | Axiom 2 | inspection constructors are free and unambiguous | inspection syntax may identify unrelated probes |
@@ -1606,7 +1606,7 @@ X=\{x_0,x_1,x_2\},
 X_0=\{x_0\},
 $$
 
-and one configuration port $q$ with $V_q=\{0,1,2\}$ and $\pi_q(x_i)=i$. Choose the typed vocabulary so that its automorphism group is trivial, and take one cell $c$ with
+and 1 configuration port $q$ with $V_q=\{0,1,2\}$ and $\pi_q(x_i)=i$. Choose the typed vocabulary so that its automorphism group is trivial, and take 1 cell $c$ with
 
 $$
 I_c=O_c=\{q\},
@@ -1729,7 +1729,7 @@ $$
 
 and set $j_G(s;p,q):=\infty$ when no finite bound exists.
 
-A finite value gives one uniform bound within which every immediate outcome retains a route to one common State. It asserts neither actual return nor control of that route. For a witness pair, $j_G(s;p,q)\neq0$.
+A finite value gives 1 uniform bound within which every immediate outcome retains a route to 1 common State. It asserts neither actual return nor control of that route. For a witness pair, $j_G(s;p,q)\neq0$.
 
 **Remark W4. Consequence persistence.** Reconvergence depth is not the lifetime of a distinction. A persistence quantity would have to rebase the comparison at later States and declare how counterfactual paths, and under nondeterminism their outcomes, are paired. The signature supplies no uniform canonical pairing across arbitrary nondeterministic forms, although a particular form may supply one. The present calculus therefore retains latency and possible reconvergence without assigning a general persistence number.
 
@@ -1754,7 +1754,7 @@ $$
 
 **Proposition O1 ($F_O$-transfer).** Under $F_O$, $\sim_G$ is a reading-preserving bisimulation for the profile-labelled transition relation.
 
-Suppose $x\sim_G y$ and $x\xrightarrow{p}x'$. Proposition 2 gives $p\in\operatorname{Adm}_G(y)$. If no $p$-successor of $y$ shared the State of $x'$, choose one representative for each of the finitely many successor State classes of $y$, choose an inspection separating each class from $x'$, tuple those inspections, and prefix the tuple by $p$. The resulting inspection would separate $x$ from $y$. The converse direction is symmetric.
+Suppose $x\sim_G y$ and $x\xrightarrow{p}x'$. Proposition 2 gives $p\in\operatorname{Adm}_G(y)$. If no $p$-successor of $y$ shared the State of $x'$, choose 1 representative for each of the finitely many successor State classes of $y$, choose an inspection separating each class from $x'$, tuple those inspections, and prefix the tuple by $p$. The resulting inspection would separate $x$ from $y$. The converse direction is symmetric.
 
 Therefore the quotient admits the transition relation
 
@@ -1900,7 +1900,7 @@ $$
 \bigl(\{\bar r\}\times\operatorname{obs}_H(\bar r)\bigr)
 $$
 
-pairs every target reading with at least one source reading. It is role-compatible on its domain:
+pairs every target reading with at least 1 source reading. It is role-compatible on its domain:
 
 $$
 \theta_G(r,o)=(\bar r,\bar o)
@@ -1930,9 +1930,9 @@ $$
 q_{G'}\circ f.
 $$
 
-Finally, $q_{\Pi(G)}$ is an isomorphism. One application fixes the granularity; a second has nothing further to discard.
+Finally, $q_{\Pi(G)}$ is an isomorphism. 1 application fixes the granularity; a second has nothing further to discard.
 
-**Definition C2. Configured sameness relative to a comparison scheme.** Two forms have the same configured denotation relative to $\Pi$ when
+**Definition C2. Configured sameness relative to a comparison scheme.** 2 forms have the same configured denotation relative to $\Pi$ when
 
 $$
 \Pi(G_1)\cong\Pi(G_2)
@@ -1940,7 +1940,7 @@ $$
 
 under the configured-form isomorphism of Definition I1. That isomorphism preserves every inspection result and its depth by Axioms 1-4 and Definition 1.
 
-**Definition C3. Rule-presentation sameness.** Let $\mathfrak R_i\models G_i$. The two presented forms have the same Rule presentation when
+**Definition C3. Rule-presentation sameness.** Let $\mathfrak R_i\models G_i$. The 2 presented forms have the same Rule presentation when
 
 $$
 (G_1,\mathfrak R_1)
@@ -2053,7 +2053,7 @@ $$
 
 Cross-form uses of $\rho$ use Definition C1.
 
-For one comparison scheme $(\Pi,q)$, take
+For 1 comparison scheme $(\Pi,q)$, take
 
 $$
 \mathfrak C_{\Pi,\mathrm{fin}}
@@ -2079,7 +2079,7 @@ z\preceq_{\Pi,\rho}w
 \rho\bigl(\Pi(\operatorname{str}(w))\bigr).
 $$
 
-Write $z\prec_{\Pi,\rho}w$ for strict inequality. This preorder compares candidate games by the density of structural gameness support retained after one declared normalization.
+Write $z\prec_{\Pi,\rho}w$ for strict inequality. This preorder compares candidate games by the density of structural gameness support retained after 1 declared normalization.
 
 <details>
 <summary>Finite continuation capacity</summary>
@@ -2172,7 +2172,7 @@ $$
 \bigl(\mathcal P_{\Pi(G)}\bigr).
 $$
 
-$K$ is invariant under $\cong_\Pi^{\mathrm{reach}}$: an isomorphism between retained arguments transports one hypothesis class bijectively to the other.
+$K$ is invariant under $\cong_\Pi^{\mathrm{reach}}$: an isomorphism between retained arguments transports 1 hypothesis class bijectively to the other.
 
 Define
 
@@ -2185,7 +2185,7 @@ $$
 P\cong_\Pi^{\mathrm{reach}}\mathcal P_{\Pi(G)}.
 $$
 
-Saturation collapses the configured hypothesis class to one structural isomorphism type at the selected granularity. Rule presentation remains a separate hypothesis type. $\operatorname{Ag}(G)$ remains a function of $G$.
+Saturation collapses the configured hypothesis class to 1 structural isomorphism type at the selected granularity. Rule presentation remains a separate hypothesis type. $\operatorname{Ag}(G)$ remains a function of $G$.
 
 </details>
 
@@ -2195,9 +2195,9 @@ The resulting objects answer different questions:
 | --- | --- | --- |
 | Where can an admitted profile difference alter continuation? | $S_A(G)$ and $\mathcal W_G(s)$ | quality, importance, or visitation frequency |
 | How many role coordinates does the nearest witness change? | $m_G^*(s)$ | number of people or interaction strength |
-| How deep before one witness becomes distinguishable? | $\ell_G(s;p,q)$ | elapsed time or consequence magnitude |
-| How soon can every immediate outcome still reach one common State? | $j_G(s;p,q)$ | actual return, control, or persistence |
-| Has one source exhausted structural discovery at the selected granularity? | $\operatorname{Sat}_{\Pi,K}(\alpha,G)$ | solving, current-State knowledge, or loss of Agency |
+| How deep before 1 witness becomes distinguishable? | $\ell_G(s;p,q)$ | elapsed time or consequence magnitude |
+| How soon can every immediate outcome still reach 1 common State? | $j_G(s;p,q)$ | actual return, control, or persistence |
+| Has 1 source exhausted structural discovery at the selected granularity? | $\operatorname{Sat}_{\Pi,K}(\alpha,G)$ | solving, current-State knowledge, or loss of Agency |
 | How long does a distinction remain operative along paired later paths? | no canonical object in the present signature | Latency or Reconvergence by another name |
 
 $$
@@ -2232,4 +2232,4 @@ G,\mathsf{Insp}_G,S_G,\mathcal P_G,
 \end{aligned}
 $$
 
-Every symbol above is supposed to pay rent by keeping one of those arrows typed. Anything else goes.
+Every symbol above is supposed to pay rent by keeping 1 of those arrows typed. Anything else goes.
