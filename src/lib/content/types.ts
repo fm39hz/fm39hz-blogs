@@ -44,3 +44,21 @@ export interface ContentHeading {
 	text: string;
 	depth: number;
 }
+
+export interface SeriesPart {
+	slug: string;
+	title: string;
+	order: number;
+	lang: Language;
+	isCurrent?: boolean;
+}
+
+export interface SeriesInfo {
+	id: string;
+	title: string;
+	currentOrder: number;
+	totalParts: number;
+	parts: SeriesPart[];
+	prev?: SeriesPart;
+	next?: SeriesPart;
+}

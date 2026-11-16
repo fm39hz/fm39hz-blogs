@@ -1,7 +1,7 @@
 import { error, redirect } from '@sveltejs/kit';
 import { selectTranslation } from '$lib/content/policy';
 import { publicationContext } from '$lib/content/publication';
-import { getArticleTranslations } from '$lib/content/queries.server';
+import { getArticleSeries, getArticleTranslations } from '$lib/content/queries.server';
 import { listArticleSlugs } from '$lib/server/article-repository.server';
 import { getLocalizedPath, localeFromUrl } from '$lib/utils/localized-url';
 import type { PageServerLoad } from './$types';
@@ -21,5 +21,9 @@ export const load: PageServerLoad = ({ params, url }) => {
 		const fallback = selectTranslation(translations, locale)!;
 		redirect(307, getLocalizedPath(url.pathname, fallback.lang));
 	}
-	return { article, translations };
+	const series = article.metadata.series
+		? getArticleSeries(params.slug, article.metadata.series, locale, context)
+		: null;
+
+	return { article, translations, series };
 };

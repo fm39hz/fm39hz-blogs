@@ -51,6 +51,12 @@ export interface BlogConfig {
 	socials: SocialLink[];
 }
 
+export interface SeriesMeta {
+	id: string;
+	title: string;
+	order: number;
+}
+
 export interface PostMeta {
 	/** Generated from Markdown; authors do not maintain this field. */
 	headings?: import('./content/types').ContentHeading[];
@@ -68,4 +74,5 @@ export interface PostMeta {
 	location?: string;
 	timezone?: string;
 	lang?: Language;
+	series?: SeriesMeta;
 }

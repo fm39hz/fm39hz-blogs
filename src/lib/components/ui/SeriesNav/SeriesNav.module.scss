@@ -1,0 +1,80 @@
+@use '../../../design-system/tokens/breakpoints' as bp;
+
+.nav {
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-md);
+  border-top: var(--line-solid);
+  padding-top: var(--space-md);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+
+  @media (min-width: #{bp.$sm}) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.emptySlot {
+  display: none;
+
+  @media (min-width: #{bp.$sm}) {
+    display: block;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  padding: var(--space-sm) var(--space-md);
+  border: var(--line-solid);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  text-decoration: none;
+  color: var(--fg);
+  position: relative;
+  transition: transform 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+
+  &:hover {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 4%, var(--bg));
+    transform: translateY(-1px);
+  }
+}
+
+.prevCard {
+  text-align: left;
+}
+
+.nextCard {
+  text-align: right;
+  border-right: 3px solid var(--accent);
+}
+
+.hint {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  font-size: var(--fs-xs);
+  color: var(--muted-fg);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  .nextCard & {
+    justify-content: flex-end;
+  }
+}
+
+.arrow {
+  font-size: 1.1em;
+}
+
+.title {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--fg);
+  line-height: 1.4;
+}

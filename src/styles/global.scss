@@ -151,8 +151,12 @@ html {
   font-size: 16px;
   overflow-y: scroll;
   scrollbar-gutter: stable;
-  scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+
+  /* Smooth scroll only for in-page actions, disabled during view transitions */
+  &:not([data-transition-direction]) {
+    scroll-behavior: smooth;
+  }
 }
 
 /*
@@ -367,4 +371,82 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
   clip-path: inset(50%) !important;
   white-space: nowrap !important;
   border: 0 !important;
+}
+
+/* Series Page-Flip View Transitions */
+@keyframes page-turn-out-left {
+  from {
+    opacity: 1;
+    transform: perspective(1000px) rotateY(0deg) translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: perspective(1000px) rotateY(-18deg) translateX(-40px);
+  }
+}
+
+@keyframes page-turn-in-right {
+  from {
+    opacity: 0;
+    transform: perspective(1000px) rotateY(18deg) translateX(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: perspective(1000px) rotateY(0deg) translateX(0);
+  }
+}
+
+@keyframes page-turn-out-right {
+  from {
+    opacity: 1;
+    transform: perspective(1000px) rotateY(0deg) translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: perspective(1000px) rotateY(18deg) translateX(40px);
+  }
+}
+
+@keyframes page-turn-in-left {
+  from {
+    opacity: 0;
+    transform: perspective(1000px) rotateY(-18deg) translateX(-40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: perspective(1000px) rotateY(0deg) translateX(0);
+  }
+}
+
+html[data-transition-direction="forward"] {
+  &::view-transition-old(page-canvas) {
+    animation: 250ms ease-out page-turn-out-left both;
+  }
+
+  &::view-transition-new(page-canvas) {
+    animation: 250ms ease-out page-turn-in-right both;
+  }
+}
+
+html[data-transition-direction="backward"] {
+  &::view-transition-old(page-canvas) {
+    animation: 250ms ease-out page-turn-out-right both;
+  }
+
+  &::view-transition-new(page-canvas) {
+    animation: 250ms ease-out page-turn-in-left both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-transition-direction] {
+    &::view-transition-old(page-canvas),
+    &::view-transition-new(page-canvas) {
+      animation: none !important;
+    }
+  }
 }

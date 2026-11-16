@@ -33,6 +33,14 @@ export function useTranslations(locale: Language) {
 			copied: m.post_copied(undefined, opt),
 			copiedMarkdown: m.post_copied_markdown(undefined, opt),
 		},
+		series: {
+			label: m.series_label(undefined, opt),
+			part: (current: number, total: number) => m.series_part({ current, total }, opt),
+			allParts: m.series_all_parts(undefined, opt),
+			current: m.series_current(undefined, opt),
+			flipPrev: m.series_flip_prev(undefined, opt),
+			flipNext: m.series_flip_next(undefined, opt),
+		},
 		pagination: {
 			prev: m.pagination_prev(undefined, opt),
 			next: m.pagination_next(undefined, opt),

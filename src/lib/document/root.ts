@@ -25,3 +25,13 @@ export function rootTheme(): ThemeMode {
 export function setRootTheme(mode: ThemeMode): void {
 	root().dataset.theme = mode;
 }
+
+export type TransitionDirection = 'forward' | 'backward';
+
+export function setTransitionDirection(direction: TransitionDirection | null): void {
+	if (direction) {
+		root().dataset.transitionDirection = direction;
+	} else {
+		delete root().dataset.transitionDirection;
+	}
+}

@@ -81,5 +81,11 @@
 	"a11y_close_image": "Close image viewer",
 	"a11y_close_notification": "Close notification",
 	"social_link_title": "{site} on {network}",
+	"series_label": "Series",
+	"series_part": "Part {current} of {total}",
+	"series_all_parts": "All parts in series",
+	"series_current": "Current",
+	"series_flip_prev": "Flip back",
+	"series_flip_next": "Flip forward",
 	"a11y_footnote": "Footnote {number}"
 }

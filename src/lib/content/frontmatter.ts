@@ -8,7 +8,7 @@
  */
 
 import { isLanguage } from '../locale';
-import type { PostMeta } from '../types';
+import type { PostMeta, SeriesMeta } from '../types';
 import type { ContentHeading } from './types';
 
 function field(source: object, key: string): unknown {
@@ -56,6 +56,28 @@ function isHeading(value: unknown): value is ContentHeading {
 	);
 }
 
+function cleanSlug(text: string): string {
+	return text
+		.toLowerCase()
+		.trim()
+		.replace(/[^\w\s-]/g, '')
+		.replace(/[\s_-]+/g, '-')
+		.replace(/^-+|-+$/g, '');
+}
+
+function optionalSeries(source: object, file: string): SeriesMeta | undefined {
+	const raw = field(source, 'series');
+	if (raw === undefined || raw === null) return undefined;
+	if (typeof raw !== 'object') fail(file, 'series', 'an object with title and order');
+	const title = requiredString(raw, 'title', file);
+	const rawOrder = field(raw, 'order');
+	if (typeof rawOrder !== 'number' || !Number.isInteger(rawOrder) || rawOrder <= 0) {
+		fail(file, 'series.order', 'a positive integer');
+	}
+	const id = optionalString(raw, 'id', file) ?? cleanSlug(title);
+	return { id, title, order: rawOrder };
+}
+
 /** Validate parsed frontmatter (`result.data.fm`) of `file` into `PostMeta`. */
 export function toPostMeta(value: unknown, file: string): PostMeta {
 	if (typeof value !== 'object' || value === null) {
@@ -98,5 +120,6 @@ export function toPostMeta(value: unknown, file: string): PostMeta {
 		hideEditPost: optionalBoolean(value, 'hideEditPost', file),
 		location: optionalString(value, 'location', file),
 		timezone: optionalString(value, 'timezone', file),
+		series: optionalSeries(value, file),
 	};
 }

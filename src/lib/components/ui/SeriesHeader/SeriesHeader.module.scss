@@ -1,0 +1,125 @@
+.container {
+  margin-block: var(--space-md);
+  padding: var(--space-xs) var(--space-md);
+  background: color-mix(in srgb, var(--accent) 4%, var(--bg));
+  border: var(--line-solid);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-xs);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+.icon {
+  color: var(--accent);
+  font-size: 1.1em;
+  flex-shrink: 0;
+}
+
+.label {
+  color: var(--muted-fg);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+.title {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.badge {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  padding: 0.1em 0.5em;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+
+.toggleBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+  background: transparent;
+  border: none;
+  color: var(--muted-fg);
+  font-size: inherit;
+  cursor: pointer;
+  padding: 0.2em 0.4em;
+  border-radius: var(--radius-sm);
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+.caret {
+  font-size: 0.9em;
+}
+
+.partList {
+  margin: var(--space-sm) 0 0;
+  padding: var(--space-xs) 0 0;
+  list-style: none;
+  border-top: 1px dashed color-mix(in srgb, var(--fg) 15%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.partItem {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+}
+
+.currentPart {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.partLink {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+  color: var(--muted-fg);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--fg);
+  }
+}
+
+.partOrder {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.9em;
+  color: var(--muted-fg);
+}
+
+.partTitle {
+  color: inherit;
+}
+
+.currentBadge {
+  font-size: 0.85em;
+  font-weight: normal;
+  color: var(--accent);
+}

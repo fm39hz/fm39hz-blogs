@@ -6,6 +6,8 @@ import ButtonLink from '$lib/components/ui/ButtonLink/ButtonLink.svelte';
 import Datetime from '$lib/components/ui/Datetime/Datetime.svelte';
 import IconButton from '$lib/components/ui/IconButton/IconButton.svelte';
 import PostSignature from '$lib/components/ui/PostSignature/PostSignature.svelte';
+import SeriesHeader from '$lib/components/ui/SeriesHeader/SeriesHeader.svelte';
+import SeriesNav from '$lib/components/ui/SeriesNav/SeriesNav.svelte';
 import TableOfContents from '$lib/components/ui/TableOfContents/TableOfContents.svelte';
 import { tocHeadings } from '$lib/components/ui/TableOfContents/toc.svelte';
 import TagLine from '$lib/components/ui/TagLine/TagLine.svelte';
@@ -129,8 +131,15 @@ function onArticleClick(event: MouseEvent) {
       </div>
     </div>
 
+    {#if data.series}
+      <SeriesHeader series={data.series} />
+    {/if}
+
     <article class={styles.article} lang={entry.lang}>
       <div class="prose" bind:this={proseEl}><entry.component /></div>
+      {#if data.series}
+        <SeriesNav series={data.series} />
+      {/if}
       <hr class={styles.hr} />
       <PostSignature author={seo.author} location={meta.location} pubDatetime={meta.pubDatetime} />
       <ul class={styles.tags}>

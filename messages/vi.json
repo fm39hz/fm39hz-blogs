@@ -81,5 +81,11 @@
 	"a11y_close_image": "Đóng trình xem ảnh",
 	"a11y_close_notification": "Đóng thông báo",
 	"social_link_title": "{site} trên {network}",
+	"series_label": "Chuỗi bài",
+	"series_part": "Phần {current} / {total}",
+	"series_all_parts": "Tất cả các phần",
+	"series_current": "Đang đọc",
+	"series_flip_prev": "Lật về trước",
+	"series_flip_next": "Lật tiếp trang",
 	"a11y_footnote": "Chú thích {number}"
 }
