@@ -47,7 +47,11 @@ function toggleOpen() {
 							<span class={styles.currentBadge}>({t.series.current})</span>
 						</span>
 					{:else}
-						<a href={articlePath(part.slug, part.lang)} class={styles.partLink}>
+						<a
+							href={articlePath(part.slug, part.lang)}
+							class={styles.partLink}
+							data-direction={part.order < series.currentOrder ? 'backward' : 'forward'}
+						>
 							<span class={styles.partOrder}>#{part.order}</span>
 							<span class={styles.partTitle}>{part.title}</span>
 						</a>

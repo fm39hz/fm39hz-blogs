@@ -27,14 +27,9 @@ export function validateSeriesEntries(entries: readonly SeriesValidationEntry[])
 
 		const first = memberships[0]!;
 		if (
-			memberships.some(
-				(series) =>
-					series!.id !== first.id ||
-					series!.order !== first.order ||
-					series!.title !== first.title,
-			)
+			memberships.some((series) => series!.id !== first.id || series!.order !== first.order)
 		) {
-			throw new Error(`${slug}: translations must declare the same series metadata`);
+			throw new Error(`${slug}: translations must declare the same series id and order`);
 		}
 	}
 
@@ -59,12 +54,12 @@ export function validateSeriesEntries(entries: readonly SeriesValidationEntry[])
 					`${first.id}: duplicate order ${series.order} in ${entry.lang} (${duplicate.name}, ${entry.name})`,
 				);
 			}
-			orders.set(series.order, entry);
 			if (series.title !== first.title) {
 				throw new Error(
 					`${first.id}: inconsistent series title in ${entry.lang} (${entry.name})`,
 				);
 			}
+			orders.set(series.order, entry);
 		}
 	}
 }
