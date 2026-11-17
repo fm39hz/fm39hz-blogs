@@ -1,5 +1,4 @@
 <script lang="ts">
-import ButtonLink from '$lib/components/ui/ButtonLink/ButtonLink.svelte';
 import type { SeriesInfo } from '$lib/content/types';
 import Icon from '$lib/design-system/primitives/Icon.svelte';
 import { useTranslations } from '$lib/i18n';
@@ -18,26 +17,27 @@ function toggleOpen() {
 </script>
 
 <aside class={styles.container} aria-label={t.series.label}>
-	<div class={styles.header}>
-		<div class={styles.meta}>
+	<button
+		type="button"
+		class={styles.header}
+		onclick={toggleOpen}
+		aria-expanded={isOpen}
+		aria-controls="series-parts"
+	>
+		<span class={styles.meta}>
 			<Icon icon="ph:books" class={styles.icon} />
 			<span class={styles.label}>{t.series.label}:</span>
 			<strong class={styles.title}>{series.title}</strong>
 			<span class={styles.badge}>{t.series.part(series.currentOrder, series.totalParts)}</span>
-		</div>
-		<button
-			type="button"
-			class={styles.toggleBtn}
-			onclick={toggleOpen}
-			aria-expanded={isOpen}
-		>
+		</span>
+		<span class={styles.toggleLabel}>
 			<span>{t.series.allParts}</span>
 			<Icon icon={isOpen ? 'ph:caret-up' : 'ph:caret-down'} class={styles.caret} />
-		</button>
-	</div>
+		</span>
+	</button>
 
 	{#if isOpen}
-		<ol class={styles.partList}>
+		<ol id="series-parts" class={styles.partList}>
 			{#each series.parts as part}
 				<li class={styles.partItem}>
 					{#if part.isCurrent}
@@ -47,10 +47,10 @@ function toggleOpen() {
 							<span class={styles.currentBadge}>({t.series.current})</span>
 						</span>
 					{:else}
-						<ButtonLink href={articlePath(part.slug, part.lang)} class={styles.partLink}>
+						<a href={articlePath(part.slug, part.lang)} class={styles.partLink}>
 							<span class={styles.partOrder}>#{part.order}</span>
 							<span class={styles.partTitle}>{part.title}</span>
-						</ButtonLink>
+						</a>
 					{/if}
 				</li>
 			{/each}

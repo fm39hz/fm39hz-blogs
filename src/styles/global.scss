@@ -424,21 +424,21 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
 
 html[data-transition-direction="forward"] {
   &::view-transition-old(page-canvas) {
-    animation: 250ms ease-out page-turn-out-left both;
+    animation: var(--d-page) var(--ease-out) page-turn-out-left both;
   }
 
   &::view-transition-new(page-canvas) {
-    animation: 250ms ease-out page-turn-in-right both;
+    animation: var(--d-page) var(--ease-out) page-turn-in-right both;
   }
 }
 
 html[data-transition-direction="backward"] {
   &::view-transition-old(page-canvas) {
-    animation: 250ms ease-out page-turn-out-right both;
+    animation: var(--d-page) var(--ease-out) page-turn-out-right both;
   }
 
   &::view-transition-new(page-canvas) {
-    animation: 250ms ease-out page-turn-in-left both;
+    animation: var(--d-page) var(--ease-out) page-turn-in-left both;
   }
 }
 

@@ -9,6 +9,7 @@
 
 import { isLanguage } from '../locale';
 import type { PostMeta, SeriesMeta } from '../types';
+import { slugifyStr } from '../utils/slug';
 import type { ContentHeading } from './types';
 
 function field(source: object, key: string): unknown {
@@ -56,15 +57,6 @@ function isHeading(value: unknown): value is ContentHeading {
 	);
 }
 
-function cleanSlug(text: string): string {
-	return text
-		.toLowerCase()
-		.trim()
-		.replace(/[^\w\s-]/g, '')
-		.replace(/[\s_-]+/g, '-')
-		.replace(/^-+|-+$/g, '');
-}
-
 function optionalSeries(source: object, file: string): SeriesMeta | undefined {
 	const raw = field(source, 'series');
 	if (raw === undefined || raw === null) return undefined;
@@ -74,7 +66,7 @@ function optionalSeries(source: object, file: string): SeriesMeta | undefined {
 	if (typeof rawOrder !== 'number' || !Number.isInteger(rawOrder) || rawOrder <= 0) {
 		fail(file, 'series.order', 'a positive integer');
 	}
-	const id = optionalString(raw, 'id', file) ?? cleanSlug(title);
+	const id = optionalString(raw, 'id', file) ?? slugifyStr(title);
 	return { id, title, order: rawOrder };
 }
 

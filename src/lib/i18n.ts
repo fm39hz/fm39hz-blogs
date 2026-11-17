@@ -41,6 +41,11 @@ export function useTranslations(locale: Language) {
 			flipPrev: m.series_flip_prev(undefined, opt),
 			flipNext: m.series_flip_next(undefined, opt),
 		},
+		copy: {
+			series: (title: string, current: number, total: number) =>
+				m.copy_series({ title, current, total }, opt),
+			hostedAt: (url: string) => m.copy_hosted_at({ url }, opt),
+		},
 		pagination: {
 			prev: m.pagination_prev(undefined, opt),
 			next: m.pagination_next(undefined, opt),

@@ -87,5 +87,7 @@
 	"series_current": "Đang đọc",
 	"series_flip_prev": "Lật về trước",
 	"series_flip_next": "Lật tiếp trang",
+	"copy_series": "Bài viết này thuộc chuỗi \"{title}\", phần {current} / {total}.",
+	"copy_hosted_at": "Bài viết được đăng tại: <{url}>",
 	"a11y_footnote": "Chú thích {number}"
 }

@@ -43,8 +43,8 @@ let origin = $state<string | null>(null);
 // Re-localized so a language switch on the article keeps the back target in that language.
 let backHref = $derived(getLocalizedPath(origin ?? '/articles', locale.value));
 
-afterNavigate(({ from, to }) => {
-	const path = arrivalPath(from, to?.params?.slug);
+afterNavigate(({ from }) => {
+	const path = arrivalPath(from);
 	if (path) origin = path;
 });
 
@@ -60,6 +60,8 @@ async function onCopyMarkdown() {
 			sourceUrl: seo?.canonical,
 			lang: entry.lang,
 			headings: meta.headings ?? [],
+			labels: t.copy,
+			series: data.series ?? undefined,
 		},
 		entry.raw,
 	);

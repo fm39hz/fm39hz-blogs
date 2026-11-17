@@ -4,6 +4,7 @@ import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import { toPostMeta } from '../src/lib/content/frontmatter';
 import { assertEquivalentHeadings, contentLocale, contentSlug } from '../src/lib/content/policy';
+import { validateSeriesEntries } from '../src/lib/content/series';
 import { remarkHeadingSlugs } from '../src/lib/markdown/headingSlug';
 
 export async function validateContent() {
@@ -35,6 +36,7 @@ export async function validateContent() {
 		group.push(entry);
 		groups.set(entry.slug, group);
 	}
+	validateSeriesEntries(entries);
 	for (const [slug, group] of groups) {
 		if (group.length === 2) {
 			assertEquivalentHeadings(

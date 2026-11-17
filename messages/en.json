@@ -87,5 +87,7 @@
 	"series_current": "Current",
 	"series_flip_prev": "Flip back",
 	"series_flip_next": "Flip forward",
+	"copy_series": "This article is part of the \"{title}\" series, part {current} of {total}.",
+	"copy_hosted_at": "This article is hosted at: <{url}>",
 	"a11y_footnote": "Footnote {number}"
 }

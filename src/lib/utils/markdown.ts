@@ -5,6 +5,30 @@ import { TOC_MARKER_LINE, TOC_TITLES } from '$lib/markdown/toc';
 import { resolveAuthor } from './author';
 import { formatNumericDate } from './date';
 
+export interface CopyMarkdownSeries {
+	title: string;
+	currentOrder: number;
+	totalParts: number;
+}
+
+export interface CopyMarkdownLabels {
+	series: (title: string, current: number, total: number) => string;
+	hostedAt: (url: string) => string;
+}
+
+export interface CopyMarkdownMeta {
+	title: string;
+	description?: string;
+	author?: string;
+	pubDatetime: string;
+	tags?: string[];
+	sourceUrl?: string;
+	lang: Language;
+	headings: ContentHeading[];
+	labels: CopyMarkdownLabels;
+	series?: CopyMarkdownSeries;
+}
+
 /** Drop YAML frontmatter for clipboard/export. Body only. */
 export function stripFrontmatter(md: string): string {
 	if (!md.startsWith('---')) return md;
@@ -41,19 +65,7 @@ export function stripFrontmatter(md: string): string {
  *
  *   Source: <url>
  */
-export function buildCopyMarkdown(
-	meta: {
-		title: string;
-		description?: string;
-		author?: string;
-		pubDatetime: string;
-		tags?: string[];
-		sourceUrl?: string;
-		lang: Language;
-		headings: ContentHeading[];
-	},
-	raw: string,
-): string {
+export function buildCopyMarkdown(meta: CopyMarkdownMeta, raw: string): string {
 	const body = copyFootnotes(stripFrontmatter(raw).trim());
 	const title = `# ${meta.title}`;
 
@@ -102,10 +114,15 @@ export function buildCopyMarkdown(
 		parts.push('---');
 		parts.push(tags);
 	}
-	if (meta.sourceUrl) {
-		parts.push(`This article is hosted at: <${meta.sourceUrl}>`);
-	}
 
+	if (meta.series) {
+		parts.push(
+			meta.labels.series(meta.series.title, meta.series.currentOrder, meta.series.totalParts),
+		);
+	}
+	if (meta.sourceUrl) {
+		parts.push(meta.labels.hostedAt(meta.sourceUrl));
+	}
 	return parts.join('\n\n') + '\n';
 }
 

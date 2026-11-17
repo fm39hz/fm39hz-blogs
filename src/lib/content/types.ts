@@ -50,7 +50,7 @@ export interface SeriesPart {
 	title: string;
 	order: number;
 	lang: Language;
-	isCurrent?: boolean;
+	isCurrent: boolean;
 }
 
 export interface SeriesInfo {

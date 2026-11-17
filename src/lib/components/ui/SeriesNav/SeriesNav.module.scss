@@ -31,12 +31,15 @@
   gap: var(--space-3xs);
   padding: var(--space-sm) var(--space-md);
   border: var(--line-solid);
-  border-radius: var(--radius-sm);
+	border-radius: var(--br);
   background: var(--bg);
   text-decoration: none;
   color: var(--fg);
   position: relative;
-  transition: transform 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+	transition:
+		transform var(--d-fast) var(--ease-out),
+		border-color var(--d-fast) var(--ease-out),
+		background-color var(--d-fast) var(--ease-out);
 
   &:hover {
     border-color: var(--accent);
