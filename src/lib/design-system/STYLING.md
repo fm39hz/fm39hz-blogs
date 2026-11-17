@@ -34,6 +34,24 @@
 - Root `font-size` scales all `rem`-based type and spacing. Keep responsive type-scale changes in
   the global breakpoint layer; don't add local root-size overrides.
 
+### Article title projection
+
+The expanded title and compact toolbar slot are measured by the read-only
+`attachments/titleTransition.ts` adapter. A passive scroll listener latched to one frame supplies
+the scroll samples; the adapter reports geometry and interpolated typography, and Svelte renders
+them as CSS custom properties on the `h1`. The hidden, `aria-hidden` probes keep both layout
+endpoints stable during movement.
+No DOM reparenting, positioned title overlay, or library style writes are involved. The sticky
+toolbar group is the adapter's only ResizeObserver target: it owns the target endpoint and shares
+the rem type scale with the source, so its box size changes exactly when the cached font sizes go
+stale, while the root and the header would fire on unrelated document growth or on the adapter's
+own frame writes. At the pin the adapter stops writing: the sticky group is at rest, so the
+toolbar's own title becomes visible and the projected `h1` freezes over it at `opacity: 0` (it
+keeps its box and remains the page heading), and the scroll callback returns before reading a
+rect until the reader scrolls back above the pin. Reduced motion switches endpoints without
+interpolation.
+
+
 ## Tokens and checks
 
 - CSS custom properties in `global.scss` are the source of truth for visual values. One-off

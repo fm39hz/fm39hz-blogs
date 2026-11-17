@@ -1,6 +1,7 @@
 <script lang="ts">
 import { afterNavigate } from '$app/navigation';
 import { page } from '$app/state';
+import { type TitleTransitionFrame, titleTransition } from '$lib/attachments/titleTransition';
 // checkboxes replaced by build-time rehype plugin
 import ButtonLink from '$lib/components/ui/ButtonLink/ButtonLink.svelte';
 import Datetime from '$lib/components/ui/Datetime/Datetime.svelte';
@@ -37,6 +38,18 @@ let seo = $derived(meta.title ? buildPostSeo(meta, slug, entry.lang) : null);
 let toc = $derived(tocHeadings(meta.headings));
 let tocReady = $derived(toc.length > 0);
 let copiedMd = $state(false);
+let titleSource = $state<HTMLElement>();
+let titleTarget = $state<HTMLElement>();
+let stickyGroup = $state<HTMLElement>();
+let titleFrame = $state<TitleTransitionFrame | null>(null);
+const projectTitle = titleTransition(
+	() => titleSource,
+	() => titleTarget,
+	() => stickyGroup,
+	(frame) => {
+		titleFrame = frame;
+	},
+);
 let proseEl = $state<HTMLElement | null>(null);
 // In-app page the reader arrived from; null -> the article list (direct entry, reload).
 let origin = $state<string | null>(null);
@@ -113,16 +126,32 @@ function onArticleClick(event: MouseEvent) {
 
 {#if entry && seo}
   <div class={styles.page}>
-		<header class={styles.contentHeader}>
-			<h1 class={styles.title}>{seo.title}</h1>
+		<header class={styles.contentHeader} {@attach projectTitle}>
+			<span class={[styles.title, styles.titleMeasure]} bind:this={titleSource} aria-hidden="true">{seo.title}</span>
+			<h1
+				class={[styles.title, styles.movingTitle]}
+				data-pinned={titleFrame?.pinned ? 'true' : undefined}
+				style:--title-x={`${titleFrame?.x ?? 0}px`}
+				style:--title-y={`${titleFrame?.y ?? 0}px`}
+				style:--title-width={titleFrame ? `${titleFrame.width}px` : '100%'}
+				style:--title-height={titleFrame ? `${titleFrame.height}px` : undefined}
+				style:--title-font={titleFrame ? `${titleFrame.fontSize}px` : undefined}
+				style:--title-line={titleFrame ? `${titleFrame.lineHeight}px` : undefined}
+			>{seo.title}</h1>
 		</header>
 
-		<div class={styles.articleChrome}>
+		<div class={styles.articleChrome} bind:this={stickyGroup}>
 			<div class={styles.toolbar}>
 				<nav class={styles.backNav} aria-label={t.post.goBack}>
 					<ButtonLink href={backHref}><Icon icon="ph:arrow-left" class={styles.backIcon} /> {t.post.goBack}</ButtonLink>
 				</nav>
-				<span class={styles.compactTitle} aria-hidden="true">{seo.title}</span>
+				<div
+					class={styles.titleTarget}
+					aria-hidden="true"
+					data-pinned={titleFrame?.pinned ? 'true' : undefined}
+				>
+					<span class={styles.compactTitle} bind:this={titleTarget}>{seo.title}</span>
+				</div>
 				<div class={styles.toolbarRight}>
 					<Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" locale={locale.value} />
 					<IconButton
