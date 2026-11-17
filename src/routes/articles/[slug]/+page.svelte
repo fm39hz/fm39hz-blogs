@@ -38,11 +38,10 @@ let toc = $derived(tocHeadings(meta.headings));
 let tocReady = $derived(toc.length > 0);
 let copiedMd = $state(false);
 let proseEl = $state<HTMLElement | null>(null);
-// In-app page the reader arrived from; null → the article list (direct entry, reload).
+// In-app page the reader arrived from; null -> the article list (direct entry, reload).
 let origin = $state<string | null>(null);
 // Re-localized so a language switch on the article keeps the back target in that language.
 let backHref = $derived(getLocalizedPath(origin ?? '/articles', locale.value));
-
 afterNavigate(({ from }) => {
 	const path = arrivalPath(from);
 	if (path) origin = path;
@@ -111,31 +110,35 @@ function onArticleClick(event: MouseEvent) {
   {/if}
 </svelte:head>
 
+
 {#if entry && seo}
   <div class={styles.page}>
-    <header class={styles.contentHeader}>
-      <h1 class={styles.title}>{seo.title}</h1>
-    </header>
+		<header class={styles.contentHeader} aria-hidden="true"></header>
 
-    <div class={styles.toolbar}>
-      <nav class={styles.backNav} aria-label={t.post.goBack}>
-        <ButtonLink href={backHref}><Icon icon="ph:arrow-left" class={styles.backIcon} /> {t.post.goBack}</ButtonLink>
-      </nav>
-      <div class={styles.toolbarRight}>
-        <Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" locale={locale.value} />
-        <IconButton
-          icon="ph:markdown-logo"
-          onclick={onCopyMarkdown}
-          ok={copiedMd}
-          title={t.a11y.copyMarkdown}
-          aria-label={t.a11y.copyMarkdown}
-        />
-      </div>
-    </div>
+		<div class={styles.articleChrome}>
+			<h1 class={styles.title}>{seo.title}</h1>
+			<div class={styles.toolbar}>
+				<nav class={styles.backNav} aria-label={t.post.goBack}>
+					<ButtonLink href={backHref}><Icon icon="ph:arrow-left" class={styles.backIcon} /> {t.post.goBack}</ButtonLink>
+				</nav>
+				<div class={styles.toolbarRight}>
+					<Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" locale={locale.value} />
+					<IconButton
+						icon="ph:markdown-logo"
+						onclick={onCopyMarkdown}
+						ok={copiedMd}
+						title={t.a11y.copyMarkdown}
+						aria-label={t.a11y.copyMarkdown}
+					/>
+				</div>
+			</div>
+			{#if data.series}
+				<div class={styles.seriesSlot}>
+					<SeriesHeader series={data.series} />
+				</div>
+			{/if}
+		</div>
 
-    {#if data.series}
-      <SeriesHeader series={data.series} />
-    {/if}
 
     <article class={styles.article} lang={entry.lang}>
       <div class="prose" bind:this={proseEl}><entry.component /></div>

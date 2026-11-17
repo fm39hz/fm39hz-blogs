@@ -3,36 +3,104 @@
 /* Content = --mw. TOC rail = fixed right, equal insets, grows on scroll. */
 
 .page {
-  max-width: var(--mw);
-  margin-inline: auto;
-  width: 100%;
+	max-width: var(--mw);
+	margin-inline: auto;
+	width: 100%;
+
+	--article-inset: 1.25rem;
+	--title-collapse-range: 320px;
+
+	scroll-timeline-name: --article-scroll;
+	scroll-timeline-axis: block;
 }
 
 .contentHeader {
-  padding-block: var(--space-md) var(--space-sm);
+	max-height: 5rem;
+	padding-block: var(--space-md) var(--space-sm);
+	overflow: hidden;
 }
 
 .title {
-  color: var(--accent);
-  display: inline-block;
-  font-size: var(--fs-2xl);
-  font-weight: 700;
-  margin: 0;
+	color: var(--accent);
+	display: inline-block;
+	font-size: var(--fs-2xl);
+	font-weight: 700;
+	margin: 0;
+}
+
+
+.articleChrome {
+	position: sticky;
+	top: 0;
+	z-index: var(--z-raised);
+	background: var(--bg);
+	margin-bottom: var(--space-md);
 }
 
 .toolbar {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-md);
-  padding-block: var(--space-sm);
-  margin-bottom: var(--space-md);
-  background: var(--bg);
-  border-bottom: var(--line-solid);
-  position: sticky;
-  top: 0;
-  z-index: var(--z-raised);
-  flex-wrap: wrap;
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr) auto;
+	align-items: baseline;
+	gap: var(--space-md);
+	padding-block: var(--space-sm);
+	border-bottom: var(--line-solid);
+}
+
+.compactTitle {
+	min-width: 0;
+	text-align: center;
+	overflow: hidden;
+	color: var(--accent);
+	font-size: var(--fs-sm);
+	font-weight: 700;
+	line-height: var(--lh-tight);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	opacity: 0;
+	transform: translateY(-0.5rem) scale(0.92);
+	transform-origin: center;
+
+	@supports (animation-timeline: scroll()) {
+		animation: compact-title-appear both linear;
+		animation-timeline: scroll(root block);
+		animation-range: 0 var(--title-collapse-range);
+	}
+}
+
+@supports (animation-timeline: scroll()) {
+	.contentHeader {
+		animation: title-collapse both linear;
+		animation-timeline: scroll(root block);
+		animation-range: 0 var(--title-collapse-range);
+	}
+}
+
+@keyframes title-collapse {
+	from {
+		max-height: 5rem;
+		padding-block: var(--space-md) var(--space-sm);
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+
+	to {
+		max-height: 0;
+		padding-block: 0;
+		opacity: 0;
+		transform: translateY(-0.5rem) scale(0.92);
+	}
+}
+
+@keyframes compact-title-appear {
+	from {
+		opacity: 0;
+		transform: translateY(-0.5rem) scale(0.92);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
 }
 
 .backNav {
@@ -52,17 +120,24 @@
   justify-content: flex-end;
 }
 
+.seriesSlot {
+	min-width: 0;
+
+	--article-inset: 0;
+	--series-header-margin-block: var(--space-xs) 0;
+}
+
 .article {
-  position: relative;
-  min-width: 0;
-  padding-left: 1.25rem;
+	position: relative;
+	min-width: 0;
+	padding-inline: var(--article-inset);
 
   &::before {
     content: '';
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 0.4rem;
+    inset-inline-start: calc(var(--article-inset) - var(--space-sm));
     width: 2px;
     background: color-mix(in srgb, var(--accent) 30%, transparent);
   }
@@ -107,7 +182,11 @@
 }
 
 @media (width >= bp.$sm) {
-  .title {
+	.page {
+		--article-inset: 2rem;
+	}
+
+	.title {
     font-size: var(--fs-3xl);
   }
 
@@ -115,8 +194,8 @@
     margin: var(--space-xl) 0;
   }
 
-  .article {
-    padding-left: 2rem;
+	.article {
+		padding-inline: var(--article-inset);
 
     &::before {
       left: 0.75rem;
