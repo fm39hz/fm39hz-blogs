@@ -113,14 +113,16 @@ function onArticleClick(event: MouseEvent) {
 
 {#if entry && seo}
   <div class={styles.page}>
-		<header class={styles.contentHeader} aria-hidden="true"></header>
+		<header class={styles.contentHeader}>
+			<h1 class={styles.title}>{seo.title}</h1>
+		</header>
 
 		<div class={styles.articleChrome}>
-			<h1 class={styles.title}>{seo.title}</h1>
 			<div class={styles.toolbar}>
 				<nav class={styles.backNav} aria-label={t.post.goBack}>
 					<ButtonLink href={backHref}><Icon icon="ph:arrow-left" class={styles.backIcon} /> {t.post.goBack}</ButtonLink>
 				</nav>
+				<span class={styles.compactTitle} aria-hidden="true">{seo.title}</span>
 				<div class={styles.toolbarRight}>
 					<Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" locale={locale.value} />
 					<IconButton
