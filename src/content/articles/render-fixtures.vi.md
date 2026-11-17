@@ -1,12 +1,16 @@
 ---
 author: FM39hz
 pubDatetime: 2026-10-21
-modDatetime: 2026-10-21
+modDatetime: 2026-11-17
 title: Trang kiểm tra hiển thị
 featured: false
 draft: true
 tags:
   - fixtures
+series:
+  id: render-test
+  title: Kiểm tra render
+  order: 1
 description: Mọi tính năng nội dung mà site hiển thị, gom vào một trang nháp để kiểm tra bằng mắt và khi build.
 ---
 

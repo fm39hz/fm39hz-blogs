@@ -1,12 +1,16 @@
 ---
 author: FM39hz
 pubDatetime: 2026-10-21
-modDatetime: 2026-11-05
+modDatetime: 2026-11-17
 title: Render fixtures
 featured: false
 draft: true
 tags:
   - fixtures
+series:
+  id: render-test
+  title: Render Test
+  order: 1
 description: Every content feature the site renders, in one draft page for visual and build checks.
 ---
 
