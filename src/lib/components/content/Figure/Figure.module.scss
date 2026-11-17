@@ -18,6 +18,11 @@
   --pele-series-4: var(--diagram-series-4);
 
   position: relative;
+
+  /* Scope the pinned copy button's z-index: the shell is not a stacking
+   * context on its own, so the button would otherwise join the page stack at
+   * --z-raised and paint over the sticky article toolbar. */
+  isolation: isolate;
   margin: var(--space-md) 0;
   padding: var(--space-md);
   border: var(--border-w) var(--border-style);

@@ -1,4 +1,8 @@
 /* Shiki owns the <pre> chrome (foundations/code.scss); this only anchors the pinned copy button. */
 .block {
   position: relative;
+
+  /* Same as Figure: contain the button's z-index so it stays under the sticky
+   * article toolbar instead of joining the page stack at --z-raised. */
+  isolation: isolate;
 }
