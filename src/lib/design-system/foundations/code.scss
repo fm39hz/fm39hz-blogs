@@ -4,7 +4,9 @@
   border: var(--border-w) var(--border-style);
   border-radius: var(--br);
   border-color: var(--shiki-light, var(--fg)) !important;
-  padding: var(--space-lg) var(--space-lg) var(--space-xl) calc(var(--space-lg) + var(--space-md));
+
+  /* Bottom padding is one full ruling row so the margin keeps the line rhythm. */
+  padding: var(--space-lg) var(--space-lg) var(--space-lg) calc(var(--space-lg) + var(--space-md));
   font-size: var(--fs-sm);
   line-height: var(--space-lg);
   background: var(--shiki-light-bg, var(--surface)) !important;
@@ -44,11 +46,12 @@
     padding: var(--space-3xs) var(--space-2xs);
   }
 
-  // Notebook binder line rulings in the background
+  // Notebook binder line rulings in the background — bound to the code rows so
+  // the last rule lands under the last line instead of in the bottom padding.
   &::before {
     content: '';
     position: absolute;
-    inset: 0 var(--space-md) 0 var(--space-md);
+    inset: var(--space-lg) var(--space-md) var(--space-lg) var(--space-md);
     pointer-events: none;
     background: repeating-linear-gradient(
       transparent,
@@ -58,12 +61,12 @@
     );
   }
 
-  // Notebook binder spiral holes on the left edge
+  // Notebook binder spiral holes on the left edge — one per code row.
   &::after {
     content: '';
     position: absolute;
-    top: 0;
-    bottom: 0;
+    top: var(--space-lg);
+    bottom: var(--space-lg);
     left: var(--space-sm);
     width: var(--space-sm);
     pointer-events: none;
