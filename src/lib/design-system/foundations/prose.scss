@@ -37,8 +37,11 @@
    * on narrow screens. break-word breaks only when a line cannot fit, so
    * normal words are unaffected. Inline code and link text use `anywhere`
    * because a single long token there has no other break opportunity.
+   * Hyphenation offers better break points first, but needs the `lang` the
+   * article sets on <article>.
    */
   overflow-wrap: break-word;
+  hyphens: auto;
 
   code, a { overflow-wrap: anywhere; }
 
@@ -254,11 +257,13 @@
   tr:last-child  th, tr:last-child  td { border-bottom: none; }
 
   /*
-   * Narrow: stack cells with header from data-label (attr, not a second tree).
-   * Wide tables still one semantic table for SEO/reader/AT.
+   * Narrow: the canonical table stays in the tree for assistive tech (the card
+   * stack is aria-hidden) but is visually hidden. The clipping box is the
+   * wrapper, not the table: a table's used width is its min-content width, so
+   * hiding the table itself still widened the page and scrolled sideways.
    */
   @media (width <= bp.$md) {
-    :where(table.prose-table) {
+    :where(.prose-table-sr) {
       position: absolute !important;
       width: 1px !important;
       height: 1px !important;
@@ -267,7 +272,6 @@
       overflow: hidden !important;
       clip: rect(0, 0, 0, 0) !important;
       clip-path: inset(50%) !important;
-      white-space: nowrap !important;
       border: 0 !important;
     }
   }
