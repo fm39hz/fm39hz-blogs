@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-10-21
-modDatetime: 2026-11-17
+modDatetime: 2026-11-18
 title: Trang kiểm tra hiển thị
 featured: false
 draft: true
@@ -270,15 +270,6 @@ $$
 ## Ảnh có mở lightbox không?
 
 ![Biểu tượng site dùng làm ảnh thử](/favicon.png)
-
-## Khối mở/đóng có hiển thị đúng không?
-
-<details>
-<summary>Bấm để mở</summary>
-
-Nội dung ẩn trong khối mở/đóng gốc của trình duyệt, **Markdown** bên trong vẫn được xử lý.
-
-</details>
 
 [^note]: Ludwig Wittgenstein, *Philosophical Investigations*, trans. G. E. M. Anscombe (Basil Blackwell, 1953), sec. 65.
 [^second]: Wittgenstein, *Philosophical Investigations*, sec. 66.

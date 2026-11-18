@@ -1,7 +1,7 @@
 ---
 author: FM39hz
 pubDatetime: 2026-10-21
-modDatetime: 2026-11-17
+modDatetime: 2026-11-18
 title: Render fixtures
 featured: false
 draft: true
@@ -272,15 +272,6 @@ $$
 ## Does an image open the lightbox?
 
 ![FM39hz site icon](/favicon.png)
-
-## Does a disclosure render?
-
-<details>
-<summary>Click to expand</summary>
-
-Hidden content inside a native disclosure, with **Markdown** still parsed.
-
-</details>
 
 [^note]: Ludwig Wittgenstein, *Philosophical Investigations*, trans. G. E. M. Anscombe (Basil Blackwell, 1953), sec. 65.
 [^second]: Wittgenstein, *Philosophical Investigations*, sec. 66.
