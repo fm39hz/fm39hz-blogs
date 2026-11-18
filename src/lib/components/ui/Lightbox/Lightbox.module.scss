@@ -61,40 +61,6 @@
   margin: 0;
 }
 
-.closeBtn {
-  position: absolute;
-  background: var(--bg);
-  border: var(--border-w) solid var(--border);
-  border-radius: var(--br-full);
-  width: 2.25rem;
-  height: 2.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: var(--fg);
-  box-shadow: 2px 2px 0 var(--border);
-  transition: transform var(--d-fast) var(--ease-out), box-shadow var(--d-fast) var(--ease-out), color var(--d-fast);
-
-  &:hover {
-    color: var(--accent);
-    transform: translate(-50%, -50%) translate(-1px, -1px);
-    box-shadow: 3px 3px 0 var(--border);
-  }
-
-  &:active {
-    transform: translate(-50%, -50%) translate(1px, 1px);
-    box-shadow: 1px 1px 0 var(--border);
-  }
-
-  // Adjust positioning offsets due to centering translate
-  top: calc(var(--space-xs) * -1.5);
-  right: calc(var(--space-xs) * -1.5);
-
-}
-
-.closeIcon { width: var(--icon-md); height: var(--icon-md); display: block; }
-
 @keyframes fade-in {
   from { opacity: 0; }
   to { opacity: 1; }
