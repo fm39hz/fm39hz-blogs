@@ -22,6 +22,7 @@ export interface CopyMarkdownMeta {
 	author?: string;
 	pubDatetime: string;
 	tags?: string[];
+	/** Canonical page URL; relative image sources in the body resolve against it. */
 	sourceUrl?: string;
 	lang: Language;
 	headings: ContentHeading[];
@@ -67,10 +68,11 @@ export function stripFrontmatter(md: string): string {
  */
 export function buildCopyMarkdown(meta: CopyMarkdownMeta, raw: string): string {
 	const body = copyFootnotes(stripFrontmatter(raw).trim());
+	const resolved = meta.sourceUrl ? absoluteImageSources(body, meta.sourceUrl) : body;
 	const title = `# ${meta.title}`;
 
 	// The AST provides headings and anchors; raw Markdown is only split around its TOC placeholder.
-	const tocMatch = TOC_MARKER_LINE.exec(body);
+	const tocMatch = TOC_MARKER_LINE.exec(resolved);
 	const tocMarker = `## ${TOC_TITLES[meta.lang]}`;
 	const tocIndex = tocMatch?.index ?? -1;
 	const tocEnd = tocMatch ? tocMatch.index + tocMatch[0].length : -1;
@@ -79,11 +81,11 @@ export function buildCopyMarkdown(meta: CopyMarkdownMeta, raw: string): string {
 	let afterToc: string;
 
 	if (tocIndex >= 0) {
-		intro = body.slice(0, tocIndex).trim();
-		const nextHeading = body.indexOf('\n## ', tocEnd);
-		afterToc = nextHeading >= 0 ? body.slice(nextHeading).trim() : '';
+		intro = resolved.slice(0, tocIndex).trim();
+		const nextHeading = resolved.indexOf('\n## ', tocEnd);
+		afterToc = nextHeading >= 0 ? resolved.slice(nextHeading).trim() : '';
 	} else {
-		intro = body;
+		intro = resolved;
 		afterToc = '';
 	}
 
@@ -124,6 +126,75 @@ export function buildCopyMarkdown(meta: CopyMarkdownMeta, raw: string): string {
 		parts.push(meta.labels.hostedAt(meta.sourceUrl));
 	}
 	return parts.join('\n\n') + '\n';
+}
+
+/** Inline Markdown image: `![alt](dest "title")`, destination optionally in `<...>`. */
+const INLINE_IMAGE =
+	/(!\[[^\]\n]*\]\(\s*)(<[^>\n]*>|[^\s)]+)((?:\s+(?:"[^"\n]*"|'[^'\n]*'|\([^)\n]*\)))?\s*\))/g;
+/** Raw HTML `<img>`, which mdsvex passes through untouched. */
+const HTML_IMAGE = /(<img\b[^>]*?\bsrc\s*=\s*)(["'])([^"'\n]*)\2/gi;
+const URL_SCHEME = /^[a-z][a-z0-9+.-]*:/i;
+
+/**
+ * Rewrite relative image sources to absolute URLs, the way the page resolves
+ * them when rendered: `/x.png` against the site origin, `x.png` or `./x.png`
+ * against the page URL. Already-absolute sources (http(s), data:, protocol
+ * relative) are embedded links and stay as authored.
+ *
+ * Fenced blocks and inline code keep their text: a copied code sample is
+ * content, not a document structure to rebase.
+ */
+export function absoluteImageSources(markdown: string, baseUrl: string): string {
+	return rewriteOutsideCode(markdown, (chunk) =>
+		chunk
+			.replace(
+				INLINE_IMAGE,
+				(_match, lead: string, destination: string, tail: string) =>
+					`${lead}${rebaseImage(destination, baseUrl)}${tail}`,
+			)
+			.replace(
+				HTML_IMAGE,
+				(_match, lead: string, quote: string, destination: string) =>
+					`${lead}${quote}${rebaseImage(destination, baseUrl)}${quote}`,
+			),
+	);
+}
+
+function rebaseImage(destination: string, baseUrl: string): string {
+	const wrapped = destination.startsWith('<') && destination.endsWith('>');
+	const url = wrapped ? destination.slice(1, -1) : destination;
+	if (!url || URL_SCHEME.test(url) || url.startsWith('//') || url.startsWith('#'))
+		return destination;
+	try {
+		const absolute = new URL(url, baseUrl).href;
+		return wrapped ? `<${absolute}>` : absolute;
+	} catch {
+		return destination;
+	}
+}
+
+/** Apply `rewrite` to prose only: fenced blocks and inline code spans are skipped. */
+function rewriteOutsideCode(body: string, rewrite: (chunk: string) => string): string {
+	let fence: string | null = null;
+	return body
+		.split('\n')
+		.map((line) => {
+			const marker = /^\s{0,3}(`{3,}|~{3,})/.exec(line);
+			if (fence) {
+				if (marker && marker[1][0] === fence[0] && marker[1].length >= fence.length)
+					fence = null;
+				return line;
+			}
+			if (marker) {
+				fence = marker[1];
+				return line;
+			}
+			return line
+				.split(/(`+[^`]*`+)/)
+				.map((part, index) => (index % 2 === 1 ? part : rewrite(part)))
+				.join('');
+		})
+		.join('\n');
 }
 
 function copyFootnotes(body: string): string {

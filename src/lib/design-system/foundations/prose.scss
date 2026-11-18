@@ -126,6 +126,17 @@
     margin-top: var(--space-xs);
   }
 
+  /*
+   * Prose images render through ArticleImage, whose wrapper is inline so an
+   * image inside a sentence keeps its baseline. An image alone in its
+   * paragraph keeps the centered block layout it had as a bare <img>.
+   */
+  p:has(> [data-image]:only-child) > [data-image] {
+    display: block;
+    width: fit-content;
+    margin-inline: auto;
+  }
+
   /* ── Horizontal rule ─────────────────────────────────────── */
 
   /*

@@ -21,6 +21,7 @@ import { resolveLanguage } from './src/lib/locale';
 import { remarkHeadingSlugs } from './src/lib/markdown/headingSlug';
 import { renderMermaidArt } from './src/lib/markdown/mermaid';
 import { rehypeFootnotes } from './src/lib/markdown/rehypeFootnotes';
+import { rehypeImages } from './src/lib/markdown/rehypeImages';
 import { rehypeResponsiveTables } from './src/lib/markdown/rehypeResponsiveTables';
 import { rehypeTableCellCheckboxes } from './src/lib/markdown/rehypeTableCellCheckboxes';
 import { rehypeTableLabels } from './src/lib/markdown/rehypeTableLabels';
@@ -186,6 +187,8 @@ export default defineConfig(async () => {
 							rehypeTableCellCheckboxes,
 							rehypeFootnotes,
 							rehypeResponsiveTables,
+							// Last: table cells are already extracted as HTML strings above.
+							rehypeImages,
 						],
 					}),
 				],

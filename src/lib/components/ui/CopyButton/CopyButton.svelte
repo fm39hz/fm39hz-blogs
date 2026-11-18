@@ -18,7 +18,13 @@ let {
 
 let i18n = $derived(useTranslations(locale.value));
 let copied = $state(false);
-let label = $derived(kind === 'figure' ? i18n.a11y.copyFigure : i18n.a11y.copyCode);
+let label = $derived(
+	kind === 'figure'
+		? i18n.a11y.copyFigure
+		: kind === 'image'
+			? i18n.a11y.copyImage
+			: i18n.a11y.copyCode,
+);
 
 async function handleCopy() {
 	const ok = await copyScrap(payload);

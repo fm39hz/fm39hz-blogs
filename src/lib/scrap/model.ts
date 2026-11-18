@@ -9,7 +9,7 @@ import type { DiagramArt } from '$lib/components/content/contract';
 import { FONT_CSS_API } from '$lib/design-system/tokens/fonts';
 import { copyText } from '$lib/utils/clipboard';
 
-export type ScrapKind = 'code' | 'figure';
+export type ScrapKind = 'code' | 'figure' | 'image';
 
 export type ScrapPayload = {
 	/** Canonical text for clipboard / paste into notes */
@@ -82,6 +82,27 @@ export async function diagramToPng(art: DiagramArt, scope: Element): Promise<Blo
 		return await canvas.convertToBlob({ type: 'image/png' });
 	} finally {
 		URL.revokeObjectURL(url);
+	}
+}
+
+/**
+ * Fetch an image and return it as PNG. Cross-origin images without CORS fail
+ * here; `copyScrap` then falls back to the text payload.
+ */
+export async function imageToPng(src: string): Promise<Blob> {
+	const response = await fetch(src);
+	if (!response.ok) throw new Error(`image ${response.status}`);
+	const blob = await response.blob();
+	if (blob.type === 'image/png') return blob;
+	const bitmap = await createImageBitmap(blob);
+	try {
+		const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
+		const ctx = canvas.getContext('2d');
+		if (!ctx) throw new Error('no 2d');
+		ctx.drawImage(bitmap, 0, 0);
+		return await canvas.convertToBlob({ type: 'image/png' });
+	} finally {
+		bitmap.close();
 	}
 }
 

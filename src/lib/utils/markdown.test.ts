@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { describe, it as test } from 'node:test';
-import { buildCopyMarkdown, type CopyMarkdownLabels } from './markdown';
+import { absoluteImageSources, buildCopyMarkdown, type CopyMarkdownLabels } from './markdown';
 
 const labels: CopyMarkdownLabels = {
 	series: (title, current, total) =>
@@ -87,5 +87,50 @@ describe('copy Markdown citations', () => {
 			output,
 			/Bài viết này thuộc chuỗi "Game Dev 101", phần 2 \/ 4\.\n\nBài viết được đăng tại: <https:\/\/example\.com\/article>/,
 		);
+	});
+});
+
+describe('copy Markdown image sources', () => {
+	const page = 'https://fm39hz.is-a.dev/articles/example';
+
+	test('resolves site-root and page-relative images against the page URL', () => {
+		const body = [
+			'![icon](/favicon.png)',
+			'![shot](./shot.png "A shot")',
+			'![sibling](sibling.webp)',
+			'<img src="/diagram.svg" alt="diagram" />',
+		].join('\n\n');
+		const output = absoluteImageSources(body, page);
+		assert.ok(output.includes('![icon](https://fm39hz.is-a.dev/favicon.png)'));
+		assert.ok(output.includes('![shot](https://fm39hz.is-a.dev/articles/shot.png "A shot")'));
+		assert.ok(output.includes('![sibling](https://fm39hz.is-a.dev/articles/sibling.webp)'));
+		assert.ok(output.includes('<img src="https://fm39hz.is-a.dev/diagram.svg"'));
+	});
+
+	test('leaves embedded links untouched', () => {
+		const body = [
+			'![remote](https://cdn.example.com/a.png)',
+			'![proto](//cdn.example.com/b.png)',
+			'![data](data:image/png;base64,AAA)',
+			'![anchor](#figure-1)',
+			'[![badge](https://img.example.com/badge.svg)](https://example.com)',
+		].join('\n\n');
+		assert.equal(absoluteImageSources(body, page), body);
+	});
+
+	test('keeps code samples as written and wraps destinations with spaces', () => {
+		const body = [
+			'Inline `![x](rel.png)` stays literal.',
+			'',
+			'```markdown',
+			'![x](rel.png)',
+			'```',
+			'',
+			'![spaced](<my shot.png>)',
+		].join('\n');
+		const output = absoluteImageSources(body, page);
+		assert.ok(output.includes('`![x](rel.png)`'));
+		assert.ok(output.includes('```markdown\n![x](rel.png)\n```'));
+		assert.ok(output.includes('![spaced](<https://fm39hz.is-a.dev/articles/my%20shot.png>)'));
 	});
 });

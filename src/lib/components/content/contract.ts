@@ -34,6 +34,13 @@ export interface FigureProps {
 	label?: string;
 }
 
+/** Prose image; `src` stays as authored so the browser resolves it against the page. */
+export interface ArticleImageProps {
+	src: string;
+	alt: string;
+	title?: string;
+}
+
 export interface CodeBlockProps {
 	/** Trusted Shiki output. */
 	html: string;
@@ -79,6 +86,7 @@ export interface FootnoteRefProps {
 }
 
 export interface ContentComponents {
+	ArticleImage: ArticleImageProps;
 	Figure: FigureProps;
 	CodeBlock: CodeBlockProps;
 	TableCardStack: TableCardStackProps;

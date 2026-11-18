@@ -1,0 +1,11 @@
+/* Anchors the pinned copy button; the <img> keeps its prose styling. */
+.image {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  vertical-align: bottom;
+
+  /* Same as CodeBlock and Figure: contain the button's z-index so it stays
+   * under the sticky article toolbar instead of joining the page stack. */
+  isolation: isolate;
+}

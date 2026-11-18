@@ -7,6 +7,7 @@
  * Svelte-owned — no post-mount DOM enhancement.
  */
 import type { Component } from 'svelte';
+import ArticleImage from './ArticleImage/ArticleImage.svelte';
 import blockquote from './Blockquote.svelte';
 import CellCheck from './CellCheck/CellCheck.svelte';
 import CodeBlock from './CodeBlock/CodeBlock.svelte';
@@ -16,11 +17,11 @@ import FootnoteRef from './FootnoteRef/FootnoteRef.svelte';
 import TableCardStack from './TableCardStack/TableCardStack.svelte';
 
 // Every contract entry must be exported here with matching props.
-({ CellCheck, CodeBlock, Figure, FootnoteRef, TableCardStack }) satisfies {
+({ ArticleImage, CellCheck, CodeBlock, Figure, FootnoteRef, TableCardStack }) satisfies {
 	[Name in keyof ContentComponents]: Component<ContentComponents[Name]>;
 };
 
-export { blockquote, CellCheck, CodeBlock, Figure, FootnoteRef, TableCardStack };
+export { ArticleImage, blockquote, CellCheck, CodeBlock, Figure, FootnoteRef, TableCardStack };
 </script>
 
 <script lang="ts">
