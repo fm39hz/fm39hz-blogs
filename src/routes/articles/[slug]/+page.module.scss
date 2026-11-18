@@ -65,7 +65,14 @@
   align-items: center;
 	gap: var(--space-md);
 	padding-block: var(--space-sm);
-	border-bottom: var(--line-solid);
+  border-bottom: var(--line-solid);
+
+  /* Narrow: the controls take their natural width so the pinned title
+   * keeps the remaining space instead of a third of it. */
+  @media (width < bp.$sm) {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: var(--space-sm);
+  }
 }
 
 .titleTarget {
@@ -94,6 +101,7 @@
 
 .backNav {
 	flex-shrink: 0;
+	white-space: nowrap;
 }
 
 .backIcon {
@@ -109,12 +117,29 @@
 	justify-content: flex-end;
 }
 
+/* The date needs more room than the mobile toolbar has; see .dateline. */
+.toolbarDate {
+	@media (width < bp.$sm) {
+		display: none;
+	}
+}
+
 .seriesSlot {
 	min-width: 0;
 	border-top: var(--line-solid);
 
 	--article-inset: 0;
 	--series-header-margin-block: var(--space-xs) 0;
+}
+
+/* Desktop keeps the date in the sticky bar; narrow screens use the dateline. */
+.dateline {
+	display: flex;
+	padding: 0 var(--article-inset) var(--space-sm);
+
+	@media (width >= bp.$sm) {
+		display: none;
+	}
 }
 
 

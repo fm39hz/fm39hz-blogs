@@ -153,7 +153,13 @@ function onArticleClick(event: MouseEvent) {
 					<span class={styles.compactTitle} bind:this={titleTarget}>{seo.title}</span>
 				</div>
 				<div class={styles.toolbarRight}>
-					<Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} size="lg" locale={locale.value} />
+					<Datetime
+						className={styles.toolbarDate}
+						pubDatetime={meta.pubDatetime}
+						modDatetime={meta.modDatetime}
+						size="lg"
+						locale={locale.value}
+					/>
 					<IconButton
 						icon="ph:markdown-logo"
 						onclick={onCopyMarkdown}
@@ -168,6 +174,12 @@ function onArticleClick(event: MouseEvent) {
 					<SeriesHeader series={data.series} />
 				</div>
 			{/if}
+		</div>
+
+		<!-- Narrow screens: the date leaves the sticky bar (no room next to the controls)
+		     and becomes a static dateline above the article. -->
+		<div class={styles.dateline}>
+			<Datetime pubDatetime={meta.pubDatetime} modDatetime={meta.modDatetime} locale={locale.value} />
 		</div>
 
 
