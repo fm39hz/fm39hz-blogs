@@ -99,8 +99,23 @@ export function rehypeResponsiveTables() {
 							type: 'raw',
 							value: `<div class="responsive-card-stack">${emitComponent('TableCardStack', data)}</div>`,
 						};
-						parent.children.splice(index, 0, card);
-						index++;
+						/*
+						 * The table stays for assistive tech (the card stack is aria-hidden),
+						 * so it is wrapped in its own 1px clipping box: a table's used width
+						 * is its min-content width, and an unwrapped hidden table still
+						 * widened the page and produced horizontal scroll on narrow screens.
+						 */
+						const wrapper: Element = {
+							type: 'element',
+							tagName: 'div',
+							properties: { className: ['prose-table-sr'] },
+							children: [child],
+						};
+						// Replace the table with the card plus its clipping wrapper.
+						parent.children.splice(index, 1, card, wrapper);
+						// Skip the card and the wrapper; the wrapped table is already converted.
+						index += 1;
+						continue;
 					}
 				}
 				if (isParent(child)) walk(child);
