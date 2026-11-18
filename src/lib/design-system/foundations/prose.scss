@@ -31,6 +31,17 @@
   line-height: var(--lh-normal);
   font-size: var(--fs-base);
 
+  /*
+   * Long unbreakable tokens (URLs, identifiers, hashes) would otherwise set
+   * the content's min-content width and make the whole page scroll sideways
+   * on narrow screens. break-word breaks only when a line cannot fit, so
+   * normal words are unaffected. Inline code and link text use `anywhere`
+   * because a single long token there has no other break opportunity.
+   */
+  overflow-wrap: break-word;
+
+  code, a { overflow-wrap: anywhere; }
+
   > :first-child { margin-top: 0; }
   > :last-child  { margin-bottom: 0; }
 
